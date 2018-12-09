@@ -101,49 +101,55 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
     var pager = SizedBox(
       height: 230.0,
       width: 300.0,
-      child: PageView.builder(
-        controller: pageController,
-        scrollDirection: Axis.vertical,
-        onPageChanged: (index) {
-          setState(() {
-            displayedYear = index;
-          });
-        },
-        itemBuilder: (context, year) {
-          return GridView.count(
-              padding: EdgeInsets.all(8.0),
-              physics: NeverScrollableScrollPhysics(),
-              crossAxisCount: 4,
-              children: List<int>.generate(12, (i) => i + 1)
-                  .map((month) => DateTime(year, month))
-                  .map(
-                    (date) => Padding(
-                          padding: EdgeInsets.all(4.0),
-                          child: FlatButton(
-                            onPressed: () => setState(() {
-                                  selectedDate =
-                                      DateTime(date.year, date.month);
-                                }),
-                            shape: CircleBorder(),
-                            color: date.month == selectedDate.month &&
-                                    date.year == selectedDate.year
-                                ? theme.accentColor
-                                : null,
-                            textColor: date.month == selectedDate.month &&
-                                    date.year == selectedDate.year
-                                ? theme.accentTextTheme.button.color
-                                : date.month == DateTime.now().month &&
-                                        date.year == DateTime.now().year
-                                    ? theme.accentColor
-                                    : null,
-                            child: Text(
-                              DateFormat.MMM(locale).format(date),
+      child: Theme(
+        data: theme.copyWith(
+            buttonTheme: ButtonThemeData(
+                padding: EdgeInsets.all(2.0),
+                shape: CircleBorder(),
+                minWidth: 4.0)),
+        child: PageView.builder(
+          controller: pageController,
+          scrollDirection: Axis.vertical,
+          onPageChanged: (index) {
+            setState(() {
+              displayedYear = index;
+            });
+          },
+          itemBuilder: (context, year) {
+            return GridView.count(
+                padding: EdgeInsets.all(8.0),
+                physics: NeverScrollableScrollPhysics(),
+                crossAxisCount: 4,
+                children: List<int>.generate(12, (i) => i + 1)
+                    .map((month) => DateTime(year, month))
+                    .map(
+                      (date) => Padding(
+                            padding: EdgeInsets.all(4.0),
+                            child: FlatButton(
+                              onPressed: () => setState(() {
+                                    selectedDate =
+                                        DateTime(date.year, date.month);
+                                  }),
+                              color: date.month == selectedDate.month &&
+                                      date.year == selectedDate.year
+                                  ? theme.accentColor
+                                  : null,
+                              textColor: date.month == selectedDate.month &&
+                                      date.year == selectedDate.year
+                                  ? theme.accentTextTheme.button.color
+                                  : date.month == DateTime.now().month &&
+                                          date.year == DateTime.now().year
+                                      ? theme.accentColor
+                                      : null,
+                              child: Text(
+                                DateFormat.MMM(locale).format(date),
+                              ),
                             ),
                           ),
-                        ),
-                  )
-                  .toList());
-        },
+                    )
+                    .toList());
+          },
+        ),
       ),
     );
     var content = Column(
