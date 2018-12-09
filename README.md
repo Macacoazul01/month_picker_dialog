@@ -7,8 +7,8 @@ This package makes use of the intl package and flutter's i18n abilities to provi
 
 ## Screenshots
 ### Left-To-Right
-![LTR portrait](./docs/ltr_portrait.png)
-![LTR landscape](./docs/ltr_landscape.png)
+![LTR portrait](screenshots/ltr_portrait.png)
+![LTR landscape](screenshots/ltr_landscape.png)
 ### Right-To-Left
-![RTL portrait](./docs/rtl_portrait.png)
-![RTL landscape](./docs/rtl_landscape.png)
+![RTL portrait](screenshots/rtl_portrait.png)
+![RTL landscape](screenshots/rtl_landscape.png)
