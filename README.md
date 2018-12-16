@@ -5,6 +5,8 @@
 Internationalized material style dialog for picking a single month from an infinite list of years.
 This package makes use of the intl package and flutter's i18n abilities to provide labels in all languages known to flutter.
 
+[Setting up an internationalized app: the flutter localization package](https://flutter.io/docs/development/accessibility-and-localization/internationalization#setting-up-an-internationalized-app-the-flutter_localizations-package)
+
 ## Screenshots
 ### Left-To-Right
 ![LTR portrait](screenshots/ltr_portrait.png)
