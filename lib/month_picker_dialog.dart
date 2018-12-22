@@ -49,7 +49,61 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
     var theme = Theme.of(context);
     var localizations = MaterialLocalizations.of(context);
     var locale = _locale(context);
-    var header = Material(
+    var header = buildHeader(theme, locale);
+    var pager = buildPager(theme, locale);
+    var content = Material(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [pager, buildButtonBar(context, localizations)],
+      ),
+      color: theme.dialogBackgroundColor,
+    );
+    return Theme(
+      data:
+          Theme.of(context).copyWith(dialogBackgroundColor: Colors.transparent),
+      child: Dialog(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Builder(builder: (context) {
+              if (MediaQuery.of(context).orientation == Orientation.portrait) {
+                return IntrinsicWidth(
+                  child: Column(children: [header, content]),
+                );
+              }
+              return IntrinsicHeight(
+                child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [header, content]),
+              );
+            }),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget buildButtonBar(
+      BuildContext context, MaterialLocalizations localizations) {
+    return ButtonTheme.bar(
+      child: ButtonBar(
+        children: <Widget>[
+          FlatButton(
+            onPressed: () => Navigator.pop(context, null),
+            child: Text(localizations.cancelButtonLabel),
+          ),
+          FlatButton(
+            onPressed: () => Navigator.pop(context, selectedDate),
+            child: Text(localizations.okButtonLabel),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget buildHeader(ThemeData theme, String locale) {
+    return Material(
       color: theme.primaryColor,
       child: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -98,7 +152,10 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
         ),
       ),
     );
-    var pager = SizedBox(
+  }
+
+  Widget buildPager(ThemeData theme, String locale) {
+    return SizedBox(
       height: 230.0,
       width: 300.0,
       child: Theme(
@@ -117,79 +174,40 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
           },
           itemBuilder: (context, year) {
             return GridView.count(
-                padding: EdgeInsets.all(8.0),
-                physics: NeverScrollableScrollPhysics(),
-                crossAxisCount: 4,
-                children: List<int>.generate(12, (i) => i + 1)
-                    .map((month) => DateTime(year, month))
-                    .map(
-                      (date) => Padding(
-                            padding: EdgeInsets.all(4.0),
-                            child: FlatButton(
-                              onPressed: () => setState(() {
-                                    selectedDate =
-                                        DateTime(date.year, date.month);
-                                  }),
-                              color: date.month == selectedDate.month &&
-                                      date.year == selectedDate.year
-                                  ? theme.accentColor
-                                  : null,
-                              textColor: date.month == selectedDate.month &&
-                                      date.year == selectedDate.year
-                                  ? theme.accentTextTheme.button.color
-                                  : date.month == DateTime.now().month &&
-                                          date.year == DateTime.now().year
-                                      ? theme.accentColor
-                                      : null,
-                              child: Text(
-                                DateFormat.MMM(locale).format(date),
-                              ),
+              padding: EdgeInsets.all(8.0),
+              physics: NeverScrollableScrollPhysics(),
+              crossAxisCount: 4,
+              children: List<int>.generate(12, (i) => i + 1)
+                  .map((month) => DateTime(year, month))
+                  .map(
+                    (date) => Padding(
+                          padding: EdgeInsets.all(4.0),
+                          child: FlatButton(
+                            onPressed: () => setState(() {
+                                  selectedDate =
+                                      DateTime(date.year, date.month);
+                                }),
+                            color: date.month == selectedDate.month &&
+                                    date.year == selectedDate.year
+                                ? theme.accentColor
+                                : null,
+                            textColor: date.month == selectedDate.month &&
+                                    date.year == selectedDate.year
+                                ? theme.accentTextTheme.button.color
+                                : date.month == DateTime.now().month &&
+                                        date.year == DateTime.now().year
+                                    ? theme.accentColor
+                                    : null,
+                            child: Text(
+                              DateFormat.MMM(locale).format(date),
                             ),
                           ),
-                    )
-                    .toList());
+                        ),
+                  )
+                  .toList(),
+            );
           },
         ),
-      ),
-    );
-    var content = Column(
-      crossAxisAlignment: CrossAxisAlignment.end,
-      children: [
-        pager,
-        ButtonTheme.bar(
-          child: ButtonBar(
-            children: <Widget>[
-              FlatButton(
-                onPressed: () => Navigator.pop(context, null),
-                child: Text(localizations.cancelButtonLabel),
-              ),
-              FlatButton(
-                onPressed: () => Navigator.pop(context, selectedDate),
-                child: Text(localizations.okButtonLabel),
-              )
-            ],
-          ),
-        )
-      ],
-    );
-    return Dialog(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          Builder(builder: (context) {
-            if (MediaQuery.of(context).orientation == Orientation.portrait) {
-              return IntrinsicWidth(
-                child: Column(children: [header, content]),
-              );
-            }
-            return IntrinsicHeight(
-              child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [header, content]),
-            );
-          }),
-        ],
       ),
     );
   }
