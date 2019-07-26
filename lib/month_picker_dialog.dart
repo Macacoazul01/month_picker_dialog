@@ -14,15 +14,24 @@ Future<DateTime> showMonthPicker({
   assert(initialDate != null);
   return await showDialog<DateTime>(
     context: context,
-    builder: (context) => _MonthPickerDialog(initialDate: initialDate, firstDate: firstDate, lastDate: lastDate,),
+    builder: (context) => _MonthPickerDialog(
+          initialDate: initialDate,
+          firstDate: firstDate,
+          lastDate: lastDate,
+        ),
   );
 }
 
 class _MonthPickerDialog extends StatefulWidget {
   final DateTime initialDate, firstDate, lastDate;
-  
-  const _MonthPickerDialog({Key key, @required this.initialDate, this.firstDate, this.lastDate}) : super(key: key);
-  
+
+  const _MonthPickerDialog({
+    Key key,
+    @required this.initialDate,
+    this.firstDate,
+    this.lastDate,
+  }) : super(key: key);
+
   @override
   _MonthPickerDialogState createState() => _MonthPickerDialogState();
 }
@@ -31,19 +40,21 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
   PageController pageController;
   DateTime selectedDate;
   int displayedYear;
-  
+
   DateTime _firstDate, _lastDate;
-  
+
   @override
   void initState() {
     super.initState();
     selectedDate = DateTime(widget.initialDate.year, widget.initialDate.month);
-    if ( widget.firstDate != null ) _firstDate = DateTime(widget.firstDate.year, widget.firstDate.month);
-    if ( widget.lastDate != null ) _lastDate = DateTime(widget.lastDate.year, widget.lastDate.month);
+    if (widget.firstDate != null)
+      _firstDate = DateTime(widget.firstDate.year, widget.firstDate.month);
+    if (widget.lastDate != null)
+      _lastDate = DateTime(widget.lastDate.year, widget.lastDate.month);
     displayedYear = selectedDate.year;
     pageController = PageController(initialPage: displayedYear);
   }
-  
+
   String _locale(BuildContext context) {
     var locale = Localizations.localeOf(context);
     if (locale == null) {
@@ -51,7 +62,7 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
     }
     return '${locale.languageCode}_${locale.countryCode}';
   }
-  
+
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
@@ -68,7 +79,7 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
     );
     return Theme(
       data:
-      Theme.of(context).copyWith(dialogBackgroundColor: Colors.transparent),
+          Theme.of(context).copyWith(dialogBackgroundColor: Colors.transparent),
       child: Dialog(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -91,7 +102,7 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
       ),
     );
   }
-  
+
   Widget buildButtonBar(
       BuildContext context, MaterialLocalizations localizations) {
     return ButtonTheme.bar(
@@ -109,7 +120,7 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
       ),
     );
   }
-  
+
   Widget buildHeader(ThemeData theme, String locale) {
     return Material(
       color: theme.primaryColor,
@@ -161,7 +172,7 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
       ),
     );
   }
-  
+
   Widget buildPager(ThemeData theme, String locale) {
     return SizedBox(
       height: 230.0,
@@ -189,10 +200,10 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
                   .map((month) => DateTime(year, month))
                   .map(
                     (date) => Padding(
-                  padding: EdgeInsets.all(4.0),
-                  child: _getMonthButton(date, theme, locale),
-                ),
-              )
+                          padding: EdgeInsets.all(4.0),
+                          child: _getMonthButton(date, theme, locale),
+                        ),
+                  )
                   .toList(),
             );
           },
@@ -200,27 +211,43 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
       ),
     );
   }
-  
-  Widget _getMonthButton( final DateTime date, final ThemeData theme, final String locale ) {
+
+  Widget _getMonthButton(
+      final DateTime date, final ThemeData theme, final String locale) {
     VoidCallback callback;
-    if ( _firstDate == null && _lastDate == null ) callback = () => setState( () => selectedDate = DateTime(date.year, date.month) );
-    else if ( _firstDate != null && _lastDate != null && _firstDate.compareTo(date) <= 0 && _lastDate.compareTo(date) >= 0 ) callback = () => setState( () => selectedDate = DateTime(date.year, date.month) );
-    else if ( _firstDate != null && _lastDate == null && _firstDate.compareTo(date) <= 0 ) callback = () => setState( () => selectedDate = DateTime(date.year, date.month) );
-    else if ( _firstDate == null && _lastDate != null && _lastDate.compareTo(date) >= 0 ) callback = () => setState( () => selectedDate = DateTime(date.year, date.month) );
-    else callback = null;
+    if (_firstDate == null && _lastDate == null)
+      callback =
+          () => setState(() => selectedDate = DateTime(date.year, date.month));
+    else if (_firstDate != null &&
+        _lastDate != null &&
+        _firstDate.compareTo(date) <= 0 &&
+        _lastDate.compareTo(date) >= 0)
+      callback =
+          () => setState(() => selectedDate = DateTime(date.year, date.month));
+    else if (_firstDate != null &&
+        _lastDate == null &&
+        _firstDate.compareTo(date) <= 0)
+      callback =
+          () => setState(() => selectedDate = DateTime(date.year, date.month));
+    else if (_firstDate == null &&
+        _lastDate != null &&
+        _lastDate.compareTo(date) >= 0)
+      callback =
+          () => setState(() => selectedDate = DateTime(date.year, date.month));
+    else
+      callback = null;
     return FlatButton(
       onPressed: callback,
-      color: date.month == selectedDate.month &&
-          date.year == selectedDate.year
+      color: date.month == selectedDate.month && date.year == selectedDate.year
           ? theme.accentColor
           : null,
-      textColor: date.month == selectedDate.month &&
-          date.year == selectedDate.year
-          ? theme.accentTextTheme.button.color
-          : date.month == DateTime.now().month &&
-          date.year == DateTime.now().year
-          ? theme.accentColor
-          : null,
+      textColor:
+          date.month == selectedDate.month && date.year == selectedDate.year
+              ? theme.accentTextTheme.button.color
+              : date.month == DateTime.now().month &&
+                      date.year == DateTime.now().year
+                  ? theme.accentColor
+                  : null,
       child: Text(
         DateFormat.MMM(locale).format(date),
       ),
