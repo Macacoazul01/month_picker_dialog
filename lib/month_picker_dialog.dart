@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 /// Displays month picker dialog.
+/// [initialDate] is the initially selected month.
+/// [firstDate] is the optional lower bound for month selection.
+/// [lastDate] is the optional upper bound for month selection.
 Future<DateTime> showMonthPicker({
   @required BuildContext context,
   @required DateTime initialDate,
