@@ -6,3 +6,6 @@
 - refactoring and removal of white border 
 ## 0.1.1
 - bound month selection
+## 0.2.0
+- show list of years by tapping year label
+- dart 2.2.2 is now required

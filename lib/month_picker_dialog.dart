@@ -18,10 +18,10 @@ Future<DateTime> showMonthPicker({
   return await showDialog<DateTime>(
     context: context,
     builder: (context) => _MonthPickerDialog(
-          initialDate: initialDate,
-          firstDate: firstDate,
-          lastDate: lastDate,
-        ),
+      initialDate: initialDate,
+      firstDate: firstDate,
+      lastDate: lastDate,
+    ),
   );
 }
 
@@ -42,7 +42,8 @@ class _MonthPickerDialog extends StatefulWidget {
 class _MonthPickerDialogState extends State<_MonthPickerDialog> {
   PageController pageController;
   DateTime selectedDate;
-  int displayedYear;
+  int displayedPage;
+  bool isYearSelection = false;
 
   DateTime _firstDate, _lastDate;
 
@@ -54,8 +55,8 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
       _firstDate = DateTime(widget.firstDate.year, widget.firstDate.month);
     if (widget.lastDate != null)
       _lastDate = DateTime(widget.lastDate.year, widget.lastDate.month);
-    displayedYear = selectedDate.year;
-    pageController = PageController(initialPage: displayedYear);
+    displayedPage = selectedDate.year;
+    pageController = PageController(initialPage: displayedPage);
   }
 
   String _locale(BuildContext context) {
@@ -107,7 +108,9 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
   }
 
   Widget buildButtonBar(
-      BuildContext context, MaterialLocalizations localizations) {
+    BuildContext context,
+    MaterialLocalizations localizations,
+  ) {
     return ButtonTheme.bar(
       child: ButtonBar(
         children: <Widget>[
@@ -140,10 +143,38 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Text(
-                  '${DateFormat.y(locale).format(DateTime(displayedYear))}',
-                  style: theme.primaryTextTheme.headline,
-                ),
+                if (!isYearSelection)
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        isYearSelection = true;
+                      });
+                      pageController.jumpToPage(displayedPage ~/ 12);
+                    },
+                    child: Text(
+                      '${DateFormat.y(locale).format(DateTime(displayedPage))}',
+                      style: theme.primaryTextTheme.headline,
+                    ),
+                  ),
+                if (isYearSelection)
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        '${DateFormat.y(locale).format(DateTime(displayedPage * 12))}',
+                        style: theme.primaryTextTheme.headline,
+                      ),
+                      Text(
+                        '-',
+                        style: theme.primaryTextTheme.headline,
+                      ),
+                      Text(
+                        '${DateFormat.y(locale).format(DateTime(displayedPage * 12 + 11))}',
+                        style: theme.primaryTextTheme.headline,
+                      ),
+                    ],
+                  ),
                 Row(
                   children: <Widget>[
                     IconButton(
@@ -152,7 +183,7 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
                         color: theme.primaryIconTheme.color,
                       ),
                       onPressed: () => pageController.animateToPage(
-                          displayedYear - 1,
+                          displayedPage - 1,
                           duration: Duration(milliseconds: 400),
                           curve: Curves.easeInOut),
                     ),
@@ -162,7 +193,7 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
                         color: theme.primaryIconTheme.color,
                       ),
                       onPressed: () => pageController.animateToPage(
-                          displayedYear + 1,
+                          displayedPage + 1,
                           duration: Duration(milliseconds: 400),
                           curve: Curves.easeInOut),
                     ),
@@ -182,32 +213,43 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
       width: 300.0,
       child: Theme(
         data: theme.copyWith(
-            buttonTheme: ButtonThemeData(
-                padding: EdgeInsets.all(2.0),
-                shape: CircleBorder(),
-                minWidth: 4.0)),
+          buttonTheme: ButtonThemeData(
+            padding: EdgeInsets.all(2.0),
+            shape: CircleBorder(),
+            minWidth: 4.0,
+          ),
+        ),
         child: PageView.builder(
           controller: pageController,
           scrollDirection: Axis.vertical,
           onPageChanged: (index) {
             setState(() {
-              displayedYear = index;
+              displayedPage = index;
             });
           },
-          itemBuilder: (context, year) {
+          itemBuilder: (context, page) {
             return GridView.count(
               padding: EdgeInsets.all(8.0),
               physics: NeverScrollableScrollPhysics(),
               crossAxisCount: 4,
-              children: List<int>.generate(12, (i) => i + 1)
-                  .map((month) => DateTime(year, month))
-                  .map(
-                    (date) => Padding(
+              children: isYearSelection
+                  ? List<int>.generate(12, (i) => page * 12 + i)
+                      .map(
+                        (year) => Padding(
+                          padding: EdgeInsets.all(4.0),
+                          child: _getYearButton(year, theme, locale),
+                        ),
+                      )
+                      .toList()
+                  : List<int>.generate(12, (i) => i + 1)
+                      .map((month) => DateTime(page, month))
+                      .map(
+                        (date) => Padding(
                           padding: EdgeInsets.all(4.0),
                           child: _getMonthButton(date, theme, locale),
                         ),
-                  )
-                  .toList(),
+                      )
+                      .toList(),
             );
           },
         ),
@@ -253,6 +295,24 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
                   : null,
       child: Text(
         DateFormat.MMM(locale).format(date),
+      ),
+    );
+  }
+
+  Widget _getYearButton(int year, ThemeData theme, String locale) {
+    return FlatButton(
+      onPressed: () {
+        pageController.jumpToPage(year);
+        setState(() {
+          isYearSelection = false;
+        });
+      },
+      color: year == selectedDate.year ? theme.accentColor : null,
+      textColor: year == selectedDate.year
+          ? theme.accentTextTheme.button.color
+          : year == DateTime.now().year ? theme.accentColor : null,
+      child: Text(
+        DateFormat.y(locale).format(DateTime(year)),
       ),
     );
   }
