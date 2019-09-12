@@ -1,3 +1,6 @@
+## 0.2.2
+- Reverting to 0.2.0 because of dependency issues
+
 ## 0.2.1
 - Upgraded dependency: `intl: ^0.16.0` 
 
