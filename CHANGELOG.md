@@ -1,3 +1,6 @@
+## 0.2.3
+- intl dependency is now `>=0.1.0<2.0.0` to appease the maintenance analysis on pub.dev
+
 ## 0.2.2
 - Reverting to 0.2.0 because of dependency issues
 
