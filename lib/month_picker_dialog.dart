@@ -2,6 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:month_picker_dialog/src/MonthSelector.dart';
+import 'package:month_picker_dialog/src/YearSelector.dart';
+import 'package:month_picker_dialog/src/common.dart';
+import 'package:rxdart/rxdart.dart';
 
 /// Displays month picker dialog.
 /// [initialDate] is the initially selected month.
@@ -40,12 +44,14 @@ class _MonthPickerDialog extends StatefulWidget {
 }
 
 class _MonthPickerDialogState extends State<_MonthPickerDialog> {
-  PageController pageController;
-  DateTime selectedDate;
-  int displayedPage;
-  bool isYearSelection = false;
-
-  DateTime _firstDate, _lastDate;
+  final GlobalKey<YearSelectorState> _yearSelectorState = new GlobalKey();
+  final GlobalKey<MonthSelectorState> _monthSelectorState = new GlobalKey();
+  
+  PublishSubject<UpDownPageLimit> _upDownPageLimitPublishSubject;
+  PublishSubject<UpDownButtonEnableState> _upDownButtonEnableStatePublishSubject;
+  
+  Widget _selector;
+  DateTime selectedDate, _firstDate, _lastDate;
 
   @override
   void initState() {
@@ -55,8 +61,26 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
       _firstDate = DateTime(widget.firstDate.year, widget.firstDate.month);
     if (widget.lastDate != null)
       _lastDate = DateTime(widget.lastDate.year, widget.lastDate.month);
-    displayedPage = selectedDate.year;
-    pageController = PageController(initialPage: displayedPage);
+    
+    _upDownPageLimitPublishSubject = new PublishSubject();
+    _upDownButtonEnableStatePublishSubject = new PublishSubject();
+    
+    _selector = new MonthSelector(
+      key: _monthSelectorState,
+      openDate: selectedDate,
+      selectedDate: selectedDate,
+      upDownPageLimitPublishSubject: _upDownPageLimitPublishSubject,
+      upDownButtonEnableStatePublishSubject: _upDownButtonEnableStatePublishSubject,
+      firstDate: _firstDate,
+      lastDate: _lastDate,
+      onMonthSelected: _onMonthSelected,
+    );
+  }
+  
+  void dispose(){
+    _upDownPageLimitPublishSubject.close();
+    _upDownButtonEnableStatePublishSubject.close();
+    super.dispose();
   }
 
   String _locale(BuildContext context) {
@@ -143,26 +167,25 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                if (!isYearSelection)
-                  GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        isYearSelection = true;
-                      });
-                      pageController.jumpToPage(displayedPage ~/ 12);
-                    },
-                    child: Text(
-                      '${DateFormat.y(locale).format(DateTime(displayedPage))}',
+                _selector is MonthSelector ? GestureDetector(
+                  onTap: _onSelectYear,
+                  child: new StreamBuilder<UpDownPageLimit>(
+                    stream: _upDownPageLimitPublishSubject,
+                    initialData: const UpDownPageLimit(0, 0),
+                    builder: ( _, snapshot ) => Text(
+                      '${DateFormat.y(locale).format(DateTime( snapshot.data.upLimit ))}',
                       style: theme.primaryTextTheme.headline,
                     ),
                   ),
-                if (isYearSelection)
-                  Row(
+                ) : new StreamBuilder<UpDownPageLimit>(
+                  stream: _upDownPageLimitPublishSubject,
+                  initialData: const UpDownPageLimit(0, 0),
+                  builder: ( _, snapshot ) => Row(
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        '${DateFormat.y(locale).format(DateTime(displayedPage * 12))}',
+                        '${DateFormat.y(locale).format(DateTime( snapshot.data.upLimit ))}',
                         style: theme.primaryTextTheme.headline,
                       ),
                       Text(
@@ -170,34 +193,33 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
                         style: theme.primaryTextTheme.headline,
                       ),
                       Text(
-                        '${DateFormat.y(locale).format(DateTime(displayedPage * 12 + 11))}',
+                        '${DateFormat.y(locale).format(DateTime( snapshot.data.downLimit ))}',
                         style: theme.primaryTextTheme.headline,
                       ),
                     ],
                   ),
-                Row(
-                  children: <Widget>[
-                    IconButton(
-                      icon: Icon(
-                        Icons.keyboard_arrow_up,
-                        color: theme.primaryIconTheme.color,
+                ),
+                new StreamBuilder<UpDownButtonEnableState>(
+                  stream: _upDownButtonEnableStatePublishSubject,
+                  initialData: const UpDownButtonEnableState(true, true),
+                  builder: ( _, snapshot ) => Row(
+                    children: <Widget>[
+                      IconButton(
+                        icon: Icon(
+                          Icons.keyboard_arrow_up,
+                          color: snapshot.data.upState ? theme.primaryIconTheme.color : theme.primaryIconTheme.color.withOpacity(0.5),
+                        ),
+                        onPressed: snapshot.data.upState ? _onUpButtonPressed : null,
                       ),
-                      onPressed: () => pageController.animateToPage(
-                          displayedPage - 1,
-                          duration: Duration(milliseconds: 400),
-                          curve: Curves.easeInOut),
-                    ),
-                    IconButton(
-                      icon: Icon(
-                        Icons.keyboard_arrow_down,
-                        color: theme.primaryIconTheme.color,
+                      IconButton(
+                        icon: Icon(
+                          Icons.keyboard_arrow_down,
+                          color: snapshot.data.downState ? theme.primaryIconTheme.color : theme.primaryIconTheme.color.withOpacity(0.5),
+                        ),
+                        onPressed: snapshot.data.downState ? _onDownButtonPressed : null,
                       ),
-                      onPressed: () => pageController.animateToPage(
-                          displayedPage + 1,
-                          duration: Duration(milliseconds: 400),
-                          curve: Curves.easeInOut),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -219,101 +241,64 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
             minWidth: 4.0,
           ),
         ),
-        child: PageView.builder(
-          controller: pageController,
-          scrollDirection: Axis.vertical,
-          onPageChanged: (index) {
-            setState(() {
-              displayedPage = index;
-            });
-          },
-          itemBuilder: (context, page) {
-            return GridView.count(
-              padding: EdgeInsets.all(8.0),
-              physics: NeverScrollableScrollPhysics(),
-              crossAxisCount: 4,
-              children: isYearSelection
-                  ? List<int>.generate(12, (i) => page * 12 + i)
-                      .map(
-                        (year) => Padding(
-                          padding: EdgeInsets.all(4.0),
-                          child: _getYearButton(year, theme, locale),
-                        ),
-                      )
-                      .toList()
-                  : List<int>.generate(12, (i) => i + 1)
-                      .map((month) => DateTime(page, month))
-                      .map(
-                        (date) => Padding(
-                          padding: EdgeInsets.all(4.0),
-                          child: _getMonthButton(date, theme, locale),
-                        ),
-                      )
-                      .toList(),
-            );
-          },
+        child: new AnimatedSwitcher(
+          duration: const Duration( milliseconds: 500 ),
+          reverseDuration: const Duration( milliseconds: 500 ),
+          transitionBuilder: (Widget child, Animation<double> animation) => ScaleTransition(child: child, scale: animation),
+          child: _selector,
         ),
       ),
     );
   }
-
-  Widget _getMonthButton(
-      final DateTime date, final ThemeData theme, final String locale) {
-    VoidCallback callback;
-    if (_firstDate == null && _lastDate == null)
-      callback =
-          () => setState(() => selectedDate = DateTime(date.year, date.month));
-    else if (_firstDate != null &&
-        _lastDate != null &&
-        _firstDate.compareTo(date) <= 0 &&
-        _lastDate.compareTo(date) >= 0)
-      callback =
-          () => setState(() => selectedDate = DateTime(date.year, date.month));
-    else if (_firstDate != null &&
-        _lastDate == null &&
-        _firstDate.compareTo(date) <= 0)
-      callback =
-          () => setState(() => selectedDate = DateTime(date.year, date.month));
-    else if (_firstDate == null &&
-        _lastDate != null &&
-        _lastDate.compareTo(date) >= 0)
-      callback =
-          () => setState(() => selectedDate = DateTime(date.year, date.month));
-    else
-      callback = null;
-    return FlatButton(
-      onPressed: callback,
-      color: date.month == selectedDate.month && date.year == selectedDate.year
-          ? theme.accentColor
-          : null,
-      textColor:
-          date.month == selectedDate.month && date.year == selectedDate.year
-              ? theme.accentTextTheme.button.color
-              : date.month == DateTime.now().month &&
-                      date.year == DateTime.now().year
-                  ? theme.accentColor
-                  : null,
-      child: Text(
-        DateFormat.MMM(locale).format(date),
-      ),
+  
+  void _onSelectYear() => setState( () => _selector = new YearSelector(
+    key: _yearSelectorState,
+    initialDate: selectedDate,
+    firstDate: _firstDate,
+    lastDate: _lastDate,
+    onYearSelected: _onYearSelected,
+    upDownPageLimitPublishSubject: _upDownPageLimitPublishSubject,
+    upDownButtonEnableStatePublishSubject: _upDownButtonEnableStatePublishSubject,
+  ) );
+  
+  void _onYearSelected( final int year ) => setState( () => _selector = new MonthSelector(
+    key: _monthSelectorState,
+    openDate: DateTime( year ),
+    selectedDate: selectedDate,
+    upDownPageLimitPublishSubject: _upDownPageLimitPublishSubject,
+    upDownButtonEnableStatePublishSubject: _upDownButtonEnableStatePublishSubject,
+    firstDate: _firstDate,
+    lastDate: _lastDate,
+    onMonthSelected: _onMonthSelected,
+  ) );
+  
+  void _onMonthSelected( final DateTime date ) => setState( () {
+    selectedDate = date;
+    _selector = new MonthSelector(
+      key: _monthSelectorState,
+      openDate: selectedDate,
+      selectedDate: selectedDate,
+      upDownPageLimitPublishSubject: _upDownPageLimitPublishSubject,
+      upDownButtonEnableStatePublishSubject: _upDownButtonEnableStatePublishSubject,
+      firstDate: _firstDate,
+      lastDate: _lastDate,
+      onMonthSelected: _onMonthSelected,
     );
+  } );
+  
+  void _onUpButtonPressed() {
+    if ( _yearSelectorState.currentState != null ) {
+      _yearSelectorState.currentState.goUp();
+    } else {
+      _monthSelectorState.currentState.goUp();
+    }
   }
-
-  Widget _getYearButton(int year, ThemeData theme, String locale) {
-    return FlatButton(
-      onPressed: () {
-        pageController.jumpToPage(year);
-        setState(() {
-          isYearSelection = false;
-        });
-      },
-      color: year == selectedDate.year ? theme.accentColor : null,
-      textColor: year == selectedDate.year
-          ? theme.accentTextTheme.button.color
-          : year == DateTime.now().year ? theme.accentColor : null,
-      child: Text(
-        DateFormat.y(locale).format(DateTime(year)),
-      ),
-    );
+  
+  void _onDownButtonPressed() {
+    if ( _yearSelectorState.currentState != null ) {
+      _yearSelectorState.currentState.goDown();
+    } else {
+      _monthSelectorState.currentState.goDown();
+    }
   }
 }

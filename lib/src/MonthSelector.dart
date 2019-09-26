@@ -1,0 +1,162 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:month_picker_dialog/src/common.dart';
+import 'package:rxdart/rxdart.dart';
+
+class MonthSelector extends StatefulWidget {
+	final ValueChanged<DateTime> onMonthSelected;
+	final DateTime openDate, selectedDate, firstDate, lastDate;
+	final PublishSubject<UpDownPageLimit> upDownPageLimitPublishSubject;
+	final PublishSubject<UpDownButtonEnableState> upDownButtonEnableStatePublishSubject;
+	const MonthSelector({
+		Key key,
+		@required this.openDate,
+		@required this.selectedDate,
+		@required this.onMonthSelected,
+		@required this.upDownPageLimitPublishSubject,
+		@required this.upDownButtonEnableStatePublishSubject,
+		this.firstDate,
+		this.lastDate,
+	}) : assert( openDate != null ), assert( selectedDate != null ), assert( onMonthSelected != null ), assert( upDownPageLimitPublishSubject != null ), assert( upDownButtonEnableStatePublishSubject != null ), super(key: key);
+	@override State<StatefulWidget> createState() => MonthSelectorState();
+}
+
+class MonthSelectorState extends State<MonthSelector> {
+	PageController _pageController;
+	
+	@override
+	Widget build(BuildContext context) => PageView.builder(
+		controller: _pageController,
+		scrollDirection: Axis.vertical,
+		physics: const AlwaysScrollableScrollPhysics(),
+		onPageChanged: _onPageChange,
+		itemCount: _getPageCount(),
+		itemBuilder: _yearGridBuilder,
+	);
+	
+	Widget _yearGridBuilder( final BuildContext context, final int page ) => GridView.count(
+		physics: const NeverScrollableScrollPhysics(),
+		padding: EdgeInsets.all(8.0),
+		crossAxisCount: 4,
+		children: List<Widget>.generate(
+			12,
+			( final int index ) => _getMonthButton( DateTime( widget.firstDate != null ? widget.firstDate.year + page : page, index + 1 ), _locale(context) ),
+		).toList( growable: false ),
+	);
+	
+	
+	Widget _getMonthButton( final DateTime date, final String locale) {
+		final bool isEnabled = _isEnabled( date );
+		return FlatButton(
+			onPressed: isEnabled ? () => widget.onMonthSelected( DateTime(date.year, date.month) ) : null,
+			color: date.month == widget.selectedDate.month && date.year == widget.selectedDate.year
+				? Theme.of(context).accentColor
+				: null,
+			textColor:
+			date.month == widget.selectedDate.month && date.year == widget.selectedDate.year
+				? Theme.of(context).accentTextTheme.button.color
+				: date.month == DateTime.now().month &&
+				date.year == DateTime.now().year
+				? Theme.of(context).accentColor
+				: null,
+			child: Text(
+				DateFormat.MMM(locale).format(date),
+			),
+		);
+	}
+	
+	void _onPageChange( final int page ) {
+		widget.upDownPageLimitPublishSubject.add(
+			new UpDownPageLimit(
+				widget.firstDate != null ? widget.firstDate.year + page : page,
+				0,
+			),
+		);
+		widget.upDownButtonEnableStatePublishSubject.add(
+			new UpDownButtonEnableState(
+				page > 0,
+				page < _getPageCount() - 1
+			),
+		);
+	}
+	
+	int _getPageCount() {
+		if ( widget.firstDate != null && widget.lastDate != null ) {
+			return widget.lastDate.year - widget.firstDate.year + 1;
+		} else if ( widget.firstDate != null && widget.lastDate == null ) {
+			return 9999 - widget.firstDate.year;
+		} else if ( widget.firstDate == null && widget.lastDate != null ) {
+			return widget.lastDate.year;
+		} else return 9999;
+	}
+	
+	@override
+	void initState() {
+		_pageController = new PageController( initialPage: widget.firstDate == null ? widget.openDate.year : widget.openDate.year - widget.firstDate.year );
+		super.initState();
+		new Future.delayed(Duration.zero, () {
+			widget.upDownPageLimitPublishSubject.add(
+				new UpDownPageLimit(
+					widget.firstDate == null ? _pageController.page.toInt() : widget.firstDate.year + _pageController.page.toInt(),
+					0,
+				),
+			);
+			widget.upDownButtonEnableStatePublishSubject.add(
+				new UpDownButtonEnableState(
+					_pageController.page.toInt() > 0,
+					_pageController.page.toInt() < _getPageCount() - 1,
+				),
+			);
+		});
+	}
+	
+	@override
+	void dispose() {
+		_pageController.dispose();
+		super.dispose();
+	}
+	
+	String _locale(BuildContext context) {
+		var locale = Localizations.localeOf(context);
+		if (locale == null) {
+			return Intl.systemLocale;
+		}
+		return '${locale.languageCode}_${locale.countryCode}';
+	}
+	
+	bool _isEnabled( final DateTime date ) {
+		if ( widget.firstDate == null && widget.lastDate == null)
+			return true;
+		else if ( widget.firstDate != null &&
+			widget.lastDate != null &&
+			widget.firstDate.compareTo(date) <= 0 &&
+			widget.lastDate.compareTo(date) >= 0)
+			return true;
+		else if ( widget.firstDate != null &&
+			widget.lastDate == null &&
+			widget.firstDate.compareTo(date) <= 0)
+			return true;
+		else if ( widget.firstDate == null &&
+			widget.lastDate != null &&
+			widget.lastDate.compareTo(date) >= 0)
+			return true;
+		else return false;
+	}
+	
+	void goDown() {
+		_pageController.animateToPage(
+			_pageController.page.toInt() + 1,
+			duration: const Duration( milliseconds: 400 ),
+			curve: Curves.easeInOut,
+		);
+	}
+	
+	void goUp() {
+		_pageController.animateToPage(
+			_pageController.page.toInt() - 1,
+			duration: const Duration( milliseconds: 400 ),
+			curve: Curves.easeInOut,
+		);
+	}
+}

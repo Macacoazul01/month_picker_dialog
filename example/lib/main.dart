@@ -62,7 +62,8 @@ class _MyAppState extends State<MyApp> {
                   context: context,
                   firstDate: DateTime( DateTime.now().year - 1 , 5),
                   lastDate: DateTime( DateTime.now().year + 1, 9 ),
-                  initialDate: selectedDate ?? widget.initialDate)
+                  initialDate: selectedDate ?? widget.initialDate
+              )
                   .then((date) => setState(() {
                 selectedDate = date;
               }));
