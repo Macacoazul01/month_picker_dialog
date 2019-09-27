@@ -1,3 +1,8 @@
+## 0.3.0
+- architectural changes (using `rxdart` now)
+- fixed bug where header and pageview could scroll to 0 and infinity despite `firstDate` and `lastDate` being set
+- added animation for transition between year selection mode and month selection mode
+
 ## 0.2.3
 - intl dependency is now `>=0.1.0<2.0.0` to appease the maintenance analysis on pub.dev
 
