@@ -65,7 +65,9 @@ class _MyAppState extends State<MyApp> {
                   initialDate: selectedDate ?? widget.initialDate
               )
                   .then((date) => setState(() {
-                selectedDate = date;
+                  if (date != null) {
+                    selectedDate = date;
+                  }
               }));
             },
             child: Icon(Icons.calendar_today),
