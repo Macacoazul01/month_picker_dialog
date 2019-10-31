@@ -46,10 +46,11 @@ class _MonthPickerDialog extends StatefulWidget {
 class _MonthPickerDialogState extends State<_MonthPickerDialog> {
   final GlobalKey<YearSelectorState> _yearSelectorState = new GlobalKey();
   final GlobalKey<MonthSelectorState> _monthSelectorState = new GlobalKey();
-  
+
   PublishSubject<UpDownPageLimit> _upDownPageLimitPublishSubject;
-  PublishSubject<UpDownButtonEnableState> _upDownButtonEnableStatePublishSubject;
-  
+  PublishSubject<UpDownButtonEnableState>
+      _upDownButtonEnableStatePublishSubject;
+
   Widget _selector;
   DateTime selectedDate, _firstDate, _lastDate;
 
@@ -61,23 +62,24 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
       _firstDate = DateTime(widget.firstDate.year, widget.firstDate.month);
     if (widget.lastDate != null)
       _lastDate = DateTime(widget.lastDate.year, widget.lastDate.month);
-    
+
     _upDownPageLimitPublishSubject = new PublishSubject();
     _upDownButtonEnableStatePublishSubject = new PublishSubject();
-    
+
     _selector = new MonthSelector(
       key: _monthSelectorState,
       openDate: selectedDate,
       selectedDate: selectedDate,
       upDownPageLimitPublishSubject: _upDownPageLimitPublishSubject,
-      upDownButtonEnableStatePublishSubject: _upDownButtonEnableStatePublishSubject,
+      upDownButtonEnableStatePublishSubject:
+          _upDownButtonEnableStatePublishSubject,
       firstDate: _firstDate,
       lastDate: _lastDate,
       onMonthSelected: _onMonthSelected,
     );
   }
-  
-  void dispose(){
+
+  void dispose() {
     _upDownPageLimitPublishSubject.close();
     _upDownButtonEnableStatePublishSubject.close();
     super.dispose();
@@ -167,56 +169,65 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                _selector is MonthSelector ? GestureDetector(
-                  onTap: _onSelectYear,
-                  child: new StreamBuilder<UpDownPageLimit>(
-                    stream: _upDownPageLimitPublishSubject,
-                    initialData: const UpDownPageLimit(0, 0),
-                    builder: ( _, snapshot ) => Text(
-                      '${DateFormat.y(locale).format(DateTime( snapshot.data.upLimit ))}',
-                      style: theme.primaryTextTheme.headline,
-                    ),
-                  ),
-                ) : new StreamBuilder<UpDownPageLimit>(
-                  stream: _upDownPageLimitPublishSubject,
-                  initialData: const UpDownPageLimit(0, 0),
-                  builder: ( _, snapshot ) => Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        '${DateFormat.y(locale).format(DateTime( snapshot.data.upLimit ))}',
-                        style: theme.primaryTextTheme.headline,
+                _selector is MonthSelector
+                    ? GestureDetector(
+                        onTap: _onSelectYear,
+                        child: new StreamBuilder<UpDownPageLimit>(
+                          stream: _upDownPageLimitPublishSubject,
+                          initialData: const UpDownPageLimit(0, 0),
+                          builder: (_, snapshot) => Text(
+                            '${DateFormat.y(locale).format(DateTime(snapshot.data.upLimit))}',
+                            style: theme.primaryTextTheme.headline,
+                          ),
+                        ),
+                      )
+                    : new StreamBuilder<UpDownPageLimit>(
+                        stream: _upDownPageLimitPublishSubject,
+                        initialData: const UpDownPageLimit(0, 0),
+                        builder: (_, snapshot) => Row(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              '${DateFormat.y(locale).format(DateTime(snapshot.data.upLimit))}',
+                              style: theme.primaryTextTheme.headline,
+                            ),
+                            Text(
+                              '-',
+                              style: theme.primaryTextTheme.headline,
+                            ),
+                            Text(
+                              '${DateFormat.y(locale).format(DateTime(snapshot.data.downLimit))}',
+                              style: theme.primaryTextTheme.headline,
+                            ),
+                          ],
+                        ),
                       ),
-                      Text(
-                        '-',
-                        style: theme.primaryTextTheme.headline,
-                      ),
-                      Text(
-                        '${DateFormat.y(locale).format(DateTime( snapshot.data.downLimit ))}',
-                        style: theme.primaryTextTheme.headline,
-                      ),
-                    ],
-                  ),
-                ),
                 new StreamBuilder<UpDownButtonEnableState>(
                   stream: _upDownButtonEnableStatePublishSubject,
                   initialData: const UpDownButtonEnableState(true, true),
-                  builder: ( _, snapshot ) => Row(
+                  builder: (_, snapshot) => Row(
                     children: <Widget>[
                       IconButton(
                         icon: Icon(
                           Icons.keyboard_arrow_up,
-                          color: snapshot.data.upState ? theme.primaryIconTheme.color : theme.primaryIconTheme.color.withOpacity(0.5),
+                          color: snapshot.data.upState
+                              ? theme.primaryIconTheme.color
+                              : theme.primaryIconTheme.color.withOpacity(0.5),
                         ),
-                        onPressed: snapshot.data.upState ? _onUpButtonPressed : null,
+                        onPressed:
+                            snapshot.data.upState ? _onUpButtonPressed : null,
                       ),
                       IconButton(
                         icon: Icon(
                           Icons.keyboard_arrow_down,
-                          color: snapshot.data.downState ? theme.primaryIconTheme.color : theme.primaryIconTheme.color.withOpacity(0.5),
+                          color: snapshot.data.downState
+                              ? theme.primaryIconTheme.color
+                              : theme.primaryIconTheme.color.withOpacity(0.5),
                         ),
-                        onPressed: snapshot.data.downState ? _onDownButtonPressed : null,
+                        onPressed: snapshot.data.downState
+                            ? _onDownButtonPressed
+                            : null,
                       ),
                     ],
                   ),
@@ -242,60 +253,65 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
           ),
         ),
         child: new AnimatedSwitcher(
-          duration: const Duration( milliseconds: 500 ),
-          reverseDuration: const Duration( milliseconds: 500 ),
-          transitionBuilder: (Widget child, Animation<double> animation) => ScaleTransition(child: child, scale: animation),
+          duration: const Duration(milliseconds: 500),
+          reverseDuration: const Duration(milliseconds: 500),
+          transitionBuilder: (Widget child, Animation<double> animation) =>
+              ScaleTransition(child: child, scale: animation),
           child: _selector,
         ),
       ),
     );
   }
-  
-  void _onSelectYear() => setState( () => _selector = new YearSelector(
-    key: _yearSelectorState,
-    initialDate: selectedDate,
-    firstDate: _firstDate,
-    lastDate: _lastDate,
-    onYearSelected: _onYearSelected,
-    upDownPageLimitPublishSubject: _upDownPageLimitPublishSubject,
-    upDownButtonEnableStatePublishSubject: _upDownButtonEnableStatePublishSubject,
-  ) );
-  
-  void _onYearSelected( final int year ) => setState( () => _selector = new MonthSelector(
-    key: _monthSelectorState,
-    openDate: DateTime( year ),
-    selectedDate: selectedDate,
-    upDownPageLimitPublishSubject: _upDownPageLimitPublishSubject,
-    upDownButtonEnableStatePublishSubject: _upDownButtonEnableStatePublishSubject,
-    firstDate: _firstDate,
-    lastDate: _lastDate,
-    onMonthSelected: _onMonthSelected,
-  ) );
-  
-  void _onMonthSelected( final DateTime date ) => setState( () {
-    selectedDate = date;
-    _selector = new MonthSelector(
-      key: _monthSelectorState,
-      openDate: selectedDate,
-      selectedDate: selectedDate,
-      upDownPageLimitPublishSubject: _upDownPageLimitPublishSubject,
-      upDownButtonEnableStatePublishSubject: _upDownButtonEnableStatePublishSubject,
-      firstDate: _firstDate,
-      lastDate: _lastDate,
-      onMonthSelected: _onMonthSelected,
-    );
-  } );
-  
+
+  void _onSelectYear() => setState(() => _selector = new YearSelector(
+        key: _yearSelectorState,
+        initialDate: selectedDate,
+        firstDate: _firstDate,
+        lastDate: _lastDate,
+        onYearSelected: _onYearSelected,
+        upDownPageLimitPublishSubject: _upDownPageLimitPublishSubject,
+        upDownButtonEnableStatePublishSubject:
+            _upDownButtonEnableStatePublishSubject,
+      ));
+
+  void _onYearSelected(final int year) =>
+      setState(() => _selector = new MonthSelector(
+            key: _monthSelectorState,
+            openDate: DateTime(year),
+            selectedDate: selectedDate,
+            upDownPageLimitPublishSubject: _upDownPageLimitPublishSubject,
+            upDownButtonEnableStatePublishSubject:
+                _upDownButtonEnableStatePublishSubject,
+            firstDate: _firstDate,
+            lastDate: _lastDate,
+            onMonthSelected: _onMonthSelected,
+          ));
+
+  void _onMonthSelected(final DateTime date) => setState(() {
+        selectedDate = date;
+        _selector = new MonthSelector(
+          key: _monthSelectorState,
+          openDate: selectedDate,
+          selectedDate: selectedDate,
+          upDownPageLimitPublishSubject: _upDownPageLimitPublishSubject,
+          upDownButtonEnableStatePublishSubject:
+              _upDownButtonEnableStatePublishSubject,
+          firstDate: _firstDate,
+          lastDate: _lastDate,
+          onMonthSelected: _onMonthSelected,
+        );
+      });
+
   void _onUpButtonPressed() {
-    if ( _yearSelectorState.currentState != null ) {
+    if (_yearSelectorState.currentState != null) {
       _yearSelectorState.currentState.goUp();
     } else {
       _monthSelectorState.currentState.goUp();
     }
   }
-  
+
   void _onDownButtonPressed() {
-    if ( _yearSelectorState.currentState != null ) {
+    if (_yearSelectorState.currentState != null) {
       _yearSelectorState.currentState.goDown();
     } else {
       _monthSelectorState.currentState.goDown();
