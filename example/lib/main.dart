@@ -64,11 +64,13 @@ class _MyAppState extends State<MyApp> {
                   lastDate: DateTime( DateTime.now().year + 1, 9 ),
                   initialDate: selectedDate ?? widget.initialDate
               )
-                  .then((date) => setState(() {
-                  if (date != null) {
-                    selectedDate = date;
-                  }
-              }));
+                  .then((date) => () {
+                        if (date != null) {
+                          setState(() {
+                            selectedDate = date;
+                          });
+                        }
+                  });
             },
             child: Icon(Icons.calendar_today),
           ),
