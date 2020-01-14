@@ -1,3 +1,8 @@
+## 0.3.1
+- migrated example app to androidx
+- fixed deprecation warning for buttonthemebar
+- fixed dependency issue
+
 ## 0.3.0
 - architectural changes (using `rxdart` now)
 - fixed bug where header and pageview could scroll to 0 and infinity despite `firstDate` and `lastDate` being set

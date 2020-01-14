@@ -137,19 +137,17 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
     BuildContext context,
     MaterialLocalizations localizations,
   ) {
-    return ButtonTheme.bar(
-      child: ButtonBar(
-        children: <Widget>[
-          FlatButton(
-            onPressed: () => Navigator.pop(context, null),
-            child: Text(localizations.cancelButtonLabel),
-          ),
-          FlatButton(
-            onPressed: () => Navigator.pop(context, selectedDate),
-            child: Text(localizations.okButtonLabel),
-          )
-        ],
-      ),
+    return ButtonBar(
+      children: <Widget>[
+        FlatButton(
+          onPressed: () => Navigator.pop(context, null),
+          child: Text(localizations.cancelButtonLabel),
+        ),
+        FlatButton(
+          onPressed: () => Navigator.pop(context, selectedDate),
+          child: Text(localizations.okButtonLabel),
+        )
+      ],
     );
   }
 
