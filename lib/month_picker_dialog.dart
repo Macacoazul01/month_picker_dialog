@@ -16,6 +16,7 @@ Future<DateTime> showMonthPicker({
   @required DateTime initialDate,
   DateTime firstDate,
   DateTime lastDate,
+  Locale locale,
 }) async {
   assert(context != null);
   assert(initialDate != null);
@@ -25,18 +26,21 @@ Future<DateTime> showMonthPicker({
       initialDate: initialDate,
       firstDate: firstDate,
       lastDate: lastDate,
+      locale: locale,
     ),
   );
 }
 
 class _MonthPickerDialog extends StatefulWidget {
   final DateTime initialDate, firstDate, lastDate;
+  final Locale locale;
 
   const _MonthPickerDialog({
     Key key,
     @required this.initialDate,
     this.firstDate,
     this.lastDate,
+    this.locale,
   }) : super(key: key);
 
   @override
@@ -86,6 +90,9 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
   }
 
   String _locale(BuildContext context) {
+    if (widget.locale != null) {
+      return '${widget.locale.languageCode}_${widget.locale.countryCode}';
+    }
     var locale = Localizations.localeOf(context);
     if (locale == null) {
       return Intl.systemLocale;
