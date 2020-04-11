@@ -5,7 +5,9 @@ import 'package:intl/intl.dart';
 import 'package:month_picker_dialog/src/MonthSelector.dart';
 import 'package:month_picker_dialog/src/YearSelector.dart';
 import 'package:month_picker_dialog/src/common.dart';
+import 'package:month_picker_dialog/src/locale_utils.dart';
 import 'package:rxdart/rxdart.dart';
+
 
 /// Displays month picker dialog.
 /// [initialDate] is the initially selected month.
@@ -80,6 +82,7 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
       firstDate: _firstDate,
       lastDate: _lastDate,
       onMonthSelected: _onMonthSelected,
+      locale: widget.locale,
     );
   }
 
@@ -89,22 +92,11 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
     super.dispose();
   }
 
-  String _locale(BuildContext context) {
-    if (widget.locale != null) {
-      return '${widget.locale.languageCode}_${widget.locale.countryCode}';
-    }
-    var locale = Localizations.localeOf(context);
-    if (locale == null) {
-      return Intl.systemLocale;
-    }
-    return '${locale.languageCode}_${locale.countryCode}';
-  }
-
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
     var localizations = MaterialLocalizations.of(context);
-    var locale = _locale(context);
+    var locale = getLocale(context, selectedLocale: widget.locale);
     var header = buildHeader(theme, locale);
     var pager = buildPager(theme, locale);
     var content = Material(
