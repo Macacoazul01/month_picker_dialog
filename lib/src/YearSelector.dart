@@ -4,15 +4,12 @@ import 'package:intl/intl.dart';
 import 'package:month_picker_dialog/src/common.dart';
 import 'package:rxdart/rxdart.dart';
 
-import 'locale_utils.dart';
-
 class YearSelector extends StatefulWidget {
   final ValueChanged<int> onYearSelected;
   final DateTime initialDate, firstDate, lastDate;
   final PublishSubject<UpDownPageLimit> upDownPageLimitPublishSubject;
   final PublishSubject<UpDownButtonEnableState>
       upDownButtonEnableStatePublishSubject;
-  final Locale locale;
   const YearSelector({
     Key key,
     @required this.initialDate,
@@ -21,7 +18,6 @@ class YearSelector extends StatefulWidget {
     @required this.upDownButtonEnableStatePublishSubject,
     this.firstDate,
     this.lastDate,
-    this.locale,
   })  : assert(initialDate != null),
         assert(onYearSelected != null),
         assert(upDownPageLimitPublishSubject != null),
@@ -51,7 +47,7 @@ class YearSelectorState extends State<YearSelector> {
         crossAxisCount: 4,
         children: List<Widget>.generate(
           12,
-          (final int index) => _getYearButton(page, index, getLocale(context, selectedLocale: widget.locale)),
+          (final int index) => _getYearButton(page, index, _locale(context)),
         ).toList(growable: false),
       );
 
@@ -141,6 +137,14 @@ class YearSelectorState extends State<YearSelector> {
   void dispose() {
     _pageController.dispose();
     super.dispose();
+  }
+
+  String _locale(BuildContext context) {
+    var locale = Localizations.localeOf(context);
+    if (locale == null) {
+      return Intl.systemLocale;
+    }
+    return '${locale.languageCode}_${locale.countryCode}';
   }
 
   bool _isEnabled(final int year) {

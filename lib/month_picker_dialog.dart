@@ -5,9 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:month_picker_dialog/src/MonthSelector.dart';
 import 'package:month_picker_dialog/src/YearSelector.dart';
 import 'package:month_picker_dialog/src/common.dart';
-import 'package:month_picker_dialog/src/locale_utils.dart';
 import 'package:rxdart/rxdart.dart';
-
 
 /// Displays month picker dialog.
 /// [initialDate] is the initially selected month.
@@ -18,7 +16,6 @@ Future<DateTime> showMonthPicker({
   @required DateTime initialDate,
   DateTime firstDate,
   DateTime lastDate,
-  Locale locale,
 }) async {
   assert(context != null);
   assert(initialDate != null);
@@ -28,21 +25,18 @@ Future<DateTime> showMonthPicker({
       initialDate: initialDate,
       firstDate: firstDate,
       lastDate: lastDate,
-      locale: locale,
     ),
   );
 }
 
 class _MonthPickerDialog extends StatefulWidget {
   final DateTime initialDate, firstDate, lastDate;
-  final Locale locale;
 
   const _MonthPickerDialog({
     Key key,
     @required this.initialDate,
     this.firstDate,
     this.lastDate,
-    this.locale,
   }) : super(key: key);
 
   @override
@@ -82,7 +76,6 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
       firstDate: _firstDate,
       lastDate: _lastDate,
       onMonthSelected: _onMonthSelected,
-      locale: widget.locale,
     );
   }
 
@@ -92,11 +85,19 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
     super.dispose();
   }
 
+  String _locale(BuildContext context) {
+    var locale = Localizations.localeOf(context);
+    if (locale == null) {
+      return Intl.systemLocale;
+    }
+    return '${locale.languageCode}_${locale.countryCode}';
+  }
+
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
     var localizations = MaterialLocalizations.of(context);
-    var locale = getLocale(context, selectedLocale: widget.locale);
+    var locale = _locale(context);
     var header = buildHeader(theme, locale);
     var pager = buildPager(theme, locale);
     var content = Material(
