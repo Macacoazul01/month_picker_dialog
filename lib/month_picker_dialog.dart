@@ -25,6 +25,7 @@ Future<DateTime> showMonthPicker({
   final localizations = locale == null
       ? MaterialLocalizations.of(context)
       : await GlobalMaterialLocalizations.delegate.load(locale);
+  assert(localizations != null);
   return await showDialog<DateTime>(
     context: context,
     builder: (context) => _MonthPickerDialog(
@@ -39,16 +40,16 @@ Future<DateTime> showMonthPicker({
 
 class _MonthPickerDialog extends StatefulWidget {
   final DateTime initialDate, firstDate, lastDate;
-  final Locale locale;
   final MaterialLocalizations localizations;
+  final Locale locale;
 
   const _MonthPickerDialog({
     Key key,
     @required this.initialDate,
+    @required this.localizations,
     this.firstDate,
     this.lastDate,
     this.locale,
-    this.localizations,
   }) : super(key: key);
 
   @override
