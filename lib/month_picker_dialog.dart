@@ -1,13 +1,13 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart';
 import 'package:month_picker_dialog/src/MonthSelector.dart';
 import 'package:month_picker_dialog/src/YearSelector.dart';
 import 'package:month_picker_dialog/src/common.dart';
 import 'package:month_picker_dialog/src/locale_utils.dart';
 import 'package:rxdart/rxdart.dart';
-
 
 /// Displays month picker dialog.
 /// [initialDate] is the initially selected month.
@@ -22,6 +22,9 @@ Future<DateTime> showMonthPicker({
 }) async {
   assert(context != null);
   assert(initialDate != null);
+  final localizations = locale == null
+      ? MaterialLocalizations.of(context)
+      : await GlobalMaterialLocalizations.delegate.load(locale);
   return await showDialog<DateTime>(
     context: context,
     builder: (context) => _MonthPickerDialog(
@@ -29,6 +32,7 @@ Future<DateTime> showMonthPicker({
       firstDate: firstDate,
       lastDate: lastDate,
       locale: locale,
+      localizations: localizations,
     ),
   );
 }
@@ -36,6 +40,7 @@ Future<DateTime> showMonthPicker({
 class _MonthPickerDialog extends StatefulWidget {
   final DateTime initialDate, firstDate, lastDate;
   final Locale locale;
+  final MaterialLocalizations localizations;
 
   const _MonthPickerDialog({
     Key key,
@@ -43,6 +48,7 @@ class _MonthPickerDialog extends StatefulWidget {
     this.firstDate,
     this.lastDate,
     this.locale,
+    this.localizations,
   }) : super(key: key);
 
   @override
@@ -95,14 +101,13 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
-    var localizations = MaterialLocalizations.of(context);
     var locale = getLocale(context, selectedLocale: widget.locale);
     var header = buildHeader(theme, locale);
     var pager = buildPager(theme, locale);
     var content = Material(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
-        children: [pager, buildButtonBar(context, localizations)],
+        children: [pager, buildButtonBar(context)],
       ),
       color: theme.dialogBackgroundColor,
     );
@@ -134,17 +139,16 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
 
   Widget buildButtonBar(
     BuildContext context,
-    MaterialLocalizations localizations,
   ) {
     return ButtonBar(
       children: <Widget>[
         FlatButton(
           onPressed: () => Navigator.pop(context, null),
-          child: Text(localizations.cancelButtonLabel),
+          child: Text(widget.localizations.cancelButtonLabel),
         ),
         FlatButton(
           onPressed: () => Navigator.pop(context, selectedDate),
-          child: Text(localizations.okButtonLabel),
+          child: Text(widget.localizations.okButtonLabel),
         )
       ],
     );
@@ -282,6 +286,7 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
             firstDate: _firstDate,
             lastDate: _lastDate,
             onMonthSelected: _onMonthSelected,
+            locale: widget.locale,
           ));
 
   void _onMonthSelected(final DateTime date) => setState(() {
@@ -296,6 +301,7 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
           firstDate: _firstDate,
           lastDate: _lastDate,
           onMonthSelected: _onMonthSelected,
+          locale: widget.locale,
         );
       });
 

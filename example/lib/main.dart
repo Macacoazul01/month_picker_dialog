@@ -41,6 +41,7 @@ class _MyAppState extends State<MyApp> {
         Locale('ja'),
         Locale('ar'),
         Locale('fa'),
+        Locale("es"),
       ],
       theme: ThemeData(
           primarySwatch: Colors.indigo, accentColor: Colors.pinkAccent),
@@ -59,17 +60,18 @@ class _MyAppState extends State<MyApp> {
           builder: (context) => FloatingActionButton(
             onPressed: () {
               showMonthPicker(
-                      context: context,
-                      firstDate: DateTime(DateTime.now().year - 1, 5),
-                      lastDate: DateTime(DateTime.now().year + 1, 9),
-                      initialDate: selectedDate ?? widget.initialDate)
-                  .then((date) {
-                    if (date != null) {
-                      setState(() {
-                        selectedDate = date;
-                      });
-                    }
+                context: context,
+                firstDate: DateTime(DateTime.now().year - 1, 5),
+                lastDate: DateTime(DateTime.now().year + 1, 9),
+                initialDate: selectedDate ?? widget.initialDate,
+                locale: Locale("es"),
+              ).then((date) {
+                if (date != null) {
+                  setState(() {
+                    selectedDate = date;
                   });
+                }
+              });
             },
             child: Icon(Icons.calendar_today),
           ),
