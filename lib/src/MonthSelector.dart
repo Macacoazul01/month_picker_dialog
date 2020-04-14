@@ -4,12 +4,15 @@ import 'package:intl/intl.dart';
 import 'package:month_picker_dialog/src/common.dart';
 import 'package:rxdart/rxdart.dart';
 
+import 'locale_utils.dart';
+
 class MonthSelector extends StatefulWidget {
   final ValueChanged<DateTime> onMonthSelected;
   final DateTime openDate, selectedDate, firstDate, lastDate;
   final PublishSubject<UpDownPageLimit> upDownPageLimitPublishSubject;
   final PublishSubject<UpDownButtonEnableState>
       upDownButtonEnableStatePublishSubject;
+  final Locale locale;
   const MonthSelector({
     Key key,
     @required this.openDate,
@@ -19,6 +22,7 @@ class MonthSelector extends StatefulWidget {
     @required this.upDownButtonEnableStatePublishSubject,
     this.firstDate,
     this.lastDate,
+    this.locale,
   })  : assert(openDate != null),
         assert(selectedDate != null),
         assert(onMonthSelected != null),
@@ -55,7 +59,7 @@ class MonthSelectorState extends State<MonthSelector> {
                       ? widget.firstDate.year + page
                       : page,
                   index + 1),
-              _locale(context)),
+              getLocale(context, selectedLocale: widget.locale)),
         ).toList(growable: false),
       );
 
@@ -134,14 +138,6 @@ class MonthSelectorState extends State<MonthSelector> {
   void dispose() {
     _pageController.dispose();
     super.dispose();
-  }
-
-  String _locale(BuildContext context) {
-    var locale = Localizations.localeOf(context);
-    if (locale == null) {
-      return Intl.systemLocale;
-    }
-    return '${locale.languageCode}_${locale.countryCode}';
   }
 
   bool _isEnabled(final DateTime date) {
