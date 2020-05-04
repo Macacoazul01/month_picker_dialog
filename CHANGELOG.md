@@ -1,3 +1,7 @@
+## 0.3.2
+- you can now provide custom localizations
+- bump up rxdart dependency
+
 ## 0.3.1
 - migrated example app to androidx
 - fixed deprecation warning for buttonthemebar
