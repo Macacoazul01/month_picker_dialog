@@ -81,7 +81,7 @@ class MonthSelectorState extends State<MonthSelector> {
               ? Theme.of(context).accentColor
               : null,
       child: Text(
-        DateFormat.MMM(locale).format(date),
+        toBeginningOfSentenceCase(DateFormat.MMM(locale).format(date)),
       ),
     );
   }

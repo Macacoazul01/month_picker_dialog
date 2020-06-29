@@ -42,6 +42,7 @@ class _MyAppState extends State<MyApp> {
         Locale('ar'),
         Locale('fa'),
         Locale("es"),
+        Locale("it")
       ],
       theme: ThemeData(
           primarySwatch: Colors.indigo, accentColor: Colors.pinkAccent),
@@ -64,7 +65,7 @@ class _MyAppState extends State<MyApp> {
                 firstDate: DateTime(DateTime.now().year - 1, 5),
                 lastDate: DateTime(DateTime.now().year + 1, 9),
                 initialDate: selectedDate ?? widget.initialDate,
-                locale: Locale("es"),
+                locale: Locale("it"),
               ).then((date) {
                 if (date != null) {
                   setState(() {

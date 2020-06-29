@@ -165,7 +165,7 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(
-              '${DateFormat.yMMM(locale).format(selectedDate)}',
+              '${toBeginningOfSentenceCase(DateFormat.yMMM(locale).format(selectedDate))}',
               style: theme.primaryTextTheme.subhead,
             ),
             Row(
