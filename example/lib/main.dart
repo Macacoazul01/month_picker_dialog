@@ -52,7 +52,7 @@ class _MyAppState extends State<MyApp> {
         body: Center(
           child: Text(
             'Year: ${selectedDate?.year}\nMonth: ${selectedDate?.month}',
-            style: Theme.of(context).textTheme.display1,
+            style: Theme.of(context).textTheme.headline4,
             textAlign: TextAlign.center,
           ),
         ),

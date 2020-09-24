@@ -166,7 +166,7 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
           children: <Widget>[
             Text(
               '${DateFormat.yMMM(locale).format(selectedDate)}',
-              style: theme.primaryTextTheme.subhead,
+              style: theme.primaryTextTheme.subtitle1,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -179,7 +179,7 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
                           initialData: const UpDownPageLimit(0, 0),
                           builder: (_, snapshot) => Text(
                             '${DateFormat.y(locale).format(DateTime(snapshot.data.upLimit))}',
-                            style: theme.primaryTextTheme.headline,
+                            style: theme.primaryTextTheme.headline5,
                           ),
                         ),
                       )
@@ -192,15 +192,15 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
                           children: <Widget>[
                             Text(
                               '${DateFormat.y(locale).format(DateTime(snapshot.data.upLimit))}',
-                              style: theme.primaryTextTheme.headline,
+                              style: theme.primaryTextTheme.headline5,
                             ),
                             Text(
                               '-',
-                              style: theme.primaryTextTheme.headline,
+                              style: theme.primaryTextTheme.headline5,
                             ),
                             Text(
                               '${DateFormat.y(locale).format(DateTime(snapshot.data.downLimit))}',
-                              style: theme.primaryTextTheme.headline,
+                              style: theme.primaryTextTheme.headline5,
                             ),
                           ],
                         ),
