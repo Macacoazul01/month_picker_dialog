@@ -104,7 +104,7 @@ class MonthSelectorState extends State<MonthSelector> {
     } else if (widget.firstDate != null && widget.lastDate == null) {
       return 9999 - widget.firstDate.year;
     } else if (widget.firstDate == null && widget.lastDate != null) {
-      return widget.lastDate.year;
+      return widget.lastDate.year + 1;
     } else
       return 9999;
   }
