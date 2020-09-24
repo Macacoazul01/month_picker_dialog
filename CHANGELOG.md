@@ -1,3 +1,6 @@
+## 0.3.3
+- pagebounds bug with `firstDate == null` fixed (thanks @mono0926)
+- deprecation warnings for text themes fixed
 ## 0.3.2
 - you can now provide custom localizations
 - bump up rxdart dependency
