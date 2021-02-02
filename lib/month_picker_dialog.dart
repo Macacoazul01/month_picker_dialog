@@ -13,12 +13,20 @@ import 'package:rxdart/rxdart.dart';
 /// [initialDate] is the initially selected month.
 /// [firstDate] is the optional lower bound for month selection.
 /// [lastDate] is the optional upper bound for month selection.
+/// [positiveButton] will be used in place of positive button
+/// [negativeButton] will be used in place of cancel button
+/// [positiveTextStyle] will be used as [TextStyle] for default positive button (ignored if [positiveButton] is provided)
+/// [negativeTextStyle] will be used as [TextStyle] for default cancel button (ignored if [negativeButton] is provided)
 Future<DateTime> showMonthPicker({
   @required BuildContext context,
   @required DateTime initialDate,
   DateTime firstDate,
   DateTime lastDate,
   Locale locale,
+  Widget positiveButton,
+  Widget negativeButton,
+  TextStyle positiveTextStyle,
+  TextStyle negativeTextStyle,
 }) async {
   assert(context != null);
   assert(initialDate != null);
@@ -29,12 +37,15 @@ Future<DateTime> showMonthPicker({
   return await showDialog<DateTime>(
     context: context,
     builder: (context) => _MonthPickerDialog(
-      initialDate: initialDate,
-      firstDate: firstDate,
-      lastDate: lastDate,
-      locale: locale,
-      localizations: localizations,
-    ),
+        initialDate: initialDate,
+        firstDate: firstDate,
+        lastDate: lastDate,
+        locale: locale,
+        localizations: localizations,
+        positiveButton: positiveButton,
+        negativeButton: negativeButton,
+        positiveTextStyle: positiveTextStyle,
+        negativeTextStyle: negativeTextStyle),
   );
 }
 
@@ -42,6 +53,8 @@ class _MonthPickerDialog extends StatefulWidget {
   final DateTime initialDate, firstDate, lastDate;
   final MaterialLocalizations localizations;
   final Locale locale;
+  final Widget negativeButton, positiveButton;
+  final TextStyle positiveTextStyle, negativeTextStyle;
 
   const _MonthPickerDialog({
     Key key,
@@ -50,6 +63,10 @@ class _MonthPickerDialog extends StatefulWidget {
     this.firstDate,
     this.lastDate,
     this.locale,
+    this.positiveButton,
+    this.negativeButton,
+    this.positiveTextStyle,
+    this.negativeTextStyle,
   }) : super(key: key);
 
   @override
@@ -143,14 +160,32 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
   ) {
     return ButtonBar(
       children: <Widget>[
-        FlatButton(
-          onPressed: () => Navigator.pop(context, null),
-          child: Text(widget.localizations.cancelButtonLabel),
-        ),
-        FlatButton(
-          onPressed: () => Navigator.pop(context, selectedDate),
-          child: Text(widget.localizations.okButtonLabel),
-        )
+        if (widget?.negativeButton != null)
+          GestureDetector(
+            child: widget.negativeButton,
+            onTap: () => Navigator.pop(context, null),
+          )
+        else
+          FlatButton(
+            onPressed: () => Navigator.pop(context, null),
+            child: Text(
+              widget.localizations.cancelButtonLabel,
+              style: widget?.negativeTextStyle ?? TextStyle(),
+            ),
+          ),
+        if (widget?.positiveButton != null)
+          GestureDetector(
+            child: widget.positiveButton,
+            onTap: () => Navigator.pop(context, selectedDate),
+          )
+        else
+          FlatButton(
+            onPressed: () => Navigator.pop(context, selectedDate),
+            child: Text(
+              widget.localizations.okButtonLabel,
+              style: widget?.positiveTextStyle ?? TextStyle(),
+            ),
+          )
       ],
     );
   }
