@@ -9,14 +9,14 @@ void main() => runApp(MyApp(
 class MyApp extends StatefulWidget {
   final DateTime initialDate;
 
-  const MyApp({Key key, @required this.initialDate}) : super(key: key);
+  const MyApp({Key? key, required this.initialDate}) : super(key: key);
 
   @override
   _MyAppState createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
-  DateTime selectedDate;
+  DateTime? selectedDate;
 
   @override
   void initState() {
