@@ -13,6 +13,8 @@ class MonthSelector extends StatefulWidget {
   final PublishSubject<UpDownButtonEnableState>
       upDownButtonEnableStatePublishSubject;
   final Locale locale;
+  final bool Function(DateTime) selectableMonthPredicate;
+
   const MonthSelector({
     Key key,
     @required this.openDate,
@@ -23,12 +25,14 @@ class MonthSelector extends StatefulWidget {
     this.firstDate,
     this.lastDate,
     this.locale,
+    @required this.selectableMonthPredicate,
   })  : assert(openDate != null),
         assert(selectedDate != null),
         assert(onMonthSelected != null),
         assert(upDownPageLimitPublishSubject != null),
         assert(upDownButtonEnableStatePublishSubject != null),
         super(key: key);
+
   @override
   State<StatefulWidget> createState() => MonthSelectorState();
 }
@@ -141,23 +145,34 @@ class MonthSelectorState extends State<MonthSelector> {
   }
 
   bool _isEnabled(final DateTime date) {
-    if (widget.firstDate == null && widget.lastDate == null)
-      return true;
-    else if (widget.firstDate != null &&
+    if (widget.firstDate == null && widget.lastDate == null) {
+      return holdsSelectionPredicate(date);
+    } else if (widget.firstDate != null &&
         widget.lastDate != null &&
         widget.firstDate.compareTo(date) <= 0 &&
-        widget.lastDate.compareTo(date) >= 0)
-      return true;
-    else if (widget.firstDate != null &&
+        widget.lastDate.compareTo(date) >= 0) {
+      return holdsSelectionPredicate(date);
+    } else if (widget.firstDate != null &&
         widget.lastDate == null &&
-        widget.firstDate.compareTo(date) <= 0)
-      return true;
-    else if (widget.firstDate == null &&
+        widget.firstDate.compareTo(date) <= 0) {
+      return holdsSelectionPredicate(date);
+    } else if (widget.firstDate == null &&
         widget.lastDate != null &&
-        widget.lastDate.compareTo(date) >= 0)
-      return true;
-    else
+        widget.lastDate.compareTo(date) >= 0) {
+      return holdsSelectionPredicate(date);
+    } else
       return false;
+  }
+
+  bool holdsSelectionPredicate(DateTime date) {
+    if (widget.selectableMonthPredicate != null) {
+      if (widget.selectableMonthPredicate(date))
+        return true;
+      else
+        return false;
+    } else {
+      return true;
+    }
   }
 
   void goDown() {

@@ -13,13 +13,13 @@ import 'package:rxdart/rxdart.dart';
 /// [initialDate] is the initially selected month.
 /// [firstDate] is the optional lower bound for month selection.
 /// [lastDate] is the optional upper bound for month selection.
-Future<DateTime> showMonthPicker({
-  @required BuildContext context,
-  @required DateTime initialDate,
-  DateTime firstDate,
-  DateTime lastDate,
-  Locale locale,
-}) async {
+Future<DateTime> showMonthPicker(
+    {@required BuildContext context,
+    @required DateTime initialDate,
+    DateTime firstDate,
+    DateTime lastDate,
+    Locale locale,
+    bool Function(DateTime) selectableMonthPredicate}) async {
   assert(context != null);
   assert(initialDate != null);
   final localizations = locale == null
@@ -33,6 +33,7 @@ Future<DateTime> showMonthPicker({
       firstDate: firstDate,
       lastDate: lastDate,
       locale: locale,
+      selectableMonthPredicate: selectableMonthPredicate,
       localizations: localizations,
     ),
   );
@@ -42,6 +43,7 @@ class _MonthPickerDialog extends StatefulWidget {
   final DateTime initialDate, firstDate, lastDate;
   final MaterialLocalizations localizations;
   final Locale locale;
+  final bool Function(DateTime) selectableMonthPredicate;
 
   const _MonthPickerDialog({
     Key key,
@@ -50,6 +52,7 @@ class _MonthPickerDialog extends StatefulWidget {
     this.firstDate,
     this.lastDate,
     this.locale,
+    this.selectableMonthPredicate,
   }) : super(key: key);
 
   @override
@@ -83,6 +86,7 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
       key: _monthSelectorState,
       openDate: selectedDate,
       selectedDate: selectedDate,
+      selectableMonthPredicate: widget.selectableMonthPredicate,
       upDownPageLimitPublishSubject: _upDownPageLimitPublishSubject,
       upDownButtonEnableStatePublishSubject:
           _upDownButtonEnableStatePublishSubject,
@@ -281,6 +285,7 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
             key: _monthSelectorState,
             openDate: DateTime(year),
             selectedDate: selectedDate,
+            selectableMonthPredicate: widget.selectableMonthPredicate,
             upDownPageLimitPublishSubject: _upDownPageLimitPublishSubject,
             upDownButtonEnableStatePublishSubject:
                 _upDownButtonEnableStatePublishSubject,
@@ -296,6 +301,7 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
           key: _monthSelectorState,
           openDate: selectedDate,
           selectedDate: selectedDate,
+          selectableMonthPredicate: widget.selectableMonthPredicate,
           upDownPageLimitPublishSubject: _upDownPageLimitPublishSubject,
           upDownButtonEnableStatePublishSubject:
               _upDownButtonEnableStatePublishSubject,
