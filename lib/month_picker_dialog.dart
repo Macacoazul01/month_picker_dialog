@@ -149,11 +149,23 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
       children: <Widget>[
         FlatButton(
           onPressed: () => Navigator.pop(context, null),
-          child: Text(widget.localizations.cancelButtonLabel),
+          child: Text(
+            widget.localizations.cancelButtonLabel,
+            style: Theme.of(context)
+                .textTheme
+                .button
+                .copyWith(color: Theme.of(context).primaryColor),
+          ),
         ),
         FlatButton(
           onPressed: () => Navigator.pop(context, selectedDate),
-          child: Text(widget.localizations.okButtonLabel),
+          child: Text(
+            widget.localizations.okButtonLabel,
+            style: Theme.of(context)
+                .textTheme
+                .button
+                .copyWith(color: Theme.of(context).primaryColor),
+          ),
         )
       ],
     );
