@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 
 String getLocale(
   BuildContext context, {
-  Locale selectedLocale,
+  Locale? selectedLocale,
 }) {
   if (selectedLocale != null) {
     return '${selectedLocale.languageCode}_${selectedLocale.countryCode}';
