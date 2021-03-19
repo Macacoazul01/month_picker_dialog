@@ -8,18 +8,18 @@ import 'locale_utils.dart';
 
 class MonthSelector extends StatefulWidget {
   final ValueChanged<DateTime> onMonthSelected;
-  final DateTime openDate, selectedDate, firstDate, lastDate;
+  final DateTime? openDate, selectedDate, firstDate, lastDate;
   final PublishSubject<UpDownPageLimit> upDownPageLimitPublishSubject;
   final PublishSubject<UpDownButtonEnableState>
       upDownButtonEnableStatePublishSubject;
-  final Locale locale;
+  final Locale? locale;
   const MonthSelector({
-    Key key,
-    @required this.openDate,
-    @required this.selectedDate,
-    @required this.onMonthSelected,
-    @required this.upDownPageLimitPublishSubject,
-    @required this.upDownButtonEnableStatePublishSubject,
+    Key? key,
+    required DateTime this.openDate,
+    required DateTime this.selectedDate,
+    required this.onMonthSelected,
+    required this.upDownPageLimitPublishSubject,
+    required this.upDownButtonEnableStatePublishSubject,
     this.firstDate,
     this.lastDate,
     this.locale,
@@ -34,7 +34,7 @@ class MonthSelector extends StatefulWidget {
 }
 
 class MonthSelectorState extends State<MonthSelector> {
-  PageController _pageController;
+  PageController? _pageController;
 
   @override
   Widget build(BuildContext context) => PageView.builder(
@@ -56,7 +56,7 @@ class MonthSelectorState extends State<MonthSelector> {
           (final int index) => _getMonthButton(
               DateTime(
                   widget.firstDate != null
-                      ? widget.firstDate.year + page
+                      ? widget.firstDate!.year + page
                       : page,
                   index + 1),
               getLocale(context, selectedLocale: widget.locale)),
@@ -69,13 +69,13 @@ class MonthSelectorState extends State<MonthSelector> {
       onPressed: isEnabled
           ? () => widget.onMonthSelected(DateTime(date.year, date.month))
           : null,
-      color: date.month == widget.selectedDate.month &&
-              date.year == widget.selectedDate.year
+      color: date.month == widget.selectedDate!.month &&
+              date.year == widget.selectedDate!.year
           ? Theme.of(context).accentColor
           : null,
-      textColor: date.month == widget.selectedDate.month &&
-              date.year == widget.selectedDate.year
-          ? Theme.of(context).accentTextTheme.button.color
+      textColor: date.month == widget.selectedDate!.month &&
+              date.year == widget.selectedDate!.year
+          ? Theme.of(context).accentTextTheme.button!.color
           : date.month == DateTime.now().month &&
                   date.year == DateTime.now().year
               ? Theme.of(context).accentColor
@@ -89,7 +89,7 @@ class MonthSelectorState extends State<MonthSelector> {
   void _onPageChange(final int page) {
     widget.upDownPageLimitPublishSubject.add(
       new UpDownPageLimit(
-        widget.firstDate != null ? widget.firstDate.year + page : page,
+        widget.firstDate != null ? widget.firstDate!.year + page : page,
         0,
       ),
     );
@@ -100,11 +100,11 @@ class MonthSelectorState extends State<MonthSelector> {
 
   int _getPageCount() {
     if (widget.firstDate != null && widget.lastDate != null) {
-      return widget.lastDate.year - widget.firstDate.year + 1;
+      return widget.lastDate!.year - widget.firstDate!.year + 1;
     } else if (widget.firstDate != null && widget.lastDate == null) {
-      return 9999 - widget.firstDate.year;
+      return 9999 - widget.firstDate!.year;
     } else if (widget.firstDate == null && widget.lastDate != null) {
-      return widget.lastDate.year + 1;
+      return widget.lastDate!.year + 1;
     } else
       return 9999;
   }
@@ -113,22 +113,22 @@ class MonthSelectorState extends State<MonthSelector> {
   void initState() {
     _pageController = new PageController(
         initialPage: widget.firstDate == null
-            ? widget.openDate.year
-            : widget.openDate.year - widget.firstDate.year);
+            ? widget.openDate!.year
+            : widget.openDate!.year - widget.firstDate!.year);
     super.initState();
     new Future.delayed(Duration.zero, () {
       widget.upDownPageLimitPublishSubject.add(
         new UpDownPageLimit(
           widget.firstDate == null
-              ? _pageController.page.toInt()
-              : widget.firstDate.year + _pageController.page.toInt(),
+              ? _pageController!.page!.toInt()
+              : widget.firstDate!.year + _pageController!.page!.toInt(),
           0,
         ),
       );
       widget.upDownButtonEnableStatePublishSubject.add(
         new UpDownButtonEnableState(
-          _pageController.page.toInt() > 0,
-          _pageController.page.toInt() < _getPageCount() - 1,
+          _pageController!.page!.toInt() > 0,
+          _pageController!.page!.toInt() < _getPageCount() - 1,
         ),
       );
     });
@@ -136,7 +136,7 @@ class MonthSelectorState extends State<MonthSelector> {
 
   @override
   void dispose() {
-    _pageController.dispose();
+    _pageController!.dispose();
     super.dispose();
   }
 
@@ -145,32 +145,32 @@ class MonthSelectorState extends State<MonthSelector> {
       return true;
     else if (widget.firstDate != null &&
         widget.lastDate != null &&
-        widget.firstDate.compareTo(date) <= 0 &&
-        widget.lastDate.compareTo(date) >= 0)
+        widget.firstDate!.compareTo(date) <= 0 &&
+        widget.lastDate!.compareTo(date) >= 0)
       return true;
     else if (widget.firstDate != null &&
         widget.lastDate == null &&
-        widget.firstDate.compareTo(date) <= 0)
+        widget.firstDate!.compareTo(date) <= 0)
       return true;
     else if (widget.firstDate == null &&
         widget.lastDate != null &&
-        widget.lastDate.compareTo(date) >= 0)
+        widget.lastDate!.compareTo(date) >= 0)
       return true;
     else
       return false;
   }
 
   void goDown() {
-    _pageController.animateToPage(
-      _pageController.page.toInt() + 1,
+    _pageController!.animateToPage(
+      _pageController!.page!.toInt() + 1,
       duration: const Duration(milliseconds: 400),
       curve: Curves.easeInOut,
     );
   }
 
   void goUp() {
-    _pageController.animateToPage(
-      _pageController.page.toInt() - 1,
+    _pageController!.animateToPage(
+      _pageController!.page!.toInt() - 1,
       duration: const Duration(milliseconds: 400),
       curve: Curves.easeInOut,
     );
