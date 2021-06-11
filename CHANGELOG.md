@@ -1,3 +1,6 @@
+## 0.4.0
+- support for flutter 2 null safety (thanks @quantosapplications)
+
 ## 0.3.3
 - pagebounds bug with `firstDate == null` fixed (thanks @mono0926)
 - deprecation warnings for text themes fixed

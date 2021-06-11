@@ -13,13 +13,14 @@ import 'package:rxdart/rxdart.dart';
 /// [initialDate] is the initially selected month.
 /// [firstDate] is the optional lower bound for month selection.
 /// [lastDate] is the optional upper bound for month selection.
-Future<DateTime> showMonthPicker(
-    {@required BuildContext context,
-    @required DateTime initialDate,
-    DateTime firstDate,
-    DateTime lastDate,
-    Locale locale,
-    bool Function(DateTime) selectableMonthPredicate}) async {
+Future<DateTime?> showMonthPicker({
+  required BuildContext context,
+  required DateTime initialDate,
+  DateTime? firstDate,
+  DateTime? lastDate,
+  Locale? locale,
+  bool Function(DateTime)? selectableMonthPredicate
+}) async {
   assert(context != null);
   assert(initialDate != null);
   final localizations = locale == null
@@ -40,15 +41,15 @@ Future<DateTime> showMonthPicker(
 }
 
 class _MonthPickerDialog extends StatefulWidget {
-  final DateTime initialDate, firstDate, lastDate;
+  final DateTime? initialDate, firstDate, lastDate;
   final MaterialLocalizations localizations;
-  final Locale locale;
-  final bool Function(DateTime) selectableMonthPredicate;
+  final Locale? locale;
+  final bool Function(DateTime)? selectableMonthPredicate;
 
   const _MonthPickerDialog({
-    Key key,
-    @required this.initialDate,
-    @required this.localizations,
+    Key? key,
+    required this.initialDate,
+    required this.localizations,
     this.firstDate,
     this.lastDate,
     this.locale,
@@ -63,33 +64,33 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
   final GlobalKey<YearSelectorState> _yearSelectorState = new GlobalKey();
   final GlobalKey<MonthSelectorState> _monthSelectorState = new GlobalKey();
 
-  PublishSubject<UpDownPageLimit> _upDownPageLimitPublishSubject;
-  PublishSubject<UpDownButtonEnableState>
+  PublishSubject<UpDownPageLimit>? _upDownPageLimitPublishSubject;
+  PublishSubject<UpDownButtonEnableState>?
       _upDownButtonEnableStatePublishSubject;
 
-  Widget _selector;
-  DateTime selectedDate, _firstDate, _lastDate;
+  Widget? _selector;
+  DateTime? selectedDate, _firstDate, _lastDate;
 
   @override
   void initState() {
     super.initState();
-    selectedDate = DateTime(widget.initialDate.year, widget.initialDate.month);
+    selectedDate = DateTime(widget.initialDate!.year, widget.initialDate!.month);
     if (widget.firstDate != null)
-      _firstDate = DateTime(widget.firstDate.year, widget.firstDate.month);
+      _firstDate = DateTime(widget.firstDate!.year, widget.firstDate!.month);
     if (widget.lastDate != null)
-      _lastDate = DateTime(widget.lastDate.year, widget.lastDate.month);
+      _lastDate = DateTime(widget.lastDate!.year, widget.lastDate!.month);
 
     _upDownPageLimitPublishSubject = new PublishSubject();
     _upDownButtonEnableStatePublishSubject = new PublishSubject();
 
     _selector = new MonthSelector(
       key: _monthSelectorState,
-      openDate: selectedDate,
-      selectedDate: selectedDate,
+      openDate: selectedDate!,
+      selectedDate: selectedDate!,
       selectableMonthPredicate: widget.selectableMonthPredicate,
-      upDownPageLimitPublishSubject: _upDownPageLimitPublishSubject,
+      upDownPageLimitPublishSubject: _upDownPageLimitPublishSubject!,
       upDownButtonEnableStatePublishSubject:
-          _upDownButtonEnableStatePublishSubject,
+          _upDownButtonEnableStatePublishSubject!,
       firstDate: _firstDate,
       lastDate: _lastDate,
       onMonthSelected: _onMonthSelected,
@@ -98,8 +99,8 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
   }
 
   void dispose() {
-    _upDownPageLimitPublishSubject.close();
-    _upDownButtonEnableStatePublishSubject.close();
+    _upDownPageLimitPublishSubject!.close();
+    _upDownButtonEnableStatePublishSubject!.close();
     super.dispose();
   }
 
@@ -153,7 +154,7 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
             widget.localizations.cancelButtonLabel,
             style: Theme.of(context)
                 .textTheme
-                .button
+                .button!
                 .copyWith(color: Theme.of(context).primaryColor),
           ),
         ),
@@ -163,7 +164,7 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
             widget.localizations.okButtonLabel,
             style: Theme.of(context)
                 .textTheme
-                .button
+                .button!
                 .copyWith(color: Theme.of(context).primaryColor),
           ),
         )
@@ -181,7 +182,7 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(
-              '${DateFormat.yMMM(locale).format(selectedDate)}',
+              '${DateFormat.yMMM(locale).format(selectedDate!)}',
               style: theme.primaryTextTheme.subtitle1,
             ),
             Row(
@@ -194,7 +195,7 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
                           stream: _upDownPageLimitPublishSubject,
                           initialData: const UpDownPageLimit(0, 0),
                           builder: (_, snapshot) => Text(
-                            '${DateFormat.y(locale).format(DateTime(snapshot.data.upLimit))}',
+                            '${DateFormat.y(locale).format(DateTime(snapshot.data!.upLimit))}',
                             style: theme.primaryTextTheme.headline5,
                           ),
                         ),
@@ -207,7 +208,7 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                              '${DateFormat.y(locale).format(DateTime(snapshot.data.upLimit))}',
+                              '${DateFormat.y(locale).format(DateTime(snapshot.data!.upLimit))}',
                               style: theme.primaryTextTheme.headline5,
                             ),
                             Text(
@@ -215,7 +216,7 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
                               style: theme.primaryTextTheme.headline5,
                             ),
                             Text(
-                              '${DateFormat.y(locale).format(DateTime(snapshot.data.downLimit))}',
+                              '${DateFormat.y(locale).format(DateTime(snapshot.data!.downLimit))}',
                               style: theme.primaryTextTheme.headline5,
                             ),
                           ],
@@ -229,21 +230,21 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
                       IconButton(
                         icon: Icon(
                           Icons.keyboard_arrow_up,
-                          color: snapshot.data.upState
+                          color: snapshot.data!.upState
                               ? theme.primaryIconTheme.color
-                              : theme.primaryIconTheme.color.withOpacity(0.5),
+                              : theme.primaryIconTheme.color!.withOpacity(0.5),
                         ),
                         onPressed:
-                            snapshot.data.upState ? _onUpButtonPressed : null,
+                            snapshot.data!.upState ? _onUpButtonPressed : null,
                       ),
                       IconButton(
                         icon: Icon(
                           Icons.keyboard_arrow_down,
-                          color: snapshot.data.downState
+                          color: snapshot.data!.downState
                               ? theme.primaryIconTheme.color
-                              : theme.primaryIconTheme.color.withOpacity(0.5),
+                              : theme.primaryIconTheme.color!.withOpacity(0.5),
                         ),
-                        onPressed: snapshot.data.downState
+                        onPressed: snapshot.data!.downState
                             ? _onDownButtonPressed
                             : null,
                       ),
@@ -283,24 +284,24 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
 
   void _onSelectYear() => setState(() => _selector = new YearSelector(
         key: _yearSelectorState,
-        initialDate: selectedDate,
+        initialDate: selectedDate!,
         firstDate: _firstDate,
         lastDate: _lastDate,
         onYearSelected: _onYearSelected,
-        upDownPageLimitPublishSubject: _upDownPageLimitPublishSubject,
+        upDownPageLimitPublishSubject: _upDownPageLimitPublishSubject!,
         upDownButtonEnableStatePublishSubject:
-            _upDownButtonEnableStatePublishSubject,
+            _upDownButtonEnableStatePublishSubject!,
       ));
 
   void _onYearSelected(final int year) =>
       setState(() => _selector = new MonthSelector(
             key: _monthSelectorState,
             openDate: DateTime(year),
-            selectedDate: selectedDate,
+            selectedDate: selectedDate!,
             selectableMonthPredicate: widget.selectableMonthPredicate,
-            upDownPageLimitPublishSubject: _upDownPageLimitPublishSubject,
+            upDownPageLimitPublishSubject: _upDownPageLimitPublishSubject!,
             upDownButtonEnableStatePublishSubject:
-                _upDownButtonEnableStatePublishSubject,
+                _upDownButtonEnableStatePublishSubject!,
             firstDate: _firstDate,
             lastDate: _lastDate,
             onMonthSelected: _onMonthSelected,
@@ -311,12 +312,12 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
         selectedDate = date;
         _selector = new MonthSelector(
           key: _monthSelectorState,
-          openDate: selectedDate,
-          selectedDate: selectedDate,
+          openDate: selectedDate!,
+          selectedDate: selectedDate!,
           selectableMonthPredicate: widget.selectableMonthPredicate,
-          upDownPageLimitPublishSubject: _upDownPageLimitPublishSubject,
+          upDownPageLimitPublishSubject: _upDownPageLimitPublishSubject!,
           upDownButtonEnableStatePublishSubject:
-              _upDownButtonEnableStatePublishSubject,
+              _upDownButtonEnableStatePublishSubject!,
           firstDate: _firstDate,
           lastDate: _lastDate,
           onMonthSelected: _onMonthSelected,
@@ -326,17 +327,17 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
 
   void _onUpButtonPressed() {
     if (_yearSelectorState.currentState != null) {
-      _yearSelectorState.currentState.goUp();
+      _yearSelectorState.currentState!.goUp();
     } else {
-      _monthSelectorState.currentState.goUp();
+      _monthSelectorState.currentState!.goUp();
     }
   }
 
   void _onDownButtonPressed() {
     if (_yearSelectorState.currentState != null) {
-      _yearSelectorState.currentState.goDown();
+      _yearSelectorState.currentState!.goDown();
     } else {
-      _monthSelectorState.currentState.goDown();
+      _monthSelectorState.currentState!.goDown();
     }
   }
 }
