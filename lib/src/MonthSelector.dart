@@ -14,7 +14,6 @@ class MonthSelector extends StatefulWidget {
       upDownButtonEnableStatePublishSubject;
   final Locale? locale;
   final bool Function(DateTime)? selectableMonthPredicate;
-
   const MonthSelector({
     Key? key,
     required DateTime this.openDate,

@@ -13,6 +13,7 @@ import 'package:rxdart/rxdart.dart';
 /// [initialDate] is the initially selected month.
 /// [firstDate] is the optional lower bound for month selection.
 /// [lastDate] is the optional upper bound for month selection.
+/// [selectableMonthPredicate] lets you control enabled months just like the official selectableDayPredicate.
 Future<DateTime?> showMonthPicker({
   required BuildContext context,
   required DateTime initialDate,
@@ -45,7 +46,6 @@ class _MonthPickerDialog extends StatefulWidget {
   final MaterialLocalizations localizations;
   final Locale? locale;
   final bool Function(DateTime)? selectableMonthPredicate;
-
   const _MonthPickerDialog({
     Key? key,
     required this.initialDate,
