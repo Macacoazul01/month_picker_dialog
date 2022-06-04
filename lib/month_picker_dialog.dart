@@ -267,7 +267,7 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
   Widget buildPager(ThemeData theme, String locale) {
     return SizedBox(
       height: 230.0,
-      width: 300.0,
+      width: 320.0,
       child: Theme(
         data: theme.copyWith(
           buttonTheme: ButtonThemeData(

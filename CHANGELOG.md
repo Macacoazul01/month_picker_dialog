@@ -1,3 +1,6 @@
+## 0.4.6 + 2
+- size fixes
+
 ## 0.4.6 + 1
 - made the month selector barrier dismissible parameter = false
 
