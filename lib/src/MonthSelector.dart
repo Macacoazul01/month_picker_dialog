@@ -13,7 +13,8 @@ class MonthSelector extends StatefulWidget {
       upDownButtonEnableStatePublishSubject;
   final Locale? locale;
   final bool Function(DateTime)? selectableMonthPredicate;
-  
+  final bool capitalizeFirstLetter;
+
   const MonthSelector({
     Key? key,
     required DateTime this.openDate,
@@ -25,6 +26,7 @@ class MonthSelector extends StatefulWidget {
     this.lastDate,
     this.locale,
     this.selectableMonthPredicate,
+    required this.capitalizeFirstLetter
   }) : super(key: key);
   @override
   State<StatefulWidget> createState() => MonthSelectorState();
@@ -68,25 +70,26 @@ class MonthSelectorState extends State<MonthSelector> {
           ? () => widget.onMonthSelected(DateTime(date.year, date.month))
           : null,
       style: TextButton.styleFrom(
-        backgroundColor: date.month == widget.selectedDate!.month &&
-              date.year == widget.selectedDate!.year
-          ? theme.colorScheme.secondary
-          : null,
-        primary: date.month == widget.selectedDate!.month &&
-                date.year == widget.selectedDate!.year
-            ? theme.textTheme.button!
-                .copyWith(
-                  color: theme.colorScheme.onSecondary,
-                )
-                .color
-            : date.month == DateTime.now().month &&
-                    date.year == DateTime.now().year
-                ? theme.colorScheme.secondary
-                : null,
-          shape: CircleBorder()
-      ),
+          backgroundColor: date.month == widget.selectedDate!.month &&
+                  date.year == widget.selectedDate!.year
+              ? theme.colorScheme.secondary
+              : null,
+          primary: date.month == widget.selectedDate!.month &&
+                  date.year == widget.selectedDate!.year
+              ? theme.textTheme.button!
+                  .copyWith(
+                    color: theme.colorScheme.onSecondary,
+                  )
+                  .color
+              : date.month == DateTime.now().month &&
+                      date.year == DateTime.now().year
+                  ? theme.colorScheme.secondary
+                  : null,
+          shape: CircleBorder()),
       child: Text(
-        DateFormat.MMM(locale).format(date),
+        widget.capitalizeFirstLetter
+            ? toBeginningOfSentenceCase(DateFormat.MMM(locale).format(date))!
+            : DateFormat.MMM(locale).format(date).toLowerCase(),
       ),
     );
   }

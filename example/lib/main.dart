@@ -42,6 +42,7 @@ class _MyAppState extends State<MyApp> {
         Locale('ar'),
         Locale('fa'),
         Locale("es"),
+        Locale("it"),
       ],
       theme: ThemeData(
           colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.indigo).copyWith(secondary: Colors.pinkAccent)),

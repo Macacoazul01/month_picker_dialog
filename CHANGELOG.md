@@ -1,3 +1,6 @@
+## 0.4.6
+- added capitalizeFirstLetter -> Enable you to choose if the first letter of the month will be capitalized thks https://github.com/0wzZZzz6
+
 ## 0.4.5
 - added selectableMonthPredicate -> Enable selective months disabling thks https://github.com/ahmdaeyz
 

@@ -14,13 +14,15 @@ import 'package:rxdart/rxdart.dart';
 /// [firstDate] is the optional lower bound for month selection.
 /// [lastDate] is the optional upper bound for month selection.
 /// [selectableMonthPredicate] lets you control enabled months just like the official selectableDayPredicate.
+/// [capitalizeFirstLetter] lets you control if your months names are capitalized or not.
 Future<DateTime?> showMonthPicker({
   required BuildContext context,
   required DateTime initialDate,
   DateTime? firstDate,
   DateTime? lastDate,
   Locale? locale,
-  bool Function(DateTime)? selectableMonthPredicate
+  bool Function(DateTime)? selectableMonthPredicate,
+  bool capitalizeFirstLetter = true,
 }) async {
   final localizations = locale == null
       ? MaterialLocalizations.of(context)
@@ -34,6 +36,7 @@ Future<DateTime?> showMonthPicker({
       locale: locale,
       selectableMonthPredicate: selectableMonthPredicate,
       localizations: localizations,
+      capitalizeFirstLetter: capitalizeFirstLetter,
     ),
   );
 }
@@ -43,6 +46,7 @@ class _MonthPickerDialog extends StatefulWidget {
   final MaterialLocalizations localizations;
   final Locale? locale;
   final bool Function(DateTime)? selectableMonthPredicate;
+  final bool capitalizeFirstLetter;
 
   const _MonthPickerDialog({
     Key? key,
@@ -52,6 +56,7 @@ class _MonthPickerDialog extends StatefulWidget {
     this.lastDate,
     this.locale,
     this.selectableMonthPredicate,
+    required this.capitalizeFirstLetter,
   }) : super(key: key);
 
   @override
@@ -93,6 +98,7 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
       lastDate: _lastDate,
       onMonthSelected: _onMonthSelected,
       locale: widget.locale,
+      capitalizeFirstLetter: widget.capitalizeFirstLetter,
     );
   }
 
@@ -179,8 +185,8 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              '${DateFormat.yMMM(locale).format(selectedDate!)}',
+            Text( widget.capitalizeFirstLetter ? '${toBeginningOfSentenceCase(DateFormat.yMMM(locale).format(selectedDate!))}' :
+              '${DateFormat.yMMM(locale).format(selectedDate!).toLowerCase()}',
               style: theme.primaryTextTheme.subtitle1,
             ),
             Row(
@@ -304,6 +310,7 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
             lastDate: _lastDate,
             onMonthSelected: _onMonthSelected,
             locale: widget.locale,
+            capitalizeFirstLetter: widget.capitalizeFirstLetter,
           ));
 
   void _onMonthSelected(final DateTime date) => setState(() {
@@ -320,6 +327,7 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
           lastDate: _lastDate,
           onMonthSelected: _onMonthSelected,
           locale: widget.locale,
+          capitalizeFirstLetter: widget.capitalizeFirstLetter,
         );
       });
 
