@@ -1,6 +1,6 @@
 name: month_picker_dialog_2
 description: Internationalized dialog for picking a single month from an infinite list of years.
-version: 0.4.1+1
+version: 0.4.5
 homepage: https://github.com/Macacoazul01/month_picker_dialog_2
 
 environment:
@@ -12,5 +12,6 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   rxdart: ^0.27.4
+  intl: ^0.17.0
 
 flutter:

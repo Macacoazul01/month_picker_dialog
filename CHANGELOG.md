@@ -1,3 +1,6 @@
+## 0.4.5
+- added selectableMonthPredicate -> Enable selective months disabling thks https://github.com/ahmdaeyz
+
 ## 0.4.1+1
 - package rename
 

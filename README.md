@@ -1,6 +1,6 @@
 # month_picker_dialog_2
 [![Build Status](https://travis-ci.org/hmkrivoj/month_picker_dialog.svg?branch=master)](https://travis-ci.org/hmkrivoj/month_picker_dialog)
-[![pub package](https://img.shields.io/pub/v/month_picker_dialog.svg)](https://pub.dartlang.org/packages/month_picker_dialog)
+[![pub package](https://img.shields.io/pub/v/month_picker_dialog.svg)](https://pub.dev/packages/month_picker_dialog_2)
 
 Internationalized material style dialog for picking a single month from an infinite list of years.
 This package makes use of the intl package and flutter's i18n abilities to provide labels in all languages known to flutter.
