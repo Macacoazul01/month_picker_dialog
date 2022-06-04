@@ -1,3 +1,6 @@
+## 0.4.1+1
+- package rename
+
 ## 0.4.1
 - partial update to flutter 3
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:month_picker_dialog/src/common.dart';
+import '/src/common.dart';
 import 'package:rxdart/rxdart.dart';
 
 import 'locale_utils.dart';
