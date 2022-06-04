@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:month_picker_dialog/src/common.dart';
@@ -23,12 +22,7 @@ class MonthSelector extends StatefulWidget {
     this.firstDate,
     this.lastDate,
     this.locale,
-  })  : assert(openDate != null),
-        assert(selectedDate != null),
-        assert(onMonthSelected != null),
-        assert(upDownPageLimitPublishSubject != null),
-        assert(upDownButtonEnableStatePublishSubject != null),
-        super(key: key);
+  }) : super(key: key);
   @override
   State<StatefulWidget> createState() => MonthSelectorState();
 }
@@ -65,21 +59,29 @@ class MonthSelectorState extends State<MonthSelector> {
 
   Widget _getMonthButton(final DateTime date, final String locale) {
     final bool isEnabled = _isEnabled(date);
-    return FlatButton(
+    final ThemeData theme = Theme.of(context);
+    return TextButton(
       onPressed: isEnabled
           ? () => widget.onMonthSelected(DateTime(date.year, date.month))
           : null,
-      color: date.month == widget.selectedDate!.month &&
+      style: TextButton.styleFrom(
+        backgroundColor: date.month == widget.selectedDate!.month &&
               date.year == widget.selectedDate!.year
-          ? Theme.of(context).accentColor
+          ? theme.colorScheme.secondary
           : null,
-      textColor: date.month == widget.selectedDate!.month &&
-              date.year == widget.selectedDate!.year
-          ? Theme.of(context).accentTextTheme.button!.color
-          : date.month == DateTime.now().month &&
-                  date.year == DateTime.now().year
-              ? Theme.of(context).accentColor
-              : null,
+        primary: date.month == widget.selectedDate!.month &&
+                date.year == widget.selectedDate!.year
+            ? theme.textTheme.button!
+                .copyWith(
+                  color: theme.colorScheme.onSecondary,
+                )
+                .color
+            : date.month == DateTime.now().month &&
+                    date.year == DateTime.now().year
+                ? theme.colorScheme.secondary
+                : null,
+          shape: CircleBorder()
+      ),
       child: Text(
         DateFormat.MMM(locale).format(date),
       ),
@@ -88,13 +90,13 @@ class MonthSelectorState extends State<MonthSelector> {
 
   void _onPageChange(final int page) {
     widget.upDownPageLimitPublishSubject.add(
-      new UpDownPageLimit(
+      UpDownPageLimit(
         widget.firstDate != null ? widget.firstDate!.year + page : page,
         0,
       ),
     );
     widget.upDownButtonEnableStatePublishSubject.add(
-      new UpDownButtonEnableState(page > 0, page < _getPageCount() - 1),
+      UpDownButtonEnableState(page > 0, page < _getPageCount() - 1),
     );
   }
 
@@ -111,14 +113,14 @@ class MonthSelectorState extends State<MonthSelector> {
 
   @override
   void initState() {
-    _pageController = new PageController(
+    _pageController = PageController(
         initialPage: widget.firstDate == null
             ? widget.openDate!.year
             : widget.openDate!.year - widget.firstDate!.year);
     super.initState();
-    new Future.delayed(Duration.zero, () {
+    Future.delayed(Duration.zero, () {
       widget.upDownPageLimitPublishSubject.add(
-        new UpDownPageLimit(
+        UpDownPageLimit(
           widget.firstDate == null
               ? _pageController!.page!.toInt()
               : widget.firstDate!.year + _pageController!.page!.toInt(),
@@ -126,7 +128,7 @@ class MonthSelectorState extends State<MonthSelector> {
         ),
       );
       widget.upDownButtonEnableStatePublishSubject.add(
-        new UpDownButtonEnableState(
+        UpDownButtonEnableState(
           _pageController!.page!.toInt() > 0,
           _pageController!.page!.toInt() < _getPageCount() - 1,
         ),

@@ -20,12 +20,9 @@ Future<DateTime?> showMonthPicker({
   DateTime? lastDate,
   Locale? locale,
 }) async {
-  assert(context != null);
-  assert(initialDate != null);
   final localizations = locale == null
       ? MaterialLocalizations.of(context)
       : await GlobalMaterialLocalizations.delegate.load(locale);
-  assert(localizations != null);
   return await showDialog<DateTime>(
     context: context,
     builder: (context) => _MonthPickerDialog(
@@ -57,8 +54,8 @@ class _MonthPickerDialog extends StatefulWidget {
 }
 
 class _MonthPickerDialogState extends State<_MonthPickerDialog> {
-  final GlobalKey<YearSelectorState> _yearSelectorState = new GlobalKey();
-  final GlobalKey<MonthSelectorState> _monthSelectorState = new GlobalKey();
+  final GlobalKey<YearSelectorState> _yearSelectorState = GlobalKey();
+  final GlobalKey<MonthSelectorState> _monthSelectorState = GlobalKey();
 
   PublishSubject<UpDownPageLimit>? _upDownPageLimitPublishSubject;
   PublishSubject<UpDownButtonEnableState>?
@@ -76,10 +73,10 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
     if (widget.lastDate != null)
       _lastDate = DateTime(widget.lastDate!.year, widget.lastDate!.month);
 
-    _upDownPageLimitPublishSubject = new PublishSubject();
-    _upDownButtonEnableStatePublishSubject = new PublishSubject();
+    _upDownPageLimitPublishSubject = PublishSubject();
+    _upDownButtonEnableStatePublishSubject = PublishSubject();
 
-    _selector = new MonthSelector(
+    _selector = MonthSelector(
       key: _monthSelectorState,
       openDate: selectedDate!,
       selectedDate: selectedDate!,
@@ -143,11 +140,11 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
   ) {
     return ButtonBar(
       children: <Widget>[
-        FlatButton(
+        TextButton(
           onPressed: () => Navigator.pop(context, null),
           child: Text(widget.localizations.cancelButtonLabel),
         ),
-        FlatButton(
+        TextButton(
           onPressed: () => Navigator.pop(context, selectedDate),
           child: Text(widget.localizations.okButtonLabel),
         )
@@ -174,7 +171,7 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
                 _selector is MonthSelector
                     ? GestureDetector(
                         onTap: _onSelectYear,
-                        child: new StreamBuilder<UpDownPageLimit>(
+                        child: StreamBuilder<UpDownPageLimit>(
                           stream: _upDownPageLimitPublishSubject,
                           initialData: const UpDownPageLimit(0, 0),
                           builder: (_, snapshot) => Text(
@@ -183,7 +180,7 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
                           ),
                         ),
                       )
-                    : new StreamBuilder<UpDownPageLimit>(
+                    : StreamBuilder<UpDownPageLimit>(
                         stream: _upDownPageLimitPublishSubject,
                         initialData: const UpDownPageLimit(0, 0),
                         builder: (_, snapshot) => Row(
@@ -205,7 +202,7 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
                           ],
                         ),
                       ),
-                new StreamBuilder<UpDownButtonEnableState>(
+                StreamBuilder<UpDownButtonEnableState>(
                   stream: _upDownButtonEnableStatePublishSubject,
                   initialData: const UpDownButtonEnableState(true, true),
                   builder: (_, snapshot) => Row(
@@ -254,7 +251,7 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
             minWidth: 4.0,
           ),
         ),
-        child: new AnimatedSwitcher(
+        child: AnimatedSwitcher(
           duration: const Duration(milliseconds: 500),
           reverseDuration: const Duration(milliseconds: 500),
           transitionBuilder: (Widget child, Animation<double> animation) =>
@@ -265,7 +262,7 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
     );
   }
 
-  void _onSelectYear() => setState(() => _selector = new YearSelector(
+  void _onSelectYear() => setState(() => _selector = YearSelector(
         key: _yearSelectorState,
         initialDate: selectedDate!,
         firstDate: _firstDate,
@@ -277,7 +274,7 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
       ));
 
   void _onYearSelected(final int year) =>
-      setState(() => _selector = new MonthSelector(
+      setState(() => _selector = MonthSelector(
             key: _monthSelectorState,
             openDate: DateTime(year),
             selectedDate: selectedDate!,
@@ -292,7 +289,7 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
 
   void _onMonthSelected(final DateTime date) => setState(() {
         selectedDate = date;
-        _selector = new MonthSelector(
+        _selector = MonthSelector(
           key: _monthSelectorState,
           openDate: selectedDate!,
           selectedDate: selectedDate!,

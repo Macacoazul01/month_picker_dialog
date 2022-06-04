@@ -44,7 +44,7 @@ class _MyAppState extends State<MyApp> {
         Locale("es"),
       ],
       theme: ThemeData(
-          primarySwatch: Colors.indigo, accentColor: Colors.pinkAccent),
+          colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.indigo).copyWith(secondary: Colors.pinkAccent)),
       home: Scaffold(
         appBar: AppBar(
           title: const Text('Month Picker Example App'),
