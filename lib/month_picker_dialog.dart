@@ -10,17 +10,31 @@ import '/src/locale_utils.dart';
 import 'package:rxdart/rxdart.dart';
 
 /// Displays month picker dialog.
-/// 
+///
 /// [initialDate] is the initially selected month.
-/// 
+///
 /// [firstDate] is the optional lower bound for month selection.
-/// 
+///
 /// [lastDate] is the optional upper bound for month selection.
-/// 
+///
 /// [selectableMonthPredicate] lets you control enabled months just like the official selectableDayPredicate.
-/// 
+///
 /// [capitalizeFirstLetter] lets you control if your months names are capitalized or not.
-/// 
+///
+/// [headerColor] lets you control the calendar header color.
+///
+/// [headerTextColor] lets you control the calendar header text and arrows color.
+///
+/// [selectedMonthBackgroundColor] lets you control the current selected month/year background color.
+///
+/// [selectedMonthTextColor] lets you control the text color of the current selected month/year.
+///
+/// [unselectedMonthTextColor] lets you control the text color of the current unselected months/years.
+///
+/// [confirmText] lets you set a custom confirm text widget.
+///
+/// [cancelText] lets you set a custom cancel text widget.
+///
 Future<DateTime?> showMonthPicker({
   required BuildContext context,
   required DateTime initialDate,
@@ -29,6 +43,13 @@ Future<DateTime?> showMonthPicker({
   Locale? locale,
   bool Function(DateTime)? selectableMonthPredicate,
   bool capitalizeFirstLetter = true,
+  Color? headerColor,
+  Color? headerTextColor,
+  Color? selectedMonthBackgroundColor,
+  Color? selectedMonthTextColor,
+  Color? unselectedMonthTextColor,
+  Text? confirmText,
+  Text? cancelText,
 }) async {
   final localizations = locale == null
       ? MaterialLocalizations.of(context)
@@ -44,6 +65,13 @@ Future<DateTime?> showMonthPicker({
       selectableMonthPredicate: selectableMonthPredicate,
       localizations: localizations,
       capitalizeFirstLetter: capitalizeFirstLetter,
+      headerColor: headerColor,
+      headerTextColor: headerTextColor,
+      selectedMonthBackgroundColor: selectedMonthBackgroundColor,
+      selectedMonthTextColor: selectedMonthTextColor,
+      unselectedMonthTextColor: unselectedMonthTextColor,
+      confirmText: confirmText,
+      cancelText: cancelText,
     ),
   );
 }
@@ -54,6 +82,13 @@ class _MonthPickerDialog extends StatefulWidget {
   final Locale? locale;
   final bool Function(DateTime)? selectableMonthPredicate;
   final bool capitalizeFirstLetter;
+  final Color? headerColor;
+  final Color? headerTextColor;
+  final Color? selectedMonthBackgroundColor;
+  final Color? selectedMonthTextColor;
+  final Color? unselectedMonthTextColor;
+  final Text? confirmText;
+  final Text? cancelText;
 
   const _MonthPickerDialog({
     Key? key,
@@ -64,6 +99,13 @@ class _MonthPickerDialog extends StatefulWidget {
     this.locale,
     this.selectableMonthPredicate,
     required this.capitalizeFirstLetter,
+    this.headerColor,
+    this.headerTextColor,
+    this.selectedMonthBackgroundColor,
+    this.selectedMonthTextColor,
+    this.unselectedMonthTextColor,
+    this.confirmText,
+    this.cancelText,
   }) : super(key: key);
 
   @override
@@ -84,7 +126,8 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
   @override
   void initState() {
     super.initState();
-    selectedDate = DateTime(widget.initialDate!.year, widget.initialDate!.month);
+    selectedDate =
+        DateTime(widget.initialDate!.year, widget.initialDate!.month);
     if (widget.firstDate != null)
       _firstDate = DateTime(widget.firstDate!.year, widget.firstDate!.month);
     if (widget.lastDate != null)
@@ -106,6 +149,9 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
       onMonthSelected: _onMonthSelected,
       locale: widget.locale,
       capitalizeFirstLetter: widget.capitalizeFirstLetter,
+      selectedMonthBackgroundColor: widget.selectedMonthBackgroundColor,
+      selectedMonthTextColor: widget.selectedMonthTextColor,
+      unselectedMonthTextColor: widget.unselectedMonthTextColor,
     );
   }
 
@@ -161,40 +207,53 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
       children: <Widget>[
         TextButton(
           onPressed: () => Navigator.pop(context, null),
-          child: Text(
-            widget.localizations.cancelButtonLabel,
-            style: Theme.of(context)
-                .textTheme
-                .button!
-                .copyWith(color: Theme.of(context).primaryColor),
-          ),
+          child: widget.cancelText ??
+              Text(
+                widget.localizations.cancelButtonLabel,
+                style: Theme.of(context)
+                    .textTheme
+                    .button!
+                    .copyWith(color: Theme.of(context).primaryColor),
+              ),
         ),
         TextButton(
           onPressed: () => Navigator.pop(context, selectedDate),
-          child: Text(
-            widget.localizations.okButtonLabel,
-            style: Theme.of(context)
-                .textTheme
-                .button!
-                .copyWith(color: Theme.of(context).primaryColor),
-          ),
+          child: widget.confirmText ??
+              Text(
+                widget.localizations.okButtonLabel,
+                style: Theme.of(context)
+                    .textTheme
+                    .button!
+                    .copyWith(color: Theme.of(context).primaryColor),
+              ),
         )
       ],
     );
   }
 
   Widget buildHeader(ThemeData theme, String locale) {
+    final _headline5 = widget.headerTextColor == null
+        ? theme.primaryTextTheme.headline5
+        : theme.primaryTextTheme.headline5!
+            .copyWith(color: widget.headerTextColor);
+    final _arrowcolors = widget.headerTextColor ?? theme.primaryIconTheme.color;
+
     return Material(
-      color: theme.primaryColor,
+      color: widget.headerColor ?? theme.primaryColor,
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text( widget.capitalizeFirstLetter ? '${toBeginningOfSentenceCase(DateFormat.yMMM(locale).format(selectedDate!))}' :
-              '${DateFormat.yMMM(locale).format(selectedDate!).toLowerCase()}',
-              style: theme.primaryTextTheme.subtitle1,
+            Text(
+              widget.capitalizeFirstLetter
+                  ? '${toBeginningOfSentenceCase(DateFormat.yMMM(locale).format(selectedDate!))}'
+                  : '${DateFormat.yMMM(locale).format(selectedDate!).toLowerCase()}',
+              style: widget.headerTextColor == null
+                  ? theme.primaryTextTheme.subtitle1
+                  : theme.primaryTextTheme.subtitle1!
+                      .copyWith(color: widget.headerTextColor),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -207,7 +266,7 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
                           initialData: const UpDownPageLimit(0, 0),
                           builder: (_, snapshot) => Text(
                             '${DateFormat.y(locale).format(DateTime(snapshot.data!.upLimit))}',
-                            style: theme.primaryTextTheme.headline5,
+                            style: _headline5,
                           ),
                         ),
                       )
@@ -220,15 +279,15 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
                           children: <Widget>[
                             Text(
                               '${DateFormat.y(locale).format(DateTime(snapshot.data!.upLimit))}',
-                              style: theme.primaryTextTheme.headline5,
+                              style: _headline5,
                             ),
                             Text(
                               '-',
-                              style: theme.primaryTextTheme.headline5,
+                              style: _headline5,
                             ),
                             Text(
                               '${DateFormat.y(locale).format(DateTime(snapshot.data!.downLimit))}',
-                              style: theme.primaryTextTheme.headline5,
+                              style: _headline5,
                             ),
                           ],
                         ),
@@ -242,8 +301,8 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
                         icon: Icon(
                           Icons.keyboard_arrow_up,
                           color: snapshot.data!.upState
-                              ? theme.primaryIconTheme.color
-                              : theme.primaryIconTheme.color!.withOpacity(0.5),
+                              ? _arrowcolors
+                              : _arrowcolors!.withOpacity(0.5),
                         ),
                         onPressed:
                             snapshot.data!.upState ? _onUpButtonPressed : null,
@@ -252,8 +311,8 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
                         icon: Icon(
                           Icons.keyboard_arrow_down,
                           color: snapshot.data!.downState
-                              ? theme.primaryIconTheme.color
-                              : theme.primaryIconTheme.color!.withOpacity(0.5),
+                              ? _arrowcolors
+                              : _arrowcolors!.withOpacity(0.5),
                         ),
                         onPressed: snapshot.data!.downState
                             ? _onDownButtonPressed
@@ -302,6 +361,9 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
         upDownPageLimitPublishSubject: _upDownPageLimitPublishSubject!,
         upDownButtonEnableStatePublishSubject:
             _upDownButtonEnableStatePublishSubject!,
+        selectedMonthBackgroundColor: widget.selectedMonthBackgroundColor,
+        selectedMonthTextColor: widget.selectedMonthTextColor,
+        unselectedMonthTextColor: widget.unselectedMonthTextColor,
       ));
 
   void _onYearSelected(final int year) =>
@@ -318,6 +380,9 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
             onMonthSelected: _onMonthSelected,
             locale: widget.locale,
             capitalizeFirstLetter: widget.capitalizeFirstLetter,
+            selectedMonthBackgroundColor: widget.selectedMonthBackgroundColor,
+            selectedMonthTextColor: widget.selectedMonthTextColor,
+            unselectedMonthTextColor: widget.unselectedMonthTextColor,
           ));
 
   void _onMonthSelected(final DateTime date) => setState(() {
@@ -335,6 +400,9 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
           onMonthSelected: _onMonthSelected,
           locale: widget.locale,
           capitalizeFirstLetter: widget.capitalizeFirstLetter,
+          selectedMonthBackgroundColor: widget.selectedMonthBackgroundColor,
+          selectedMonthTextColor: widget.selectedMonthTextColor,
+          unselectedMonthTextColor: widget.unselectedMonthTextColor,
         );
       });
 

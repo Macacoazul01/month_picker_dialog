@@ -68,6 +68,13 @@ class _MyAppState extends State<MyApp> {
                 locale: Locale("en"),
                 //show only even months
                 selectableMonthPredicate: (DateTime val) => val.month.isEven,
+                headerColor: Colors.purple,
+                headerTextColor: Colors.orange,
+                selectedMonthBackgroundColor: Colors.amber[900],
+                selectedMonthTextColor: Colors.white,
+                unselectedMonthTextColor: Colors.green,
+                confirmText: Text('This one!',style: TextStyle(fontWeight: FontWeight.bold),),
+                cancelText: Text('Cancel'),
               ).then((date) {
                 if (date != null) {
                   setState(() {

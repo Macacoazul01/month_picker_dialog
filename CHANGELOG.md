@@ -1,3 +1,20 @@
+## 0.5.0
+- added headerColor -> lets you control the calendar header color.
+
+- added headerTextColor -> lets you control the calendar header text and arrows color.
+
+- added selectedMonthBackgroundColor -> lets you control the current selected month/year background color.
+
+- added selectedMonthTextColor -> lets you control the text color of the current selected month/year.
+
+- added unselectedMonthTextColor -> lets you control the text color of the current unselected months/years.
+
+- added confirmText -> lets you set a custom confirm text widget.
+
+- added cancelText -> lets you set a custom cancel text widget.
+
+- updated sample with the new parameters
+
 ## 0.4.7
 - fixes on selectableMonthPredicate parameter + sample
 

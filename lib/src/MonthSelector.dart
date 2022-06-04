@@ -14,6 +14,9 @@ class MonthSelector extends StatefulWidget {
   final Locale? locale;
   final bool Function(DateTime)? selectableMonthPredicate;
   final bool capitalizeFirstLetter;
+  final Color? selectedMonthBackgroundColor;
+  final Color? selectedMonthTextColor;
+  final Color? unselectedMonthTextColor;
 
   const MonthSelector({
     Key? key,
@@ -26,7 +29,10 @@ class MonthSelector extends StatefulWidget {
     this.lastDate,
     this.locale,
     this.selectableMonthPredicate,
-    required this.capitalizeFirstLetter
+    required this.capitalizeFirstLetter,
+    required this.selectedMonthBackgroundColor,
+    required this.selectedMonthTextColor,
+    required this.unselectedMonthTextColor,
   }) : super(key: key);
   @override
   State<StatefulWidget> createState() => MonthSelectorState();
@@ -65,6 +71,8 @@ class MonthSelectorState extends State<MonthSelector> {
   Widget _getMonthButton(final DateTime date, final String locale) {
     final bool isEnabled = _isEnabled(date);
     final ThemeData theme = Theme.of(context);
+    final _backgroundColor =
+        widget.selectedMonthBackgroundColor ?? theme.colorScheme.secondary;
     return TextButton(
       onPressed: isEnabled
           ? () => widget.onMonthSelected(DateTime(date.year, date.month))
@@ -72,19 +80,20 @@ class MonthSelectorState extends State<MonthSelector> {
       style: TextButton.styleFrom(
           backgroundColor: date.month == widget.selectedDate!.month &&
                   date.year == widget.selectedDate!.year
-              ? theme.colorScheme.secondary
+              ? _backgroundColor
               : null,
           primary: date.month == widget.selectedDate!.month &&
                   date.year == widget.selectedDate!.year
               ? theme.textTheme.button!
                   .copyWith(
-                    color: theme.colorScheme.onSecondary,
+                    color: widget.selectedMonthTextColor ??
+                        theme.colorScheme.onSecondary,
                   )
                   .color
               : date.month == DateTime.now().month &&
                       date.year == DateTime.now().year
-                  ? theme.colorScheme.secondary
-                  : null,
+                  ? _backgroundColor
+                  : widget.unselectedMonthTextColor ?? null,
           shape: CircleBorder()),
       child: Text(
         widget.capitalizeFirstLetter
@@ -149,14 +158,16 @@ class MonthSelectorState extends State<MonthSelector> {
   }
 
   bool _isEnabled(final DateTime date) {
-    if (
-      (widget.firstDate == null && (widget.lastDate == null || 
-      ( widget.lastDate != null && widget.lastDate!.compareTo(date) >= 0)))
-      || (widget.firstDate != null && ((widget.lastDate != null &&
-        widget.firstDate!.compareTo(date) <= 0 &&
-        widget.lastDate!.compareTo(date) >= 0) || (widget.lastDate == null &&
-        widget.firstDate!.compareTo(date) <= 0)))
-    ) {
+    if ((widget.firstDate == null &&
+            (widget.lastDate == null ||
+                (widget.lastDate != null &&
+                    widget.lastDate!.compareTo(date) >= 0))) ||
+        (widget.firstDate != null &&
+            ((widget.lastDate != null &&
+                    widget.firstDate!.compareTo(date) <= 0 &&
+                    widget.lastDate!.compareTo(date) >= 0) ||
+                (widget.lastDate == null &&
+                    widget.firstDate!.compareTo(date) <= 0)))) {
       return holdsSelectionPredicate(date);
     } else
       return false;

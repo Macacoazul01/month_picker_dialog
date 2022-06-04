@@ -12,6 +12,10 @@ class YearSelector extends StatefulWidget {
   final PublishSubject<UpDownButtonEnableState>
       upDownButtonEnableStatePublishSubject;
   final Locale? locale;
+  final Color? selectedMonthBackgroundColor;
+  final Color? selectedMonthTextColor;
+  final Color? unselectedMonthTextColor;
+
   const YearSelector({
     Key? key,
     required DateTime this.initialDate,
@@ -21,7 +25,10 @@ class YearSelector extends StatefulWidget {
     this.firstDate,
     this.lastDate,
     this.locale,
-  })  : super(key: key);
+    required this.selectedMonthBackgroundColor,
+    required this.selectedMonthTextColor,
+    required this.unselectedMonthTextColor,
+  }) : super(key: key);
   @override
   State<StatefulWidget> createState() => YearSelectorState();
 }
@@ -46,7 +53,8 @@ class YearSelectorState extends State<YearSelector> {
         crossAxisCount: 4,
         children: List<Widget>.generate(
           12,
-          (final int index) => _getYearButton(page, index, getLocale(context, selectedLocale: widget.locale)),
+          (final int index) => _getYearButton(
+              page, index, getLocale(context, selectedLocale: widget.locale)),
         ).toList(growable: false),
       );
 
@@ -56,19 +64,24 @@ class YearSelectorState extends State<YearSelector> {
         index;
     final bool isEnabled = _isEnabled(year);
     final ThemeData theme = Theme.of(context);
+    final _backgroundColor =
+        widget.selectedMonthBackgroundColor ?? theme.colorScheme.secondary;
     return TextButton(
       onPressed: isEnabled ? () => widget.onYearSelected(year) : null,
       style: TextButton.styleFrom(
-        backgroundColor: year == widget.initialDate!.year
-          ? theme.colorScheme.secondary
-          : null,
-        primary: year == widget.initialDate!.year
-          ? theme.textTheme.button!.copyWith(
-            color: theme.colorScheme.onSecondary,
-          ).color
-          : year == DateTime.now().year ? theme.colorScheme.secondary : null,
-          shape: CircleBorder()
-      ),
+          backgroundColor:
+              year == widget.initialDate!.year ? _backgroundColor : null,
+          primary: year == widget.initialDate!.year
+              ? theme.textTheme.button!
+                  .copyWith(
+                    color: widget.selectedMonthTextColor ??
+                        theme.colorScheme.onSecondary,
+                  )
+                  .color
+              : year == DateTime.now().year
+                  ? _backgroundColor
+                  : widget.unselectedMonthTextColor ?? null,
+          shape: CircleBorder()),
       child: Text(
         DateFormat.y(locale).format(DateTime(year)),
       ),
@@ -95,7 +108,8 @@ class YearSelectorState extends State<YearSelector> {
       if (widget.lastDate!.year - widget.firstDate!.year <= 12)
         return 1;
       else
-        return ((widget.lastDate!.year - widget.firstDate!.year + 1) / 12).ceil();
+        return ((widget.lastDate!.year - widget.firstDate!.year + 1) / 12)
+            .ceil();
     } else if (widget.firstDate != null && widget.lastDate == null) {
       return (_getItemCount() / 12).ceil();
     } else if (widget.firstDate == null && widget.lastDate != null) {
@@ -120,7 +134,8 @@ class YearSelectorState extends State<YearSelector> {
     _pageController = PageController(
         initialPage: widget.firstDate == null
             ? (widget.initialDate!.year / 12).floor()
-            : ((widget.initialDate!.year - widget.firstDate!.year) / 12).floor());
+            : ((widget.initialDate!.year - widget.firstDate!.year) / 12)
+                .floor());
     super.initState();
     Future.delayed(Duration.zero, () {
       widget.upDownPageLimitPublishSubject.add(UpDownPageLimit(
