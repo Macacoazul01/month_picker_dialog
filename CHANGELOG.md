@@ -1,3 +1,6 @@
+## 0.4.1
+- partial update to flutter 3
+
 ## 0.4.0
 - support for flutter 2 null safety (thanks @quantosapplications)
 
