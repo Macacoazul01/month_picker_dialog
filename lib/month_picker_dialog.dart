@@ -29,6 +29,7 @@ Future<DateTime?> showMonthPicker({
       : await GlobalMaterialLocalizations.delegate.load(locale);
   return await showDialog<DateTime>(
     context: context,
+    barrierDismissible: false,
     builder: (context) => _MonthPickerDialog(
       initialDate: initialDate,
       firstDate: firstDate,
