@@ -65,7 +65,9 @@ class _MyAppState extends State<MyApp> {
                 firstDate: DateTime(DateTime.now().year - 1, 5),
                 lastDate: DateTime(DateTime.now().year + 1, 9),
                 initialDate: selectedDate ?? widget.initialDate,
-                locale: Locale("es"),
+                locale: Locale("en"),
+                //show only even months
+                selectableMonthPredicate: (DateTime val) => val.month.isEven,
               ).then((date) {
                 if (date != null) {
                   setState(() {

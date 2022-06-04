@@ -1,3 +1,6 @@
+## 0.4.7
+- fixes on selectableMonthPredicate parameter + sample
+
 ## 0.4.6 + 2
 - size fixes
 

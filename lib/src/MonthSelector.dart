@@ -149,22 +149,16 @@ class MonthSelectorState extends State<MonthSelector> {
   }
 
   bool _isEnabled(final DateTime date) {
-    if (widget.firstDate == null && widget.lastDate == null) {
-      return holdsSelectionPredicate(date);
-    } else if (widget.firstDate != null &&
-        widget.lastDate != null &&
+    if (
+      (widget.firstDate == null && (widget.lastDate == null || 
+      ( widget.lastDate != null && widget.lastDate!.compareTo(date) >= 0)))
+      || (widget.firstDate != null && ((widget.lastDate != null &&
         widget.firstDate!.compareTo(date) <= 0 &&
-        widget.lastDate!.compareTo(date) >= 0)
-      return true;
-    else if (widget.firstDate != null &&
-        widget.lastDate == null &&
-        widget.firstDate!.compareTo(date) <= 0)
-      return true;
-    else if (widget.firstDate == null &&
-        widget.lastDate != null &&
-        widget.lastDate!.compareTo(date) >= 0)
-      return true;
-    else
+        widget.lastDate!.compareTo(date) >= 0) || (widget.lastDate == null &&
+        widget.firstDate!.compareTo(date) <= 0)))
+    ) {
+      return holdsSelectionPredicate(date);
+    } else
       return false;
   }
 

@@ -10,11 +10,17 @@ import '/src/locale_utils.dart';
 import 'package:rxdart/rxdart.dart';
 
 /// Displays month picker dialog.
+/// 
 /// [initialDate] is the initially selected month.
+/// 
 /// [firstDate] is the optional lower bound for month selection.
+/// 
 /// [lastDate] is the optional upper bound for month selection.
+/// 
 /// [selectableMonthPredicate] lets you control enabled months just like the official selectableDayPredicate.
+/// 
 /// [capitalizeFirstLetter] lets you control if your months names are capitalized or not.
+/// 
 Future<DateTime?> showMonthPicker({
   required BuildContext context,
   required DateTime initialDate,
