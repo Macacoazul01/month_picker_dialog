@@ -75,6 +75,7 @@ class _MyAppState extends State<MyApp> {
                 unselectedMonthTextColor: Colors.green,
                 confirmText: Text('This one!',style: TextStyle(fontWeight: FontWeight.bold),),
                 cancelText: Text('Cancel'),
+                yearFirst: true,
               ).then((date) {
                 if (date != null) {
                   setState(() {

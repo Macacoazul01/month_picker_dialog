@@ -35,6 +35,12 @@ import 'package:rxdart/rxdart.dart';
 ///
 /// [cancelText] lets you set a custom cancel text widget.
 ///
+/// [customHeight] lets you set a custom height for the calendar widget.
+///
+/// [customWidth] lets you set a custom width for the calendar widget.
+///
+/// [yearFirst] lets you define that the user must select first the year, then the month.
+///
 Future<DateTime?> showMonthPicker({
   required BuildContext context,
   required DateTime initialDate,
@@ -50,6 +56,9 @@ Future<DateTime?> showMonthPicker({
   Color? unselectedMonthTextColor,
   Text? confirmText,
   Text? cancelText,
+  double? customHeight,
+  double? customWidth,
+  bool yearFirst = false,
 }) async {
   final localizations = locale == null
       ? MaterialLocalizations.of(context)
@@ -72,6 +81,9 @@ Future<DateTime?> showMonthPicker({
       unselectedMonthTextColor: unselectedMonthTextColor,
       confirmText: confirmText,
       cancelText: cancelText,
+      customHeight: customHeight,
+      customWidth: customWidth,
+      yearFirst: yearFirst,
     ),
   );
 }
@@ -89,6 +101,9 @@ class _MonthPickerDialog extends StatefulWidget {
   final Color? unselectedMonthTextColor;
   final Text? confirmText;
   final Text? cancelText;
+  final double? customHeight;
+  final double? customWidth;
+  final bool yearFirst;
 
   const _MonthPickerDialog({
     Key? key,
@@ -106,6 +121,9 @@ class _MonthPickerDialog extends StatefulWidget {
     this.unselectedMonthTextColor,
     this.confirmText,
     this.cancelText,
+    this.customHeight,
+    this.customWidth,
+    required this.yearFirst,
   }) : super(key: key);
 
   @override
@@ -136,23 +154,37 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
     _upDownPageLimitPublishSubject = PublishSubject();
     _upDownButtonEnableStatePublishSubject = PublishSubject();
 
-    _selector = MonthSelector(
-      key: _monthSelectorState,
-      openDate: selectedDate!,
-      selectedDate: selectedDate!,
-      selectableMonthPredicate: widget.selectableMonthPredicate,
-      upDownPageLimitPublishSubject: _upDownPageLimitPublishSubject!,
-      upDownButtonEnableStatePublishSubject:
-          _upDownButtonEnableStatePublishSubject!,
-      firstDate: _firstDate,
-      lastDate: _lastDate,
-      onMonthSelected: _onMonthSelected,
-      locale: widget.locale,
-      capitalizeFirstLetter: widget.capitalizeFirstLetter,
-      selectedMonthBackgroundColor: widget.selectedMonthBackgroundColor,
-      selectedMonthTextColor: widget.selectedMonthTextColor,
-      unselectedMonthTextColor: widget.unselectedMonthTextColor,
-    );
+    _selector = widget.yearFirst
+        ? YearSelector(
+            key: _yearSelectorState,
+            initialDate: selectedDate!,
+            firstDate: _firstDate,
+            lastDate: _lastDate,
+            onYearSelected: _onYearSelected,
+            upDownPageLimitPublishSubject: _upDownPageLimitPublishSubject!,
+            upDownButtonEnableStatePublishSubject:
+                _upDownButtonEnableStatePublishSubject!,
+            selectedMonthBackgroundColor: widget.selectedMonthBackgroundColor,
+            selectedMonthTextColor: widget.selectedMonthTextColor,
+            unselectedMonthTextColor: widget.unselectedMonthTextColor,
+          )
+        : MonthSelector(
+            key: _monthSelectorState,
+            openDate: selectedDate!,
+            selectedDate: selectedDate!,
+            selectableMonthPredicate: widget.selectableMonthPredicate,
+            upDownPageLimitPublishSubject: _upDownPageLimitPublishSubject!,
+            upDownButtonEnableStatePublishSubject:
+                _upDownButtonEnableStatePublishSubject!,
+            firstDate: _firstDate,
+            lastDate: _lastDate,
+            onMonthSelected: _onMonthSelected,
+            locale: widget.locale,
+            capitalizeFirstLetter: widget.capitalizeFirstLetter,
+            selectedMonthBackgroundColor: widget.selectedMonthBackgroundColor,
+            selectedMonthTextColor: widget.selectedMonthTextColor,
+            unselectedMonthTextColor: widget.unselectedMonthTextColor,
+          );
   }
 
   void dispose() {
@@ -331,8 +363,8 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
 
   Widget buildPager(ThemeData theme, String locale) {
     return SizedBox(
-      height: 230.0,
-      width: 320.0,
+      height: widget.customHeight ?? 230.0,
+      width: widget.customWidth ?? 320.0,
       child: Theme(
         data: theme.copyWith(
           buttonTheme: ButtonThemeData(

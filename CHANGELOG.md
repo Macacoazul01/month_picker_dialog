@@ -1,3 +1,10 @@
+## 0.5.3
+- added customHeight -> lets you set a custom height for the calendar widget.
+
+- added customWidth -> lets you set a custom width for the calendar widget.
+
+- added yearFirst -> lets you define that the user must select first the year, then the month (false as default).
+
 ## 0.5.0
 - added headerColor -> lets you control the calendar header color.
 
