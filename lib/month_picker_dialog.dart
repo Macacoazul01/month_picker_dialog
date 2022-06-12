@@ -1,12 +1,13 @@
-import 'dart:async';
-
+//import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:intl/intl.dart';
-import '/src/MonthSelector.dart';
-import '/src/YearSelector.dart';
-import '/src/common.dart';
-import '/src/locale_utils.dart';
+import '/src/month_picker_widgets/button_bar.dart';
+import '/src/month_picker_widgets/header.dart';
+import '/src/month_picker_widgets/pager.dart';
+import 'src/month_selector/month_selector.dart';
+import 'src/year_selector/year_selector.dart';
+import '/src/helpers/common.dart';
+import '/src/helpers/locale_utils.dart';
 import 'package:rxdart/rxdart.dart';
 
 /// Displays month picker dialog.
@@ -59,10 +60,16 @@ Future<DateTime?> showMonthPicker({
   double? customHeight,
   double? customWidth,
   bool yearFirst = false,
+  //bool isCupertino = false,
 }) async {
-  final localizations = locale == null
-      ? MaterialLocalizations.of(context)
-      : await GlobalMaterialLocalizations.delegate.load(locale);
+  final localizations =
+      // isCupertino ? ( locale == null
+      //     ? CupertinoLocalizations.of(context)
+      //     : await GlobalCupertinoLocalizations.delegate.load(locale)) :
+      (locale == null
+          ? MaterialLocalizations.of(context)
+          : await GlobalMaterialLocalizations.delegate.load(locale));
+
   return await showDialog<DateTime>(
     context: context,
     barrierDismissible: false,
@@ -89,21 +96,19 @@ Future<DateTime?> showMonthPicker({
 }
 
 class _MonthPickerDialog extends StatefulWidget {
-  final DateTime? initialDate, firstDate, lastDate;
+  final DateTime initialDate;
+  final DateTime? firstDate, lastDate;
   final MaterialLocalizations localizations;
   final Locale? locale;
   final bool Function(DateTime)? selectableMonthPredicate;
-  final bool capitalizeFirstLetter;
-  final Color? headerColor;
-  final Color? headerTextColor;
-  final Color? selectedMonthBackgroundColor;
-  final Color? selectedMonthTextColor;
-  final Color? unselectedMonthTextColor;
-  final Text? confirmText;
-  final Text? cancelText;
-  final double? customHeight;
-  final double? customWidth;
-  final bool yearFirst;
+  final bool capitalizeFirstLetter, yearFirst;
+  final Color? headerColor,
+      headerTextColor,
+      selectedMonthBackgroundColor,
+      selectedMonthTextColor,
+      unselectedMonthTextColor;
+  final Text? confirmText, cancelText;
+  final double? customHeight, customWidth;
 
   const _MonthPickerDialog({
     Key? key,
@@ -138,14 +143,14 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
   PublishSubject<UpDownButtonEnableState>?
       _upDownButtonEnableStatePublishSubject;
 
-  Widget? _selector;
-  DateTime? selectedDate, _firstDate, _lastDate;
+  late Widget _selector;
+  late DateTime selectedDate;
+  DateTime? _firstDate, _lastDate;
 
   @override
   void initState() {
     super.initState();
-    selectedDate =
-        DateTime(widget.initialDate!.year, widget.initialDate!.month);
+    selectedDate = DateTime(widget.initialDate.year, widget.initialDate.month);
     if (widget.firstDate != null)
       _firstDate = DateTime(widget.firstDate!.year, widget.firstDate!.month);
     if (widget.lastDate != null)
@@ -157,7 +162,7 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
     _selector = widget.yearFirst
         ? YearSelector(
             key: _yearSelectorState,
-            initialDate: selectedDate!,
+            initialDate: selectedDate,
             firstDate: _firstDate,
             lastDate: _lastDate,
             onYearSelected: _onYearSelected,
@@ -170,8 +175,8 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
           )
         : MonthSelector(
             key: _monthSelectorState,
-            openDate: selectedDate!,
-            selectedDate: selectedDate!,
+            openDate: selectedDate,
+            selectedDate: selectedDate,
             selectableMonthPredicate: widget.selectableMonthPredicate,
             upDownPageLimitPublishSubject: _upDownPageLimitPublishSubject!,
             upDownButtonEnableStatePublishSubject:
@@ -195,190 +200,74 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
 
   @override
   Widget build(BuildContext context) {
-    var theme = Theme.of(context);
-    var locale = getLocale(context, selectedLocale: widget.locale);
-    var header = buildHeader(theme, locale);
-    var pager = buildPager(theme, locale);
-    var content = Material(
+    final theme = Theme.of(context);
+    final locale = getLocale(context, selectedLocale: widget.locale);
+
+    final content = Material(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
-        children: [pager, buildButtonBar(context)],
+        children: [
+          PickerPager(
+            selector: _selector,
+            theme: theme,
+            customHeight: widget.customHeight,
+            customWidth: widget.customWidth,
+          ),
+          PickerButtonBar(
+            cancelText: widget.cancelText,
+            confirmText: widget.confirmText,
+            defaultcancelButtonLabel: widget.localizations.cancelButtonLabel,
+            defaultokButtonLabel: widget.localizations.okButtonLabel,
+            cancelFunction: () => Navigator.pop(context, null),
+            okFunction: () => Navigator.pop(context, selectedDate),
+          ),
+        ],
       ),
       color: theme.dialogBackgroundColor,
     );
+
+    final header = PickerHeader(
+      theme: theme,
+      locale: locale,
+      headerColor: widget.headerColor,
+      headerTextColor: widget.headerTextColor,
+      capitalizeFirstLetter: widget.capitalizeFirstLetter,
+      selectedDate: selectedDate,
+      isMonthSelector: _selector is MonthSelector,
+      onDownButtonPressed: _onDownButtonPressed,
+      onSelectYear: _onSelectYear,
+      onUpButtonPressed: _onUpButtonPressed,
+      upDownButtonEnableStatePublishSubject:
+          _upDownButtonEnableStatePublishSubject,
+      upDownPageLimitPublishSubject: _upDownPageLimitPublishSubject,
+    );
+
     return Theme(
-      data:
-          Theme.of(context).copyWith(dialogBackgroundColor: Colors.transparent),
+      data: theme.copyWith(dialogBackgroundColor: Colors.transparent),
       child: Dialog(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            Builder(builder: (context) {
-              if (MediaQuery.of(context).orientation == Orientation.portrait) {
-                return IntrinsicWidth(
-                  child: Column(children: [header, content]),
-                );
-              }
-              return IntrinsicHeight(
-                child: Row(
+            Builder(
+              builder: (context) {
+                if (MediaQuery.of(context).orientation ==
+                    Orientation.portrait) {
+                  return IntrinsicWidth(
+                    child: Column(
+                      children: [header, content],
+                    ),
+                  );
+                }
+                return IntrinsicHeight(
+                  child: Row(
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [header, content]),
-              );
-            }),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget buildButtonBar(
-    BuildContext context,
-  ) {
-    return ButtonBar(
-      children: <Widget>[
-        TextButton(
-          onPressed: () => Navigator.pop(context, null),
-          child: widget.cancelText ??
-              Text(
-                widget.localizations.cancelButtonLabel,
-                style: Theme.of(context)
-                    .textTheme
-                    .button!
-                    .copyWith(color: Theme.of(context).primaryColor),
-              ),
-        ),
-        TextButton(
-          onPressed: () => Navigator.pop(context, selectedDate),
-          child: widget.confirmText ??
-              Text(
-                widget.localizations.okButtonLabel,
-                style: Theme.of(context)
-                    .textTheme
-                    .button!
-                    .copyWith(color: Theme.of(context).primaryColor),
-              ),
-        )
-      ],
-    );
-  }
-
-  Widget buildHeader(ThemeData theme, String locale) {
-    final _headline5 = widget.headerTextColor == null
-        ? theme.primaryTextTheme.headline5
-        : theme.primaryTextTheme.headline5!
-            .copyWith(color: widget.headerTextColor);
-    final _arrowcolors = widget.headerTextColor ?? theme.primaryIconTheme.color;
-
-    return Material(
-      color: widget.headerColor ?? theme.primaryColor,
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text(
-              widget.capitalizeFirstLetter
-                  ? '${toBeginningOfSentenceCase(DateFormat.yMMM(locale).format(selectedDate!))}'
-                  : '${DateFormat.yMMM(locale).format(selectedDate!).toLowerCase()}',
-              style: widget.headerTextColor == null
-                  ? theme.primaryTextTheme.subtitle1
-                  : theme.primaryTextTheme.subtitle1!
-                      .copyWith(color: widget.headerTextColor),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                _selector is MonthSelector
-                    ? GestureDetector(
-                        onTap: _onSelectYear,
-                        child: StreamBuilder<UpDownPageLimit>(
-                          stream: _upDownPageLimitPublishSubject,
-                          initialData: const UpDownPageLimit(0, 0),
-                          builder: (_, snapshot) => Text(
-                            '${DateFormat.y(locale).format(DateTime(snapshot.data!.upLimit))}',
-                            style: _headline5,
-                          ),
-                        ),
-                      )
-                    : StreamBuilder<UpDownPageLimit>(
-                        stream: _upDownPageLimitPublishSubject,
-                        initialData: const UpDownPageLimit(0, 0),
-                        builder: (_, snapshot) => Row(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              '${DateFormat.y(locale).format(DateTime(snapshot.data!.upLimit))}',
-                              style: _headline5,
-                            ),
-                            Text(
-                              '-',
-                              style: _headline5,
-                            ),
-                            Text(
-                              '${DateFormat.y(locale).format(DateTime(snapshot.data!.downLimit))}',
-                              style: _headline5,
-                            ),
-                          ],
-                        ),
-                      ),
-                StreamBuilder<UpDownButtonEnableState>(
-                  stream: _upDownButtonEnableStatePublishSubject,
-                  initialData: const UpDownButtonEnableState(true, true),
-                  builder: (_, snapshot) => Row(
-                    children: <Widget>[
-                      IconButton(
-                        icon: Icon(
-                          Icons.keyboard_arrow_up,
-                          color: snapshot.data!.upState
-                              ? _arrowcolors
-                              : _arrowcolors!.withOpacity(0.5),
-                        ),
-                        onPressed:
-                            snapshot.data!.upState ? _onUpButtonPressed : null,
-                      ),
-                      IconButton(
-                        icon: Icon(
-                          Icons.keyboard_arrow_down,
-                          color: snapshot.data!.downState
-                              ? _arrowcolors
-                              : _arrowcolors!.withOpacity(0.5),
-                        ),
-                        onPressed: snapshot.data!.downState
-                            ? _onDownButtonPressed
-                            : null,
-                      ),
-                    ],
+                    children: [header, content],
                   ),
-                ),
-              ],
+                );
+              },
             ),
           ],
-        ),
-      ),
-    );
-  }
-
-  Widget buildPager(ThemeData theme, String locale) {
-    return SizedBox(
-      height: widget.customHeight ?? 230.0,
-      width: widget.customWidth ?? 320.0,
-      child: Theme(
-        data: theme.copyWith(
-          buttonTheme: ButtonThemeData(
-            padding: EdgeInsets.all(2.0),
-            shape: CircleBorder(),
-            minWidth: 4.0,
-          ),
-        ),
-        child: AnimatedSwitcher(
-          duration: const Duration(milliseconds: 500),
-          reverseDuration: const Duration(milliseconds: 500),
-          transitionBuilder: (Widget child, Animation<double> animation) =>
-              ScaleTransition(child: child, scale: animation),
-          child: _selector,
         ),
       ),
     );
@@ -386,7 +275,7 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
 
   void _onSelectYear() => setState(() => _selector = YearSelector(
         key: _yearSelectorState,
-        initialDate: selectedDate!,
+        initialDate: selectedDate,
         firstDate: _firstDate,
         lastDate: _lastDate,
         onYearSelected: _onYearSelected,
@@ -402,7 +291,7 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
       setState(() => _selector = MonthSelector(
             key: _monthSelectorState,
             openDate: DateTime(year),
-            selectedDate: selectedDate!,
+            selectedDate: selectedDate,
             selectableMonthPredicate: widget.selectableMonthPredicate,
             upDownPageLimitPublishSubject: _upDownPageLimitPublishSubject!,
             upDownButtonEnableStatePublishSubject:
@@ -421,8 +310,8 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
         selectedDate = date;
         _selector = MonthSelector(
           key: _monthSelectorState,
-          openDate: selectedDate!,
-          selectedDate: selectedDate!,
+          openDate: selectedDate,
+          selectedDate: selectedDate,
           selectableMonthPredicate: widget.selectableMonthPredicate,
           upDownPageLimitPublishSubject: _upDownPageLimitPublishSubject!,
           upDownButtonEnableStatePublishSubject:

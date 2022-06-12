@@ -1,3 +1,6 @@
+## 0.5.4
+- code cleanup/organization (with some possible small performance improvement)
+
 ## 0.5.3
 - added customHeight -> lets you set a custom height for the calendar widget.
 
