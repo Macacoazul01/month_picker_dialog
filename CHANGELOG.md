@@ -1,3 +1,6 @@
+## 0.5.4 + 1 
+- month selector cleanup/organization + more small fixes
+
 ## 0.5.4
 - code cleanup/organization (with some possible small performance improvement)
 

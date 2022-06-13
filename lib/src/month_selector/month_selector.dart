@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import '/src/helpers/locale_utils.dart';
+import '/src/month_selector/month_year_grid.dart';
 import '/src/helpers/common.dart';
 import 'package:rxdart/rxdart.dart';
 
 class MonthSelector extends StatefulWidget {
   final ValueChanged<DateTime> onMonthSelected;
-  final DateTime? openDate, selectedDate, firstDate, lastDate;
+  final DateTime? firstDate, lastDate;
+  final DateTime selectedDate, openDate;
   final PublishSubject<UpDownPageLimit> upDownPageLimitPublishSubject;
   final PublishSubject<UpDownButtonEnableState>
       upDownButtonEnableStatePublishSubject;
   final Locale? locale;
   final bool Function(DateTime)? selectableMonthPredicate;
   final bool capitalizeFirstLetter;
-  final Color? selectedMonthBackgroundColor;
-  final Color? selectedMonthTextColor;
-  final Color? unselectedMonthTextColor;
+  final Color? selectedMonthBackgroundColor,
+      selectedMonthTextColor,
+      unselectedMonthTextColor;
 
   const MonthSelector({
     Key? key,
@@ -47,60 +47,22 @@ class MonthSelectorState extends State<MonthSelector> {
         physics: const AlwaysScrollableScrollPhysics(),
         onPageChanged: _onPageChange,
         itemCount: _getPageCount(),
-        itemBuilder: _yearGridBuilder,
+        itemBuilder: (final BuildContext context, final int page) =>
+            MonthYearGridBuilder(
+          capitalizeFirstLetter: widget.capitalizeFirstLetter,
+          onMonthSelected: widget.onMonthSelected,
+          openDate: widget.openDate,
+          page: page,
+          selectedDate: widget.selectedDate,
+          firstDate: widget.firstDate,
+          lastDate: widget.lastDate,
+          locale: widget.locale,
+          selectableMonthPredicate: widget.selectableMonthPredicate,
+          selectedMonthBackgroundColor: widget.selectedMonthBackgroundColor,
+          selectedMonthTextColor: widget.selectedMonthTextColor,
+          unselectedMonthTextColor: widget.unselectedMonthTextColor,
+        ),
       );
-
-  Widget _yearGridBuilder(final BuildContext context, final int page) =>
-      GridView.count(
-        physics: const NeverScrollableScrollPhysics(),
-        padding: EdgeInsets.all(8.0),
-        crossAxisCount: 4,
-        children: List<Widget>.generate(
-          12,
-          (final int index) => _getMonthButton(
-              DateTime(
-                  widget.firstDate != null
-                      ? widget.firstDate!.year + page
-                      : page,
-                  index + 1),
-              getLocale(context, selectedLocale: widget.locale)),
-        ).toList(growable: false),
-      );
-
-  Widget _getMonthButton(final DateTime date, final String locale) {
-    final bool isEnabled = _isEnabled(date);
-    final ThemeData theme = Theme.of(context);
-    final _backgroundColor =
-        widget.selectedMonthBackgroundColor ?? theme.colorScheme.secondary;
-    return TextButton(
-      onPressed: isEnabled
-          ? () => widget.onMonthSelected(DateTime(date.year, date.month))
-          : null,
-      style: TextButton.styleFrom(
-          backgroundColor: date.month == widget.selectedDate!.month &&
-                  date.year == widget.selectedDate!.year
-              ? _backgroundColor
-              : null,
-          primary: date.month == widget.selectedDate!.month &&
-                  date.year == widget.selectedDate!.year
-              ? theme.textTheme.button!
-                  .copyWith(
-                    color: widget.selectedMonthTextColor ??
-                        theme.colorScheme.onSecondary,
-                  )
-                  .color
-              : date.month == DateTime.now().month &&
-                      date.year == DateTime.now().year
-                  ? _backgroundColor
-                  : widget.unselectedMonthTextColor ?? null,
-          shape: CircleBorder()),
-      child: Text(
-        widget.capitalizeFirstLetter
-            ? toBeginningOfSentenceCase(DateFormat.MMM(locale).format(date))!
-            : DateFormat.MMM(locale).format(date).toLowerCase(),
-      ),
-    );
-  }
 
   void _onPageChange(final int page) {
     widget.upDownPageLimitPublishSubject.add(
@@ -127,11 +89,11 @@ class MonthSelectorState extends State<MonthSelector> {
 
   @override
   void initState() {
+    super.initState();
     _pageController = PageController(
         initialPage: widget.firstDate == null
-            ? widget.openDate!.year
-            : widget.openDate!.year - widget.firstDate!.year);
-    super.initState();
+            ? widget.openDate.year
+            : widget.openDate.year - widget.firstDate!.year);
     Future.delayed(Duration.zero, () {
       widget.upDownPageLimitPublishSubject.add(
         UpDownPageLimit(
@@ -154,30 +116,6 @@ class MonthSelectorState extends State<MonthSelector> {
   void dispose() {
     _pageController!.dispose();
     super.dispose();
-  }
-
-  bool _isEnabled(final DateTime date) {
-    if ((widget.firstDate == null &&
-            (widget.lastDate == null ||
-                (widget.lastDate != null &&
-                    widget.lastDate!.compareTo(date) >= 0))) ||
-        (widget.firstDate != null &&
-            ((widget.lastDate != null &&
-                    widget.firstDate!.compareTo(date) <= 0 &&
-                    widget.lastDate!.compareTo(date) >= 0) ||
-                (widget.lastDate == null &&
-                    widget.firstDate!.compareTo(date) <= 0)))) {
-      return holdsSelectionPredicate(date);
-    } else
-      return false;
-  }
-
-  bool holdsSelectionPredicate(DateTime date) {
-    if (widget.selectableMonthPredicate != null) {
-      return widget.selectableMonthPredicate!(date);
-    } else {
-      return true;
-    }
   }
 
   void goDown() {

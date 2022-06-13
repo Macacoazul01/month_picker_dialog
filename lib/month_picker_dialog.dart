@@ -139,9 +139,9 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
   final GlobalKey<YearSelectorState> _yearSelectorState = GlobalKey();
   final GlobalKey<MonthSelectorState> _monthSelectorState = GlobalKey();
 
-  PublishSubject<UpDownPageLimit>? _upDownPageLimitPublishSubject;
-  PublishSubject<UpDownButtonEnableState>?
-      _upDownButtonEnableStatePublishSubject;
+  final PublishSubject<UpDownPageLimit> _upDownPageLimitPublishSubject = PublishSubject();
+  final PublishSubject<UpDownButtonEnableState>
+      _upDownButtonEnableStatePublishSubject = PublishSubject();
 
   late Widget _selector;
   late DateTime selectedDate;
@@ -156,9 +156,6 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
     if (widget.lastDate != null)
       _lastDate = DateTime(widget.lastDate!.year, widget.lastDate!.month);
 
-    _upDownPageLimitPublishSubject = PublishSubject();
-    _upDownButtonEnableStatePublishSubject = PublishSubject();
-
     _selector = widget.yearFirst
         ? YearSelector(
             key: _yearSelectorState,
@@ -166,9 +163,9 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
             firstDate: _firstDate,
             lastDate: _lastDate,
             onYearSelected: _onYearSelected,
-            upDownPageLimitPublishSubject: _upDownPageLimitPublishSubject!,
+            upDownPageLimitPublishSubject: _upDownPageLimitPublishSubject,
             upDownButtonEnableStatePublishSubject:
-                _upDownButtonEnableStatePublishSubject!,
+                _upDownButtonEnableStatePublishSubject,
             selectedMonthBackgroundColor: widget.selectedMonthBackgroundColor,
             selectedMonthTextColor: widget.selectedMonthTextColor,
             unselectedMonthTextColor: widget.unselectedMonthTextColor,
@@ -178,9 +175,9 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
             openDate: selectedDate,
             selectedDate: selectedDate,
             selectableMonthPredicate: widget.selectableMonthPredicate,
-            upDownPageLimitPublishSubject: _upDownPageLimitPublishSubject!,
+            upDownPageLimitPublishSubject: _upDownPageLimitPublishSubject,
             upDownButtonEnableStatePublishSubject:
-                _upDownButtonEnableStatePublishSubject!,
+                _upDownButtonEnableStatePublishSubject,
             firstDate: _firstDate,
             lastDate: _lastDate,
             onMonthSelected: _onMonthSelected,
@@ -193,8 +190,8 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
   }
 
   void dispose() {
-    _upDownPageLimitPublishSubject!.close();
-    _upDownButtonEnableStatePublishSubject!.close();
+    _upDownPageLimitPublishSubject.close();
+    _upDownButtonEnableStatePublishSubject.close();
     super.dispose();
   }
 
@@ -279,9 +276,9 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
         firstDate: _firstDate,
         lastDate: _lastDate,
         onYearSelected: _onYearSelected,
-        upDownPageLimitPublishSubject: _upDownPageLimitPublishSubject!,
+        upDownPageLimitPublishSubject: _upDownPageLimitPublishSubject,
         upDownButtonEnableStatePublishSubject:
-            _upDownButtonEnableStatePublishSubject!,
+            _upDownButtonEnableStatePublishSubject,
         selectedMonthBackgroundColor: widget.selectedMonthBackgroundColor,
         selectedMonthTextColor: widget.selectedMonthTextColor,
         unselectedMonthTextColor: widget.unselectedMonthTextColor,
@@ -293,9 +290,9 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
             openDate: DateTime(year),
             selectedDate: selectedDate,
             selectableMonthPredicate: widget.selectableMonthPredicate,
-            upDownPageLimitPublishSubject: _upDownPageLimitPublishSubject!,
+            upDownPageLimitPublishSubject: _upDownPageLimitPublishSubject,
             upDownButtonEnableStatePublishSubject:
-                _upDownButtonEnableStatePublishSubject!,
+                _upDownButtonEnableStatePublishSubject,
             firstDate: _firstDate,
             lastDate: _lastDate,
             onMonthSelected: _onMonthSelected,
@@ -313,9 +310,9 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
           openDate: selectedDate,
           selectedDate: selectedDate,
           selectableMonthPredicate: widget.selectableMonthPredicate,
-          upDownPageLimitPublishSubject: _upDownPageLimitPublishSubject!,
+          upDownPageLimitPublishSubject: _upDownPageLimitPublishSubject,
           upDownButtonEnableStatePublishSubject:
-              _upDownButtonEnableStatePublishSubject!,
+              _upDownButtonEnableStatePublishSubject,
           firstDate: _firstDate,
           lastDate: _lastDate,
           onMonthSelected: _onMonthSelected,

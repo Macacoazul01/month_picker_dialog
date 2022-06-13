@@ -12,9 +12,7 @@ class YearSelector extends StatefulWidget {
   final PublishSubject<UpDownButtonEnableState>
       upDownButtonEnableStatePublishSubject;
   final Locale? locale;
-  final Color? selectedMonthBackgroundColor;
-  final Color? selectedMonthTextColor;
-  final Color? unselectedMonthTextColor;
+  final Color? selectedMonthBackgroundColor, selectedMonthTextColor, unselectedMonthTextColor;
 
   const YearSelector({
     Key? key,
@@ -131,12 +129,12 @@ class YearSelectorState extends State<YearSelector> {
 
   @override
   void initState() {
+    super.initState();
     _pageController = PageController(
         initialPage: widget.firstDate == null
             ? (widget.initialDate!.year / 12).floor()
             : ((widget.initialDate!.year - widget.firstDate!.year) / 12)
                 .floor());
-    super.initState();
     Future.delayed(Duration.zero, () {
       widget.upDownPageLimitPublishSubject.add(UpDownPageLimit(
         widget.firstDate == null
