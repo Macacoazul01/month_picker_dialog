@@ -51,7 +51,8 @@ class YearSelectorState extends State<YearSelector> {
         crossAxisCount: 4,
         children: List<Widget>.generate(
           12,
-          (final int index) => _getYearButton(page, index, getLocale(context, selectedLocale: widget.locale)),
+          (final int index) => _getYearButton(
+              page, index, getLocale(context, selectedLocale: widget.locale)),
         ).toList(growable: false),
       );
 
@@ -60,14 +61,22 @@ class YearSelectorState extends State<YearSelector> {
         page * 12 +
         index;
     final bool isEnabled = _isEnabled(year);
-    return FlatButton(
+    return TextButton(
       onPressed: isEnabled ? () => widget.onYearSelected(year) : null,
-      color: year == widget.initialDate!.year
-          ? Theme.of(context).accentColor
-          : null,
-      textColor: year == widget.initialDate!.year
-          ? Theme.of(context).accentTextTheme.button!.color
-          : year == DateTime.now().year ? Theme.of(context).accentColor : null,
+      style: ButtonStyle(
+        backgroundColor: MaterialStatePropertyAll<Color?>(
+          year == widget.initialDate!.year
+              ? Theme.of(context).accentColor
+              : null,
+        ),
+        foregroundColor: MaterialStatePropertyAll<Color?>(
+          year == widget.initialDate!.year
+              ? Theme.of(context).accentTextTheme.button!.color
+              : year == DateTime.now().year
+                  ? Theme.of(context).accentColor
+                  : null,
+        ),
+      ),
       child: Text(
         DateFormat.y(locale).format(DateTime(year)),
       ),
@@ -94,7 +103,8 @@ class YearSelectorState extends State<YearSelector> {
       if (widget.lastDate!.year - widget.firstDate!.year <= 12)
         return 1;
       else
-        return ((widget.lastDate!.year - widget.firstDate!.year + 1) / 12).ceil();
+        return ((widget.lastDate!.year - widget.firstDate!.year + 1) / 12)
+            .ceil();
     } else if (widget.firstDate != null && widget.lastDate == null) {
       return (_getItemCount() / 12).ceil();
     } else if (widget.firstDate == null && widget.lastDate != null) {
@@ -119,7 +129,8 @@ class YearSelectorState extends State<YearSelector> {
     _pageController = new PageController(
         initialPage: widget.firstDate == null
             ? (widget.initialDate!.year / 12).floor()
-            : ((widget.initialDate!.year - widget.firstDate!.year) / 12).floor());
+            : ((widget.initialDate!.year - widget.firstDate!.year) / 12)
+                .floor());
     super.initState();
     new Future.delayed(Duration.zero, () {
       widget.upDownPageLimitPublishSubject.add(new UpDownPageLimit(
