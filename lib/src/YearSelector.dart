@@ -60,14 +60,17 @@ class YearSelectorState extends State<YearSelector> {
         page * 12 +
         index;
     final bool isEnabled = _isEnabled(year);
-    return FlatButton(
+    return TextButton(
       onPressed: isEnabled ? () => widget.onYearSelected(year) : null,
-      color: year == widget.initialDate!.year
-          ? Theme.of(context).accentColor
-          : null,
-      textColor: year == widget.initialDate!.year
-          ? Theme.of(context).accentTextTheme.button!.color
-          : year == DateTime.now().year ? Theme.of(context).accentColor : null,
+      style: TextButton.styleFrom(
+        padding: EdgeInsets.all(0),
+        backgroundColor: year == widget.initialDate!.year
+            ? Theme.of(context).colorScheme.secondary
+            : null,
+        foregroundColor: year == widget.initialDate!.year
+            ? Theme.of(context).textTheme.button!.color
+            : year == DateTime.now().year ? Theme.of(context).accentColor : null,
+      ),
       child: Text(
         DateFormat.y(locale).format(DateTime(year)),
       ),
