@@ -78,7 +78,7 @@ class MonthButton extends StatelessWidget {
                     date.year == DateTime.now().year
                 ? _backgroundColor
                 : unselectedMonthTextColor ?? null,
-        shape: CircleBorder(),
+        shape: const CircleBorder(),
       ),
       child: Text(
         capitalizeFirstLetter

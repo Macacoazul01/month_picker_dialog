@@ -31,10 +31,10 @@ class PickerHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _headline5 = headerTextColor == null
+    final TextStyle? _headline5 = headerTextColor == null
         ? theme.primaryTextTheme.headline5
         : theme.primaryTextTheme.headline5!.copyWith(color: headerTextColor);
-    final _arrowcolors = headerTextColor ?? theme.primaryIconTheme.color;
+    final Color? _arrowcolors = headerTextColor ?? theme.primaryIconTheme.color;
 
     return Material(
       color: headerColor ?? theme.primaryColor,
@@ -62,7 +62,7 @@ class PickerHeader extends StatelessWidget {
                         child: StreamBuilder<UpDownPageLimit>(
                           stream: upDownPageLimitPublishSubject,
                           initialData: const UpDownPageLimit(0, 0),
-                          builder: (_, snapshot) => Text(
+                          builder: (_, AsyncSnapshot<UpDownPageLimit> snapshot) => Text(
                             '${DateFormat.y(locale).format(DateTime(snapshot.data!.upLimit))}',
                             style: _headline5,
                           ),
@@ -71,7 +71,7 @@ class PickerHeader extends StatelessWidget {
                     : StreamBuilder<UpDownPageLimit>(
                         stream: upDownPageLimitPublishSubject,
                         initialData: const UpDownPageLimit(0, 0),
-                        builder: (_, snapshot) => Row(
+                        builder: (_, AsyncSnapshot<UpDownPageLimit> snapshot) => Row(
                           mainAxisSize: MainAxisSize.min,
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
@@ -93,7 +93,7 @@ class PickerHeader extends StatelessWidget {
                 StreamBuilder<UpDownButtonEnableState>(
                   stream: upDownButtonEnableStatePublishSubject,
                   initialData: const UpDownButtonEnableState(true, true),
-                  builder: (_, snapshot) => Row(
+                  builder: (_, AsyncSnapshot<UpDownButtonEnableState> snapshot) => Row(
                     children: <Widget>[
                       IconButton(
                         icon: Icon(

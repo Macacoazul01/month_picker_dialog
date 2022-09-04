@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import '/src/helpers/common.dart';
 import 'package:rxdart/rxdart.dart';
 
+import '/src/helpers/common.dart';
 import '/src/helpers/locale_utils.dart';
 
 class YearSelector extends StatefulWidget {
@@ -47,7 +47,7 @@ class YearSelectorState extends State<YearSelector> {
   Widget _yearGridBuilder(final BuildContext context, final int page) =>
       GridView.count(
         physics: const NeverScrollableScrollPhysics(),
-        padding: EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(8.0),
         crossAxisCount: 4,
         children: List<Widget>.generate(
           12,
@@ -79,7 +79,7 @@ class YearSelectorState extends State<YearSelector> {
               : year == DateTime.now().year
                   ? _backgroundColor
                   : widget.unselectedMonthTextColor ?? null,
-          shape: CircleBorder()),
+          shape: const CircleBorder()),
       child: Text(
         DateFormat.y(locale).format(DateTime(year)),
       ),
@@ -120,7 +120,7 @@ class YearSelectorState extends State<YearSelector> {
     if (widget.firstDate != null && widget.lastDate != null) {
       return widget.lastDate!.year - widget.firstDate!.year + 1;
     } else if (widget.firstDate != null && widget.lastDate == null) {
-      return (9999 - widget.firstDate!.year);
+      return 9999 - widget.firstDate!.year;
     } else if (widget.firstDate == null && widget.lastDate != null) {
       return widget.lastDate!.year;
     } else

@@ -1,3 +1,7 @@
+## 0.5.5
+- bump rxdart to ^0.27.5
+- removed MaterialLocalizations from code. First part of the changes to let people use designs different than Material
+
 ## 0.5.4 + 1 
 - month selector cleanup/organization + more small fixes
 

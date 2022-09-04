@@ -7,8 +7,6 @@ This package makes use of the intl package and flutter's i18n abilities to provi
 
 This package is a fork of the original month_picker_dialog from https://github.com/hmkrivoj/month_picker_dialog with some updates and fixes.
 
-I`ll mantain this package until he starts developing again on the original one.
-
 
 [Setting up an internationalized app: the flutter localization package](https://flutter.io/docs/development/accessibility-and-localization/internationalization#setting-up-an-internationalized-app-the-flutter_localizations-package)
 

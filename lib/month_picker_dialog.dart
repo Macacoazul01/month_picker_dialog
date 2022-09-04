@@ -1,14 +1,13 @@
-//import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:rxdart/rxdart.dart';
+
+import '/src/helpers/common.dart';
+import '/src/helpers/locale_utils.dart';
 import '/src/month_picker_widgets/button_bar.dart';
 import '/src/month_picker_widgets/header.dart';
 import '/src/month_picker_widgets/pager.dart';
 import 'src/month_selector/month_selector.dart';
 import 'src/year_selector/year_selector.dart';
-import '/src/helpers/common.dart';
-import '/src/helpers/locale_utils.dart';
-import 'package:rxdart/rxdart.dart';
 
 /// Displays month picker dialog.
 ///
@@ -62,24 +61,15 @@ Future<DateTime?> showMonthPicker({
   bool yearFirst = false,
   //bool isCupertino = false,
 }) async {
-  final localizations =
-      // isCupertino ? ( locale == null
-      //     ? CupertinoLocalizations.of(context)
-      //     : await GlobalCupertinoLocalizations.delegate.load(locale)) :
-      (locale == null
-          ? MaterialLocalizations.of(context)
-          : await GlobalMaterialLocalizations.delegate.load(locale));
-
   return await showDialog<DateTime>(
     context: context,
     barrierDismissible: false,
-    builder: (context) => _MonthPickerDialog(
+    builder: (BuildContext context) => _MonthPickerDialog(
       initialDate: initialDate,
       firstDate: firstDate,
       lastDate: lastDate,
       locale: locale,
       selectableMonthPredicate: selectableMonthPredicate,
-      localizations: localizations,
       capitalizeFirstLetter: capitalizeFirstLetter,
       headerColor: headerColor,
       headerTextColor: headerTextColor,
@@ -91,6 +81,7 @@ Future<DateTime?> showMonthPicker({
       customHeight: customHeight,
       customWidth: customWidth,
       yearFirst: yearFirst,
+      //isCupertino: isCupertino,
     ),
   );
 }
@@ -98,7 +89,6 @@ Future<DateTime?> showMonthPicker({
 class _MonthPickerDialog extends StatefulWidget {
   final DateTime initialDate;
   final DateTime? firstDate, lastDate;
-  final MaterialLocalizations localizations;
   final Locale? locale;
   final bool Function(DateTime)? selectableMonthPredicate;
   final bool capitalizeFirstLetter, yearFirst;
@@ -109,11 +99,11 @@ class _MonthPickerDialog extends StatefulWidget {
       unselectedMonthTextColor;
   final Text? confirmText, cancelText;
   final double? customHeight, customWidth;
+  //final bool isCupertino;
 
   const _MonthPickerDialog({
     Key? key,
     required this.initialDate,
-    required this.localizations,
     this.firstDate,
     this.lastDate,
     this.locale,
@@ -129,6 +119,7 @@ class _MonthPickerDialog extends StatefulWidget {
     this.customHeight,
     this.customWidth,
     required this.yearFirst,
+    //required this.isCupertino,
   }) : super(key: key);
 
   @override
@@ -139,7 +130,8 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
   final GlobalKey<YearSelectorState> _yearSelectorState = GlobalKey();
   final GlobalKey<MonthSelectorState> _monthSelectorState = GlobalKey();
 
-  final PublishSubject<UpDownPageLimit> _upDownPageLimitPublishSubject = PublishSubject();
+  final PublishSubject<UpDownPageLimit> _upDownPageLimitPublishSubject =
+      PublishSubject();
   final PublishSubject<UpDownButtonEnableState>
       _upDownButtonEnableStatePublishSubject = PublishSubject();
 
@@ -197,10 +189,10 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final locale = getLocale(context, selectedLocale: widget.locale);
+    final ThemeData theme = Theme.of(context);
+    final String locale = getLocale(context, selectedLocale: widget.locale);
 
-    final content = Material(
+    final Material content = Material(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
@@ -213,8 +205,8 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
           PickerButtonBar(
             cancelText: widget.cancelText,
             confirmText: widget.confirmText,
-            defaultcancelButtonLabel: widget.localizations.cancelButtonLabel,
-            defaultokButtonLabel: widget.localizations.okButtonLabel,
+            defaultcancelButtonLabel: 'CANCEL',
+            defaultokButtonLabel: 'OK',
             cancelFunction: () => Navigator.pop(context, null),
             okFunction: () => Navigator.pop(context, selectedDate),
           ),
@@ -223,7 +215,7 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
       color: theme.dialogBackgroundColor,
     );
 
-    final header = PickerHeader(
+    final PickerHeader header = PickerHeader(
       theme: theme,
       locale: locale,
       headerColor: widget.headerColor,
@@ -246,7 +238,7 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             Builder(
-              builder: (context) {
+              builder: (BuildContext context) {
                 if (MediaQuery.of(context).orientation ==
                     Orientation.portrait) {
                   return IntrinsicWidth(

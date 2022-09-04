@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import '/src/month_selector/month_year_grid.dart';
-import '/src/helpers/common.dart';
 import 'package:rxdart/rxdart.dart';
+
+import '/src/helpers/common.dart';
+import '/src/month_selector/month_year_grid.dart';
 
 class MonthSelector extends StatefulWidget {
   final ValueChanged<DateTime> onMonthSelected;
@@ -19,8 +20,8 @@ class MonthSelector extends StatefulWidget {
 
   const MonthSelector({
     Key? key,
-    required DateTime this.openDate,
-    required DateTime this.selectedDate,
+    required this.openDate,
+    required this.selectedDate,
     required this.onMonthSelected,
     required this.upDownPageLimitPublishSubject,
     required this.upDownButtonEnableStatePublishSubject,
