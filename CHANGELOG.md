@@ -1,3 +1,7 @@
+## 0.4.1
+
+- Replaced FlatButton with ElevatedButton
+- Bumped minimium Dart version to 2.17
 ## 0.4.0
 - support for flutter 2 null safety (thanks @quantosapplications)
 
