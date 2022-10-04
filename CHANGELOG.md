@@ -1,3 +1,9 @@
+## 0.5.6
+- removed deprecated parameter from TextButton.styleFrom
+- improved readme
+
+- added dismissible parameter -> lets you define if the dialog will be dismissible by clicking outside it (false as default).
+
 ## 0.5.5
 - bump rxdart to ^0.27.5
 - removed MaterialLocalizations from code. First part of the changes to let people use designs different than Material

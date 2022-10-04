@@ -62,11 +62,7 @@ class MonthButton extends StatelessWidget {
           ? () => onMonthSelected(DateTime(date.year, date.month))
           : null,
       style: TextButton.styleFrom(
-        backgroundColor:
-            date.month == selectedDate.month && date.year == selectedDate.year
-                ? _backgroundColor
-                : null,
-        primary: date.month == selectedDate.month &&
+        foregroundColor: date.month == selectedDate.month &&
                 date.year == selectedDate.year
             ? theme.textTheme.button!
                 .copyWith(
@@ -77,7 +73,10 @@ class MonthButton extends StatelessWidget {
             : date.month == DateTime.now().month &&
                     date.year == DateTime.now().year
                 ? _backgroundColor
-                : unselectedMonthTextColor ?? null,
+                : unselectedMonthTextColor ?? null, backgroundColor:
+            date.month == selectedDate.month && date.year == selectedDate.year
+                ? _backgroundColor
+                : null,
         shape: const CircleBorder(),
       ),
       child: Text(

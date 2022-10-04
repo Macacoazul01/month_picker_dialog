@@ -67,9 +67,7 @@ class YearSelectorState extends State<YearSelector> {
     return TextButton(
       onPressed: isEnabled ? () => widget.onYearSelected(year) : null,
       style: TextButton.styleFrom(
-          backgroundColor:
-              year == widget.initialDate!.year ? _backgroundColor : null,
-          primary: year == widget.initialDate!.year
+          foregroundColor: year == widget.initialDate!.year
               ? theme.textTheme.button!
                   .copyWith(
                     color: widget.selectedMonthTextColor ??
@@ -78,7 +76,8 @@ class YearSelectorState extends State<YearSelector> {
                   .color
               : year == DateTime.now().year
                   ? _backgroundColor
-                  : widget.unselectedMonthTextColor ?? null,
+                  : widget.unselectedMonthTextColor ?? null, backgroundColor:
+              year == widget.initialDate!.year ? _backgroundColor : null,
           shape: const CircleBorder()),
       child: Text(
         DateFormat.y(locale).format(DateTime(year)),

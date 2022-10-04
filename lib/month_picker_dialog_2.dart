@@ -40,6 +40,8 @@ import 'src/year_selector/year_selector.dart';
 /// [customWidth] lets you set a custom width for the calendar widget.
 ///
 /// [yearFirst] lets you define that the user must select first the year, then the month.
+/// 
+/// [dismissible] lets you define if the dialog will be dismissible by clicking outside it.
 ///
 Future<DateTime?> showMonthPicker({
   required BuildContext context,
@@ -59,11 +61,12 @@ Future<DateTime?> showMonthPicker({
   double? customHeight,
   double? customWidth,
   bool yearFirst = false,
+  bool dismissible = false
   //bool isCupertino = false,
 }) async {
   return await showDialog<DateTime>(
     context: context,
-    barrierDismissible: false,
+    barrierDismissible: dismissible,
     builder: (BuildContext context) => _MonthPickerDialog(
       initialDate: initialDate,
       firstDate: firstDate,
