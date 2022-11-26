@@ -18,7 +18,6 @@ class PickerHeader extends StatelessWidget {
       required this.onUpButtonPressed,
       required this.upDownButtonEnableStatePublishSubject,
       required this.upDownPageLimitPublishSubject,
-      required this.isRoundedCorners,
       required this.roundedCornersRadius})
       : super(key: key);
   final ThemeData theme;
@@ -31,7 +30,6 @@ class PickerHeader extends StatelessWidget {
   final PublishSubject<UpDownPageLimit>? upDownPageLimitPublishSubject;
   final PublishSubject<UpDownButtonEnableState>?
       upDownButtonEnableStatePublishSubject;
-  final bool isRoundedCorners;
   final double roundedCornersRadius;
 
   @override
@@ -43,14 +41,12 @@ class PickerHeader extends StatelessWidget {
 
     return Material(
       color: headerColor ?? theme.primaryColor,
-      shape: isRoundedCorners
-          ? RoundedRectangleBorder(
+      shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(roundedCornersRadius),
                 topRight: Radius.circular(roundedCornersRadius),
               ),
-            )
-          : null,
+            ),
       child: Container(
         child: Padding(
           padding: const EdgeInsets.all(16.0),

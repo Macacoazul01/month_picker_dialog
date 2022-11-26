@@ -69,6 +69,7 @@ There are other parameters to configure on the dialog if you want:
 
 [dismissible] lets you define if the dialog will be dismissible by clicking outside it.
 
+[roundedCornersRadius] lets you define the Radius of the rounded dialog (default is 0).
 
 ## Screenshots
 ### Left-To-Right
@@ -77,3 +78,8 @@ There are other parameters to configure on the dialog if you want:
 ### Right-To-Left
 ![RTL portrait](screenshots/rtl_portrait.png)
 ![RTL landscape](screenshots/rtl_landscape.png)
+
+
+## Contributors:
+[Dimitri Krivoj](https://github.com/hmkrivoj) (the original creator of the package) 
+[Fabio Henrique](https://github.com/FabioClem)

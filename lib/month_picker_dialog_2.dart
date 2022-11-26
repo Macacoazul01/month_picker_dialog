@@ -43,9 +43,7 @@ import 'src/year_selector/year_selector.dart';
 ///
 /// [dismissible] lets you define if the dialog will be dismissible by clicking outside it.
 ///
-/// [isRoundedCorners] lets you define if the dialog will be with rounded corners.
-///
-/// [roundedCornersRadius] lets you define if the dialog Radius value the default is 10.
+/// [roundedCornersRadius] lets you define the Radius of the rounded dialog (default is 0).
 ///
 Future<DateTime?> showMonthPicker({
   required BuildContext context,
@@ -66,8 +64,7 @@ Future<DateTime?> showMonthPicker({
   double? customWidth,
   bool yearFirst = false,
   bool dismissible = false,
-  bool isRoundedCorners = false,
-  double roundedCornersRadius = 10,
+  double roundedCornersRadius = 0,
   //bool isCupertino = false,
 }) async {
   return await showDialog<DateTime>(
@@ -91,7 +88,6 @@ Future<DateTime?> showMonthPicker({
       customWidth: customWidth,
       yearFirst: yearFirst,
       //isCupertino: isCupertino,
-      isRoundedCorners: isRoundedCorners,
       roundedCornersRadius: roundedCornersRadius,
     ),
   );
@@ -102,7 +98,7 @@ class _MonthPickerDialog extends StatefulWidget {
   final DateTime? firstDate, lastDate;
   final Locale? locale;
   final bool Function(DateTime)? selectableMonthPredicate;
-  final bool capitalizeFirstLetter, yearFirst, isRoundedCorners;
+  final bool capitalizeFirstLetter, yearFirst;
   final Color? headerColor,
       headerTextColor,
       selectedMonthBackgroundColor,
@@ -132,7 +128,6 @@ class _MonthPickerDialog extends StatefulWidget {
     this.customWidth,
     required this.yearFirst,
     //required this.isCupertino,
-    required this.isRoundedCorners,
     required this.roundedCornersRadius,
   }) : super(key: key);
 
@@ -207,14 +202,12 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
     final String locale = getLocale(context, selectedLocale: widget.locale);
 
     final Material content = Material(
-      shape: widget.isRoundedCorners
-          ? RoundedRectangleBorder(
+      shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(widget.roundedCornersRadius),
                 bottomRight: Radius.circular(widget.roundedCornersRadius),
               ),
-            )
-          : null,
+            ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
@@ -251,7 +244,6 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
       upDownButtonEnableStatePublishSubject:
           _upDownButtonEnableStatePublishSubject,
       upDownPageLimitPublishSubject: _upDownPageLimitPublishSubject,
-      isRoundedCorners: widget.isRoundedCorners,
       roundedCornersRadius: widget.roundedCornersRadius,
     );
 

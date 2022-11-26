@@ -1,3 +1,8 @@
+## 0.5.8
+- added roundedCornersRadius -> lets you define the Radius of the rounded dialog (tks [Fabio Henrique](https://github.com/FabioClem)).
+
+- bump rxdart to 0.27.7
+
 ## 0.5.6
 - removed deprecated parameter from TextButton.styleFrom
 - improved readme

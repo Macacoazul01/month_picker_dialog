@@ -77,6 +77,7 @@ class _MyAppState extends State<MyApp> {
                 confirmText: Text('This one!',style: TextStyle(fontWeight: FontWeight.bold),),
                 cancelText: Text('Cancel'),
                 yearFirst: true,
+                roundedCornersRadius: 20,
               ).then((date) {
                 if (date != null) {
                   setState(() {
