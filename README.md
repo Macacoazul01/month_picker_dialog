@@ -81,5 +81,6 @@ There are other parameters to configure on the dialog if you want:
 
 
 ## Contributors:
-[Dimitri Krivoj](https://github.com/hmkrivoj) (the original creator of the package) 
+[Dimitri Krivoj](https://github.com/hmkrivoj) (the original creator of the package)
+
 [Fabio Henrique](https://github.com/FabioClem)
