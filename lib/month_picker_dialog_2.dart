@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 
 import '/src/helpers/common.dart';
+import '/src/helpers/extensions.dart';
 import '/src/helpers/locale_utils.dart';
 import '/src/month_picker_widgets/button_bar.dart';
 import '/src/month_picker_widgets/header.dart';
@@ -47,7 +48,7 @@ import 'src/year_selector/year_selector.dart';
 ///
 Future<DateTime?> showMonthPicker({
   required BuildContext context,
-  required DateTime initialDate,
+  DateTime? initialDate,
   DateTime? firstDate,
   DateTime? lastDate,
   Locale? locale,
@@ -94,8 +95,7 @@ Future<DateTime?> showMonthPicker({
 }
 
 class _MonthPickerDialog extends StatefulWidget {
-  final DateTime initialDate;
-  final DateTime? firstDate, lastDate;
+  final DateTime? firstDate, lastDate,initialDate;
   final Locale? locale;
   final bool Function(DateTime)? selectableMonthPredicate;
   final bool capitalizeFirstLetter, yearFirst;
@@ -151,7 +151,7 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
   @override
   void initState() {
     super.initState();
-    selectedDate = DateTime(widget.initialDate.year, widget.initialDate.month);
+    selectedDate = widget.initialDate != null ? widget.initialDate!.firstDayOfMonth() : DateTime.now().firstDayOfMonth();
     if (widget.firstDate != null)
       _firstDate = DateTime(widget.firstDate!.year, widget.firstDate!.month);
     if (widget.lastDate != null)
