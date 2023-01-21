@@ -1,3 +1,6 @@
+## 0.6.1+1
+- readme fix
+
 ## 0.6.1
 - border now changes with orientation
 

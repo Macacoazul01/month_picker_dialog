@@ -75,7 +75,6 @@ There are other parameters to configure on the dialog if you want:
 
 ## Screenshots
 ### Left-To-Right
-<img src="screenshots/ltr_portrait.png" width=50% height=50%>
 ![<img src="ltr_portrait.png" height="100"/>](screenshots/ltr_portrait.png)
 ![<img src="ltr_landscape.png" height="100"/>](screenshots/ltr_landscape.png)
 
