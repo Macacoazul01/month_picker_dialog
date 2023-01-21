@@ -75,12 +75,12 @@ There are other parameters to configure on the dialog if you want:
 
 ## Screenshots
 ### Left-To-Right
-![<img src="ltr_portrait.png" height="100"/>](screenshots/ltr_portrait.png)
-![<img src="ltr_landscape.png" height="100"/>](screenshots/ltr_landscape.png)
+![LTR portrait](screenshots/ltr_portrait.png)
+![LTR landscape](screenshots/ltr_landscape.png)
 
 ### Right-To-Left
-![<img src="rtl_portrait.png" height="100"/>](screenshots/rtl_portrait.png)
-![<img src="rtl_landscape.png" height="100"/>](screenshots/rtl_landscape.png)
+![RTL portrait](screenshots/rtl_portrait.png)
+![RTL landscape](screenshots/rtl_landscape.png)
 
 
 ## Contributors:
