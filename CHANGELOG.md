@@ -1,3 +1,6 @@
+## 0.6.0
+- initialDate isn't required anymore!
+
 ## 0.5.8
 - added roundedCornersRadius -> lets you define the Radius of the rounded dialog (tks [Fabio Henrique](https://github.com/FabioClem)).
 
