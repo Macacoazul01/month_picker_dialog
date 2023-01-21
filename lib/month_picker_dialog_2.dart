@@ -95,7 +95,7 @@ Future<DateTime?> showMonthPicker({
 }
 
 class _MonthPickerDialog extends StatefulWidget {
-  final DateTime? firstDate, lastDate,initialDate;
+  final DateTime? firstDate, lastDate, initialDate;
   final Locale? locale;
   final bool Function(DateTime)? selectableMonthPredicate;
   final bool capitalizeFirstLetter, yearFirst;
@@ -151,7 +151,9 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
   @override
   void initState() {
     super.initState();
-    selectedDate = widget.initialDate != null ? widget.initialDate!.firstDayOfMonth() : DateTime.now().firstDayOfMonth();
+    selectedDate = widget.initialDate != null
+        ? widget.initialDate!.firstDayOfMonth()
+        : DateTime.now().firstDayOfMonth();
     if (widget.firstDate != null)
       _firstDate = DateTime(widget.firstDate!.year, widget.firstDate!.month);
     if (widget.lastDate != null)
@@ -200,14 +202,21 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     final String locale = getLocale(context, selectedLocale: widget.locale);
-
-    final Material content = Material(
-      shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.only(
+    final bool portrait =
+        MediaQuery.of(context).orientation == Orientation.portrait;
+    final Container content = Container(
+      decoration: BoxDecoration(
+        color: theme.dialogBackgroundColor,
+        borderRadius: portrait
+            ? BorderRadius.only(
                 bottomLeft: Radius.circular(widget.roundedCornersRadius),
                 bottomRight: Radius.circular(widget.roundedCornersRadius),
+              )
+            : BorderRadius.only(
+                topRight: Radius.circular(widget.roundedCornersRadius),
+                bottomRight: Radius.circular(widget.roundedCornersRadius),
               ),
-            ),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
@@ -227,7 +236,6 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
           ),
         ],
       ),
-      color: theme.dialogBackgroundColor,
     );
 
     final PickerHeader header = PickerHeader(
@@ -245,6 +253,7 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
           _upDownButtonEnableStatePublishSubject,
       upDownPageLimitPublishSubject: _upDownPageLimitPublishSubject,
       roundedCornersRadius: widget.roundedCornersRadius,
+      portrait: portrait,
     );
 
     return Theme(
@@ -255,12 +264,10 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
           children: <Widget>[
             Builder(
               builder: (BuildContext context) {
-                if (MediaQuery.of(context).orientation ==
-                    Orientation.portrait) {
-                  return IntrinsicWidth(
-                    child: Column(
-                      children: [header, content],
-                    ),
+                if (portrait) {
+                  return Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [header, content],
                   );
                 }
                 return IntrinsicHeight(

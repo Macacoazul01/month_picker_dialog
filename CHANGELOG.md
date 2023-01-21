@@ -1,3 +1,6 @@
+## 0.6.1
+- border now changes with orientation
+
 ## 0.6.0
 - initialDate isn't required anymore!
 
