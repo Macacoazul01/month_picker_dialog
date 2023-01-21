@@ -1,5 +1,5 @@
 # month_picker_dialog_2
-[![Build Status](https://app.travis-ci.com/Macacoazul01/month_picker_dialog_2.svg?branch=master)](https://app.travis-ci.com/Macacoazul01/month_picker_dialog_2)
+[![Build Status](https://cirrus-ci.com/github/Macacoazul01/month_picker_dialog_2/master)](https://cirrus-ci.com/github/Macacoazul01/month_picker_dialog_2/master)
 [![pub package](https://img.shields.io/pub/v/month_picker_dialog_2.svg)](https://pub.dev/packages/month_picker_dialog_2)
 
 Internationalized material style dialog for picking a single month from an infinite list of years.
