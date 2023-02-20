@@ -43,8 +43,6 @@ class _MyAppState extends State<MyApp> {
         Locale('fa'),
         Locale("es"),
       ],
-      theme: ThemeData(
-          primarySwatch: Colors.indigo, accentColor: Colors.pinkAccent),
       home: Scaffold(
         appBar: AppBar(
           title: const Text('Month Picker Example App'),

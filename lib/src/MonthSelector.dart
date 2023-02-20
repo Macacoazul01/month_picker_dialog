@@ -67,16 +67,16 @@ class MonthSelectorState extends State<MonthSelector> {
         backgroundColor: MaterialStatePropertyAll<Color?>(
           date.month == widget.selectedDate!.month &&
                   date.year == widget.selectedDate!.year
-              ? Theme.of(context).accentColor
+              ? Theme.of(context).colorScheme.secondary
               : null,
         ),
         foregroundColor: MaterialStatePropertyAll<Color?>(
           date.month == widget.selectedDate!.month &&
                   date.year == widget.selectedDate!.year
-              ? Theme.of(context).accentTextTheme.button!.color
+              ? Theme.of(context).colorScheme.onSecondary
               : date.month == DateTime.now().month &&
                       date.year == DateTime.now().year
-                  ? Theme.of(context).accentColor
+                  ? Theme.of(context).colorScheme.secondary
                   : null,
         ),
       ),

@@ -66,14 +66,14 @@ class YearSelectorState extends State<YearSelector> {
       style: ButtonStyle(
         backgroundColor: MaterialStatePropertyAll<Color?>(
           year == widget.initialDate!.year
-              ? Theme.of(context).accentColor
+              ? Theme.of(context).colorScheme.secondary
               : null,
         ),
         foregroundColor: MaterialStatePropertyAll<Color?>(
           year == widget.initialDate!.year
-              ? Theme.of(context).accentTextTheme.button!.color
+              ? Theme.of(context).colorScheme.onSecondary
               : year == DateTime.now().year
-                  ? Theme.of(context).accentColor
+                  ? Theme.of(context).colorScheme.secondary
                   : null,
         ),
       ),
