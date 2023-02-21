@@ -64,7 +64,7 @@ class MonthButton extends StatelessWidget {
       style: TextButton.styleFrom(
         foregroundColor: date.month == selectedDate.month &&
                 date.year == selectedDate.year
-            ? theme.textTheme.button!
+            ? theme.textTheme.labelLarge!
                 .copyWith(
                   color:
                       selectedMonthTextColor ?? theme.colorScheme.onSecondary,

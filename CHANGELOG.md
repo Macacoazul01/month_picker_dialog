@@ -1,3 +1,6 @@
+## 0.6.2
+- updated to flutter 2.19.2 and fixed deprecations
+
 ## 0.6.1+2
 - readme fix
 

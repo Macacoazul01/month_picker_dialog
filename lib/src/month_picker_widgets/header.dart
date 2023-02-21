@@ -37,8 +37,8 @@ class PickerHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final TextStyle? _headline5 = headerTextColor == null
-        ? theme.primaryTextTheme.headline5
-        : theme.primaryTextTheme.headline5!.copyWith(color: headerTextColor);
+        ? theme.primaryTextTheme.headlineSmall
+        : theme.primaryTextTheme.headlineSmall!.copyWith(color: headerTextColor);
     final Color? _arrowcolors = headerTextColor ?? theme.primaryIconTheme.color;
 
     return Container(
@@ -65,8 +65,8 @@ class PickerHeader extends StatelessWidget {
                   ? '${toBeginningOfSentenceCase(DateFormat.yMMM(locale).format(selectedDate))}'
                   : '${DateFormat.yMMM(locale).format(selectedDate).toLowerCase()}',
               style: headerTextColor == null
-                  ? theme.primaryTextTheme.subtitle1
-                  : theme.primaryTextTheme.subtitle1!
+                  ? theme.primaryTextTheme.titleMedium
+                  : theme.primaryTextTheme.titleMedium!
                       .copyWith(color: headerTextColor),
             ),
             Row(

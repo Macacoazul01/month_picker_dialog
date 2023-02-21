@@ -28,7 +28,7 @@ class PickerButtonBar extends StatelessWidget {
                 defaultcancelButtonLabel,
                 style: Theme.of(context)
                     .textTheme
-                    .button!
+                    .labelLarge!
                     .copyWith(color: Theme.of(context).primaryColor),
               ),
         ),
@@ -39,7 +39,7 @@ class PickerButtonBar extends StatelessWidget {
                 defaultokButtonLabel,
                 style: Theme.of(context)
                     .textTheme
-                    .button!
+                    .labelLarge!
                     .copyWith(color: Theme.of(context).primaryColor),
               ),
         )
