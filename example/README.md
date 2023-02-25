@@ -1,6 +1,6 @@
-# month_picker_dialog_2_example
+# month_picker_dialog_example
 
-Demonstrates how to use the month_picker_dialog_2 package.
+Demonstrates how to use the month_picker_dialog package.
 
 ## Screenshots
 ### Left-To-Right

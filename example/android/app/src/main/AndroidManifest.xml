@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="edu.hm.krivoj.monthpickerdialogexample">
     <uses-permission android:name="android.permission.INTERNET" />
-    <application android:name="${applicationName}" android:label="month_picker_dialog_2_example" android:icon="@mipmap/ic_launcher">
+    <application android:name="${applicationName}" android:label="month_picker_dialog_example" android:icon="@mipmap/ic_launcher">
         <activity android:name=".MainActivity" android:launchMode="singleTop" android:theme="@style/LaunchTheme" android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|layoutDirection|fontScale|screenLayout|density" android:hardwareAccelerated="true" android:windowSoftInputMode="adjustResize">
             <meta-data android:name="io.flutter.app.android.SplashScreenUntilFirstFrame" android:value="true" />
             <intent-filter>
