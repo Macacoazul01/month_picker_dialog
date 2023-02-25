@@ -1,0 +1,14 @@
+container:
+  image: cirrusci/flutter:latest
+
+test_task:
+  pub_cache:
+    folder: ~/.pub-cache
+  test_script: 
+    - git clone https://github.com/flutter/flutter.git -b stable ../flutter -b stable --depth 1
+    - ../flutter/bin/flutter doctor
+    - ../flutter/bin/flutter analyze
+  always:
+    report_artifacts:
+      path: report.json
+      format: flutter

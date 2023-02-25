@@ -1,3 +1,81 @@
+## 0.6.2
+- updated to flutter 2.19.2 and fixed deprecations
+
+## 0.6.1+2
+- readme fix
+
+## 0.6.1
+- border now changes with orientation
+
+## 0.6.0
+- initialDate isn't required anymore!
+
+## 0.5.8
+- added roundedCornersRadius -> lets you define the Radius of the rounded dialog (tks [Fabio Henrique](https://github.com/FabioClem)).
+
+- bump rxdart to 0.27.7
+
+## 0.5.6
+- removed deprecated parameter from TextButton.styleFrom
+- improved readme
+
+- added dismissible parameter -> lets you define if the dialog will be dismissible by clicking outside it (false as default).
+
+## 0.5.5
+- bump rxdart to ^0.27.5
+- removed MaterialLocalizations from code. First part of the changes to let people use designs different than Material
+
+## 0.5.4 + 1 
+- month selector cleanup/organization + more small fixes
+
+## 0.5.4
+- code cleanup/organization (with some possible small performance improvement)
+
+## 0.5.3
+- added customHeight -> lets you set a custom height for the calendar widget.
+
+- added customWidth -> lets you set a custom width for the calendar widget.
+
+- added yearFirst -> lets you define that the user must select first the year, then the month (false as default).
+
+## 0.5.0
+- added headerColor -> lets you control the calendar header color.
+
+- added headerTextColor -> lets you control the calendar header text and arrows color.
+
+- added selectedMonthBackgroundColor -> lets you control the current selected month/year background color.
+
+- added selectedMonthTextColor -> lets you control the text color of the current selected month/year.
+
+- added unselectedMonthTextColor -> lets you control the text color of the current unselected months/years.
+
+- added confirmText -> lets you set a custom confirm text widget.
+
+- added cancelText -> lets you set a custom cancel text widget.
+
+- updated sample with the new parameters
+
+## 0.4.7
+- fixes on selectableMonthPredicate parameter + sample
+
+## 0.4.6 + 2
+- size fixes
+
+## 0.4.6 + 1
+- made the month selector barrier dismissible parameter = false
+
+## 0.4.6
+- added capitalizeFirstLetter -> Enable you to choose if the first letter of the month will be capitalized thks https://github.com/0wzZZzz6
+
+## 0.4.5
+- added selectableMonthPredicate -> Enable selective months disabling thks https://github.com/ahmdaeyz
+
+## 0.4.1+1
+- package rename
+
+## 0.4.1
+- partial update to flutter 3
+
 ## 0.4.0
 - support for flutter 2 null safety (thanks @quantosapplications)
 

@@ -1,10 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:month_picker_dialog/src/common.dart';
 import 'package:rxdart/rxdart.dart';
 
-import 'locale_utils.dart';
+import '/src/helpers/common.dart';
+import '/src/helpers/locale_utils.dart';
 
 class YearSelector extends StatefulWidget {
   final ValueChanged<int> onYearSelected;
@@ -13,6 +12,8 @@ class YearSelector extends StatefulWidget {
   final PublishSubject<UpDownButtonEnableState>
       upDownButtonEnableStatePublishSubject;
   final Locale? locale;
+  final Color? selectedMonthBackgroundColor, selectedMonthTextColor, unselectedMonthTextColor;
+
   const YearSelector({
     Key? key,
     required DateTime this.initialDate,
@@ -22,11 +23,10 @@ class YearSelector extends StatefulWidget {
     this.firstDate,
     this.lastDate,
     this.locale,
-  })  : assert(initialDate != null),
-        assert(onYearSelected != null),
-        assert(upDownPageLimitPublishSubject != null),
-        assert(upDownButtonEnableStatePublishSubject != null),
-        super(key: key);
+    required this.selectedMonthBackgroundColor,
+    required this.selectedMonthTextColor,
+    required this.unselectedMonthTextColor,
+  }) : super(key: key);
   @override
   State<StatefulWidget> createState() => YearSelectorState();
 }
@@ -47,11 +47,12 @@ class YearSelectorState extends State<YearSelector> {
   Widget _yearGridBuilder(final BuildContext context, final int page) =>
       GridView.count(
         physics: const NeverScrollableScrollPhysics(),
-        padding: EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(8.0),
         crossAxisCount: 4,
         children: List<Widget>.generate(
           12,
-          (final int index) => _getYearButton(page, index, getLocale(context, selectedLocale: widget.locale)),
+          (final int index) => _getYearButton(
+              page, index, getLocale(context, selectedLocale: widget.locale)),
         ).toList(growable: false),
       );
 
@@ -60,14 +61,24 @@ class YearSelectorState extends State<YearSelector> {
         page * 12 +
         index;
     final bool isEnabled = _isEnabled(year);
-    return FlatButton(
+    final ThemeData theme = Theme.of(context);
+    final _backgroundColor =
+        widget.selectedMonthBackgroundColor ?? theme.colorScheme.secondary;
+    return TextButton(
       onPressed: isEnabled ? () => widget.onYearSelected(year) : null,
-      color: year == widget.initialDate!.year
-          ? Theme.of(context).accentColor
-          : null,
-      textColor: year == widget.initialDate!.year
-          ? Theme.of(context).accentTextTheme.button!.color
-          : year == DateTime.now().year ? Theme.of(context).accentColor : null,
+      style: TextButton.styleFrom(
+          foregroundColor: year == widget.initialDate!.year
+              ? theme.textTheme.labelLarge!
+                  .copyWith(
+                    color: widget.selectedMonthTextColor ??
+                        theme.colorScheme.onSecondary,
+                  )
+                  .color
+              : year == DateTime.now().year
+                  ? _backgroundColor
+                  : widget.unselectedMonthTextColor ?? null, backgroundColor:
+              year == widget.initialDate!.year ? _backgroundColor : null,
+          shape: const CircleBorder()),
       child: Text(
         DateFormat.y(locale).format(DateTime(year)),
       ),
@@ -75,7 +86,7 @@ class YearSelectorState extends State<YearSelector> {
   }
 
   void _onPageChange(final int page) {
-    widget.upDownPageLimitPublishSubject.add(new UpDownPageLimit(
+    widget.upDownPageLimitPublishSubject.add(UpDownPageLimit(
         widget.firstDate == null
             ? page * 12
             : widget.firstDate!.year + page * 12,
@@ -84,7 +95,7 @@ class YearSelectorState extends State<YearSelector> {
             : widget.firstDate!.year + page * 12 + 11));
     if (page == 0 || page == _getPageCount() - 1) {
       widget.upDownButtonEnableStatePublishSubject.add(
-        new UpDownButtonEnableState(page > 0, page < _getPageCount() - 1),
+        UpDownButtonEnableState(page > 0, page < _getPageCount() - 1),
       );
     }
   }
@@ -94,7 +105,8 @@ class YearSelectorState extends State<YearSelector> {
       if (widget.lastDate!.year - widget.firstDate!.year <= 12)
         return 1;
       else
-        return ((widget.lastDate!.year - widget.firstDate!.year + 1) / 12).ceil();
+        return ((widget.lastDate!.year - widget.firstDate!.year + 1) / 12)
+            .ceil();
     } else if (widget.firstDate != null && widget.lastDate == null) {
       return (_getItemCount() / 12).ceil();
     } else if (widget.firstDate == null && widget.lastDate != null) {
@@ -107,7 +119,7 @@ class YearSelectorState extends State<YearSelector> {
     if (widget.firstDate != null && widget.lastDate != null) {
       return widget.lastDate!.year - widget.firstDate!.year + 1;
     } else if (widget.firstDate != null && widget.lastDate == null) {
-      return (9999 - widget.firstDate!.year);
+      return 9999 - widget.firstDate!.year;
     } else if (widget.firstDate == null && widget.lastDate != null) {
       return widget.lastDate!.year;
     } else
@@ -116,13 +128,14 @@ class YearSelectorState extends State<YearSelector> {
 
   @override
   void initState() {
-    _pageController = new PageController(
+    super.initState();
+    _pageController = PageController(
         initialPage: widget.firstDate == null
             ? (widget.initialDate!.year / 12).floor()
-            : ((widget.initialDate!.year - widget.firstDate!.year) / 12).floor());
-    super.initState();
-    new Future.delayed(Duration.zero, () {
-      widget.upDownPageLimitPublishSubject.add(new UpDownPageLimit(
+            : ((widget.initialDate!.year - widget.firstDate!.year) / 12)
+                .floor());
+    Future.delayed(Duration.zero, () {
+      widget.upDownPageLimitPublishSubject.add(UpDownPageLimit(
         widget.firstDate == null
             ? _pageController!.page!.toInt() * 12
             : widget.firstDate!.year + _pageController!.page!.toInt() * 12,
@@ -131,7 +144,7 @@ class YearSelectorState extends State<YearSelector> {
             : widget.firstDate!.year + _pageController!.page!.toInt() * 12 + 11,
       ));
       widget.upDownButtonEnableStatePublishSubject.add(
-        new UpDownButtonEnableState(_pageController!.page!.toInt() > 0,
+        UpDownButtonEnableState(_pageController!.page!.toInt() > 0,
             _pageController!.page!.toInt() < _getPageCount() - 1),
       );
     });

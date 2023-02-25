@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:month_picker_dialog/month_picker_dialog.dart';
+import 'package:month_picker_dialog_2/month_picker_dialog_2.dart';
 
 void main() => runApp(MyApp(
       initialDate: DateTime.now(),
@@ -30,6 +30,7 @@ class _MyAppState extends State<MyApp> {
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: [
         Locale('en'),
@@ -42,9 +43,10 @@ class _MyAppState extends State<MyApp> {
         Locale('ar'),
         Locale('fa'),
         Locale("es"),
+        Locale("it"),
       ],
       theme: ThemeData(
-          primarySwatch: Colors.indigo, accentColor: Colors.pinkAccent),
+          colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.indigo).copyWith(secondary: Colors.pinkAccent)),
       home: Scaffold(
         appBar: AppBar(
           title: const Text('Month Picker Example App'),
@@ -52,7 +54,7 @@ class _MyAppState extends State<MyApp> {
         body: Center(
           child: Text(
             'Year: ${selectedDate?.year}\nMonth: ${selectedDate?.month}',
-            style: Theme.of(context).textTheme.headline4,
+            style: Theme.of(context).textTheme.headlineMedium,
             textAlign: TextAlign.center,
           ),
         ),
@@ -64,7 +66,18 @@ class _MyAppState extends State<MyApp> {
                 firstDate: DateTime(DateTime.now().year - 1, 5),
                 lastDate: DateTime(DateTime.now().year + 1, 9),
                 initialDate: selectedDate ?? widget.initialDate,
-                locale: Locale("es"),
+                locale: Locale("en"),
+                //show only even months
+                selectableMonthPredicate: (DateTime val) => val.month.isEven,
+                headerColor: Colors.purple,
+                headerTextColor: Colors.orange,
+                selectedMonthBackgroundColor: Colors.amber[900],
+                selectedMonthTextColor: Colors.white,
+                unselectedMonthTextColor: Colors.green,
+                confirmText: Text('This one!',style: TextStyle(fontWeight: FontWeight.bold),),
+                cancelText: Text('Cancel'),
+                yearFirst: true,
+                roundedCornersRadius: 20,
               ).then((date) {
                 if (date != null) {
                   setState(() {
