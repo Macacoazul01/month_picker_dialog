@@ -1,5 +1,5 @@
-name: month_picker_dialog_2_example
-description: Demonstrates how to use the month_picker_dialog_2 plugin.
+name: month_picker_dialog_example
+description: Demonstrates how to use the month_picker_dialog plugin.
 publish_to: 'none'
 
 environment:
@@ -15,7 +15,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  month_picker_dialog_2:
+  month_picker_dialog:
     path: ../
 
 flutter:
