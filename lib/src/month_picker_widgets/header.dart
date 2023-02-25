@@ -5,7 +5,7 @@ import '/src/helpers/common.dart';
 
 class PickerHeader extends StatelessWidget {
   const PickerHeader({
-    Key? key,
+    super.key,
     required this.theme,
     required this.locale,
     this.headerColor,
@@ -20,7 +20,7 @@ class PickerHeader extends StatelessWidget {
     required this.upDownPageLimitPublishSubject,
     required this.roundedCornersRadius,
     required this.portrait,
-  }) : super(key: key);
+  });
   final ThemeData theme;
   final String locale;
   final Color? headerTextColor, headerColor;
@@ -28,18 +28,18 @@ class PickerHeader extends StatelessWidget {
   final DateTime selectedDate;
   final bool isMonthSelector;
   final VoidCallback onSelectYear, onUpButtonPressed, onDownButtonPressed;
-  final PublishSubject<UpDownPageLimit>? upDownPageLimitPublishSubject;
-  final PublishSubject<UpDownButtonEnableState>?
+  final PublishSubject<UpDownPageLimit> upDownPageLimitPublishSubject;
+  final PublishSubject<UpDownButtonEnableState>
       upDownButtonEnableStatePublishSubject;
   final double roundedCornersRadius;
   final bool portrait;
 
   @override
   Widget build(BuildContext context) {
-    final TextStyle? _headline5 = headerTextColor == null
+    final TextStyle? headline5 = headerTextColor == null
         ? theme.primaryTextTheme.headlineSmall
         : theme.primaryTextTheme.headlineSmall!.copyWith(color: headerTextColor);
-    final Color? _arrowcolors = headerTextColor ?? theme.primaryIconTheme.color;
+    final Color? arrowcolors = headerTextColor ?? theme.primaryIconTheme.color;
 
     return Container(
       decoration: BoxDecoration(
@@ -63,7 +63,7 @@ class PickerHeader extends StatelessWidget {
             Text(
               capitalizeFirstLetter
                   ? '${toBeginningOfSentenceCase(DateFormat.yMMM(locale).format(selectedDate))}'
-                  : '${DateFormat.yMMM(locale).format(selectedDate).toLowerCase()}',
+                  : DateFormat.yMMM(locale).format(selectedDate).toLowerCase(),
               style: headerTextColor == null
                   ? theme.primaryTextTheme.titleMedium
                   : theme.primaryTextTheme.titleMedium!
@@ -72,8 +72,7 @@ class PickerHeader extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                isMonthSelector
-                    ? GestureDetector(
+                if (isMonthSelector) GestureDetector(
                         onTap: onSelectYear,
                         child: StreamBuilder<UpDownPageLimit>(
                           stream: upDownPageLimitPublishSubject,
@@ -81,30 +80,28 @@ class PickerHeader extends StatelessWidget {
                           builder:
                               (_, AsyncSnapshot<UpDownPageLimit> snapshot) =>
                                   Text(
-                            '${DateFormat.y(locale).format(DateTime(snapshot.data!.upLimit))}',
-                            style: _headline5,
+                            DateFormat.y(locale).format(DateTime(snapshot.data!.upLimit)),
+                            style: headline5,
                           ),
                         ),
-                      )
-                    : StreamBuilder<UpDownPageLimit>(
+                      ) else StreamBuilder<UpDownPageLimit>(
                         stream: upDownPageLimitPublishSubject,
                         initialData: const UpDownPageLimit(0, 0),
                         builder: (_, AsyncSnapshot<UpDownPageLimit> snapshot) =>
                             Row(
                           mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                              '${DateFormat.y(locale).format(DateTime(snapshot.data!.upLimit))}',
-                              style: _headline5,
+                              DateFormat.y(locale).format(DateTime(snapshot.data!.upLimit)),
+                              style: headline5,
                             ),
                             Text(
                               '-',
-                              style: _headline5,
+                              style: headline5,
                             ),
                             Text(
-                              '${DateFormat.y(locale).format(DateTime(snapshot.data!.downLimit))}',
-                              style: _headline5,
+                              DateFormat.y(locale).format(DateTime(snapshot.data!.downLimit)),
+                              style: headline5,
                             ),
                           ],
                         ),
@@ -120,8 +117,8 @@ class PickerHeader extends StatelessWidget {
                         icon: Icon(
                           Icons.keyboard_arrow_up,
                           color: snapshot.data!.upState
-                              ? _arrowcolors
-                              : _arrowcolors!.withOpacity(0.5),
+                              ? arrowcolors
+                              : arrowcolors!.withOpacity(0.5),
                         ),
                         onPressed:
                             snapshot.data!.upState ? onUpButtonPressed : null,
@@ -130,8 +127,8 @@ class PickerHeader extends StatelessWidget {
                         icon: Icon(
                           Icons.keyboard_arrow_down,
                           color: snapshot.data!.downState
-                              ? _arrowcolors
-                              : _arrowcolors!.withOpacity(0.5),
+                              ? arrowcolors
+                              : arrowcolors!.withOpacity(0.5),
                         ),
                         onPressed: snapshot.data!.downState
                             ? onDownButtonPressed

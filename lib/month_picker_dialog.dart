@@ -67,8 +67,8 @@ Future<DateTime?> showMonthPicker({
   bool dismissible = false,
   double roundedCornersRadius = 0,
   //bool isCupertino = false,
-}) async {
-  return await showDialog<DateTime>(
+}) {
+  return showDialog<DateTime>(
     context: context,
     barrierDismissible: dismissible,
     builder: (BuildContext context) => _MonthPickerDialog(
@@ -95,22 +95,9 @@ Future<DateTime?> showMonthPicker({
 }
 
 class _MonthPickerDialog extends StatefulWidget {
-  final DateTime? firstDate, lastDate, initialDate;
-  final Locale? locale;
-  final bool Function(DateTime)? selectableMonthPredicate;
-  final bool capitalizeFirstLetter, yearFirst;
-  final Color? headerColor,
-      headerTextColor,
-      selectedMonthBackgroundColor,
-      selectedMonthTextColor,
-      unselectedMonthTextColor;
-  final Text? confirmText, cancelText;
-  final double? customHeight, customWidth;
-  final double roundedCornersRadius;
   //final bool isCupertino;
 
   const _MonthPickerDialog({
-    Key? key,
     required this.initialDate,
     this.firstDate,
     this.lastDate,
@@ -129,7 +116,19 @@ class _MonthPickerDialog extends StatefulWidget {
     required this.yearFirst,
     //required this.isCupertino,
     required this.roundedCornersRadius,
-  }) : super(key: key);
+  });
+  final DateTime? firstDate, lastDate, initialDate;
+  final Locale? locale;
+  final bool Function(DateTime)? selectableMonthPredicate;
+  final bool capitalizeFirstLetter, yearFirst;
+  final Color? headerColor,
+      headerTextColor,
+      selectedMonthBackgroundColor,
+      selectedMonthTextColor,
+      unselectedMonthTextColor;
+  final Text? confirmText, cancelText;
+  final double? customHeight, customWidth;
+  final double roundedCornersRadius;
 
   @override
   _MonthPickerDialogState createState() => _MonthPickerDialogState();
@@ -192,6 +191,7 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
           );
   }
 
+  @override
   void dispose() {
     _upDownPageLimitPublishSubject.close();
     _upDownButtonEnableStatePublishSubject.close();

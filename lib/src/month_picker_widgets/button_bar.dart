@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 
 class PickerButtonBar extends StatelessWidget {
   const PickerButtonBar(
-      {Key? key,
+      {super.key,
       this.cancelText,
       this.confirmText,
       required this.defaultcancelButtonLabel,
       required this.defaultokButtonLabel,
       required this.cancelFunction,
-      required this.okFunction})
-      : super(key: key);
+      required this.okFunction});
   final Text? cancelText;
   final Text? confirmText;
   final String defaultcancelButtonLabel;

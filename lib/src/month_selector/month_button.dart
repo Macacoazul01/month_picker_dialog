@@ -3,9 +3,9 @@ import 'package:intl/intl.dart';
 
 class MonthButton extends StatelessWidget {
   const MonthButton({
-    Key? key,
-    required DateTime this.openDate,
-    required DateTime this.selectedDate,
+    super.key,
+    required this.openDate,
+    required this.selectedDate,
     this.firstDate,
     this.lastDate,
     required this.date,
@@ -17,7 +17,7 @@ class MonthButton extends StatelessWidget {
     required this.selectedMonthTextColor,
     required this.unselectedMonthTextColor,
     required this.onMonthSelected,
-  }) : super(key: key);
+  });
 
   final ThemeData theme;
   final String locale;
@@ -55,7 +55,7 @@ class MonthButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bool isEnabled = _isEnabled(date);
-    final _backgroundColor =
+    final Color backgroundColor =
         selectedMonthBackgroundColor ?? theme.colorScheme.secondary;
     return TextButton(
       onPressed: isEnabled
@@ -72,10 +72,10 @@ class MonthButton extends StatelessWidget {
                 .color
             : date.month == DateTime.now().month &&
                     date.year == DateTime.now().year
-                ? _backgroundColor
-                : unselectedMonthTextColor ?? null, backgroundColor:
+                ? backgroundColor
+                : unselectedMonthTextColor, backgroundColor:
             date.month == selectedDate.month && date.year == selectedDate.year
-                ? _backgroundColor
+                ? backgroundColor
                 : null,
         shape: const CircleBorder(),
       ),

@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 
 class PickerPager extends StatelessWidget {
   const PickerPager(
-      {Key? key, this.customHeight, this.customWidth, required this.selector,required this.theme})
-      : super(key: key);
+      {super.key, this.customHeight, this.customWidth, required this.selector,required this.theme});
   final double? customHeight;
   final double? customWidth;
   final Widget selector;
@@ -25,7 +24,7 @@ class PickerPager extends StatelessWidget {
           duration: const Duration(milliseconds: 500),
           reverseDuration: const Duration(milliseconds: 500),
           transitionBuilder: (Widget child, Animation<double> animation) =>
-              ScaleTransition(child: child, scale: animation),
+              ScaleTransition(scale: animation, child: child),
           child: selector,
         ),
       ),

@@ -5,7 +5,7 @@ import 'month_button.dart';
 
 class MonthYearGridBuilder extends StatelessWidget {
   const MonthYearGridBuilder(
-      {Key? key,
+      {super.key,
       required this.onMonthSelected,
       this.firstDate,
       this.lastDate,
@@ -17,8 +17,7 @@ class MonthYearGridBuilder extends StatelessWidget {
       this.selectedMonthBackgroundColor,
       this.selectedMonthTextColor,
       this.unselectedMonthTextColor,
-      required this.page})
-      : super(key: key);
+      required this.page});
   final ValueChanged<DateTime> onMonthSelected;
   final DateTime? firstDate, lastDate;
   final DateTime selectedDate, openDate;
@@ -34,7 +33,7 @@ class MonthYearGridBuilder extends StatelessWidget {
   Widget build(BuildContext context) {
     return GridView.count(
       physics: const NeverScrollableScrollPhysics(),
-      padding: EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(8.0),
       crossAxisCount: 4,
       children: List<Widget>.generate(
         12,

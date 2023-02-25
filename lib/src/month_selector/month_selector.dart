@@ -2,24 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 
 import '/src/helpers/common.dart';
+import '/src/helpers/initialize.dart';
 import '/src/month_selector/month_year_grid.dart';
 
 class MonthSelector extends StatefulWidget {
-  final ValueChanged<DateTime> onMonthSelected;
-  final DateTime? firstDate, lastDate;
-  final DateTime selectedDate, openDate;
-  final PublishSubject<UpDownPageLimit> upDownPageLimitPublishSubject;
-  final PublishSubject<UpDownButtonEnableState>
-      upDownButtonEnableStatePublishSubject;
-  final Locale? locale;
-  final bool Function(DateTime)? selectableMonthPredicate;
-  final bool capitalizeFirstLetter;
-  final Color? selectedMonthBackgroundColor,
-      selectedMonthTextColor,
-      unselectedMonthTextColor;
 
   const MonthSelector({
-    Key? key,
+    super.key,
     required this.openDate,
     required this.selectedDate,
     required this.onMonthSelected,
@@ -33,7 +22,21 @@ class MonthSelector extends StatefulWidget {
     required this.selectedMonthBackgroundColor,
     required this.selectedMonthTextColor,
     required this.unselectedMonthTextColor,
-  }) : super(key: key);
+  });
+
+  final ValueChanged<DateTime> onMonthSelected;
+  final DateTime? firstDate, lastDate;
+  final DateTime selectedDate, openDate;
+  final PublishSubject<UpDownPageLimit> upDownPageLimitPublishSubject;
+  final PublishSubject<UpDownButtonEnableState>
+      upDownButtonEnableStatePublishSubject;
+  final Locale? locale;
+  final bool Function(DateTime)? selectableMonthPredicate;
+  final bool capitalizeFirstLetter;
+  final Color? selectedMonthBackgroundColor,
+      selectedMonthTextColor,
+      unselectedMonthTextColor;
+
   @override
   State<StatefulWidget> createState() => MonthSelectorState();
 }
@@ -47,7 +50,7 @@ class MonthSelectorState extends State<MonthSelector> {
         scrollDirection: Axis.vertical,
         physics: const AlwaysScrollableScrollPhysics(),
         onPageChanged: _onPageChange,
-        itemCount: _getPageCount(),
+        itemCount: getMonthPageCount(widget.firstDate, widget.lastDate),
         itemBuilder: (final BuildContext context, final int page) =>
             MonthYearGridBuilder(
           capitalizeFirstLetter: widget.capitalizeFirstLetter,
@@ -73,19 +76,8 @@ class MonthSelectorState extends State<MonthSelector> {
       ),
     );
     widget.upDownButtonEnableStatePublishSubject.add(
-      UpDownButtonEnableState(page > 0, page < _getPageCount() - 1),
+      UpDownButtonEnableState(page > 0, page < getMonthPageCount(widget.firstDate, widget.lastDate) - 1),
     );
-  }
-
-  int _getPageCount() {
-    if (widget.firstDate != null && widget.lastDate != null) {
-      return widget.lastDate!.year - widget.firstDate!.year + 1;
-    } else if (widget.firstDate != null && widget.lastDate == null) {
-      return 9999 - widget.firstDate!.year;
-    } else if (widget.firstDate == null && widget.lastDate != null) {
-      return widget.lastDate!.year + 1;
-    } else
-      return 9999;
   }
 
   @override
@@ -95,22 +87,7 @@ class MonthSelectorState extends State<MonthSelector> {
         initialPage: widget.firstDate == null
             ? widget.openDate.year
             : widget.openDate.year - widget.firstDate!.year);
-    Future.delayed(Duration.zero, () {
-      widget.upDownPageLimitPublishSubject.add(
-        UpDownPageLimit(
-          widget.firstDate == null
-              ? _pageController!.page!.toInt()
-              : widget.firstDate!.year + _pageController!.page!.toInt(),
-          0,
-        ),
-      );
-      widget.upDownButtonEnableStatePublishSubject.add(
-        UpDownButtonEnableState(
-          _pageController!.page!.toInt() > 0,
-          _pageController!.page!.toInt() < _getPageCount() - 1,
-        ),
-      );
-    });
+    initializeMonthSelector(_pageController,widget.firstDate, widget.lastDate, widget.upDownPageLimitPublishSubject, widget.upDownButtonEnableStatePublishSubject);
   }
 
   @override
