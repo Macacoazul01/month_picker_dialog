@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rxdart/rxdart.dart';
-
-import '/src/helpers/common.dart';
-import '/src/helpers/extensions.dart';
+import '/src/helpers/controller.dart';
 import '/src/helpers/locale_utils.dart';
 import '/src/month_picker_widgets/button_bar.dart';
 import '/src/month_picker_widgets/header.dart';
@@ -71,137 +68,96 @@ Future<DateTime?> showMonthPicker({
   return showDialog<DateTime>(
     context: context,
     barrierDismissible: dismissible,
-    builder: (BuildContext context) => _MonthPickerDialog(
-      initialDate: initialDate,
-      firstDate: firstDate,
-      lastDate: lastDate,
-      locale: locale,
-      selectableMonthPredicate: selectableMonthPredicate,
-      capitalizeFirstLetter: capitalizeFirstLetter,
-      headerColor: headerColor,
-      headerTextColor: headerTextColor,
-      selectedMonthBackgroundColor: selectedMonthBackgroundColor,
-      selectedMonthTextColor: selectedMonthTextColor,
-      unselectedMonthTextColor: unselectedMonthTextColor,
-      confirmText: confirmText,
-      cancelText: cancelText,
-      customHeight: customHeight,
-      customWidth: customWidth,
-      yearFirst: yearFirst,
-      //isCupertino: isCupertino,
-      roundedCornersRadius: roundedCornersRadius,
-    ),
+    builder: (BuildContext context) {
+      final MonthpickerController controller = MonthpickerController(
+        initialDate: initialDate,
+        firstDate: firstDate,
+        lastDate: lastDate,
+        locale: locale,
+        selectableMonthPredicate: selectableMonthPredicate,
+        capitalizeFirstLetter: capitalizeFirstLetter,
+        headerColor: headerColor,
+        headerTextColor: headerTextColor,
+        selectedMonthBackgroundColor: selectedMonthBackgroundColor,
+        selectedMonthTextColor: selectedMonthTextColor,
+        unselectedMonthTextColor: unselectedMonthTextColor,
+        confirmText: confirmText,
+        cancelText: cancelText,
+        customHeight: customHeight,
+        customWidth: customWidth,
+        yearFirst: yearFirst,
+        roundedCornersRadius: roundedCornersRadius,
+      );
+      return _MonthPickerDialog(controller: controller);
+    },
   );
 }
 
 class _MonthPickerDialog extends StatefulWidget {
-  //final bool isCupertino;
-
-  const _MonthPickerDialog({
-    required this.initialDate,
-    this.firstDate,
-    this.lastDate,
-    this.locale,
-    this.selectableMonthPredicate,
-    required this.capitalizeFirstLetter,
-    this.headerColor,
-    this.headerTextColor,
-    this.selectedMonthBackgroundColor,
-    this.selectedMonthTextColor,
-    this.unselectedMonthTextColor,
-    this.confirmText,
-    this.cancelText,
-    this.customHeight,
-    this.customWidth,
-    required this.yearFirst,
-    //required this.isCupertino,
-    required this.roundedCornersRadius,
-  });
-  final DateTime? firstDate, lastDate, initialDate;
-  final Locale? locale;
-  final bool Function(DateTime)? selectableMonthPredicate;
-  final bool capitalizeFirstLetter, yearFirst;
-  final Color? headerColor,
-      headerTextColor,
-      selectedMonthBackgroundColor,
-      selectedMonthTextColor,
-      unselectedMonthTextColor;
-  final Text? confirmText, cancelText;
-  final double? customHeight, customWidth;
-  final double roundedCornersRadius;
-
+  const _MonthPickerDialog({required this.controller});
+  final MonthpickerController controller;
   @override
   _MonthPickerDialogState createState() => _MonthPickerDialogState();
 }
 
 class _MonthPickerDialogState extends State<_MonthPickerDialog> {
-  final GlobalKey<YearSelectorState> _yearSelectorState = GlobalKey();
-  final GlobalKey<MonthSelectorState> _monthSelectorState = GlobalKey();
-
-  final PublishSubject<UpDownPageLimit> _upDownPageLimitPublishSubject =
-      PublishSubject();
-  final PublishSubject<UpDownButtonEnableState>
-      _upDownButtonEnableStatePublishSubject = PublishSubject();
-
   late Widget _selector;
-  late DateTime selectedDate;
-  DateTime? _firstDate, _lastDate;
 
   @override
   void initState() {
     super.initState();
-    selectedDate = widget.initialDate != null
-        ? widget.initialDate!.firstDayOfMonth()
-        : DateTime.now().firstDayOfMonth();
-    if (widget.firstDate != null)
-      _firstDate = DateTime(widget.firstDate!.year, widget.firstDate!.month);
-    if (widget.lastDate != null)
-      _lastDate = DateTime(widget.lastDate!.year, widget.lastDate!.month);
-
-    _selector = widget.yearFirst
+    widget.controller.initialize();
+    _selector = widget.controller.yearFirst
         ? YearSelector(
-            key: _yearSelectorState,
-            initialDate: selectedDate,
-            firstDate: _firstDate,
-            lastDate: _lastDate,
+            key: widget.controller.yearSelectorState,
+            initialDate: widget.controller.selectedDate,
+            firstDate: widget.controller.localFirstDate,
+            lastDate: widget.controller.localLastDate,
             onYearSelected: _onYearSelected,
-            upDownPageLimitPublishSubject: _upDownPageLimitPublishSubject,
+            upDownPageLimitPublishSubject:
+                widget.controller.upDownPageLimitPublishSubject,
             upDownButtonEnableStatePublishSubject:
-                _upDownButtonEnableStatePublishSubject,
-            selectedMonthBackgroundColor: widget.selectedMonthBackgroundColor,
-            selectedMonthTextColor: widget.selectedMonthTextColor,
-            unselectedMonthTextColor: widget.unselectedMonthTextColor,
+                widget.controller.upDownButtonEnableStatePublishSubject,
+            selectedMonthBackgroundColor:
+                widget.controller.selectedMonthBackgroundColor,
+            selectedMonthTextColor: widget.controller.selectedMonthTextColor,
+            unselectedMonthTextColor:
+                widget.controller.unselectedMonthTextColor,
           )
         : MonthSelector(
-            key: _monthSelectorState,
-            openDate: selectedDate,
-            selectedDate: selectedDate,
-            selectableMonthPredicate: widget.selectableMonthPredicate,
-            upDownPageLimitPublishSubject: _upDownPageLimitPublishSubject,
+            key: widget.controller.monthSelectorState,
+            openDate: widget.controller.selectedDate,
+            selectedDate: widget.controller.selectedDate,
+            selectableMonthPredicate:
+                widget.controller.selectableMonthPredicate,
+            upDownPageLimitPublishSubject:
+                widget.controller.upDownPageLimitPublishSubject,
             upDownButtonEnableStatePublishSubject:
-                _upDownButtonEnableStatePublishSubject,
-            firstDate: _firstDate,
-            lastDate: _lastDate,
+                widget.controller.upDownButtonEnableStatePublishSubject,
+            firstDate: widget.controller.localFirstDate,
+            lastDate: widget.controller.localLastDate,
             onMonthSelected: _onMonthSelected,
-            locale: widget.locale,
-            capitalizeFirstLetter: widget.capitalizeFirstLetter,
-            selectedMonthBackgroundColor: widget.selectedMonthBackgroundColor,
-            selectedMonthTextColor: widget.selectedMonthTextColor,
-            unselectedMonthTextColor: widget.unselectedMonthTextColor,
+            locale: widget.controller.locale,
+            capitalizeFirstLetter: widget.controller.capitalizeFirstLetter,
+            selectedMonthBackgroundColor:
+                widget.controller.selectedMonthBackgroundColor,
+            selectedMonthTextColor: widget.controller.selectedMonthTextColor,
+            unselectedMonthTextColor:
+                widget.controller.unselectedMonthTextColor,
           );
   }
 
   @override
   void dispose() {
-    _upDownPageLimitPublishSubject.close();
-    _upDownButtonEnableStatePublishSubject.close();
+    widget.controller.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
-    final String locale = getLocale(context, selectedLocale: widget.locale);
+    final String locale =
+        getLocale(context, selectedLocale: widget.controller.locale);
     final bool portrait =
         MediaQuery.of(context).orientation == Orientation.portrait;
     final Container content = Container(
@@ -209,12 +165,16 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
         color: theme.dialogBackgroundColor,
         borderRadius: portrait
             ? BorderRadius.only(
-                bottomLeft: Radius.circular(widget.roundedCornersRadius),
-                bottomRight: Radius.circular(widget.roundedCornersRadius),
+                bottomLeft:
+                    Radius.circular(widget.controller.roundedCornersRadius),
+                bottomRight:
+                    Radius.circular(widget.controller.roundedCornersRadius),
               )
             : BorderRadius.only(
-                topRight: Radius.circular(widget.roundedCornersRadius),
-                bottomRight: Radius.circular(widget.roundedCornersRadius),
+                topRight:
+                    Radius.circular(widget.controller.roundedCornersRadius),
+                bottomRight:
+                    Radius.circular(widget.controller.roundedCornersRadius),
               ),
       ),
       child: Column(
@@ -223,16 +183,17 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
           PickerPager(
             selector: _selector,
             theme: theme,
-            customHeight: widget.customHeight,
-            customWidth: widget.customWidth,
+            customHeight: widget.controller.customHeight,
+            customWidth: widget.controller.customWidth,
           ),
           PickerButtonBar(
-            cancelText: widget.cancelText,
-            confirmText: widget.confirmText,
+            cancelText: widget.controller.cancelText,
+            confirmText: widget.controller.confirmText,
             defaultcancelButtonLabel: 'CANCEL',
             defaultokButtonLabel: 'OK',
             cancelFunction: () => Navigator.pop(context, null),
-            okFunction: () => Navigator.pop(context, selectedDate),
+            okFunction: () =>
+                Navigator.pop(context, widget.controller.selectedDate),
           ),
         ],
       ),
@@ -241,18 +202,19 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
     final PickerHeader header = PickerHeader(
       theme: theme,
       locale: locale,
-      headerColor: widget.headerColor,
-      headerTextColor: widget.headerTextColor,
-      capitalizeFirstLetter: widget.capitalizeFirstLetter,
-      selectedDate: selectedDate,
+      headerColor: widget.controller.headerColor,
+      headerTextColor: widget.controller.headerTextColor,
+      capitalizeFirstLetter: widget.controller.capitalizeFirstLetter,
+      selectedDate: widget.controller.selectedDate,
       isMonthSelector: _selector is MonthSelector,
       onDownButtonPressed: _onDownButtonPressed,
       onSelectYear: _onSelectYear,
       onUpButtonPressed: _onUpButtonPressed,
       upDownButtonEnableStatePublishSubject:
-          _upDownButtonEnableStatePublishSubject,
-      upDownPageLimitPublishSubject: _upDownPageLimitPublishSubject,
-      roundedCornersRadius: widget.roundedCornersRadius,
+          widget.controller.upDownButtonEnableStatePublishSubject,
+      upDownPageLimitPublishSubject:
+          widget.controller.upDownPageLimitPublishSubject,
+      roundedCornersRadius: widget.controller.roundedCornersRadius,
       portrait: portrait,
     );
 
@@ -286,72 +248,80 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
   }
 
   void _onSelectYear() => setState(() => _selector = YearSelector(
-        key: _yearSelectorState,
-        initialDate: selectedDate,
-        firstDate: _firstDate,
-        lastDate: _lastDate,
+        key: widget.controller.yearSelectorState,
+        initialDate: widget.controller.selectedDate,
+        firstDate: widget.controller.localFirstDate,
+        lastDate: widget.controller.localLastDate,
         onYearSelected: _onYearSelected,
-        upDownPageLimitPublishSubject: _upDownPageLimitPublishSubject,
+        upDownPageLimitPublishSubject:
+            widget.controller.upDownPageLimitPublishSubject,
         upDownButtonEnableStatePublishSubject:
-            _upDownButtonEnableStatePublishSubject,
-        selectedMonthBackgroundColor: widget.selectedMonthBackgroundColor,
-        selectedMonthTextColor: widget.selectedMonthTextColor,
-        unselectedMonthTextColor: widget.unselectedMonthTextColor,
+            widget.controller.upDownButtonEnableStatePublishSubject,
+        selectedMonthBackgroundColor:
+            widget.controller.selectedMonthBackgroundColor,
+        selectedMonthTextColor: widget.controller.selectedMonthTextColor,
+        unselectedMonthTextColor: widget.controller.unselectedMonthTextColor,
       ));
 
   void _onYearSelected(final int year) =>
       setState(() => _selector = MonthSelector(
-            key: _monthSelectorState,
+            key: widget.controller.monthSelectorState,
             openDate: DateTime(year),
-            selectedDate: selectedDate,
-            selectableMonthPredicate: widget.selectableMonthPredicate,
-            upDownPageLimitPublishSubject: _upDownPageLimitPublishSubject,
+            selectedDate: widget.controller.selectedDate,
+            selectableMonthPredicate:
+                widget.controller.selectableMonthPredicate,
+            upDownPageLimitPublishSubject:
+                widget.controller.upDownPageLimitPublishSubject,
             upDownButtonEnableStatePublishSubject:
-                _upDownButtonEnableStatePublishSubject,
-            firstDate: _firstDate,
-            lastDate: _lastDate,
+                widget.controller.upDownButtonEnableStatePublishSubject,
+            firstDate: widget.controller.localFirstDate,
+            lastDate: widget.controller.localLastDate,
             onMonthSelected: _onMonthSelected,
-            locale: widget.locale,
-            capitalizeFirstLetter: widget.capitalizeFirstLetter,
-            selectedMonthBackgroundColor: widget.selectedMonthBackgroundColor,
-            selectedMonthTextColor: widget.selectedMonthTextColor,
-            unselectedMonthTextColor: widget.unselectedMonthTextColor,
+            locale: widget.controller.locale,
+            capitalizeFirstLetter: widget.controller.capitalizeFirstLetter,
+            selectedMonthBackgroundColor:
+                widget.controller.selectedMonthBackgroundColor,
+            selectedMonthTextColor: widget.controller.selectedMonthTextColor,
+            unselectedMonthTextColor:
+                widget.controller.unselectedMonthTextColor,
           ));
 
   void _onMonthSelected(final DateTime date) => setState(() {
-        selectedDate = date;
+        widget.controller.selectedDate = date;
         _selector = MonthSelector(
-          key: _monthSelectorState,
-          openDate: selectedDate,
-          selectedDate: selectedDate,
-          selectableMonthPredicate: widget.selectableMonthPredicate,
-          upDownPageLimitPublishSubject: _upDownPageLimitPublishSubject,
+          key: widget.controller.monthSelectorState,
+          openDate: widget.controller.selectedDate,
+          selectedDate: widget.controller.selectedDate,
+          selectableMonthPredicate: widget.controller.selectableMonthPredicate,
+          upDownPageLimitPublishSubject:
+              widget.controller.upDownPageLimitPublishSubject,
           upDownButtonEnableStatePublishSubject:
-              _upDownButtonEnableStatePublishSubject,
-          firstDate: _firstDate,
-          lastDate: _lastDate,
+              widget.controller.upDownButtonEnableStatePublishSubject,
+          firstDate: widget.controller.localFirstDate,
+          lastDate: widget.controller.localLastDate,
           onMonthSelected: _onMonthSelected,
-          locale: widget.locale,
-          capitalizeFirstLetter: widget.capitalizeFirstLetter,
-          selectedMonthBackgroundColor: widget.selectedMonthBackgroundColor,
-          selectedMonthTextColor: widget.selectedMonthTextColor,
-          unselectedMonthTextColor: widget.unselectedMonthTextColor,
+          locale: widget.controller.locale,
+          capitalizeFirstLetter: widget.controller.capitalizeFirstLetter,
+          selectedMonthBackgroundColor:
+              widget.controller.selectedMonthBackgroundColor,
+          selectedMonthTextColor: widget.controller.selectedMonthTextColor,
+          unselectedMonthTextColor: widget.controller.unselectedMonthTextColor,
         );
       });
 
   void _onUpButtonPressed() {
-    if (_yearSelectorState.currentState != null) {
-      _yearSelectorState.currentState!.goUp();
+    if (widget.controller.yearSelectorState.currentState != null) {
+      widget.controller.yearSelectorState.currentState!.goUp();
     } else {
-      _monthSelectorState.currentState!.goUp();
+      widget.controller.monthSelectorState.currentState!.goUp();
     }
   }
 
   void _onDownButtonPressed() {
-    if (_yearSelectorState.currentState != null) {
-      _yearSelectorState.currentState!.goDown();
+    if (widget.controller.yearSelectorState.currentState != null) {
+      widget.controller.yearSelectorState.currentState!.goDown();
     } else {
-      _monthSelectorState.currentState!.goDown();
+      widget.controller.monthSelectorState.currentState!.goDown();
     }
   }
 }
