@@ -114,24 +114,8 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
           )
         : MonthSelector(
             key: widget.controller.monthSelectorState,
-            openDate: widget.controller.selectedDate,
-            selectedDate: widget.controller.selectedDate,
-            selectableMonthPredicate:
-                widget.controller.selectableMonthPredicate,
-            upDownPageLimitPublishSubject:
-                widget.controller.upDownPageLimitPublishSubject,
-            upDownButtonEnableStatePublishSubject:
-                widget.controller.upDownButtonEnableStatePublishSubject,
-            firstDate: widget.controller.localFirstDate,
-            lastDate: widget.controller.localLastDate,
             onMonthSelected: _onMonthSelected,
-            locale: widget.controller.locale,
-            capitalizeFirstLetter: widget.controller.capitalizeFirstLetter,
-            selectedMonthBackgroundColor:
-                widget.controller.selectedMonthBackgroundColor,
-            selectedMonthTextColor: widget.controller.selectedMonthTextColor,
-            unselectedMonthTextColor:
-                widget.controller.unselectedMonthTextColor,
+            controller: widget.controller,
           );
   }
 
@@ -246,25 +230,11 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
   void _onYearSelected(final int year) {
     setState(
       () {
-        //widget.controller.selectedDate = DateTime(year);
+        widget.controller.firstPossibleMonth(year);
         _selector = MonthSelector(
           key: widget.controller.monthSelectorState,
-          openDate: DateTime(year),
-          selectedDate: widget.controller.selectedDate,
-          selectableMonthPredicate: widget.controller.selectableMonthPredicate,
-          upDownPageLimitPublishSubject:
-              widget.controller.upDownPageLimitPublishSubject,
-          upDownButtonEnableStatePublishSubject:
-              widget.controller.upDownButtonEnableStatePublishSubject,
-          firstDate: widget.controller.localFirstDate,
-          lastDate: widget.controller.localLastDate,
           onMonthSelected: _onMonthSelected,
-          locale: widget.controller.locale,
-          capitalizeFirstLetter: widget.controller.capitalizeFirstLetter,
-          selectedMonthBackgroundColor:
-              widget.controller.selectedMonthBackgroundColor,
-          selectedMonthTextColor: widget.controller.selectedMonthTextColor,
-          unselectedMonthTextColor: widget.controller.unselectedMonthTextColor,
+          controller: widget.controller,
         );
       },
     );
@@ -275,24 +245,8 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
           widget.controller.selectedDate = date;
           _selector = MonthSelector(
             key: widget.controller.monthSelectorState,
-            openDate: widget.controller.selectedDate,
-            selectedDate: widget.controller.selectedDate,
-            selectableMonthPredicate:
-                widget.controller.selectableMonthPredicate,
-            upDownPageLimitPublishSubject:
-                widget.controller.upDownPageLimitPublishSubject,
-            upDownButtonEnableStatePublishSubject:
-                widget.controller.upDownButtonEnableStatePublishSubject,
-            firstDate: widget.controller.localFirstDate,
-            lastDate: widget.controller.localLastDate,
             onMonthSelected: _onMonthSelected,
-            locale: widget.controller.locale,
-            capitalizeFirstLetter: widget.controller.capitalizeFirstLetter,
-            selectedMonthBackgroundColor:
-                widget.controller.selectedMonthBackgroundColor,
-            selectedMonthTextColor: widget.controller.selectedMonthTextColor,
-            unselectedMonthTextColor:
-                widget.controller.unselectedMonthTextColor,
+            controller: widget.controller,
           );
         },
       );

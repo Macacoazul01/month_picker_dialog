@@ -66,4 +66,18 @@ class MonthpickerController {
     upDownPageLimitPublishSubject.close();
     upDownButtonEnableStatePublishSubject.close();
   }
+
+  void firstPossibleMonth(int year) {
+    if (selectableMonthPredicate != null) {
+      for (var i = 1; i <= 12; i++) {
+        final mes = DateTime(year, i);
+        if (selectableMonthPredicate!(mes)) {
+          selectedDate = mes;
+          break;
+        }
+      }
+    } else {
+      selectedDate = DateTime(year);
+    }
+  }
 }
