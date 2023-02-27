@@ -1,8 +1,8 @@
 import 'package:flutter/widgets.dart';
-import 'package:month_picker_dialog/src/helpers/common.dart';
-import 'package:month_picker_dialog/src/helpers/extensions.dart';
-import 'package:month_picker_dialog/src/month_selector/month_selector.dart';
-import 'package:month_picker_dialog/src/year_selector/year_selector.dart';
+import '/src/helpers/common.dart';
+import '/src/helpers/extensions.dart';
+import '/src/month_selector/month_selector.dart';
+import '/src/year_selector/year_selector.dart';
 import 'package:rxdart/rxdart.dart';
 
 class MonthpickerController {
