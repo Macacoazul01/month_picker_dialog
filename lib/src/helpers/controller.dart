@@ -25,13 +25,14 @@ class MonthpickerController {
     this.customWidth,
     required this.yearFirst,
     required this.roundedCornersRadius,
+    required this.forceSelectedDate,
   });
 
   //User defined variables
   final DateTime? firstDate, lastDate, initialDate;
   final Locale? locale;
   final bool Function(DateTime)? selectableMonthPredicate;
-  final bool capitalizeFirstLetter, yearFirst;
+  final bool capitalizeFirstLetter, yearFirst, forceSelectedDate;
   final Color? headerColor,
       headerTextColor,
       selectedMonthBackgroundColor,

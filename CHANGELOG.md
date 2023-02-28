@@ -1,3 +1,6 @@
+## 0.7.0
+- Added `forceSelectedDate` to fix [41](https://github.com/hmkrivoj/month_picker_dialog/issues/41).The parameter lets you define that the current selected date will be returned if the user clicks outside of the dialog. Needs `dismissible = true`
+
 ## 0.6.3
 - code cleanup in preparation to fix [41](https://github.com/hmkrivoj/month_picker_dialog/issues/41) and [30](https://github.com/hmkrivoj/month_picker_dialog/issues/30) in the next major version
 
@@ -11,10 +14,10 @@
 - border now changes with orientation
 
 ## 0.6.0
-- initialDate isn't required anymore!
+- `initialDate` isn't required anymore!
 
 ## 0.5.8
-- added roundedCornersRadius -> lets you define the Radius of the rounded dialog (tks [Fabio Henrique](https://github.com/FabioClem)).
+- added `roundedCornersRadius` -> lets you define the Radius of the rounded dialog (tks [Fabio Henrique](https://github.com/FabioClem)).
 
 - bump rxdart to 0.27.7
 
@@ -22,7 +25,7 @@
 - removed deprecated parameter from TextButton.styleFrom
 - improved readme
 
-- added dismissible parameter -> lets you define if the dialog will be dismissible by clicking outside it (false as default).
+- added `dismissible` parameter -> lets you define if the dialog will be dismissible by clicking outside it (false as default).
 
 ## 0.5.5
 - bump rxdart to ^0.27.5
@@ -35,31 +38,31 @@
 - code cleanup/organization (with some possible small performance improvement)
 
 ## 0.5.3
-- added customHeight -> lets you set a custom height for the calendar widget.
+- added `customHeight` -> lets you set a custom height for the calendar widget.
 
-- added customWidth -> lets you set a custom width for the calendar widget.
+- added `customWidth` -> lets you set a custom width for the calendar widget.
 
-- added yearFirst -> lets you define that the user must select first the year, then the month (false as default).
+- added `yearFirst` -> lets you define that the user must select first the year, then the month (false as default).
 
 ## 0.5.0
-- added headerColor -> lets you control the calendar header color.
+- added `headerColor` -> lets you control the calendar header color.
 
-- added headerTextColor -> lets you control the calendar header text and arrows color.
+- added `headerTextColor` -> lets you control the calendar header text and arrows color.
 
-- added selectedMonthBackgroundColor -> lets you control the current selected month/year background color.
+- added `selectedMonthBackgroundColor` -> lets you control the current selected month/year background color.
 
-- added selectedMonthTextColor -> lets you control the text color of the current selected month/year.
+- added `selectedMonthTextColor` -> lets you control the text color of the current selected month/year.
 
-- added unselectedMonthTextColor -> lets you control the text color of the current unselected months/years.
+- added `unselectedMonthTextColor` -> lets you control the text color of the current unselected months/years.
 
-- added confirmText -> lets you set a custom confirm text widget.
+- added `confirmText` -> lets you set a custom confirm text widget.
 
-- added cancelText -> lets you set a custom cancel text widget.
+- added `cancelText` -> lets you set a custom cancel text widget.
 
 - updated sample with the new parameters
 
 ## 0.4.7
-- fixes on selectableMonthPredicate parameter + sample
+- fixes on `selectableMonthPredicate` parameter + sample
 
 ## 0.4.6 + 2
 - size fixes
@@ -68,10 +71,10 @@
 - made the month selector barrier dismissible parameter = false
 
 ## 0.4.6
-- added capitalizeFirstLetter -> Enable you to choose if the first letter of the month will be capitalized thks https://github.com/0wzZZzz6
+- added `capitalizeFirstLetter` -> Enable you to choose if the first letter of the month will be capitalized thks https://github.com/0wzZZzz6
 
 ## 0.4.5
-- added selectableMonthPredicate -> Enable selective months disabling thks https://github.com/ahmdaeyz
+- added `selectableMonthPredicate` -> Enable selective months disabling thks https://github.com/ahmdaeyz
 
 ## 0.4.1+1
 - package rename

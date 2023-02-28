@@ -78,6 +78,8 @@ class _MyAppState extends State<MyApp> {
                 cancelText: const Text('Cancel'),
                 yearFirst: true,
                 roundedCornersRadius: 20,
+                //forceSelectedDate: true,
+                //dismissible: true,
               ).then((DateTime? date) {
                 if (date != null) {
                   setState(() {
