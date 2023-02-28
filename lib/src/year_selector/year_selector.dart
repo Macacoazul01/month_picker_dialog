@@ -28,8 +28,7 @@ class YearSelectorState extends State<YearSelector> {
         scrollDirection: Axis.vertical,
         physics: const AlwaysScrollableScrollPhysics(),
         onPageChanged: _onPageChange,
-        itemCount: getYearPageCount(
-            widget.controller.localFirstDate, widget.controller.localLastDate),
+        itemCount: widget.controller.yearPageCount,
         itemBuilder: (final BuildContext context, final int page) => YearGrid(
             page: page,
             onYearSelected: widget.onYearSelected,
@@ -44,18 +43,10 @@ class YearSelectorState extends State<YearSelector> {
         widget.controller.localFirstDate == null
             ? page * 12 + 11
             : widget.controller.localFirstDate!.year + page * 12 + 11));
-    if (page == 0 ||
-        page ==
-            getYearPageCount(widget.controller.localFirstDate,
-                    widget.controller.localLastDate) -
-                1) {
+    if (page == 0 || page == widget.controller.yearPageCount - 1) {
       widget.controller.upDownButtonEnableStatePublishSubject.add(
         UpDownButtonEnableState(
-            page > 0,
-            page <
-                getYearPageCount(widget.controller.localFirstDate,
-                        widget.controller.localLastDate) -
-                    1),
+            page > 0, page < widget.controller.yearPageCount - 1),
       );
     }
   }
@@ -72,11 +63,9 @@ class YearSelectorState extends State<YearSelector> {
               .floor(),
     );
     initializeYearSelector(
-        _pageController,
-        widget.controller.localFirstDate,
-        widget.controller.localLastDate,
-        widget.controller.upDownPageLimitPublishSubject,
-        widget.controller.upDownButtonEnableStatePublishSubject);
+      _pageController,
+      widget.controller,
+    );
   }
 
   @override

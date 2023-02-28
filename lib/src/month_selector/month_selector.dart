@@ -28,8 +28,7 @@ class MonthSelectorState extends State<MonthSelector> {
         scrollDirection: Axis.vertical,
         physics: const AlwaysScrollableScrollPhysics(),
         onPageChanged: _onPageChange,
-        itemCount: getMonthPageCount(
-            widget.controller.localFirstDate, widget.controller.localLastDate),
+        itemCount: widget.controller.monthPageCount,
         itemBuilder: (final BuildContext context, final int page) =>
             MonthYearGridBuilder(
           onMonthSelected: widget.onMonthSelected,
@@ -49,11 +48,7 @@ class MonthSelectorState extends State<MonthSelector> {
     );
     widget.controller.upDownButtonEnableStatePublishSubject.add(
       UpDownButtonEnableState(
-          page > 0,
-          page <
-              getMonthPageCount(widget.controller.localFirstDate,
-                      widget.controller.localLastDate) -
-                  1),
+          page > 0, page < widget.controller.monthPageCount - 1),
     );
   }
 
@@ -66,11 +61,9 @@ class MonthSelectorState extends State<MonthSelector> {
             : widget.controller.selectedDate.year -
                 widget.controller.localFirstDate!.year);
     initializeMonthSelector(
-        _pageController,
-        widget.controller.localFirstDate,
-        widget.controller.localLastDate,
-        widget.controller.upDownPageLimitPublishSubject,
-        widget.controller.upDownButtonEnableStatePublishSubject);
+      _pageController,
+      widget.controller,
+    );
   }
 
   @override
