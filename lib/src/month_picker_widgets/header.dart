@@ -1,57 +1,45 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:rxdart/rxdart.dart';
+import '/src/helpers/controller.dart';
 import '/src/helpers/common.dart';
 
 class PickerHeader extends StatelessWidget {
   const PickerHeader({
     super.key,
     required this.theme,
-    required this.locale,
-    this.headerColor,
-    this.headerTextColor,
-    required this.capitalizeFirstLetter,
-    required this.selectedDate,
+    required this.localeString,
     required this.isMonthSelector,
     required this.onDownButtonPressed,
     required this.onSelectYear,
     required this.onUpButtonPressed,
-    required this.upDownButtonEnableStatePublishSubject,
-    required this.upDownPageLimitPublishSubject,
-    required this.roundedCornersRadius,
     required this.portrait,
+    required this.controller,
   });
   final ThemeData theme;
-  final String locale;
-  final Color? headerTextColor, headerColor;
-  final bool capitalizeFirstLetter;
-  final DateTime selectedDate;
+  final String localeString;
   final bool isMonthSelector;
   final VoidCallback onSelectYear, onUpButtonPressed, onDownButtonPressed;
-  final PublishSubject<UpDownPageLimit> upDownPageLimitPublishSubject;
-  final PublishSubject<UpDownButtonEnableState>
-      upDownButtonEnableStatePublishSubject;
-  final double roundedCornersRadius;
   final bool portrait;
+  final MonthpickerController controller;
 
   @override
   Widget build(BuildContext context) {
-    final TextStyle? headline5 = headerTextColor == null
+    final TextStyle? headline5 = controller.headerTextColor == null
         ? theme.primaryTextTheme.headlineSmall
-        : theme.primaryTextTheme.headlineSmall!.copyWith(color: headerTextColor);
-    final Color? arrowcolors = headerTextColor ?? theme.primaryIconTheme.color;
+        : theme.primaryTextTheme.headlineSmall!.copyWith(color: controller.headerTextColor);
+    final Color? arrowcolors = controller.headerTextColor ?? theme.primaryIconTheme.color;
 
     return Container(
       decoration: BoxDecoration(
-        color: headerColor ?? theme.primaryColor,
+        color: controller.headerColor ?? theme.primaryColor,
         borderRadius: portrait
             ? BorderRadius.only(
-                topLeft: Radius.circular(roundedCornersRadius),
-                topRight: Radius.circular(roundedCornersRadius),
+                topLeft: Radius.circular(controller.roundedCornersRadius),
+                topRight: Radius.circular(controller.roundedCornersRadius),
               )
             : BorderRadius.only(
-                topLeft: Radius.circular(roundedCornersRadius),
-                bottomLeft: Radius.circular(roundedCornersRadius),
+                topLeft: Radius.circular(controller.roundedCornersRadius),
+                bottomLeft: Radius.circular(controller.roundedCornersRadius),
               ),
       ),
       child: Padding(
@@ -61,13 +49,13 @@ class PickerHeader extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(
-              capitalizeFirstLetter
-                  ? '${toBeginningOfSentenceCase(DateFormat.yMMM(locale).format(selectedDate))}'
-                  : DateFormat.yMMM(locale).format(selectedDate).toLowerCase(),
-              style: headerTextColor == null
+              controller.capitalizeFirstLetter
+                  ? '${toBeginningOfSentenceCase(DateFormat.yMMM(localeString).format(controller.selectedDate))}'
+                  : DateFormat.yMMM(localeString).format(controller.selectedDate).toLowerCase(),
+              style: controller.headerTextColor == null
                   ? theme.primaryTextTheme.titleMedium
                   : theme.primaryTextTheme.titleMedium!
-                      .copyWith(color: headerTextColor),
+                      .copyWith(color: controller.headerTextColor),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -75,24 +63,24 @@ class PickerHeader extends StatelessWidget {
                 if (isMonthSelector) GestureDetector(
                         onTap: onSelectYear,
                         child: StreamBuilder<UpDownPageLimit>(
-                          stream: upDownPageLimitPublishSubject,
+                          stream: controller.upDownPageLimitPublishSubject,
                           initialData: const UpDownPageLimit(0, 0),
                           builder:
                               (_, AsyncSnapshot<UpDownPageLimit> snapshot) =>
                                   Text(
-                            DateFormat.y(locale).format(DateTime(snapshot.data!.upLimit)),
+                            DateFormat.y(localeString).format(DateTime(snapshot.data!.upLimit)),
                             style: headline5,
                           ),
                         ),
                       ) else StreamBuilder<UpDownPageLimit>(
-                        stream: upDownPageLimitPublishSubject,
+                        stream: controller.upDownPageLimitPublishSubject,
                         initialData: const UpDownPageLimit(0, 0),
                         builder: (_, AsyncSnapshot<UpDownPageLimit> snapshot) =>
                             Row(
                           mainAxisSize: MainAxisSize.min,
                           children: <Widget>[
                             Text(
-                              DateFormat.y(locale).format(DateTime(snapshot.data!.upLimit)),
+                              DateFormat.y(localeString).format(DateTime(snapshot.data!.upLimit)),
                               style: headline5,
                             ),
                             Text(
@@ -100,14 +88,14 @@ class PickerHeader extends StatelessWidget {
                               style: headline5,
                             ),
                             Text(
-                              DateFormat.y(locale).format(DateTime(snapshot.data!.downLimit)),
+                              DateFormat.y(localeString).format(DateTime(snapshot.data!.downLimit)),
                               style: headline5,
                             ),
                           ],
                         ),
                       ),
                 StreamBuilder<UpDownButtonEnableState>(
-                  stream: upDownButtonEnableStatePublishSubject,
+                  stream: controller.upDownButtonEnableStatePublishSubject,
                   initialData: const UpDownButtonEnableState(true, true),
                   builder:
                       (_, AsyncSnapshot<UpDownButtonEnableState> snapshot) =>

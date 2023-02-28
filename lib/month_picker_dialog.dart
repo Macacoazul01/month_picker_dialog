@@ -177,21 +177,13 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
 
     final PickerHeader header = PickerHeader(
       theme: theme,
-      locale: locale,
-      headerColor: widget.controller.headerColor,
-      headerTextColor: widget.controller.headerTextColor,
-      capitalizeFirstLetter: widget.controller.capitalizeFirstLetter,
-      selectedDate: widget.controller.selectedDate,
+      localeString: locale,
       isMonthSelector: _selector is MonthSelector,
       onDownButtonPressed: _onDownButtonPressed,
       onSelectYear: _onSelectYear,
       onUpButtonPressed: _onUpButtonPressed,
-      upDownButtonEnableStatePublishSubject:
-          widget.controller.upDownButtonEnableStatePublishSubject,
-      upDownPageLimitPublishSubject:
-          widget.controller.upDownPageLimitPublishSubject,
-      roundedCornersRadius: widget.controller.roundedCornersRadius,
       portrait: portrait,
+      controller: widget.controller,
     );
 
     return Theme(
