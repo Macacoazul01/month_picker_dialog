@@ -39,9 +39,11 @@ import 'src/year_selector/year_selector.dart';
 ///
 /// [yearFirst] lets you define that the user must select first the year, then the month.
 ///
+/// [roundedCornersRadius] lets you define the Radius of the rounded dialog (default is 0).
+///
 /// [dismissible] lets you define if the dialog will be dismissible by clicking outside it.
 ///
-/// [roundedCornersRadius] lets you define the Radius of the rounded dialog (default is 0).
+/// [forceSelectedDate] lets you define that the current selected date will be returned if the user clicks outside of the dialog. Needs `dismissible = true`.
 ///
 Future<DateTime?> showMonthPicker({
   required BuildContext context,
@@ -63,33 +65,41 @@ Future<DateTime?> showMonthPicker({
   bool yearFirst = false,
   bool dismissible = false,
   double roundedCornersRadius = 0,
-}) {
-  return showDialog<DateTime>(
+  bool forceSelectedDate = false,
+}) async {
+  assert(forceSelectedDate == dismissible || !forceSelectedDate,
+      'forceSelectedDate can only be used with dismissible = true');
+  final MonthpickerController controller = MonthpickerController(
+    initialDate: initialDate,
+    firstDate: firstDate,
+    lastDate: lastDate,
+    locale: locale,
+    selectableMonthPredicate: selectableMonthPredicate,
+    capitalizeFirstLetter: capitalizeFirstLetter,
+    headerColor: headerColor,
+    headerTextColor: headerTextColor,
+    selectedMonthBackgroundColor: selectedMonthBackgroundColor,
+    selectedMonthTextColor: selectedMonthTextColor,
+    unselectedMonthTextColor: unselectedMonthTextColor,
+    confirmText: confirmText,
+    cancelText: cancelText,
+    customHeight: customHeight,
+    customWidth: customWidth,
+    yearFirst: yearFirst,
+    roundedCornersRadius: roundedCornersRadius,
+    forceSelectedDate: forceSelectedDate,
+  );
+  final DateTime? dialogDate = await showDialog<DateTime>(
     context: context,
     barrierDismissible: dismissible,
     builder: (BuildContext context) {
-      final MonthpickerController controller = MonthpickerController(
-        initialDate: initialDate,
-        firstDate: firstDate,
-        lastDate: lastDate,
-        locale: locale,
-        selectableMonthPredicate: selectableMonthPredicate,
-        capitalizeFirstLetter: capitalizeFirstLetter,
-        headerColor: headerColor,
-        headerTextColor: headerTextColor,
-        selectedMonthBackgroundColor: selectedMonthBackgroundColor,
-        selectedMonthTextColor: selectedMonthTextColor,
-        unselectedMonthTextColor: unselectedMonthTextColor,
-        confirmText: confirmText,
-        cancelText: cancelText,
-        customHeight: customHeight,
-        customWidth: customWidth,
-        yearFirst: yearFirst,
-        roundedCornersRadius: roundedCornersRadius,
-      );
       return _MonthPickerDialog(controller: controller);
     },
   );
+  if (dismissible && forceSelectedDate && dialogDate == null) {
+    return controller.selectedDate;
+  }
+  return dialogDate;
 }
 
 class _MonthPickerDialog extends StatefulWidget {
