@@ -123,4 +123,12 @@ class MonthpickerController {
     } else
       return 9999;
   }
+
+  void cancelFunction(BuildContext context) {
+    Navigator.pop(context, null);
+  }
+
+  void okFunction(BuildContext context) {
+    Navigator.pop(context, selectedDate);
+  }
 }

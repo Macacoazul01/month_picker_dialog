@@ -1,30 +1,22 @@
 import 'package:flutter/material.dart';
+import '/src/helpers/controller.dart';
 
 class PickerButtonBar extends StatelessWidget {
-  const PickerButtonBar(
-      {super.key,
-      this.cancelText,
-      this.confirmText,
-      required this.defaultcancelButtonLabel,
-      required this.defaultokButtonLabel,
-      required this.cancelFunction,
-      required this.okFunction});
-  final Text? cancelText;
-  final Text? confirmText;
-  final String defaultcancelButtonLabel;
-  final String defaultokButtonLabel;
-  final VoidCallback cancelFunction;
-  final VoidCallback okFunction;
+  const PickerButtonBar({
+    super.key,
+    required this.controller,
+  });
+  final MonthpickerController controller;
 
   @override
   Widget build(BuildContext context) {
     return ButtonBar(
       children: <Widget>[
         TextButton(
-          onPressed: cancelFunction,
-          child: cancelText ??
+          onPressed: () => controller.cancelFunction(context),
+          child: controller.cancelText ??
               Text(
-                defaultcancelButtonLabel,
+                'CANCEL',
                 style: Theme.of(context)
                     .textTheme
                     .labelLarge!
@@ -32,10 +24,10 @@ class PickerButtonBar extends StatelessWidget {
               ),
         ),
         TextButton(
-          onPressed: okFunction,
-          child: confirmText ??
+          onPressed: () => controller.okFunction(context),
+          child: controller.confirmText ??
               Text(
-                defaultokButtonLabel,
+                'OK',
                 style: Theme.of(context)
                     .textTheme
                     .labelLarge!

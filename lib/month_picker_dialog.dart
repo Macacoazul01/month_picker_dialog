@@ -159,13 +159,7 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
             customWidth: widget.controller.customWidth,
           ),
           PickerButtonBar(
-            cancelText: widget.controller.cancelText,
-            confirmText: widget.controller.confirmText,
-            defaultcancelButtonLabel: 'CANCEL',
-            defaultokButtonLabel: 'OK',
-            cancelFunction: () => Navigator.pop(context, null),
-            okFunction: () =>
-                Navigator.pop(context, widget.controller.selectedDate),
+            controller: widget.controller,
           ),
         ],
       ),
