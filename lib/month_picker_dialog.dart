@@ -151,7 +151,7 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
+        children: <Widget>[
           PickerPager(
             selector: _selector,
             theme: theme,
@@ -195,14 +195,14 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
                 if (portrait) {
                   return Column(
                     mainAxisSize: MainAxisSize.min,
-                    children: [header, content],
+                    children: <Widget>[header, content],
                   );
                 }
                 return IntrinsicHeight(
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [header, content],
+                    children: <Widget>[header, content],
                   ),
                 );
               },

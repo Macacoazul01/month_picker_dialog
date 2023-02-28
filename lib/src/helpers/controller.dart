@@ -1,9 +1,10 @@
 import 'package:flutter/widgets.dart';
+import 'package:rxdart/rxdart.dart';
+
 import '/src/helpers/common.dart';
 import '/src/helpers/extensions.dart';
 import '/src/month_selector/month_selector.dart';
 import '/src/year_selector/year_selector.dart';
-import 'package:rxdart/rxdart.dart';
 
 class MonthpickerController {
   MonthpickerController({
@@ -45,9 +46,9 @@ class MonthpickerController {
   final GlobalKey<MonthSelectorState> monthSelectorState = GlobalKey();
 
   final PublishSubject<UpDownPageLimit> upDownPageLimitPublishSubject =
-      PublishSubject();
+      PublishSubject<UpDownPageLimit> ();
   final PublishSubject<UpDownButtonEnableState>
-      upDownButtonEnableStatePublishSubject = PublishSubject();
+      upDownButtonEnableStatePublishSubject = PublishSubject<UpDownButtonEnableState>();
 
   DateTime selectedDate = DateTime.now().firstDayOfMonth();
   DateTime? localFirstDate, localLastDate;
@@ -75,8 +76,8 @@ class MonthpickerController {
 
   void firstPossibleMonth(int year) {
     if (selectableMonthPredicate != null) {
-      for (var i = 1; i <= 12; i++) {
-        final mes = DateTime(year, i);
+      for (int i = 1; i <= 12; i++) {
+        final DateTime mes = DateTime(year, i);
         if (selectableMonthPredicate!(mes)) {
           selectedDate = mes;
           break;
