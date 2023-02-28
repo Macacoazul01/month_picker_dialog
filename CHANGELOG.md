@@ -1,3 +1,6 @@
+## 0.6.3
+- code cleanup in preparation to fix [41](https://github.com/hmkrivoj/month_picker_dialog/issues/41) and [30](https://github.com/hmkrivoj/month_picker_dialog/issues/30) in the next major version
+
 ## 0.6.2
 - updated to flutter 2.19.2 and fixed deprecations
 
