@@ -29,9 +29,9 @@ import 'src/year_selector/year_selector.dart';
 ///
 /// [unselectedMonthTextColor] lets you control the text color of the current unselected months/years.
 ///
-/// [confirmText] lets you set a custom confirm text widget.
+/// [confirmWidget] lets you set a custom confirm widget.
 ///
-/// [cancelText] lets you set a custom cancel text widget.
+/// [cancelWidget] lets you set a custom cancel widget.
 ///
 /// [customHeight] lets you set a custom height for the calendar widget.
 ///
@@ -58,8 +58,8 @@ Future<DateTime?> showMonthPicker({
   Color? selectedMonthBackgroundColor,
   Color? selectedMonthTextColor,
   Color? unselectedMonthTextColor,
-  Text? confirmText,
-  Text? cancelText,
+  Widget? confirmWidget,
+  Widget? cancelWidget,
   double? customHeight,
   double? customWidth,
   bool yearFirst = false,
@@ -81,8 +81,8 @@ Future<DateTime?> showMonthPicker({
     selectedMonthBackgroundColor: selectedMonthBackgroundColor,
     selectedMonthTextColor: selectedMonthTextColor,
     unselectedMonthTextColor: unselectedMonthTextColor,
-    confirmText: confirmText,
-    cancelText: cancelText,
+    confirmWidget: confirmWidget,
+    cancelWidget: cancelWidget,
     customHeight: customHeight,
     customWidth: customWidth,
     yearFirst: yearFirst,

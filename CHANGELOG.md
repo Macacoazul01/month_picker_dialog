@@ -1,3 +1,6 @@
+## 0.7.1
+- Breaking: `confirmText` and `cancelText` were replaced by `confirmWidget` and `cancelWidget`. Now it's possible to use any widget instead of only `Text()` in the buttons
+
 ## 0.7.0
 - Added `forceSelectedDate` to fix [41](https://github.com/hmkrivoj/month_picker_dialog/issues/41).The parameter lets you define that the current selected date will be returned if the user clicks outside of the dialog. Needs `dismissible = true`
 

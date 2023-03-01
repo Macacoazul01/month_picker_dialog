@@ -59,9 +59,9 @@ There are other parameters to configure on the dialog if you want:
 
 `unselectedMonthTextColor` lets you control the text color of the current unselected months/years.
 
-`confirmText` lets you set a custom confirm text widget.
+`confirmWidget` lets you set a custom confirm widget.
 
-`cancelText` lets you set a custom cancel text widget.
+`cancelWidget` lets you set a custom cancel widget.
 
 `customHeight` lets you set a custom height for the calendar widget.
 
