@@ -1,5 +1,5 @@
 extension MyDateExtension on DateTime {
-  DateTime firstDayOfMonth(){
+  DateTime firstDayOfMonth() {
     return DateTime(year, month);
   }
 }

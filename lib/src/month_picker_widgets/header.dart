@@ -26,8 +26,10 @@ class PickerHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     final TextStyle? headline5 = controller.headerTextColor == null
         ? theme.primaryTextTheme.headlineSmall
-        : theme.primaryTextTheme.headlineSmall!.copyWith(color: controller.headerTextColor);
-    final Color? arrowcolors = controller.headerTextColor ?? theme.primaryIconTheme.color;
+        : theme.primaryTextTheme.headlineSmall!
+            .copyWith(color: controller.headerTextColor);
+    final Color? arrowcolors =
+        controller.headerTextColor ?? theme.primaryIconTheme.color;
 
     return Container(
       decoration: BoxDecoration(
@@ -51,7 +53,9 @@ class PickerHeader extends StatelessWidget {
             Text(
               controller.capitalizeFirstLetter
                   ? '${toBeginningOfSentenceCase(DateFormat.yMMM(localeString).format(controller.selectedDate))}'
-                  : DateFormat.yMMM(localeString).format(controller.selectedDate).toLowerCase(),
+                  : DateFormat.yMMM(localeString)
+                      .format(controller.selectedDate)
+                      .toLowerCase(),
               style: controller.headerTextColor == null
                   ? theme.primaryTextTheme.titleMedium
                   : theme.primaryTextTheme.titleMedium!
@@ -60,40 +64,45 @@ class PickerHeader extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                if (isMonthSelector) GestureDetector(
-                        onTap: onSelectYear,
-                        child: StreamBuilder<UpDownPageLimit>(
-                          stream: controller.upDownPageLimitPublishSubject,
-                          initialData: const UpDownPageLimit(0, 0),
-                          builder:
-                              (_, AsyncSnapshot<UpDownPageLimit> snapshot) =>
-                                  Text(
-                            DateFormat.y(localeString).format(DateTime(snapshot.data!.upLimit)),
-                            style: headline5,
-                          ),
-                        ),
-                      ) else StreamBuilder<UpDownPageLimit>(
-                        stream: controller.upDownPageLimitPublishSubject,
-                        initialData: const UpDownPageLimit(0, 0),
-                        builder: (_, AsyncSnapshot<UpDownPageLimit> snapshot) =>
-                            Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            Text(
-                              DateFormat.y(localeString).format(DateTime(snapshot.data!.upLimit)),
-                              style: headline5,
-                            ),
-                            Text(
-                              '-',
-                              style: headline5,
-                            ),
-                            Text(
-                              DateFormat.y(localeString).format(DateTime(snapshot.data!.downLimit)),
-                              style: headline5,
-                            ),
-                          ],
-                        ),
+                if (isMonthSelector)
+                  GestureDetector(
+                    onTap: onSelectYear,
+                    child: StreamBuilder<UpDownPageLimit>(
+                      stream: controller.upDownPageLimitPublishSubject,
+                      initialData: const UpDownPageLimit(0, 0),
+                      builder: (_, AsyncSnapshot<UpDownPageLimit> snapshot) =>
+                          Text(
+                        DateFormat.y(localeString)
+                            .format(DateTime(snapshot.data!.upLimit)),
+                        style: headline5,
                       ),
+                    ),
+                  )
+                else
+                  StreamBuilder<UpDownPageLimit>(
+                    stream: controller.upDownPageLimitPublishSubject,
+                    initialData: const UpDownPageLimit(0, 0),
+                    builder: (_, AsyncSnapshot<UpDownPageLimit> snapshot) =>
+                        Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Text(
+                          DateFormat.y(localeString)
+                              .format(DateTime(snapshot.data!.upLimit)),
+                          style: headline5,
+                        ),
+                        Text(
+                          '-',
+                          style: headline5,
+                        ),
+                        Text(
+                          DateFormat.y(localeString)
+                              .format(DateTime(snapshot.data!.downLimit)),
+                          style: headline5,
+                        ),
+                      ],
+                    ),
+                  ),
                 StreamBuilder<UpDownButtonEnableState>(
                   stream: controller.upDownButtonEnableStatePublishSubject,
                   initialData: const UpDownButtonEnableState(true, true),

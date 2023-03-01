@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 
 class PickerPager extends StatelessWidget {
   const PickerPager(
-      {super.key, this.customHeight, this.customWidth, required this.selector,required this.theme});
+      {super.key,
+      this.customHeight,
+      this.customWidth,
+      required this.selector,
+      required this.theme});
   final double? customHeight;
   final double? customWidth;
   final Widget selector;

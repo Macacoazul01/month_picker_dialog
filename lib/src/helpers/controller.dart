@@ -47,9 +47,10 @@ class MonthpickerController {
   final GlobalKey<MonthSelectorState> monthSelectorState = GlobalKey();
 
   final PublishSubject<UpDownPageLimit> upDownPageLimitPublishSubject =
-      PublishSubject<UpDownPageLimit> ();
+      PublishSubject<UpDownPageLimit>();
   final PublishSubject<UpDownButtonEnableState>
-      upDownButtonEnableStatePublishSubject = PublishSubject<UpDownButtonEnableState>();
+      upDownButtonEnableStatePublishSubject =
+      PublishSubject<UpDownButtonEnableState>();
 
   DateTime selectedDate = DateTime.now().firstDayOfMonth();
   DateTime? localFirstDate, localLastDate;

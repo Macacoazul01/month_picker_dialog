@@ -7,7 +7,6 @@ void main() => runApp(MyApp(
     ));
 
 class MyApp extends StatefulWidget {
-
   const MyApp({super.key, required this.initialDate});
   final DateTime initialDate;
 
@@ -46,7 +45,8 @@ class _MyAppState extends State<MyApp> {
         Locale('it'),
       ],
       theme: ThemeData(
-          colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.indigo).copyWith(secondary: Colors.pinkAccent)),
+          colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.indigo)
+              .copyWith(secondary: Colors.pinkAccent)),
       home: Scaffold(
         appBar: AppBar(
           title: const Text('Month Picker Example App'),
@@ -74,7 +74,10 @@ class _MyAppState extends State<MyApp> {
                 selectedMonthBackgroundColor: Colors.amber[900],
                 selectedMonthTextColor: Colors.white,
                 unselectedMonthTextColor: Colors.green,
-                confirmWidget: const Text('This one!',style: TextStyle(fontWeight: FontWeight.bold),),
+                confirmWidget: const Text(
+                  'This one!',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
                 cancelWidget: const Text('Cancel'),
                 yearFirst: true,
                 roundedCornersRadius: 20,
