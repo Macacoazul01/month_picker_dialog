@@ -57,7 +57,7 @@ class MonthpickerController {
 
   late int yearPageCount, yearItemCount, monthPageCount;
 
-  late PageController yearPageController,monthPageController;
+  late PageController yearPageController, monthPageController;
 
   void initialize() {
     if (initialDate != null) {
@@ -74,6 +74,8 @@ class MonthpickerController {
   }
 
   void dispose() {
+    yearPageController.dispose();
+    monthPageController.dispose();
     upDownPageLimitPublishSubject.close();
     upDownButtonEnableStatePublishSubject.close();
   }
@@ -137,9 +139,8 @@ class MonthpickerController {
     Navigator.pop(context, selectedDate);
   }
 
-  
   //Header functions
-    void onUpButtonPressed() {
+  void onUpButtonPressed() {
     if (yearSelectorState.currentState != null) {
       yearSelectorState.currentState!.goUp();
     } else {

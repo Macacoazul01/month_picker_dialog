@@ -20,7 +20,6 @@ class YearSelector extends StatefulWidget {
 }
 
 class YearSelectorState extends State<YearSelector> {
-
   @override
   Widget build(BuildContext context) => PageView.builder(
         controller: widget.controller.yearPageController,

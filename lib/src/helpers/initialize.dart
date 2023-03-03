@@ -1,5 +1,3 @@
-import 'package:flutter/widgets.dart';
-
 import '/src/helpers/common.dart';
 import '/src/helpers/controller.dart';
 
@@ -25,8 +23,10 @@ void initializeYearSelector(
         ),
       );
       controller.upDownButtonEnableStatePublishSubject.add(
-        UpDownButtonEnableState(controller.yearPageController.page!.toInt() > 0,
-            controller.yearPageController.page!.toInt() < controller.yearItemCount - 1),
+        UpDownButtonEnableState(
+            controller.yearPageController.page!.toInt() > 0,
+            controller.yearPageController.page!.toInt() <
+                controller.yearItemCount - 1),
       );
     },
   );
@@ -35,7 +35,6 @@ void initializeYearSelector(
 //Month Selector
 
 void initializeMonthSelector(
-  PageController? pageController,
   MonthpickerController controller,
 ) {
   Future<void>.delayed(
@@ -44,15 +43,17 @@ void initializeMonthSelector(
       controller.upDownPageLimitPublishSubject.add(
         UpDownPageLimit(
           controller.localFirstDate == null
-              ? pageController!.page!.toInt()
-              : controller.localFirstDate!.year + pageController!.page!.toInt(),
+              ? controller.monthPageController.page!.toInt()
+              : controller.localFirstDate!.year +
+                  controller.monthPageController.page!.toInt(),
           0,
         ),
       );
       controller.upDownButtonEnableStatePublishSubject.add(
         UpDownButtonEnableState(
-          pageController.page!.toInt() > 0,
-          pageController.page!.toInt() < controller.monthPageCount - 1,
+          controller.monthPageController.page!.toInt() > 0,
+          controller.monthPageController.page!.toInt() <
+              controller.monthPageCount - 1,
         ),
       );
     },

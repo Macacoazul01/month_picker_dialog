@@ -115,8 +115,9 @@ class PickerHeader extends StatelessWidget {
                               ? arrowcolors
                               : arrowcolors!.withOpacity(0.5),
                         ),
-                        onPressed:
-                            snapshot.data!.upState ? controller.onUpButtonPressed : null,
+                        onPressed: snapshot.data!.upState
+                            ? controller.onUpButtonPressed
+                            : null,
                       ),
                       IconButton(
                         icon: Icon(

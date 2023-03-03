@@ -55,13 +55,12 @@ class MonthSelectorState extends State<MonthSelector> {
   @override
   void initState() {
     super.initState();
-    _pageController = PageController(
+    widget.controller.monthPageController = PageController(
         initialPage: widget.controller.localFirstDate == null
             ? widget.controller.selectedDate.year
             : widget.controller.selectedDate.year -
                 widget.controller.localFirstDate!.year);
     initializeMonthSelector(
-      _pageController,
       widget.controller,
     );
   }
