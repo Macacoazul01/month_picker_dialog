@@ -46,10 +46,15 @@ class MonthpickerController {
   final GlobalKey<YearSelectorState> yearSelectorState = GlobalKey();
   final GlobalKey<MonthSelectorState> monthSelectorState = GlobalKey();
 
-  final PublishSubject<UpDownPageLimit> upDownPageLimitPublishSubject =
+  final PublishSubject<UpDownPageLimit> yearupDownPageLimitPublishSubject =
+      PublishSubject<UpDownPageLimit>();
+  final PublishSubject<UpDownPageLimit> monthupDownPageLimitPublishSubject =
       PublishSubject<UpDownPageLimit>();
   final PublishSubject<UpDownButtonEnableState>
-      upDownButtonEnableStatePublishSubject =
+      yearupDownButtonEnableStatePublishSubject =
+      PublishSubject<UpDownButtonEnableState>();
+  final PublishSubject<UpDownButtonEnableState>
+      monthupDownButtonEnableStatePublishSubject =
       PublishSubject<UpDownButtonEnableState>();
 
   DateTime selectedDate = DateTime.now().firstDayOfMonth();
@@ -57,7 +62,7 @@ class MonthpickerController {
 
   late int yearPageCount, yearItemCount, monthPageCount;
 
-  late PageController yearPageController, monthPageController;
+  PageController? yearPageController, monthPageController;
 
   void initialize() {
     if (initialDate != null) {
@@ -74,12 +79,15 @@ class MonthpickerController {
   }
 
   void dispose() {
-    yearPageController.dispose();
-    monthPageController.dispose();
-    upDownPageLimitPublishSubject.close();
-    upDownButtonEnableStatePublishSubject.close();
+    yearPageController?.dispose();
+    monthPageController?.dispose();
+    yearupDownPageLimitPublishSubject.close();
+    yearupDownButtonEnableStatePublishSubject.close();
+    monthupDownPageLimitPublishSubject.close();
+    monthupDownButtonEnableStatePublishSubject.close();
   }
 
+  //get first possible month after selecting a year
   void firstPossibleMonth(int year) {
     if (selectableMonthPredicate != null) {
       for (int i = 1; i <= 12; i++) {
@@ -94,7 +102,7 @@ class MonthpickerController {
     }
   }
 
-//Pages count
+  //Pages count
   int getYearPageCount(DateTime? firstDate, DateTime? lastDate) {
     if (firstDate != null && lastDate != null) {
       if (lastDate.year - firstDate.year <= 12)
@@ -131,6 +139,7 @@ class MonthpickerController {
       return 9999;
   }
 
+  //selector functions
   void cancelFunction(BuildContext context) {
     Navigator.pop(context, null);
   }

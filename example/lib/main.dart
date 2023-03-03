@@ -79,10 +79,15 @@ class _MyAppState extends State<MyApp> {
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 cancelWidget: const Text('Cancel'),
-                yearFirst: true,
                 roundedCornersRadius: 20,
+                //yearFirst: true,
                 //forceSelectedDate: true,
                 //dismissible: true,
+                // capitalizeFirstLetter: true,
+                // customHeight: 500,
+                // customWidth: 500,
+                // dismissible: true,
+                // forceSelectedDate: true,
               ).then((DateTime? date) {
                 if (date != null) {
                   setState(() {

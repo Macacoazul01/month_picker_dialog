@@ -20,11 +20,10 @@ class MonthSelector extends StatefulWidget {
 }
 
 class MonthSelectorState extends State<MonthSelector> {
-  PageController? _pageController;
 
   @override
   Widget build(BuildContext context) => PageView.builder(
-        controller: _pageController,
+        controller: widget.controller.monthPageController,
         scrollDirection: Axis.vertical,
         physics: const AlwaysScrollableScrollPhysics(),
         onPageChanged: _onPageChange,
@@ -38,7 +37,7 @@ class MonthSelectorState extends State<MonthSelector> {
       );
 
   void _onPageChange(final int page) {
-    widget.controller.upDownPageLimitPublishSubject.add(
+    widget.controller.monthupDownPageLimitPublishSubject.add(
       UpDownPageLimit(
         widget.controller.localFirstDate != null
             ? widget.controller.localFirstDate!.year + page
@@ -46,7 +45,7 @@ class MonthSelectorState extends State<MonthSelector> {
         0,
       ),
     );
-    widget.controller.upDownButtonEnableStatePublishSubject.add(
+    widget.controller.monthupDownButtonEnableStatePublishSubject.add(
       UpDownButtonEnableState(
           page > 0, page < widget.controller.monthPageCount - 1),
     );
@@ -65,23 +64,17 @@ class MonthSelectorState extends State<MonthSelector> {
     );
   }
 
-  @override
-  void dispose() {
-    _pageController!.dispose();
-    super.dispose();
-  }
-
   void goDown() {
-    _pageController!.animateToPage(
-      _pageController!.page!.toInt() + 1,
+    widget.controller.monthPageController?.animateToPage(
+      widget.controller.monthPageController!.page!.toInt() + 1,
       duration: const Duration(milliseconds: 400),
       curve: Curves.easeInOut,
     );
   }
 
   void goUp() {
-    _pageController!.animateToPage(
-      _pageController!.page!.toInt() - 1,
+    widget.controller.monthPageController?.animateToPage(
+      widget.controller.monthPageController!.page!.toInt() - 1,
       duration: const Duration(milliseconds: 400),
       curve: Curves.easeInOut,
     );

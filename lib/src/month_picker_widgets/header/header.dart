@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:month_picker_dialog/src/month_picker_widgets/header/header_arrows.dart';
 import '/src/helpers/controller.dart';
 import '/src/helpers/common.dart';
 
@@ -62,11 +63,11 @@ class PickerHeader extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                if (isMonthSelector)
+                if (isMonthSelector) ...[
                   GestureDetector(
                     onTap: onSelectYear,
                     child: StreamBuilder<UpDownPageLimit>(
-                      stream: controller.upDownPageLimitPublishSubject,
+                      stream: controller.monthupDownPageLimitPublishSubject,
                       initialData: const UpDownPageLimit(0, 0),
                       builder: (_, AsyncSnapshot<UpDownPageLimit> snapshot) =>
                           Text(
@@ -75,10 +76,24 @@ class PickerHeader extends StatelessWidget {
                         style: headline5,
                       ),
                     ),
-                  )
-                else
+                  ),
+                  StreamBuilder<UpDownButtonEnableState>(
+                    stream:
+                        controller.monthupDownButtonEnableStatePublishSubject,
+                    initialData: const UpDownButtonEnableState(true, true),
+                    builder:
+                        (_, AsyncSnapshot<UpDownButtonEnableState> snapshot) =>
+                            HeaderArrows(
+                      arrowcolors: arrowcolors,
+                      onUpButtonPressed: controller.onUpButtonPressed,
+                      onDownButtonPressed: controller.onDownButtonPressed,
+                      downState: snapshot.data!.downState,
+                      upState: snapshot.data!.upState,
+                    ),
+                  ),
+                ] else ...[
                   StreamBuilder<UpDownPageLimit>(
-                    stream: controller.upDownPageLimitPublishSubject,
+                    stream: controller.yearupDownPageLimitPublishSubject,
                     initialData: const UpDownPageLimit(0, 0),
                     builder: (_, AsyncSnapshot<UpDownPageLimit> snapshot) =>
                         Row(
@@ -101,38 +116,21 @@ class PickerHeader extends StatelessWidget {
                       ],
                     ),
                   ),
-                StreamBuilder<UpDownButtonEnableState>(
-                  stream: controller.upDownButtonEnableStatePublishSubject,
-                  initialData: const UpDownButtonEnableState(true, true),
-                  builder:
-                      (_, AsyncSnapshot<UpDownButtonEnableState> snapshot) =>
-                          Row(
-                    children: <Widget>[
-                      IconButton(
-                        icon: Icon(
-                          Icons.keyboard_arrow_up,
-                          color: snapshot.data!.upState
-                              ? arrowcolors
-                              : arrowcolors!.withOpacity(0.5),
-                        ),
-                        onPressed: snapshot.data!.upState
-                            ? controller.onUpButtonPressed
-                            : null,
-                      ),
-                      IconButton(
-                        icon: Icon(
-                          Icons.keyboard_arrow_down,
-                          color: snapshot.data!.downState
-                              ? arrowcolors
-                              : arrowcolors!.withOpacity(0.5),
-                        ),
-                        onPressed: snapshot.data!.downState
-                            ? controller.onDownButtonPressed
-                            : null,
-                      ),
-                    ],
+                  StreamBuilder<UpDownButtonEnableState>(
+                    stream:
+                        controller.yearupDownButtonEnableStatePublishSubject,
+                    initialData: const UpDownButtonEnableState(true, true),
+                    builder:
+                        (_, AsyncSnapshot<UpDownButtonEnableState> snapshot) =>
+                            HeaderArrows(
+                      arrowcolors: arrowcolors,
+                      onUpButtonPressed: controller.onUpButtonPressed,
+                      onDownButtonPressed: controller.onDownButtonPressed,
+                      downState: snapshot.data!.downState,
+                      upState: snapshot.data!.upState,
+                    ),
                   ),
-                ),
+                ]
               ],
             ),
           ],

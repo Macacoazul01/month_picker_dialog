@@ -34,7 +34,7 @@ class YearSelectorState extends State<YearSelector> {
       );
 
   void _onPageChange(final int page) {
-    widget.controller.upDownPageLimitPublishSubject.add(UpDownPageLimit(
+    widget.controller.yearupDownPageLimitPublishSubject.add(UpDownPageLimit(
         widget.controller.localFirstDate == null
             ? page * 12
             : widget.controller.localFirstDate!.year + page * 12,
@@ -42,7 +42,7 @@ class YearSelectorState extends State<YearSelector> {
             ? page * 12 + 11
             : widget.controller.localFirstDate!.year + page * 12 + 11));
     if (page == 0 || page == widget.controller.yearPageCount - 1) {
-      widget.controller.upDownButtonEnableStatePublishSubject.add(
+      widget.controller.yearupDownButtonEnableStatePublishSubject.add(
         UpDownButtonEnableState(
             page > 0, page < widget.controller.yearPageCount - 1),
       );
@@ -65,23 +65,17 @@ class YearSelectorState extends State<YearSelector> {
     );
   }
 
-  @override
-  void dispose() {
-    widget.controller.yearPageController.dispose();
-    super.dispose();
-  }
-
   void goDown() {
-    widget.controller.yearPageController.animateToPage(
-      widget.controller.yearPageController.page!.toInt() + 1,
+    widget.controller.yearPageController?.animateToPage(
+      widget.controller.yearPageController!.page!.toInt() + 1,
       duration: const Duration(milliseconds: 400),
       curve: Curves.easeInOut,
     );
   }
 
   void goUp() {
-    widget.controller.yearPageController.animateToPage(
-      widget.controller.yearPageController.page!.toInt() - 1,
+    widget.controller.yearPageController?.animateToPage(
+      widget.controller.yearPageController!.page!.toInt() - 1,
       duration: const Duration(milliseconds: 400),
       curve: Curves.easeInOut,
     );

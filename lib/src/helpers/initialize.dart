@@ -9,23 +9,23 @@ void initializeYearSelector(
   Future<void>.delayed(
     Duration.zero,
     () {
-      controller.upDownPageLimitPublishSubject.add(
+      controller.yearupDownPageLimitPublishSubject.add(
         UpDownPageLimit(
           controller.localFirstDate == null
-              ? controller.yearPageController.page!.toInt() * 12
+              ? controller.yearPageController!.page!.toInt() * 12
               : controller.localFirstDate!.year +
-                  controller.yearPageController.page!.toInt() * 12,
+                  controller.yearPageController!.page!.toInt() * 12,
           controller.localFirstDate == null
-              ? controller.yearPageController.page!.toInt() * 12 + 11
+              ? controller.yearPageController!.page!.toInt() * 12 + 11
               : controller.localFirstDate!.year +
-                  controller.yearPageController.page!.toInt() * 12 +
+                  controller.yearPageController!.page!.toInt() * 12 +
                   11,
         ),
       );
-      controller.upDownButtonEnableStatePublishSubject.add(
+      controller.yearupDownButtonEnableStatePublishSubject.add(
         UpDownButtonEnableState(
-            controller.yearPageController.page!.toInt() > 0,
-            controller.yearPageController.page!.toInt() <
+            controller.yearPageController!.page!.toInt() > 0,
+            controller.yearPageController!.page!.toInt() <
                 controller.yearItemCount - 1),
       );
     },
@@ -40,19 +40,19 @@ void initializeMonthSelector(
   Future<void>.delayed(
     Duration.zero,
     () {
-      controller.upDownPageLimitPublishSubject.add(
+      controller.monthupDownPageLimitPublishSubject.add(
         UpDownPageLimit(
           controller.localFirstDate == null
-              ? controller.monthPageController.page!.toInt()
+              ? controller.monthPageController!.page!.toInt()
               : controller.localFirstDate!.year +
-                  controller.monthPageController.page!.toInt(),
+                  controller.monthPageController!.page!.toInt(),
           0,
         ),
       );
-      controller.upDownButtonEnableStatePublishSubject.add(
+      controller.monthupDownButtonEnableStatePublishSubject.add(
         UpDownButtonEnableState(
-          controller.monthPageController.page!.toInt() > 0,
-          controller.monthPageController.page!.toInt() <
+          controller.monthPageController!.page!.toInt() > 0,
+          controller.monthPageController!.page!.toInt() <
               controller.monthPageCount - 1,
         ),
       );
