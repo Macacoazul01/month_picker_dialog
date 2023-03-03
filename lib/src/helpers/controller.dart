@@ -57,6 +57,8 @@ class MonthpickerController {
 
   late int yearPageCount, yearItemCount, monthPageCount;
 
+  late PageController yearPageController,monthPageController;
+
   void initialize() {
     if (initialDate != null) {
       selectedDate = initialDate!.firstDayOfMonth();

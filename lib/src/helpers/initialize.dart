@@ -6,7 +6,6 @@ import '/src/helpers/controller.dart';
 //Year Selector
 
 void initializeYearSelector(
-  PageController? pageController,
   MonthpickerController controller,
 ) {
   Future<void>.delayed(
@@ -15,19 +14,19 @@ void initializeYearSelector(
       controller.upDownPageLimitPublishSubject.add(
         UpDownPageLimit(
           controller.localFirstDate == null
-              ? pageController!.page!.toInt() * 12
+              ? controller.yearPageController.page!.toInt() * 12
               : controller.localFirstDate!.year +
-                  pageController!.page!.toInt() * 12,
+                  controller.yearPageController.page!.toInt() * 12,
           controller.localFirstDate == null
-              ? pageController.page!.toInt() * 12 + 11
+              ? controller.yearPageController.page!.toInt() * 12 + 11
               : controller.localFirstDate!.year +
-                  pageController.page!.toInt() * 12 +
+                  controller.yearPageController.page!.toInt() * 12 +
                   11,
         ),
       );
       controller.upDownButtonEnableStatePublishSubject.add(
-        UpDownButtonEnableState(pageController.page!.toInt() > 0,
-            pageController.page!.toInt() < controller.yearItemCount - 1),
+        UpDownButtonEnableState(controller.yearPageController.page!.toInt() > 0,
+            controller.yearPageController.page!.toInt() < controller.yearItemCount - 1),
       );
     },
   );

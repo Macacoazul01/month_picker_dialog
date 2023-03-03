@@ -20,11 +20,10 @@ class YearSelector extends StatefulWidget {
 }
 
 class YearSelectorState extends State<YearSelector> {
-  PageController? _pageController;
 
   @override
   Widget build(BuildContext context) => PageView.builder(
-        controller: _pageController,
+        controller: widget.controller.yearPageController,
         scrollDirection: Axis.vertical,
         physics: const AlwaysScrollableScrollPhysics(),
         onPageChanged: _onPageChange,
@@ -54,7 +53,7 @@ class YearSelectorState extends State<YearSelector> {
   @override
   void initState() {
     super.initState();
-    _pageController = PageController(
+    widget.controller.yearPageController = PageController(
       initialPage: widget.controller.localFirstDate == null
           ? (widget.controller.selectedDate.year / 12).floor()
           : ((widget.controller.selectedDate.year -
@@ -63,28 +62,27 @@ class YearSelectorState extends State<YearSelector> {
               .floor(),
     );
     initializeYearSelector(
-      _pageController,
       widget.controller,
     );
   }
 
   @override
   void dispose() {
-    _pageController!.dispose();
+    widget.controller.yearPageController.dispose();
     super.dispose();
   }
 
   void goDown() {
-    _pageController!.animateToPage(
-      _pageController!.page!.toInt() + 1,
+    widget.controller.yearPageController.animateToPage(
+      widget.controller.yearPageController.page!.toInt() + 1,
       duration: const Duration(milliseconds: 400),
       curve: Curves.easeInOut,
     );
   }
 
   void goUp() {
-    _pageController!.animateToPage(
-      _pageController!.page!.toInt() - 1,
+    widget.controller.yearPageController.animateToPage(
+      widget.controller.yearPageController.page!.toInt() - 1,
       duration: const Duration(milliseconds: 400),
       curve: Curves.easeInOut,
     );
