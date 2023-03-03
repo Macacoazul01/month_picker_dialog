@@ -179,9 +179,7 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
       theme: theme,
       localeString: locale,
       isMonthSelector: _selector is MonthSelector,
-      onDownButtonPressed: _onDownButtonPressed,
       onSelectYear: _onSelectYear,
-      onUpButtonPressed: _onUpButtonPressed,
       portrait: portrait,
       controller: widget.controller,
     );
@@ -246,20 +244,4 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
           );
         },
       );
-
-  void _onUpButtonPressed() {
-    if (widget.controller.yearSelectorState.currentState != null) {
-      widget.controller.yearSelectorState.currentState!.goUp();
-    } else {
-      widget.controller.monthSelectorState.currentState!.goUp();
-    }
-  }
-
-  void _onDownButtonPressed() {
-    if (widget.controller.yearSelectorState.currentState != null) {
-      widget.controller.yearSelectorState.currentState!.goDown();
-    } else {
-      widget.controller.monthSelectorState.currentState!.goDown();
-    }
-  }
 }

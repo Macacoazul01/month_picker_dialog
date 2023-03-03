@@ -136,4 +136,22 @@ class MonthpickerController {
   void okFunction(BuildContext context) {
     Navigator.pop(context, selectedDate);
   }
+
+  
+  //Header functions
+    void onUpButtonPressed() {
+    if (yearSelectorState.currentState != null) {
+      yearSelectorState.currentState!.goUp();
+    } else {
+      monthSelectorState.currentState!.goUp();
+    }
+  }
+
+  void onDownButtonPressed() {
+    if (yearSelectorState.currentState != null) {
+      yearSelectorState.currentState!.goDown();
+    } else {
+      monthSelectorState.currentState!.goDown();
+    }
+  }
 }

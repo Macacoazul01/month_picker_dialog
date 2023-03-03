@@ -9,16 +9,14 @@ class PickerHeader extends StatelessWidget {
     required this.theme,
     required this.localeString,
     required this.isMonthSelector,
-    required this.onDownButtonPressed,
     required this.onSelectYear,
-    required this.onUpButtonPressed,
     required this.portrait,
     required this.controller,
   });
   final ThemeData theme;
   final String localeString;
   final bool isMonthSelector;
-  final VoidCallback onSelectYear, onUpButtonPressed, onDownButtonPressed;
+  final VoidCallback onSelectYear;
   final bool portrait;
   final MonthpickerController controller;
 
@@ -118,7 +116,7 @@ class PickerHeader extends StatelessWidget {
                               : arrowcolors!.withOpacity(0.5),
                         ),
                         onPressed:
-                            snapshot.data!.upState ? onUpButtonPressed : null,
+                            snapshot.data!.upState ? controller.onUpButtonPressed : null,
                       ),
                       IconButton(
                         icon: Icon(
@@ -128,7 +126,7 @@ class PickerHeader extends StatelessWidget {
                               : arrowcolors!.withOpacity(0.5),
                         ),
                         onPressed: snapshot.data!.downState
-                            ? onDownButtonPressed
+                            ? controller.onDownButtonPressed
                             : null,
                       ),
                     ],
