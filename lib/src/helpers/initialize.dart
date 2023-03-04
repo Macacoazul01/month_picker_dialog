@@ -26,7 +26,7 @@ void initializeYearSelector(
         UpDownButtonEnableState(
             controller.yearPageController!.page!.toInt() > 0,
             controller.yearPageController!.page!.toInt() <
-                controller.yearItemCount - 1),
+                controller.yearPageCount - 1),
       );
     },
   );

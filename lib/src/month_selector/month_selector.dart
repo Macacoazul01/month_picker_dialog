@@ -20,21 +20,22 @@ class MonthSelector extends StatefulWidget {
 }
 
 class MonthSelectorState extends State<MonthSelector> {
-
   @override
-  Widget build(BuildContext context) => PageView.builder(
-        controller: widget.controller.monthPageController,
-        scrollDirection: Axis.vertical,
-        physics: const AlwaysScrollableScrollPhysics(),
-        onPageChanged: _onPageChange,
-        itemCount: widget.controller.monthPageCount,
-        itemBuilder: (final BuildContext context, final int page) =>
-            MonthYearGridBuilder(
-          onMonthSelected: widget.onMonthSelected,
-          controller: widget.controller,
-          page: page,
-        ),
-      );
+  Widget build(BuildContext context) {
+    return PageView.builder(
+      controller: widget.controller.monthPageController,
+      scrollDirection: Axis.vertical,
+      physics: const AlwaysScrollableScrollPhysics(),
+      onPageChanged: _onPageChange,
+      itemCount: widget.controller.monthPageCount,
+      itemBuilder: (final BuildContext context, final int page) =>
+          MonthYearGridBuilder(
+        onMonthSelected: widget.onMonthSelected,
+        controller: widget.controller,
+        page: page,
+      ),
+    );
+  }
 
   void _onPageChange(final int page) {
     widget.controller.monthupDownPageLimitPublishSubject.add(
@@ -54,14 +55,7 @@ class MonthSelectorState extends State<MonthSelector> {
   @override
   void initState() {
     super.initState();
-    widget.controller.monthPageController = PageController(
-        initialPage: widget.controller.localFirstDate == null
-            ? widget.controller.selectedDate.year
-            : widget.controller.selectedDate.year -
-                widget.controller.localFirstDate!.year);
-    initializeMonthSelector(
-      widget.controller,
-    );
+    initialize();
   }
 
   void goDown() {
@@ -77,6 +71,17 @@ class MonthSelectorState extends State<MonthSelector> {
       widget.controller.monthPageController!.page!.toInt() - 1,
       duration: const Duration(milliseconds: 400),
       curve: Curves.easeInOut,
+    );
+  }
+
+  void initialize() {
+    widget.controller.monthPageController = PageController(
+        initialPage: widget.controller.localFirstDate == null
+            ? widget.controller.selectedDate.year
+            : widget.controller.selectedDate.year -
+                widget.controller.localFirstDate!.year);
+    initializeMonthSelector(
+      widget.controller,
     );
   }
 }

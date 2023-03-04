@@ -64,7 +64,7 @@ class _MyAppState extends State<MyApp> {
               showMonthPicker(
                 context: context,
                 firstDate: DateTime(DateTime.now().year - 1, 5),
-                lastDate: DateTime(DateTime.now().year + 1, 9),
+                lastDate: DateTime(DateTime.now().year + 20, 9),
                 initialDate: selectedDate ?? widget.initialDate,
                 locale: const Locale('en'),
                 //show only even months
@@ -80,7 +80,7 @@ class _MyAppState extends State<MyApp> {
                 ),
                 cancelWidget: const Text('Cancel'),
                 roundedCornersRadius: 20,
-                //yearFirst: true,
+                yearFirst: true,
                 //forceSelectedDate: true,
                 //dismissible: true,
                 // capitalizeFirstLetter: true,

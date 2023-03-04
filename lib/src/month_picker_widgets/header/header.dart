@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:month_picker_dialog/src/month_picker_widgets/header/header_arrows.dart';
+import '/src/month_picker_widgets/header/header_arrows.dart';
 import '/src/helpers/controller.dart';
 import '/src/helpers/common.dart';
 
@@ -80,7 +80,9 @@ class PickerHeader extends StatelessWidget {
                   StreamBuilder<UpDownButtonEnableState>(
                     stream:
                         controller.monthupDownButtonEnableStatePublishSubject,
-                    initialData: const UpDownButtonEnableState(true, true),
+                    initialData: UpDownButtonEnableState(
+                        controller.monthPageCount > 1,
+                        controller.monthPageCount > 1),
                     builder:
                         (_, AsyncSnapshot<UpDownButtonEnableState> snapshot) =>
                             HeaderArrows(
@@ -119,7 +121,9 @@ class PickerHeader extends StatelessWidget {
                   StreamBuilder<UpDownButtonEnableState>(
                     stream:
                         controller.yearupDownButtonEnableStatePublishSubject,
-                    initialData: const UpDownButtonEnableState(true, true),
+                    initialData: UpDownButtonEnableState(
+                        controller.yearPageCount > 1,
+                        controller.yearPageCount > 1),
                     builder:
                         (_, AsyncSnapshot<UpDownButtonEnableState> snapshot) =>
                             HeaderArrows(

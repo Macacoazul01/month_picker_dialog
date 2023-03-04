@@ -21,17 +21,20 @@ class YearSelector extends StatefulWidget {
 
 class YearSelectorState extends State<YearSelector> {
   @override
-  Widget build(BuildContext context) => PageView.builder(
-        controller: widget.controller.yearPageController,
-        scrollDirection: Axis.vertical,
-        physics: const AlwaysScrollableScrollPhysics(),
-        onPageChanged: _onPageChange,
-        itemCount: widget.controller.yearPageCount,
-        itemBuilder: (final BuildContext context, final int page) => YearGrid(
-            page: page,
-            onYearSelected: widget.onYearSelected,
-            controller: widget.controller),
-      );
+  Widget build(BuildContext context) {
+    return PageView.builder(
+      controller: widget.controller.yearPageController,
+      scrollDirection: Axis.vertical,
+      physics: const AlwaysScrollableScrollPhysics(),
+      onPageChanged: _onPageChange,
+      itemCount: widget.controller.yearPageCount,
+      itemBuilder: (final BuildContext context, final int page) => YearGrid(
+        page: page,
+        onYearSelected: widget.onYearSelected,
+        controller: widget.controller,
+      ),
+    );
+  }
 
   void _onPageChange(final int page) {
     widget.controller.yearupDownPageLimitPublishSubject.add(UpDownPageLimit(
@@ -52,17 +55,7 @@ class YearSelectorState extends State<YearSelector> {
   @override
   void initState() {
     super.initState();
-    widget.controller.yearPageController = PageController(
-      initialPage: widget.controller.localFirstDate == null
-          ? (widget.controller.selectedDate.year / 12).floor()
-          : ((widget.controller.selectedDate.year -
-                      widget.controller.localFirstDate!.year) /
-                  12)
-              .floor(),
-    );
-    initializeYearSelector(
-      widget.controller,
-    );
+    initialize();
   }
 
   void goDown() {
@@ -78,6 +71,20 @@ class YearSelectorState extends State<YearSelector> {
       widget.controller.yearPageController!.page!.toInt() - 1,
       duration: const Duration(milliseconds: 400),
       curve: Curves.easeInOut,
+    );
+  }
+
+  void initialize() {
+    widget.controller.yearPageController = PageController(
+      initialPage: widget.controller.localFirstDate == null
+          ? (widget.controller.selectedDate.year / 12).floor()
+          : ((widget.controller.selectedDate.year -
+                      widget.controller.localFirstDate!.year) /
+                  12)
+              .floor(),
+    );
+    initializeYearSelector(
+      widget.controller,
     );
   }
 }
