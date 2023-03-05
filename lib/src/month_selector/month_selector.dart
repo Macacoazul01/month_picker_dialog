@@ -20,6 +20,7 @@ class MonthSelector extends StatefulWidget {
 }
 
 class MonthSelectorState extends State<MonthSelector> {
+  bool _blocked = false;
   @override
   Widget build(BuildContext context) {
     return PageView.builder(
@@ -46,10 +47,14 @@ class MonthSelectorState extends State<MonthSelector> {
         0,
       ),
     );
-    widget.controller.monthupDownButtonEnableStatePublishSubject.add(
-      UpDownButtonEnableState(
-          page > 0, page < widget.controller.monthPageCount - 1),
-    );
+    _blocked =
+        !(page - 1 > 0 && page + 1 < widget.controller.monthPageCount - 1);
+    if (_blocked) {
+      widget.controller.monthupDownButtonEnableStatePublishSubject.add(
+        UpDownButtonEnableState(
+            page > 0, page < widget.controller.monthPageCount - 1),
+      );
+    }
   }
 
   @override

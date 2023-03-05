@@ -1,3 +1,6 @@
+## 0.8.1
+- Another fix on header arrow [61](https://github.com/hmkrivoj/month_picker_dialog/issues/61).
+
 ## 0.8.0
 - Mini fix on header arrow. Bumped to 0.8 because of the braking change on `0.7.1` 
 

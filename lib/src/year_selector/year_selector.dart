@@ -20,6 +20,8 @@ class YearSelector extends StatefulWidget {
 }
 
 class YearSelectorState extends State<YearSelector> {
+  bool _blocked = false;
+
   @override
   Widget build(BuildContext context) {
     return PageView.builder(
@@ -44,7 +46,9 @@ class YearSelectorState extends State<YearSelector> {
         widget.controller.localFirstDate == null
             ? page * 12 + 11
             : widget.controller.localFirstDate!.year + page * 12 + 11));
-    if (page == 0 || page == widget.controller.yearPageCount - 1) {
+    _blocked =
+        !(page - 1 > 0 && page + 1 < widget.controller.yearPageCount - 1);
+    if (_blocked) {
       widget.controller.yearupDownButtonEnableStatePublishSubject.add(
         UpDownButtonEnableState(
             page > 0, page < widget.controller.yearPageCount - 1),
