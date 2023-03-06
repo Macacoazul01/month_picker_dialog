@@ -63,8 +63,8 @@ class _MyAppState extends State<MyApp> {
             onPressed: () {
               showMonthPicker(
                 context: context,
-                firstDate: DateTime(DateTime.now().year - 1, 5),
-                lastDate: DateTime(DateTime.now().year + 1, 9),
+                firstDate: DateTime(DateTime.now().year - 5, 5),
+                lastDate: DateTime(DateTime.now().year + 8, 9),
                 initialDate: selectedDate ?? widget.initialDate,
                 locale: const Locale('en'),
                 //show only even months
@@ -74,15 +74,29 @@ class _MyAppState extends State<MyApp> {
                 selectedMonthBackgroundColor: Colors.amber[900],
                 selectedMonthTextColor: Colors.white,
                 unselectedMonthTextColor: Colors.green,
-                confirmWidget: const Text(
+                confirmWidget: Text(
                   'This one!',
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.amber[900],
+                  ),
                 ),
-                cancelWidget: const Text('Cancel'),
-                yearFirst: true,
+                cancelWidget: Text(
+                  'Cancel',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.amber[900],
+                  ),
+                ),
                 roundedCornersRadius: 20,
+                yearFirst: true,
                 //forceSelectedDate: true,
                 //dismissible: true,
+                // capitalizeFirstLetter: true,
+                // customHeight: 500,
+                // customWidth: 500,
+                // dismissible: true,
+                // forceSelectedDate: true,
               ).then((DateTime? date) {
                 if (date != null) {
                   setState(() {

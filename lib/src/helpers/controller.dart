@@ -1,7 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:rxdart/rxdart.dart';
 
-import '/src/helpers/common.dart';
 import '/src/helpers/extensions.dart';
 import '/src/month_selector/month_selector.dart';
 import '/src/year_selector/year_selector.dart';
@@ -46,16 +44,12 @@ class MonthpickerController {
   final GlobalKey<YearSelectorState> yearSelectorState = GlobalKey();
   final GlobalKey<MonthSelectorState> monthSelectorState = GlobalKey();
 
-  final PublishSubject<UpDownPageLimit> upDownPageLimitPublishSubject =
-      PublishSubject<UpDownPageLimit>();
-  final PublishSubject<UpDownButtonEnableState>
-      upDownButtonEnableStatePublishSubject =
-      PublishSubject<UpDownButtonEnableState>();
-
   DateTime selectedDate = DateTime.now().firstDayOfMonth();
   DateTime? localFirstDate, localLastDate;
 
   late int yearPageCount, yearItemCount, monthPageCount;
+
+  PageController? yearPageController, monthPageController;
 
   void initialize() {
     if (initialDate != null) {
@@ -72,10 +66,11 @@ class MonthpickerController {
   }
 
   void dispose() {
-    upDownPageLimitPublishSubject.close();
-    upDownButtonEnableStatePublishSubject.close();
+    yearPageController?.dispose();
+    monthPageController?.dispose();
   }
 
+  //get first possible month after selecting a year
   void firstPossibleMonth(int year) {
     if (selectableMonthPredicate != null) {
       for (int i = 1; i <= 12; i++) {
@@ -90,7 +85,7 @@ class MonthpickerController {
     }
   }
 
-//Pages count
+  //Pages count
   int getYearPageCount(DateTime? firstDate, DateTime? lastDate) {
     if (firstDate != null && lastDate != null) {
       if (lastDate.year - firstDate.year <= 12)
@@ -127,11 +122,29 @@ class MonthpickerController {
       return 9999;
   }
 
+  //selector functions
   void cancelFunction(BuildContext context) {
     Navigator.pop(context, null);
   }
 
   void okFunction(BuildContext context) {
     Navigator.pop(context, selectedDate);
+  }
+
+  //Header functions
+  void onUpButtonPressed() {
+    if (yearSelectorState.currentState != null) {
+      yearSelectorState.currentState!.goUp();
+    } else {
+      monthSelectorState.currentState!.goUp();
+    }
+  }
+
+  void onDownButtonPressed() {
+    if (yearSelectorState.currentState != null) {
+      yearSelectorState.currentState!.goDown();
+    } else {
+      monthSelectorState.currentState!.goDown();
+    }
   }
 }

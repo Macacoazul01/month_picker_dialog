@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import '/src/helpers/providers.dart';
+import 'package:provider/provider.dart';
 import '/src/helpers/controller.dart';
 import '/src/helpers/locale_utils.dart';
 import '/src/month_picker_widgets/button_bar.dart';
-import '/src/month_picker_widgets/header.dart';
+import 'src/month_picker_widgets/header/header.dart';
 import '/src/month_picker_widgets/pager.dart';
 import 'src/month_selector/month_selector.dart';
 import 'src/year_selector/year_selector.dart';
@@ -93,7 +95,17 @@ Future<DateTime?> showMonthPicker({
     context: context,
     barrierDismissible: dismissible,
     builder: (BuildContext context) {
-      return _MonthPickerDialog(controller: controller);
+      return MultiProvider(
+        providers: [
+          ChangeNotifierProvider.value(
+            value: yearUpDownPageProvider(),
+          ),
+          ChangeNotifierProvider.value(
+            value: monthUpDownPageProvider(),
+          ),
+        ],
+        child: _MonthPickerDialog(controller: controller),
+      );
     },
   );
   if (dismissible && forceSelectedDate && dialogDate == null) {
@@ -179,9 +191,7 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
       theme: theme,
       localeString: locale,
       isMonthSelector: _selector is MonthSelector,
-      onDownButtonPressed: _onDownButtonPressed,
       onSelectYear: _onSelectYear,
-      onUpButtonPressed: _onUpButtonPressed,
       portrait: portrait,
       controller: widget.controller,
     );
@@ -246,20 +256,4 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
           );
         },
       );
-
-  void _onUpButtonPressed() {
-    if (widget.controller.yearSelectorState.currentState != null) {
-      widget.controller.yearSelectorState.currentState!.goUp();
-    } else {
-      widget.controller.monthSelectorState.currentState!.goUp();
-    }
-  }
-
-  void _onDownButtonPressed() {
-    if (widget.controller.yearSelectorState.currentState != null) {
-      widget.controller.yearSelectorState.currentState!.goDown();
-    } else {
-      widget.controller.monthSelectorState.currentState!.goDown();
-    }
-  }
 }
