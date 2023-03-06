@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '/src/helpers/providers.dart';
+import 'package:provider/provider.dart';
 import '/src/helpers/controller.dart';
 import '/src/helpers/locale_utils.dart';
 import '/src/month_picker_widgets/button_bar.dart';
@@ -93,7 +95,17 @@ Future<DateTime?> showMonthPicker({
     context: context,
     barrierDismissible: dismissible,
     builder: (BuildContext context) {
-      return _MonthPickerDialog(controller: controller);
+      return MultiProvider(
+        providers: [
+          ChangeNotifierProvider.value(
+            value: yearUpDownPageProvider(),
+          ),
+          ChangeNotifierProvider.value(
+            value: monthUpDownPageProvider(),
+          ),
+        ],
+        child: _MonthPickerDialog(controller: controller),
+      );
     },
   );
   if (dismissible && forceSelectedDate && dialogDate == null) {

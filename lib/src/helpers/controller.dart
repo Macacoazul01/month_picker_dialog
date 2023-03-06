@@ -1,7 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:rxdart/rxdart.dart';
 
-import '/src/helpers/common.dart';
 import '/src/helpers/extensions.dart';
 import '/src/month_selector/month_selector.dart';
 import '/src/year_selector/year_selector.dart';
@@ -46,17 +44,6 @@ class MonthpickerController {
   final GlobalKey<YearSelectorState> yearSelectorState = GlobalKey();
   final GlobalKey<MonthSelectorState> monthSelectorState = GlobalKey();
 
-  final PublishSubject<UpDownPageLimit> yearupDownPageLimitPublishSubject =
-      PublishSubject<UpDownPageLimit>();
-  final PublishSubject<UpDownPageLimit> monthupDownPageLimitPublishSubject =
-      PublishSubject<UpDownPageLimit>();
-  final PublishSubject<UpDownButtonEnableState>
-      yearupDownButtonEnableStatePublishSubject =
-      PublishSubject<UpDownButtonEnableState>();
-  final PublishSubject<UpDownButtonEnableState>
-      monthupDownButtonEnableStatePublishSubject =
-      PublishSubject<UpDownButtonEnableState>();
-
   DateTime selectedDate = DateTime.now().firstDayOfMonth();
   DateTime? localFirstDate, localLastDate;
 
@@ -81,10 +68,6 @@ class MonthpickerController {
   void dispose() {
     yearPageController?.dispose();
     monthPageController?.dispose();
-    yearupDownPageLimitPublishSubject.close();
-    yearupDownButtonEnableStatePublishSubject.close();
-    monthupDownPageLimitPublishSubject.close();
-    monthupDownButtonEnableStatePublishSubject.close();
   }
 
   //get first possible month after selecting a year

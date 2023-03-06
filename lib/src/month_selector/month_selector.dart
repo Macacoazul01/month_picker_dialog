@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import '/src/helpers/providers.dart';
+import 'package:provider/provider.dart';
 
-import '/src/helpers/common.dart';
 import '/src/helpers/controller.dart';
-import '/src/helpers/initialize.dart';
 import '/src/month_selector/month_year_grid.dart';
 
 class MonthSelector extends StatefulWidget {
@@ -39,22 +39,17 @@ class MonthSelectorState extends State<MonthSelector> {
   }
 
   void _onPageChange(final int page) {
-    widget.controller.monthupDownPageLimitPublishSubject.add(
-      UpDownPageLimit(
-        widget.controller.localFirstDate != null
-            ? widget.controller.localFirstDate!.year + page
-            : page,
-        0,
-      ),
-    );
     _blocked =
         !(page - 1 > 0 && page + 1 < widget.controller.monthPageCount - 1);
-    if (_blocked) {
-      widget.controller.monthupDownButtonEnableStatePublishSubject.add(
-        UpDownButtonEnableState(
-            page > 0, page < widget.controller.monthPageCount - 1),
-      );
-    }
+
+    Provider.of<monthUpDownPageProvider>(context, listen: false).changePage(
+      0,
+      widget.controller.localFirstDate != null
+          ? widget.controller.localFirstDate!.year + page
+          : page,
+      _blocked ? page < widget.controller.monthPageCount - 1 : null,
+      _blocked ? page > 0 : null,
+    );
   }
 
   @override
@@ -81,12 +76,25 @@ class MonthSelectorState extends State<MonthSelector> {
 
   void initialize() {
     widget.controller.monthPageController = PageController(
-        initialPage: widget.controller.localFirstDate == null
-            ? widget.controller.selectedDate.year
-            : widget.controller.selectedDate.year -
-                widget.controller.localFirstDate!.year);
-    initializeMonthSelector(
-      widget.controller,
+      initialPage: widget.controller.localFirstDate == null
+          ? widget.controller.selectedDate.year
+          : widget.controller.selectedDate.year -
+              widget.controller.localFirstDate!.year,
+    );
+    Future<void>.delayed(
+      Duration.zero,
+      () {
+        Provider.of<monthUpDownPageProvider>(context, listen: false).changePage(
+          0,
+          widget.controller.localFirstDate == null
+              ? widget.controller.monthPageController!.page!.toInt()
+              : widget.controller.localFirstDate!.year +
+                  widget.controller.monthPageController!.page!.toInt(),
+          widget.controller.monthPageController!.page!.toInt() <
+              widget.controller.monthPageCount - 1,
+          widget.controller.monthPageController!.page!.toInt() > 0,
+        );
+      },
     );
   }
 }

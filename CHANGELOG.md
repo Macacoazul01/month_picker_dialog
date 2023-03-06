@@ -1,3 +1,7 @@
+## 1.0.0
+- Removed `RxDart` from the code in favor of [Provider](https://pub.dev/packages/provider).
+- Fixed an old error where the year/month becomes zero when changing the orientation [30](https://github.com/hmkrivoj/month_picker_dialog/issues/30).
+
 ## 0.8.1
 - Another fix on header arrow [61](https://github.com/hmkrivoj/month_picker_dialog/issues/61).
 

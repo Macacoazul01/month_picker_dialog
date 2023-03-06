@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import '/src/helpers/providers.dart';
+import 'package:provider/provider.dart';
 import '/src/month_picker_widgets/header/header_arrows.dart';
 import '/src/helpers/controller.dart';
-import '/src/helpers/common.dart';
 
 class PickerHeader extends StatelessWidget {
   const PickerHeader({
@@ -29,6 +30,11 @@ class PickerHeader extends StatelessWidget {
             .copyWith(color: controller.headerTextColor);
     final Color? arrowcolors =
         controller.headerTextColor ?? theme.primaryIconTheme.color;
+
+    final yearUpDownPageProvider yearProvider =
+        Provider.of<yearUpDownPageProvider>(context);
+    final monthUpDownPageProvider monthProvider =
+        Provider.of<monthUpDownPageProvider>(context);
 
     return Container(
       decoration: BoxDecoration(
@@ -66,73 +72,45 @@ class PickerHeader extends StatelessWidget {
                 if (isMonthSelector) ...[
                   GestureDetector(
                     onTap: onSelectYear,
-                    child: StreamBuilder<UpDownPageLimit>(
-                      stream: controller.monthupDownPageLimitPublishSubject,
-                      initialData: const UpDownPageLimit(0, 0),
-                      builder: (_, AsyncSnapshot<UpDownPageLimit> snapshot) =>
-                          Text(
-                        DateFormat.y(localeString)
-                            .format(DateTime(snapshot.data!.upLimit)),
-                        style: headline5,
-                      ),
+                    child: Text(
+                      DateFormat.y(localeString)
+                          .format(DateTime(monthProvider.pageLimit.upLimit)),
+                      style: headline5,
                     ),
                   ),
-                  StreamBuilder<UpDownButtonEnableState>(
-                    stream:
-                        controller.monthupDownButtonEnableStatePublishSubject,
-                    initialData: UpDownButtonEnableState(
-                        controller.monthPageCount > 1,
-                        controller.monthPageCount > 1),
-                    builder:
-                        (_, AsyncSnapshot<UpDownButtonEnableState> snapshot) =>
-                            HeaderArrows(
-                      arrowcolors: arrowcolors,
-                      onUpButtonPressed: controller.onUpButtonPressed,
-                      onDownButtonPressed: controller.onDownButtonPressed,
-                      downState: snapshot.data!.downState,
-                      upState: snapshot.data!.upState,
-                    ),
+                  HeaderArrows(
+                    arrowcolors: arrowcolors,
+                    onUpButtonPressed: controller.onUpButtonPressed,
+                    onDownButtonPressed: controller.onDownButtonPressed,
+                    downState: monthProvider.enableState.downState,
+                    upState: monthProvider.enableState.upState,
                   ),
                 ] else ...[
-                  StreamBuilder<UpDownPageLimit>(
-                    stream: controller.yearupDownPageLimitPublishSubject,
-                    initialData: const UpDownPageLimit(0, 0),
-                    builder: (_, AsyncSnapshot<UpDownPageLimit> snapshot) =>
-                        Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        Text(
-                          DateFormat.y(localeString)
-                              .format(DateTime(snapshot.data!.upLimit)),
-                          style: headline5,
-                        ),
-                        Text(
-                          '-',
-                          style: headline5,
-                        ),
-                        Text(
-                          DateFormat.y(localeString)
-                              .format(DateTime(snapshot.data!.downLimit)),
-                          style: headline5,
-                        ),
-                      ],
-                    ),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Text(
+                        DateFormat.y(localeString)
+                            .format(DateTime(yearProvider.pageLimit.upLimit)),
+                        style: headline5,
+                      ),
+                      Text(
+                        '-',
+                        style: headline5,
+                      ),
+                      Text(
+                        DateFormat.y(localeString)
+                            .format(DateTime(yearProvider.pageLimit.downLimit)),
+                        style: headline5,
+                      ),
+                    ],
                   ),
-                  StreamBuilder<UpDownButtonEnableState>(
-                    stream:
-                        controller.yearupDownButtonEnableStatePublishSubject,
-                    initialData: UpDownButtonEnableState(
-                        controller.yearPageCount > 1,
-                        controller.yearPageCount > 1),
-                    builder:
-                        (_, AsyncSnapshot<UpDownButtonEnableState> snapshot) =>
-                            HeaderArrows(
-                      arrowcolors: arrowcolors,
-                      onUpButtonPressed: controller.onUpButtonPressed,
-                      onDownButtonPressed: controller.onDownButtonPressed,
-                      downState: snapshot.data!.downState,
-                      upState: snapshot.data!.upState,
-                    ),
+                  HeaderArrows(
+                    arrowcolors: arrowcolors,
+                    onUpButtonPressed: controller.onUpButtonPressed,
+                    onDownButtonPressed: controller.onDownButtonPressed,
+                    downState: yearProvider.enableState.downState,
+                    upState: yearProvider.enableState.upState,
                   ),
                 ]
               ],
