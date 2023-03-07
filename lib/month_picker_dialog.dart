@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import '/src/helpers/providers.dart';
+import 'package:provider/provider.dart';
 import '/src/helpers/controller.dart';
 import '/src/helpers/locale_utils.dart';
 import '/src/month_picker_widgets/button_bar.dart';
-import '/src/month_picker_widgets/header.dart';
+import 'src/month_picker_widgets/header/header.dart';
 import '/src/month_picker_widgets/pager.dart';
 import 'src/month_selector/month_selector.dart';
 import 'src/year_selector/year_selector.dart';
@@ -29,9 +31,9 @@ import 'src/year_selector/year_selector.dart';
 ///
 /// [unselectedMonthTextColor] lets you control the text color of the current unselected months/years.
 ///
-/// [confirmText] lets you set a custom confirm text widget.
+/// [confirmWidget] lets you set a custom confirm widget.
 ///
-/// [cancelText] lets you set a custom cancel text widget.
+/// [cancelWidget] lets you set a custom cancel widget.
 ///
 /// [customHeight] lets you set a custom height for the calendar widget.
 ///
@@ -58,8 +60,8 @@ Future<DateTime?> showMonthPicker({
   Color? selectedMonthBackgroundColor,
   Color? selectedMonthTextColor,
   Color? unselectedMonthTextColor,
-  Text? confirmText,
-  Text? cancelText,
+  Widget? confirmWidget,
+  Widget? cancelWidget,
   double? customHeight,
   double? customWidth,
   bool yearFirst = false,
@@ -81,8 +83,8 @@ Future<DateTime?> showMonthPicker({
     selectedMonthBackgroundColor: selectedMonthBackgroundColor,
     selectedMonthTextColor: selectedMonthTextColor,
     unselectedMonthTextColor: unselectedMonthTextColor,
-    confirmText: confirmText,
-    cancelText: cancelText,
+    confirmWidget: confirmWidget,
+    cancelWidget: cancelWidget,
     customHeight: customHeight,
     customWidth: customWidth,
     yearFirst: yearFirst,
@@ -93,7 +95,17 @@ Future<DateTime?> showMonthPicker({
     context: context,
     barrierDismissible: dismissible,
     builder: (BuildContext context) {
-      return _MonthPickerDialog(controller: controller);
+      return MultiProvider(
+        providers: [
+          ChangeNotifierProvider.value(
+            value: yearUpDownPageProvider(),
+          ),
+          ChangeNotifierProvider.value(
+            value: monthUpDownPageProvider(),
+          ),
+        ],
+        child: _MonthPickerDialog(controller: controller),
+      );
     },
   );
   if (dismissible && forceSelectedDate && dialogDate == null) {
@@ -177,21 +189,11 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
 
     final PickerHeader header = PickerHeader(
       theme: theme,
-      locale: locale,
-      headerColor: widget.controller.headerColor,
-      headerTextColor: widget.controller.headerTextColor,
-      capitalizeFirstLetter: widget.controller.capitalizeFirstLetter,
-      selectedDate: widget.controller.selectedDate,
+      localeString: locale,
       isMonthSelector: _selector is MonthSelector,
-      onDownButtonPressed: _onDownButtonPressed,
       onSelectYear: _onSelectYear,
-      onUpButtonPressed: _onUpButtonPressed,
-      upDownButtonEnableStatePublishSubject:
-          widget.controller.upDownButtonEnableStatePublishSubject,
-      upDownPageLimitPublishSubject:
-          widget.controller.upDownPageLimitPublishSubject,
-      roundedCornersRadius: widget.controller.roundedCornersRadius,
       portrait: portrait,
+      controller: widget.controller,
     );
 
     return Theme(
@@ -254,20 +256,4 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
           );
         },
       );
-
-  void _onUpButtonPressed() {
-    if (widget.controller.yearSelectorState.currentState != null) {
-      widget.controller.yearSelectorState.currentState!.goUp();
-    } else {
-      widget.controller.monthSelectorState.currentState!.goUp();
-    }
-  }
-
-  void _onDownButtonPressed() {
-    if (widget.controller.yearSelectorState.currentState != null) {
-      widget.controller.yearSelectorState.currentState!.goDown();
-    } else {
-      widget.controller.monthSelectorState.currentState!.goDown();
-    }
-  }
 }

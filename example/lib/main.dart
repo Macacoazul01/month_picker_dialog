@@ -7,7 +7,6 @@ void main() => runApp(MyApp(
     ));
 
 class MyApp extends StatefulWidget {
-
   const MyApp({super.key, required this.initialDate});
   final DateTime initialDate;
 
@@ -46,7 +45,8 @@ class _MyAppState extends State<MyApp> {
         Locale('it'),
       ],
       theme: ThemeData(
-          colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.indigo).copyWith(secondary: Colors.pinkAccent)),
+          colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.indigo)
+              .copyWith(secondary: Colors.pinkAccent)),
       home: Scaffold(
         appBar: AppBar(
           title: const Text('Month Picker Example App'),
@@ -63,23 +63,40 @@ class _MyAppState extends State<MyApp> {
             onPressed: () {
               showMonthPicker(
                 context: context,
-                firstDate: DateTime(DateTime.now().year - 1, 5),
-                lastDate: DateTime(DateTime.now().year + 1, 9),
+                firstDate: DateTime(DateTime.now().year - 5, 5),
+                lastDate: DateTime(DateTime.now().year + 8, 9),
                 initialDate: selectedDate ?? widget.initialDate,
                 locale: const Locale('en'),
                 //show only even months
                 selectableMonthPredicate: (DateTime val) => val.month.isEven,
-                headerColor: Colors.purple,
-                headerTextColor: Colors.orange,
+                headerColor: Colors.amber[900],
+                headerTextColor: Colors.black,
                 selectedMonthBackgroundColor: Colors.amber[900],
                 selectedMonthTextColor: Colors.white,
                 unselectedMonthTextColor: Colors.green,
-                confirmText: const Text('This one!',style: TextStyle(fontWeight: FontWeight.bold),),
-                cancelText: const Text('Cancel'),
-                yearFirst: true,
+                confirmWidget: Text(
+                  'This one!',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.amber[900],
+                  ),
+                ),
+                cancelWidget: Text(
+                  'Cancel',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.amber[900],
+                  ),
+                ),
                 roundedCornersRadius: 20,
+                yearFirst: true,
                 //forceSelectedDate: true,
                 //dismissible: true,
+                // capitalizeFirstLetter: true,
+                // customHeight: 500,
+                // customWidth: 500,
+                // dismissible: true,
+                // forceSelectedDate: true,
               ).then((DateTime? date) {
                 if (date != null) {
                   setState(() {

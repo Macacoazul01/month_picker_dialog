@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-
-import '/src/helpers/common.dart';
+import '/src/helpers/providers.dart';
+import 'package:provider/provider.dart';
 import '/src/helpers/controller.dart';
-import '/src/helpers/initialize.dart';
 import '/src/year_selector/year_grid.dart';
 
 class YearSelector extends StatefulWidget {
@@ -20,41 +19,63 @@ class YearSelector extends StatefulWidget {
 }
 
 class YearSelectorState extends State<YearSelector> {
-  PageController? _pageController;
+  bool _blocked = false;
 
   @override
-  Widget build(BuildContext context) => PageView.builder(
-        controller: _pageController,
-        scrollDirection: Axis.vertical,
-        physics: const AlwaysScrollableScrollPhysics(),
-        onPageChanged: _onPageChange,
-        itemCount: widget.controller.yearPageCount,
-        itemBuilder: (final BuildContext context, final int page) => YearGrid(
-            page: page,
-            onYearSelected: widget.onYearSelected,
-            controller: widget.controller),
-      );
+  Widget build(BuildContext context) {
+    return PageView.builder(
+      controller: widget.controller.yearPageController,
+      scrollDirection: Axis.vertical,
+      physics: const AlwaysScrollableScrollPhysics(),
+      onPageChanged: _onPageChange,
+      itemCount: widget.controller.yearPageCount,
+      itemBuilder: (final BuildContext context, final int page) => YearGrid(
+        page: page,
+        onYearSelected: widget.onYearSelected,
+        controller: widget.controller,
+      ),
+    );
+  }
 
   void _onPageChange(final int page) {
-    widget.controller.upDownPageLimitPublishSubject.add(UpDownPageLimit(
-        widget.controller.localFirstDate == null
-            ? page * 12
-            : widget.controller.localFirstDate!.year + page * 12,
-        widget.controller.localFirstDate == null
-            ? page * 12 + 11
-            : widget.controller.localFirstDate!.year + page * 12 + 11));
-    if (page == 0 || page == widget.controller.yearPageCount - 1) {
-      widget.controller.upDownButtonEnableStatePublishSubject.add(
-        UpDownButtonEnableState(
-            page > 0, page < widget.controller.yearPageCount - 1),
-      );
-    }
+    _blocked =
+        !(page - 1 > 0 && page + 1 < widget.controller.yearPageCount - 1);
+    Provider.of<yearUpDownPageProvider>(context, listen: false).changePage(
+      widget.controller.localFirstDate == null
+          ? page * 12 + 11
+          : widget.controller.localFirstDate!.year + page * 12 + 11,
+      widget.controller.localFirstDate == null
+          ? page * 12
+          : widget.controller.localFirstDate!.year + page * 12,
+      _blocked ? page < widget.controller.yearPageCount - 1 : null,
+      _blocked ? page > 0 : null,
+    );
   }
 
   @override
   void initState() {
     super.initState();
-    _pageController = PageController(
+    initialize();
+  }
+
+  void goDown() {
+    widget.controller.yearPageController?.animateToPage(
+      widget.controller.yearPageController!.page!.toInt() + 1,
+      duration: const Duration(milliseconds: 400),
+      curve: Curves.easeInOut,
+    );
+  }
+
+  void goUp() {
+    widget.controller.yearPageController?.animateToPage(
+      widget.controller.yearPageController!.page!.toInt() - 1,
+      duration: const Duration(milliseconds: 400),
+      curve: Curves.easeInOut,
+    );
+  }
+
+  void initialize() {
+    widget.controller.yearPageController = PageController(
       initialPage: widget.controller.localFirstDate == null
           ? (widget.controller.selectedDate.year / 12).floor()
           : ((widget.controller.selectedDate.year -
@@ -62,31 +83,24 @@ class YearSelectorState extends State<YearSelector> {
                   12)
               .floor(),
     );
-    initializeYearSelector(
-      _pageController,
-      widget.controller,
-    );
-  }
-
-  @override
-  void dispose() {
-    _pageController!.dispose();
-    super.dispose();
-  }
-
-  void goDown() {
-    _pageController!.animateToPage(
-      _pageController!.page!.toInt() + 1,
-      duration: const Duration(milliseconds: 400),
-      curve: Curves.easeInOut,
-    );
-  }
-
-  void goUp() {
-    _pageController!.animateToPage(
-      _pageController!.page!.toInt() - 1,
-      duration: const Duration(milliseconds: 400),
-      curve: Curves.easeInOut,
+    Future<void>.delayed(
+      Duration.zero,
+      () {
+        Provider.of<yearUpDownPageProvider>(context, listen: false).changePage(
+          widget.controller.localFirstDate == null
+              ? widget.controller.yearPageController!.page!.toInt() * 12 + 11
+              : widget.controller.localFirstDate!.year +
+                  widget.controller.yearPageController!.page!.toInt() * 12 +
+                  11,
+          widget.controller.localFirstDate == null
+              ? widget.controller.yearPageController!.page!.toInt() * 12
+              : widget.controller.localFirstDate!.year +
+                  widget.controller.yearPageController!.page!.toInt() * 12,
+          widget.controller.yearPageController!.page!.toInt() <
+              widget.controller.yearPageCount - 1,
+          widget.controller.yearPageController!.page!.toInt() > 0,
+        );
+      },
     );
   }
 }

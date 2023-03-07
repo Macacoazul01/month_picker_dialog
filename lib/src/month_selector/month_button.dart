@@ -56,8 +56,7 @@ class MonthButton extends StatelessWidget {
                 date.year == controller.selectedDate.year
             ? theme.textTheme.labelLarge!
                 .copyWith(
-                  color:
-                      controller.selectedMonthTextColor ??
+                  color: controller.selectedMonthTextColor ??
                       theme.colorScheme.onSecondary,
                 )
                 .color
@@ -67,8 +66,8 @@ class MonthButton extends StatelessWidget {
                 : controller.unselectedMonthTextColor,
         backgroundColor: date.month == controller.selectedDate.month &&
                 date.year == controller.selectedDate.year
-                ? backgroundColor
-                : null,
+            ? backgroundColor
+            : null,
         shape: const CircleBorder(),
       ),
       child: Text(
