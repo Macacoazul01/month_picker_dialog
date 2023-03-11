@@ -6,7 +6,7 @@ import '/src/year_selector/year_selector.dart';
 
 class MonthpickerController {
   MonthpickerController({
-    required this.initialDate,
+    this.initialDate,
     this.firstDate,
     this.lastDate,
     this.locale,
