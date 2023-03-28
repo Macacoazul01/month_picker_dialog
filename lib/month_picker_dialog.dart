@@ -156,7 +156,7 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
     final bool portrait = MediaQuery.of(context).orientation == Orientation.portrait;
     final Container content = Container(
       decoration: BoxDecoration(
-        color: theme.dialogBackgroundColor,
+        color: widget.controller.backgroundColor,
         borderRadius: portrait
             ? BorderRadius.only(
                 bottomLeft: Radius.circular(widget.controller.roundedCornersRadius),
