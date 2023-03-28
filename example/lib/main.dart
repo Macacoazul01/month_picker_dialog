@@ -45,8 +45,7 @@ class _MyAppState extends State<MyApp> {
         Locale('it'),
       ],
       theme: ThemeData(
-          colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.indigo)
-              .copyWith(secondary: Colors.pinkAccent)),
+          colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.indigo).copyWith(secondary: Colors.pinkAccent)),
       home: Scaffold(
         appBar: AppBar(
           title: const Text('Month Picker Example App'),
@@ -74,6 +73,7 @@ class _MyAppState extends State<MyApp> {
                 selectedMonthBackgroundColor: Colors.amber[900],
                 selectedMonthTextColor: Colors.white,
                 unselectedMonthTextColor: Colors.green,
+                backgroundColor: Colors.purple,
                 confirmWidget: Text(
                   'This one!',
                   style: TextStyle(

@@ -60,6 +60,7 @@ Future<DateTime?> showMonthPicker({
   Color? selectedMonthBackgroundColor,
   Color? selectedMonthTextColor,
   Color? unselectedMonthTextColor,
+  Color? backgroundColor,
   Widget? confirmWidget,
   Widget? cancelWidget,
   double? customHeight,
@@ -83,6 +84,7 @@ Future<DateTime?> showMonthPicker({
     selectedMonthBackgroundColor: selectedMonthBackgroundColor,
     selectedMonthTextColor: selectedMonthTextColor,
     unselectedMonthTextColor: unselectedMonthTextColor,
+    backgroundColor: backgroundColor,
     confirmWidget: confirmWidget,
     cancelWidget: cancelWidget,
     customHeight: customHeight,
@@ -150,25 +152,19 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
-    final String locale =
-        getLocale(context, selectedLocale: widget.controller.locale);
-    final bool portrait =
-        MediaQuery.of(context).orientation == Orientation.portrait;
+    final String locale = getLocale(context, selectedLocale: widget.controller.locale);
+    final bool portrait = MediaQuery.of(context).orientation == Orientation.portrait;
     final Container content = Container(
       decoration: BoxDecoration(
         color: theme.dialogBackgroundColor,
         borderRadius: portrait
             ? BorderRadius.only(
-                bottomLeft:
-                    Radius.circular(widget.controller.roundedCornersRadius),
-                bottomRight:
-                    Radius.circular(widget.controller.roundedCornersRadius),
+                bottomLeft: Radius.circular(widget.controller.roundedCornersRadius),
+                bottomRight: Radius.circular(widget.controller.roundedCornersRadius),
               )
             : BorderRadius.only(
-                topRight:
-                    Radius.circular(widget.controller.roundedCornersRadius),
-                bottomRight:
-                    Radius.circular(widget.controller.roundedCornersRadius),
+                topRight: Radius.circular(widget.controller.roundedCornersRadius),
+                bottomRight: Radius.circular(widget.controller.roundedCornersRadius),
               ),
       ),
       child: Column(
@@ -197,7 +193,7 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
     );
 
     return Theme(
-      data: theme.copyWith(dialogBackgroundColor: Colors.transparent),
+      data: theme.copyWith(dialogBackgroundColor: widget.controller.backgroundColor ?? Colors.transparent),
       child: Dialog(
         child: Column(
           mainAxisSize: MainAxisSize.min,
