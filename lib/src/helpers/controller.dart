@@ -17,6 +17,7 @@ class MonthpickerController {
     this.selectedMonthBackgroundColor,
     this.selectedMonthTextColor,
     this.unselectedMonthTextColor,
+    this.backgroundColor,
     this.confirmWidget,
     this.cancelWidget,
     this.customHeight,
@@ -35,7 +36,8 @@ class MonthpickerController {
       headerTextColor,
       selectedMonthBackgroundColor,
       selectedMonthTextColor,
-      unselectedMonthTextColor;
+      unselectedMonthTextColor,
+      backgroundColor;
   final Widget? confirmWidget, cancelWidget;
   final double? customHeight, customWidth;
   final double roundedCornersRadius;

@@ -1,3 +1,6 @@
+## 1.1.0
+- Added `backgroundColor` property to allow the dialog to have a different background of the default from the theme.
+
 ## 1.0.0
 - Removed `RxDart` from the code in favor of [Provider](https://pub.dev/packages/provider).
 - Fixed an old error where the year/month becomes zero when changing the orientation [30](https://github.com/hmkrivoj/month_picker_dialog/issues/30).

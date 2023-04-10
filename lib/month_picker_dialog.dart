@@ -60,6 +60,7 @@ Future<DateTime?> showMonthPicker({
   Color? selectedMonthBackgroundColor,
   Color? selectedMonthTextColor,
   Color? unselectedMonthTextColor,
+  Color? backgroundColor,
   Widget? confirmWidget,
   Widget? cancelWidget,
   double? customHeight,
@@ -83,6 +84,7 @@ Future<DateTime?> showMonthPicker({
     selectedMonthBackgroundColor: selectedMonthBackgroundColor,
     selectedMonthTextColor: selectedMonthTextColor,
     unselectedMonthTextColor: unselectedMonthTextColor,
+    backgroundColor: backgroundColor,
     confirmWidget: confirmWidget,
     cancelWidget: cancelWidget,
     customHeight: customHeight,
@@ -156,7 +158,7 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
         MediaQuery.of(context).orientation == Orientation.portrait;
     final Container content = Container(
       decoration: BoxDecoration(
-        color: theme.dialogBackgroundColor,
+        color: widget.controller.backgroundColor ?? theme.dialogBackgroundColor,
         borderRadius: portrait
             ? BorderRadius.only(
                 bottomLeft:
