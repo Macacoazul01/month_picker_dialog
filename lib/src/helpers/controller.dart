@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 import '/src/helpers/extensions.dart';
@@ -11,6 +12,8 @@ class MonthpickerController {
     this.lastDate,
     this.locale,
     this.selectableMonthPredicate,
+    this.monthStylePredicate,
+    this.yearStylePredicate,
     required this.capitalizeFirstLetter,
     this.headerColor,
     this.headerTextColor,
@@ -31,6 +34,8 @@ class MonthpickerController {
   final DateTime? firstDate, lastDate, initialDate;
   final Locale? locale;
   final bool Function(DateTime)? selectableMonthPredicate;
+  final ButtonStyle? Function(DateTime)? monthStylePredicate;
+  final ButtonStyle? Function(int)? yearStylePredicate;
   final bool capitalizeFirstLetter, yearFirst, forceSelectedDate;
   final Color? headerColor,
       headerTextColor,

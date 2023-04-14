@@ -47,29 +47,35 @@ class MonthButton extends StatelessWidget {
     final bool isEnabled = _isEnabled(date);
     final Color backgroundColor =
         controller.selectedMonthBackgroundColor ?? theme.colorScheme.secondary;
+    ButtonStyle monthStyle = TextButton.styleFrom(
+      foregroundColor: date.month == controller.selectedDate.month &&
+              date.year == controller.selectedDate.year
+          ? theme.textTheme.labelLarge!
+              .copyWith(
+                color: controller.selectedMonthTextColor ??
+                    theme.colorScheme.onSecondary,
+              )
+              .color
+          : date.month == DateTime.now().month &&
+                  date.year == DateTime.now().year
+              ? backgroundColor
+              : controller.unselectedMonthTextColor,
+      backgroundColor: date.month == controller.selectedDate.month &&
+              date.year == controller.selectedDate.year
+          ? backgroundColor
+          : null,
+      shape: const CircleBorder(),
+    );
+
+    if (controller.monthStylePredicate != null) {
+      monthStyle = monthStyle.merge(controller.monthStylePredicate!(date));
+    }
+
     return TextButton(
       onPressed: isEnabled
           ? () => onMonthSelected(DateTime(date.year, date.month))
           : null,
-      style: TextButton.styleFrom(
-        foregroundColor: date.month == controller.selectedDate.month &&
-                date.year == controller.selectedDate.year
-            ? theme.textTheme.labelLarge!
-                .copyWith(
-                  color: controller.selectedMonthTextColor ??
-                      theme.colorScheme.onSecondary,
-                )
-                .color
-            : date.month == DateTime.now().month &&
-                    date.year == DateTime.now().year
-                ? backgroundColor
-                : controller.unselectedMonthTextColor,
-        backgroundColor: date.month == controller.selectedDate.month &&
-                date.year == controller.selectedDate.year
-            ? backgroundColor
-            : null,
-        shape: const CircleBorder(),
-      ),
+      style: monthStyle,
       child: Text(
         controller.capitalizeFirstLetter
             ? toBeginningOfSentenceCase(

@@ -69,6 +69,30 @@ class _MyAppState extends State<MyApp> {
                 locale: const Locale('en'),
                 //show only even months
                 selectableMonthPredicate: (DateTime val) => val.month.isEven,
+                monthStylePredicate: (DateTime val) {
+                  if (val.month == 4) {
+                    return TextButton.styleFrom(
+                      backgroundColor: Colors.blue,
+                      textStyle: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    );
+                  }
+                  return null;
+                },
+                yearStylePredicate: (int val) {
+                  if (val == 2022) {
+                    return TextButton.styleFrom(
+                      backgroundColor: Colors.blue,
+                      textStyle: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    );
+                  }
+                  return null;
+                },
                 headerColor: Colors.amber[900],
                 headerTextColor: Colors.black,
                 selectedMonthBackgroundColor: Colors.amber[900],
@@ -90,7 +114,7 @@ class _MyAppState extends State<MyApp> {
                 ),
                 roundedCornersRadius: 20,
                 yearFirst: true,
-                backgroundColor: Colors.yellow[100]
+                backgroundColor: Colors.yellow[100],
                 //forceSelectedDate: true,
                 //dismissible: true,
                 // capitalizeFirstLetter: true,
