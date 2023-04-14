@@ -19,6 +19,10 @@ import 'src/year_selector/year_selector.dart';
 ///
 /// [selectableMonthPredicate] lets you control enabled months just like the official selectableDayPredicate.
 ///
+/// [monthStylePredicate] allows you to individually customize each month.
+///
+/// [yearStylePredicate] allows you to individually customize each year.
+///
 /// [capitalizeFirstLetter] lets you control if your months names are capitalized or not.
 ///
 /// [headerColor] lets you control the calendar header color.
@@ -54,6 +58,8 @@ Future<DateTime?> showMonthPicker({
   DateTime? lastDate,
   Locale? locale,
   bool Function(DateTime)? selectableMonthPredicate,
+  ButtonStyle? Function(DateTime)? monthStylePredicate,
+  ButtonStyle? Function(int)? yearStylePredicate,
   bool capitalizeFirstLetter = true,
   Color? headerColor,
   Color? headerTextColor,
@@ -78,6 +84,8 @@ Future<DateTime?> showMonthPicker({
     lastDate: lastDate,
     locale: locale,
     selectableMonthPredicate: selectableMonthPredicate,
+    monthStylePredicate: monthStylePredicate,
+    yearStylePredicate: yearStylePredicate,
     capitalizeFirstLetter: capitalizeFirstLetter,
     headerColor: headerColor,
     headerTextColor: headerTextColor,
