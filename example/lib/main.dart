@@ -11,7 +11,7 @@ class MyApp extends StatefulWidget {
   final DateTime initialDate;
 
   @override
-  _MyAppState createState() => _MyAppState();
+  State<MyApp> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
@@ -26,12 +26,12 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      localizationsDelegates: [
+      localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      supportedLocales: const [
+      supportedLocales: const <Locale>[
         Locale('en'),
         Locale('zh'),
         Locale('fr'),
@@ -73,7 +73,7 @@ class _MyAppState extends State<MyApp> {
                   if (val.month == 4) {
                     return TextButton.styleFrom(
                       backgroundColor: Colors.blue,
-                      textStyle: TextStyle(
+                      textStyle: const TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
                       ),
@@ -85,7 +85,7 @@ class _MyAppState extends State<MyApp> {
                   if (val == 2022) {
                     return TextButton.styleFrom(
                       backgroundColor: Colors.blue,
-                      textStyle: TextStyle(
+                      textStyle: const TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
                       ),

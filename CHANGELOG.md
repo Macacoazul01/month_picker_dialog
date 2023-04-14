@@ -1,3 +1,8 @@
+## 1.2.0
+- Added `monthStylePredicate` and `yearStylePredicate` properties to allow passing a different style for each month or year [67](https://github.com/hmkrivoj/month_picker_dialog/pull/67).
+- Added documentation on some of the code
+- Fixed provider names to pass static analysis
+
 ## 1.1.0
 - Added `backgroundColor` property to allow the dialog to have a different background of the default from the theme.
 

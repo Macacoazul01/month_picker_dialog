@@ -37,9 +37,9 @@ void main() {
     expect(controller.yearPageCount, 1);
     expect(controller.monthPageCount, 6);
     expect(controller.selectedDate, DateTime(2023));
-    expect(controller.localFirstDate, DateTime(2022, 1));
-    expect(controller.localLastDate, DateTime(2027, 1));
+    expect(controller.localFirstDate, DateTime(2022));
+    expect(controller.localLastDate, DateTime(2027));
     controller.firstPossibleMonth(2120);
-    expect(controller.selectedDate, DateTime(2120,2));
+    expect(controller.selectedDate, DateTime(2120, 2));
   });
 }

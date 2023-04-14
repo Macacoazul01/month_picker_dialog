@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import '/src/helpers/providers.dart';
 import 'package:provider/provider.dart';
+
 import '/src/helpers/controller.dart';
+import '/src/helpers/providers.dart';
 import '/src/year_selector/year_grid.dart';
 
 class YearSelector extends StatefulWidget {
@@ -40,7 +41,7 @@ class YearSelectorState extends State<YearSelector> {
   void _onPageChange(final int page) {
     _blocked =
         !(page - 1 > 0 && page + 1 < widget.controller.yearPageCount - 1);
-    Provider.of<yearUpDownPageProvider>(context, listen: false).changePage(
+    Provider.of<YearUpDownPageProvider>(context, listen: false).changePage(
       widget.controller.localFirstDate == null
           ? page * 12 + 11
           : widget.controller.localFirstDate!.year + page * 12 + 11,
@@ -86,7 +87,7 @@ class YearSelectorState extends State<YearSelector> {
     Future<void>.delayed(
       Duration.zero,
       () {
-        Provider.of<yearUpDownPageProvider>(context, listen: false).changePage(
+        Provider.of<YearUpDownPageProvider>(context, listen: false).changePage(
           widget.controller.localFirstDate == null
               ? widget.controller.yearPageController!.page!.toInt() * 12 + 11
               : widget.controller.localFirstDate!.year +

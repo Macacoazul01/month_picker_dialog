@@ -14,11 +14,11 @@ class PickerButtonBar extends StatelessWidget {
       children: <Widget>[
         TextButton(
           onPressed: () => controller.cancelFunction(context),
-          child: controller.cancelWidget ?? Text('CANCEL'),
+          child: controller.cancelWidget ?? const Text('CANCEL'),
         ),
         TextButton(
           onPressed: () => controller.okFunction(context),
-          child: controller.confirmWidget ?? Text('OK'),
+          child: controller.confirmWidget ?? const Text('OK'),
         )
       ],
     );

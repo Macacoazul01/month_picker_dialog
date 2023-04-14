@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 import '/src/helpers/extensions.dart';
 import '/src/month_selector/month_selector.dart';
 import '/src/year_selector/year_selector.dart';
 
+///Global controller of the dialog. It holds the initial parameters passed on the initialization.
 class MonthpickerController {
   MonthpickerController({
     this.initialDate,
@@ -58,6 +58,7 @@ class MonthpickerController {
 
   PageController? yearPageController, monthPageController;
 
+  ///Function to initialize the controller when the dialog is created.
   void initialize() {
     if (initialDate != null) {
       selectedDate = initialDate!.firstDayOfMonth();
@@ -72,12 +73,13 @@ class MonthpickerController {
     monthPageCount = getMonthPageCount(localFirstDate, localLastDate);
   }
 
+  ///Function to dispose year and month pages when the dialog closes.
   void dispose() {
     yearPageController?.dispose();
     monthPageController?.dispose();
   }
 
-  //get first possible month after selecting a year
+  /// function to get first possible month after selecting a year
   void firstPossibleMonth(int year) {
     if (selectableMonthPredicate != null) {
       for (int i = 1; i <= 12; i++) {
@@ -92,7 +94,7 @@ class MonthpickerController {
     }
   }
 
-  //Pages count
+  ///year pages count
   int getYearPageCount(DateTime? firstDate, DateTime? lastDate) {
     if (firstDate != null && lastDate != null) {
       if (lastDate.year - firstDate.year <= 12)
@@ -107,6 +109,7 @@ class MonthpickerController {
       return (9999 / 12).ceil();
   }
 
+  ///year item count
   int getYearItemCount(DateTime? firstDate, DateTime? lastDate) {
     if (firstDate != null && lastDate != null) {
       return lastDate.year - firstDate.year + 1;
@@ -118,6 +121,7 @@ class MonthpickerController {
       return 9999;
   }
 
+  ///month pages count
   int getMonthPageCount(DateTime? firstDate, DateTime? lastDate) {
     if (firstDate != null && lastDate != null) {
       return lastDate.year - firstDate.year + 1;
@@ -130,15 +134,18 @@ class MonthpickerController {
   }
 
   //selector functions
+  ///function to cancel selecting a month
   void cancelFunction(BuildContext context) {
     Navigator.pop(context, null);
   }
 
+  ///function to confirm selecting a month
   void okFunction(BuildContext context) {
     Navigator.pop(context, selectedDate);
   }
 
   //Header functions
+  ///function to move the page when up header button is pressed
   void onUpButtonPressed() {
     if (yearSelectorState.currentState != null) {
       yearSelectorState.currentState!.goUp();
@@ -147,6 +154,7 @@ class MonthpickerController {
     }
   }
 
+  ///function to move the page when down header button is pressed
   void onDownButtonPressed() {
     if (yearSelectorState.currentState != null) {
       yearSelectorState.currentState!.goDown();

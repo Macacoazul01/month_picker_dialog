@@ -47,6 +47,8 @@ There are other parameters to configure on the dialog if you want:
 
 `selectableMonthPredicate` lets you control enabled months just like the official selectableDayPredicate.
 
+`monthStylePredicate` and `yearStylePredicate` properties allow passing a different style for each month or year.
+
 `capitalizeFirstLetter` lets you control if your months names are capitalized or not.
 
 `headerColor` lets you control the calendar header color.

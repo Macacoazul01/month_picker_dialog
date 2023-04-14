@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import '/src/helpers/providers.dart';
 import 'package:provider/provider.dart';
 
 import '/src/helpers/controller.dart';
+import '/src/helpers/providers.dart';
 import '/src/month_selector/month_year_grid.dart';
 
 class MonthSelector extends StatefulWidget {
@@ -42,7 +42,7 @@ class MonthSelectorState extends State<MonthSelector> {
     _blocked =
         !(page - 1 > 0 && page + 1 < widget.controller.monthPageCount - 1);
 
-    Provider.of<monthUpDownPageProvider>(context, listen: false).changePage(
+    Provider.of<MonthUpDownPageProvider>(context, listen: false).changePage(
       0,
       widget.controller.localFirstDate != null
           ? widget.controller.localFirstDate!.year + page
@@ -84,7 +84,7 @@ class MonthSelectorState extends State<MonthSelector> {
     Future<void>.delayed(
       Duration.zero,
       () {
-        Provider.of<monthUpDownPageProvider>(context, listen: false).changePage(
+        Provider.of<MonthUpDownPageProvider>(context, listen: false).changePage(
           0,
           widget.controller.localFirstDate == null
               ? widget.controller.monthPageController!.page!.toInt()

@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 
+///Function to get the selected locale code or the locale of context as a fallback
 String getLocale(
   BuildContext context, {
   Locale? selectedLocale,

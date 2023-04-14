@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import '/src/helpers/common.dart';
 
-class yearUpDownPageProvider extends ChangeNotifier {
+///Provider that controlls the up down state of the header when the year selector is on the dialog
+class YearUpDownPageProvider extends ChangeNotifier {
   final UpDownPageLimit _pageLimit = UpDownPageLimit(0, 0);
   final UpDownButtonEnableState _enableState =
       UpDownButtonEnableState(true, true);
@@ -24,7 +25,8 @@ class yearUpDownPageProvider extends ChangeNotifier {
   }
 }
 
-class monthUpDownPageProvider extends ChangeNotifier {
+///Provider that controlls the up down state of the header when the monyh selector is on the dialog
+class MonthUpDownPageProvider extends ChangeNotifier {
   final UpDownPageLimit _pageLimit = UpDownPageLimit(0, 0);
   final UpDownButtonEnableState _enableState =
       UpDownButtonEnableState(true, true);

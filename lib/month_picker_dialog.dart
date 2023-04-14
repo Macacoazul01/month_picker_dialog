@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import '/src/helpers/providers.dart';
 import 'package:provider/provider.dart';
+
 import '/src/helpers/controller.dart';
 import '/src/helpers/locale_utils.dart';
+import '/src/helpers/providers.dart';
 import '/src/month_picker_widgets/button_bar.dart';
-import 'src/month_picker_widgets/header/header.dart';
 import '/src/month_picker_widgets/pager.dart';
+import 'src/month_picker_widgets/header/header.dart';
 import 'src/month_selector/month_selector.dart';
 import 'src/year_selector/year_selector.dart';
 
@@ -108,10 +109,10 @@ Future<DateTime?> showMonthPicker({
       return MultiProvider(
         providers: [
           ChangeNotifierProvider.value(
-            value: yearUpDownPageProvider(),
+            value: YearUpDownPageProvider(),
           ),
           ChangeNotifierProvider.value(
-            value: monthUpDownPageProvider(),
+            value: MonthUpDownPageProvider(),
           ),
         ],
         child: _MonthPickerDialog(controller: controller),

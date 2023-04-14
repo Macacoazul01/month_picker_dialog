@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import '/src/helpers/providers.dart';
 import 'package:provider/provider.dart';
-import '/src/month_picker_widgets/header/header_arrows.dart';
+
 import '/src/helpers/controller.dart';
+import '/src/helpers/providers.dart';
+import '/src/month_picker_widgets/header/header_arrows.dart';
 
 class PickerHeader extends StatelessWidget {
   const PickerHeader({
@@ -31,10 +32,10 @@ class PickerHeader extends StatelessWidget {
     final Color? arrowcolors =
         controller.headerTextColor ?? theme.primaryIconTheme.color;
 
-    final yearUpDownPageProvider yearProvider =
-        Provider.of<yearUpDownPageProvider>(context);
-    final monthUpDownPageProvider monthProvider =
-        Provider.of<monthUpDownPageProvider>(context);
+    final YearUpDownPageProvider yearProvider =
+        Provider.of<YearUpDownPageProvider>(context);
+    final MonthUpDownPageProvider monthProvider =
+        Provider.of<MonthUpDownPageProvider>(context);
 
     return Container(
       decoration: BoxDecoration(
@@ -69,7 +70,7 @@ class PickerHeader extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                if (isMonthSelector) ...[
+                if (isMonthSelector) ... <Widget>[
                   GestureDetector(
                     onTap: onSelectYear,
                     child: Text(
@@ -85,7 +86,7 @@ class PickerHeader extends StatelessWidget {
                     downState: monthProvider.enableState.downState,
                     upState: monthProvider.enableState.upState,
                   ),
-                ] else ...[
+                ] else ... <Widget>[
                   Row(
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
