@@ -49,7 +49,7 @@ class MonthButton extends StatelessWidget {
   ButtonStyle _buildDefaultMonthStyle() {
     final Color backgroundColor =
         controller.selectedMonthBackgroundColor ?? theme.colorScheme.secondary;
-    ButtonStyle monthStyle = TextButton.styleFrom(
+    final ButtonStyle monthStyle = TextButton.styleFrom(
       foregroundColor: date.month == controller.selectedDate.month &&
               date.year == controller.selectedDate.year
           ? theme.textTheme.labelLarge!
@@ -74,10 +74,10 @@ class MonthButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bool isEnabled = _isEnabled(date);
-    late ButtonStyle monthStyle = _buildDefaultMonthStyle();
-
-    if (controller.monthStylePredicate != null) {
-      final value = controller.monthStylePredicate!(date);
+    ButtonStyle monthStyle = _buildDefaultMonthStyle();
+    final ButtonStyle? Function(DateTime)? monthPredicate = controller.monthStylePredicate;
+    if (monthPredicate != null) {
+      final value = monthPredicate(date);
       if (value != null) {
         monthStyle = monthStyle.merge(value);
       }
@@ -93,7 +93,7 @@ class MonthButton extends StatelessWidget {
             ? toBeginningOfSentenceCase(
                 DateFormat.MMM(localeString).format(date))!
             : DateFormat.MMM(localeString).format(date).toLowerCase(),
-        style: monthStyle.textStyle?.resolve({}) ?? TextStyle(),
+        style: monthStyle.textStyle?.resolve({}),
       ),
     );
   }

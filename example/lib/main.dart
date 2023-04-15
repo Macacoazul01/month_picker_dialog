@@ -72,7 +72,7 @@ class _MyAppState extends State<MyApp> {
                 monthStylePredicate: (DateTime val) {
                   if (val.month == 4) {
                     return TextButton.styleFrom(
-                      backgroundColor: Colors.blue,
+                      backgroundColor: Colors.yellow[700],
                       textStyle: TextStyle(
                         color: Colors.pink,
                         fontWeight: FontWeight.bold,
@@ -84,7 +84,7 @@ class _MyAppState extends State<MyApp> {
                 yearStylePredicate: (int val) {
                   if (val == 2022) {
                     return TextButton.styleFrom(
-                      backgroundColor: Colors.blue,
+                      backgroundColor: Colors.yellow[700],
                       textStyle: TextStyle(
                         color: Colors.pink,
                         fontWeight: FontWeight.bold,

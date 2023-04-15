@@ -49,7 +49,7 @@ class YearButton extends StatelessWidget {
   ButtonStyle _buildDefaultYearStyle(int year) {
     final Color backgroundColor =
         controller.selectedMonthBackgroundColor ?? theme.colorScheme.secondary;
-    ButtonStyle yearStyle = TextButton.styleFrom(
+    final ButtonStyle yearStyle = TextButton.styleFrom(
       foregroundColor: year == controller.selectedDate.year
           ? theme.textTheme.labelLarge!
               .copyWith(
@@ -75,10 +75,10 @@ class YearButton extends StatelessWidget {
         page * 12 +
         index;
     final bool isEnabled = _isEnabled(year);
-    late ButtonStyle yearStyle = _buildDefaultYearStyle(year);
-
-    if (controller.yearStylePredicate != null) {
-      final value = controller.yearStylePredicate!(year);
+    ButtonStyle yearStyle = _buildDefaultYearStyle(year);
+    final ButtonStyle? Function(int)? yearPredicate = controller.yearStylePredicate;
+    if (yearPredicate != null) {
+      final value = yearPredicate(year);
       if (value != null) {
         yearStyle = yearStyle.merge(value);
       }
@@ -89,7 +89,7 @@ class YearButton extends StatelessWidget {
       style: yearStyle,
       child: Text(
         DateFormat.y(localeString).format(DateTime(year)),
-        style: yearStyle.textStyle?.resolve({}) ?? TextStyle(),
+        style: yearStyle.textStyle?.resolve({}),
       ),
     );
   }
