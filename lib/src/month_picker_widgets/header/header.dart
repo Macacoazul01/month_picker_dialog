@@ -70,7 +70,7 @@ class PickerHeader extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                if (isMonthSelector) ... <Widget>[
+                if (isMonthSelector) ...<Widget>[
                   GestureDetector(
                     onTap: onSelectYear,
                     child: Text(
@@ -86,7 +86,7 @@ class PickerHeader extends StatelessWidget {
                     downState: monthProvider.enableState.downState,
                     upState: monthProvider.enableState.upState,
                   ),
-                ] else ... <Widget>[
+                ] else ...<Widget>[
                   Row(
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[

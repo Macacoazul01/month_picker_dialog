@@ -75,7 +75,8 @@ class MonthButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final bool isEnabled = _isEnabled(date);
     ButtonStyle monthStyle = _buildDefaultMonthStyle();
-    final ButtonStyle? Function(DateTime)? monthPredicate = controller.monthStylePredicate;
+    final ButtonStyle? Function(DateTime)? monthPredicate =
+        controller.monthStylePredicate;
     if (monthPredicate != null) {
       final value = monthPredicate(date);
       if (value != null) {

@@ -76,7 +76,8 @@ class YearButton extends StatelessWidget {
         index;
     final bool isEnabled = _isEnabled(year);
     ButtonStyle yearStyle = _buildDefaultYearStyle(year);
-    final ButtonStyle? Function(int)? yearPredicate = controller.yearStylePredicate;
+    final ButtonStyle? Function(int)? yearPredicate =
+        controller.yearStylePredicate;
     if (yearPredicate != null) {
       final value = yearPredicate(year);
       if (value != null) {
