@@ -25,6 +25,7 @@ class YearGrid extends StatelessWidget {
       children: List<Widget>.generate(
         12,
         (final int index) => YearButton(
+          theme: Theme.of(context),
           controller: controller,
           page: page,
           index: index,
