@@ -42,9 +42,11 @@ class MonthButton extends StatelessWidget {
       return false;
   }
 
-  @override
-  Widget build(BuildContext context) {
-    final bool isEnabled = _isEnabled(date);
+  /// From the provided color settings,
+  /// build the month button style with the default layout
+  ///
+  /// If not provided, the customization will be built from the app's theme.
+  ButtonStyle _buildDefaultMonthStyle() {
     final Color backgroundColor =
         controller.selectedMonthBackgroundColor ?? theme.colorScheme.secondary;
     ButtonStyle monthStyle = TextButton.styleFrom(
@@ -66,9 +68,19 @@ class MonthButton extends StatelessWidget {
           : null,
       shape: const CircleBorder(),
     );
+    return monthStyle;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final bool isEnabled = _isEnabled(date);
+    late ButtonStyle monthStyle = _buildDefaultMonthStyle();
 
     if (controller.monthStylePredicate != null) {
-      monthStyle = monthStyle.merge(controller.monthStylePredicate!(date));
+      final value = controller.monthStylePredicate!(date);
+      if (value != null) {
+        monthStyle = monthStyle.merge(value);
+      }
     }
 
     return TextButton(
@@ -81,6 +93,7 @@ class MonthButton extends StatelessWidget {
             ? toBeginningOfSentenceCase(
                 DateFormat.MMM(localeString).format(date))!
             : DateFormat.MMM(localeString).format(date).toLowerCase(),
+        style: monthStyle.textStyle?.resolve({}) ?? TextStyle(),
       ),
     );
   }

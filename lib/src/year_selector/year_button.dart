@@ -5,12 +5,15 @@ import '/src/helpers/controller.dart';
 class YearButton extends StatelessWidget {
   const YearButton({
     super.key,
+    required this.theme,
     required this.controller,
     required this.page,
     required this.index,
     required this.onYearSelected,
     required this.localeString,
   });
+
+  final ThemeData theme;
   final MonthpickerController controller;
   final int page;
   final int index;
@@ -39,15 +42,11 @@ class YearButton extends StatelessWidget {
       return false;
   }
 
-  @override
-  Widget build(BuildContext context) {
-    final int year = (controller.localFirstDate == null
-            ? 0
-            : controller.localFirstDate!.year) +
-        page * 12 +
-        index;
-    final bool isEnabled = _isEnabled(year);
-    final ThemeData theme = Theme.of(context);
+  /// From the provided color settings,
+  /// build the year button style with the default layout
+  ///
+  /// If not provided, the customization will be built from the app's theme.
+  ButtonStyle _buildDefaultYearStyle(int year) {
     final Color backgroundColor =
         controller.selectedMonthBackgroundColor ?? theme.colorScheme.secondary;
     ButtonStyle yearStyle = TextButton.styleFrom(
@@ -65,9 +64,24 @@ class YearButton extends StatelessWidget {
           year == controller.selectedDate.year ? backgroundColor : null,
       shape: const CircleBorder(),
     );
+    return yearStyle;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final int year = (controller.localFirstDate == null
+            ? 0
+            : controller.localFirstDate!.year) +
+        page * 12 +
+        index;
+    final bool isEnabled = _isEnabled(year);
+    late ButtonStyle yearStyle = _buildDefaultYearStyle(year);
 
     if (controller.yearStylePredicate != null) {
-      yearStyle = yearStyle.merge(controller.yearStylePredicate!(year));
+      final value = controller.yearStylePredicate!(year);
+      if (value != null) {
+        yearStyle = yearStyle.merge(value);
+      }
     }
 
     return TextButton(
@@ -75,6 +89,7 @@ class YearButton extends StatelessWidget {
       style: yearStyle,
       child: Text(
         DateFormat.y(localeString).format(DateTime(year)),
+        style: yearStyle.textStyle?.resolve({}) ?? TextStyle(),
       ),
     );
   }
