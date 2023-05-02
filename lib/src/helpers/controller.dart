@@ -29,6 +29,7 @@ class MonthpickerController {
     required this.roundedCornersRadius,
     required this.forceSelectedDate,
     required this.animationMilliseconds,
+    required this.hideHeaderRow,
   });
 
   //User defined variables
@@ -37,7 +38,7 @@ class MonthpickerController {
   final bool Function(DateTime)? selectableMonthPredicate;
   final ButtonStyle? Function(DateTime)? monthStylePredicate;
   final ButtonStyle? Function(int)? yearStylePredicate;
-  final bool capitalizeFirstLetter, yearFirst, forceSelectedDate;
+  final bool capitalizeFirstLetter, yearFirst, forceSelectedDate, hideHeaderRow;
   final Color? headerColor,
       headerTextColor,
       selectedMonthBackgroundColor,

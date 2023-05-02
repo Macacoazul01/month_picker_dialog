@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import '/src/month_picker_widgets/header/header_selected_date.dart';
 import '/src/month_picker_widgets/header/header_row.dart';
 
 import '/src/helpers/controller.dart';
@@ -37,30 +37,35 @@ class PickerHeader extends StatelessWidget {
       ),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text(
-              controller.capitalizeFirstLetter
-                  ? '${toBeginningOfSentenceCase(DateFormat.yMMM(localeString).format(controller.selectedDate))}'
-                  : DateFormat.yMMM(localeString)
-                      .format(controller.selectedDate)
-                      .toLowerCase(),
-              style: controller.headerTextColor == null
-                  ? theme.primaryTextTheme.titleMedium
-                  : theme.primaryTextTheme.titleMedium!
-                      .copyWith(color: controller.headerTextColor),
-            ),
-            HeaderRow(
-              theme: theme,
-              localeString: localeString,
-              isMonthSelector: isMonthSelector,
-              onSelectYear: onSelectYear,
-              controller: controller,
-            ),
-          ],
-        ),
+        child: controller.hideHeaderRow
+            ? Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  HeaderSelectedDate(
+                    theme: theme,
+                    localeString: localeString,
+                    controller: controller,
+                  ),
+                ],
+              )
+            : Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  HeaderSelectedDate(
+                    theme: theme,
+                    localeString: localeString,
+                    controller: controller,
+                  ),
+                  HeaderRow(
+                    theme: theme,
+                    localeString: localeString,
+                    isMonthSelector: isMonthSelector,
+                    onSelectYear: onSelectYear,
+                    controller: controller,
+                  ),
+                ],
+              ),
       ),
     );
   }

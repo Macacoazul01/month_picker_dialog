@@ -122,6 +122,8 @@ class _MyAppState extends State<MyApp> {
                 // customWidth: 500,
                 // dismissible: true,
                 // forceSelectedDate: true,
+                // animationMilliseconds: 300
+                //hideHeaderRow: true
               ).then((DateTime? date) {
                 if (date != null) {
                   setState(() {

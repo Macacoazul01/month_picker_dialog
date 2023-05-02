@@ -10,6 +10,7 @@ void main() {
       roundedCornersRadius: 0,
       forceSelectedDate: false,
       animationMilliseconds: 300,
+      hideHeaderRow: false,
     );
     controller.initialize();
     expect(controller.yearItemCount, 9999);
@@ -18,6 +19,8 @@ void main() {
     expect(controller.selectedDate, DateTime.now().firstDayOfMonth());
     expect(controller.localFirstDate, null);
     expect(controller.localLastDate, null);
+    expect(controller.customHeight, null);
+    expect(controller.customWidth, null);
     controller.firstPossibleMonth(2120);
     expect(controller.selectedDate, DateTime(2120));
   });
@@ -33,11 +36,16 @@ void main() {
       forceSelectedDate: false,
       selectableMonthPredicate: (DateTime val) => val.month.isEven,
       animationMilliseconds: 300,
+      hideHeaderRow: false,
+      customHeight: 250,
+      customWidth: 310,
     );
     controller.initialize();
     expect(controller.yearItemCount, 6);
     expect(controller.yearPageCount, 1);
     expect(controller.monthPageCount, 6);
+    expect(controller.customHeight, 250);
+    expect(controller.customWidth, 310);
     expect(controller.selectedDate, DateTime(2023));
     expect(controller.localFirstDate, DateTime(2022));
     expect(controller.localLastDate, DateTime(2027));

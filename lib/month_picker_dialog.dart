@@ -54,6 +54,8 @@ import 'src/year_selector/year_selector.dart';
 ///
 /// [animationMilliseconds] lets you define the speed of the page transition animation (default is 450).
 ///
+/// [hideHeaderRow] lets you hide the row with the arrows + years/months page range from the header, forcing the user to scroll to change the page (default is false).
+///
 Future<DateTime?> showMonthPicker({
   required BuildContext context,
   DateTime? initialDate,
@@ -79,6 +81,7 @@ Future<DateTime?> showMonthPicker({
   double roundedCornersRadius = 0,
   bool forceSelectedDate = false,
   int animationMilliseconds = 450,
+  bool hideHeaderRow = false,
 }) async {
   assert(forceSelectedDate == dismissible || !forceSelectedDate,
       'forceSelectedDate can only be used with dismissible = true');
@@ -105,6 +108,7 @@ Future<DateTime?> showMonthPicker({
     roundedCornersRadius: roundedCornersRadius,
     forceSelectedDate: forceSelectedDate,
     animationMilliseconds: animationMilliseconds,
+    hideHeaderRow: hideHeaderRow,
   );
   final DateTime? dialogDate = await showDialog<DateTime>(
     context: context,

@@ -1,3 +1,6 @@
+## 1.3.0
+- Added `hideHeaderRow` property to allow you hide the row with the arrows + years/months page range from the header, forcing the user to scroll to change the page (default is false).
+
 ## 1.2.2
 - Added `animationMilliseconds` property to allow you define the speed of the page transition animation (default is 450).
 - Removed unnecessary column.

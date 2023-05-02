@@ -79,6 +79,8 @@ There are other parameters to configure on the dialog if you want:
 
 `animationMilliseconds` lets you define the speed of the page transition animation (default is 450).
 
+`hideHeaderRow` lets you hide the row with the arrows + years/months page range from the header, forcing the user to scroll to change the page (default is false).
+
 ## Screenshots
 ### Left-To-Right
 ![LTR portrait](screenshots/ltr_portrait.png)
