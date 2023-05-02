@@ -39,7 +39,7 @@ class PickerHeader extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: controller.hideHeaderRow
             ? Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   HeaderSelectedDate(
                     theme: theme,
