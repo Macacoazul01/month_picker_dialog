@@ -10,7 +10,6 @@ class HeaderArrows extends StatelessWidget {
     required this.downState,
   });
   final Color? arrowcolors;
-
   final VoidCallback onUpButtonPressed, onDownButtonPressed;
   final bool upState, downState;
 

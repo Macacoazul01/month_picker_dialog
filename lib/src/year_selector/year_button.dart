@@ -15,8 +15,7 @@ class YearButton extends StatelessWidget {
 
   final ThemeData theme;
   final MonthpickerController controller;
-  final int page;
-  final int index;
+  final int page, index;
   final ValueChanged<int> onYearSelected;
   final String localeString;
 
