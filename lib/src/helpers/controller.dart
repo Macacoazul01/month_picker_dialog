@@ -28,6 +28,7 @@ class MonthpickerController {
     required this.yearFirst,
     required this.roundedCornersRadius,
     required this.forceSelectedDate,
+    required this.animationMilliseconds,
   });
 
   //User defined variables
@@ -46,6 +47,7 @@ class MonthpickerController {
   final Widget? confirmWidget, cancelWidget;
   final double? customHeight, customWidth;
   final double roundedCornersRadius;
+  final int animationMilliseconds;
 
   //local variables
   final GlobalKey<YearSelectorState> yearSelectorState = GlobalKey();

@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
+import '/src/helpers/controller.dart';
 
 class PickerPager extends StatelessWidget {
-  const PickerPager(
-      {super.key,
-      this.customHeight,
-      this.customWidth,
-      required this.selector,
-      required this.theme});
-  final double? customHeight;
-  final double? customWidth;
+  const PickerPager({
+    super.key,
+    required this.controller,
+    required this.selector,
+    required this.theme,
+  });
   final Widget selector;
   final ThemeData theme;
+  final MonthpickerController controller;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: customHeight ?? 230.0,
-      width: customWidth ?? 320.0,
+      height: controller.customHeight ?? 240.0,
+      width: controller.customWidth ?? 320.0,
       child: Theme(
         data: theme.copyWith(
           buttonTheme: const ButtonThemeData(
@@ -25,8 +25,9 @@ class PickerPager extends StatelessWidget {
           ),
         ),
         child: AnimatedSwitcher(
-          duration: const Duration(milliseconds: 500),
-          reverseDuration: const Duration(milliseconds: 500),
+          duration: Duration(milliseconds: controller.animationMilliseconds),
+          reverseDuration:
+              Duration(milliseconds: controller.animationMilliseconds),
           transitionBuilder: (Widget child, Animation<double> animation) =>
               ScaleTransition(scale: animation, child: child),
           child: selector,

@@ -67,9 +67,9 @@ There are other parameters to configure on the dialog if you want:
 
 `cancelWidget` lets you set a custom cancel widget.
 
-`customHeight` lets you set a custom height for the calendar widget.
+`customHeight` lets you set a custom height for the calendar widget (default is 240).
 
-`customWidth` lets you set a custom width for the calendar widget.
+`customWidth` lets you set a custom width for the calendar widget (default is 320).
 
 `yearFirst` lets you define that the user must select first the year, then the month.
 
@@ -77,14 +77,12 @@ There are other parameters to configure on the dialog if you want:
 
 `roundedCornersRadius` lets you define the Radius of the rounded dialog (default is 0).
 
+`animationMilliseconds` lets you define the speed of the page transition animation (default is 450).
+
 ## Screenshots
 ### Left-To-Right
 ![LTR portrait](screenshots/ltr_portrait.png)
 ![LTR landscape](screenshots/ltr_landscape.png)
-
-### Right-To-Left
-![RTL portrait](screenshots/rtl_portrait.png)
-![RTL landscape](screenshots/rtl_landscape.png)
 
 
 ## Contributors:

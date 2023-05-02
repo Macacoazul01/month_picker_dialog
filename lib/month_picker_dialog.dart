@@ -40,9 +40,9 @@ import 'src/year_selector/year_selector.dart';
 ///
 /// [cancelWidget] lets you set a custom cancel widget.
 ///
-/// [customHeight] lets you set a custom height for the calendar widget.
+/// [customHeight] lets you set a custom height for the calendar widget (default is 240).
 ///
-/// [customWidth] lets you set a custom width for the calendar widget.
+/// [customWidth] lets you set a custom width for the calendar widget (default is 320).
 ///
 /// [yearFirst] lets you define that the user must select first the year, then the month.
 ///
@@ -51,6 +51,8 @@ import 'src/year_selector/year_selector.dart';
 /// [dismissible] lets you define if the dialog will be dismissible by clicking outside it.
 ///
 /// [forceSelectedDate] lets you define that the current selected date will be returned if the user clicks outside of the dialog. Needs `dismissible = true`.
+///
+/// [animationMilliseconds] lets you define the speed of the page transition animation (default is 450).
 ///
 Future<DateTime?> showMonthPicker({
   required BuildContext context,
@@ -76,6 +78,7 @@ Future<DateTime?> showMonthPicker({
   bool dismissible = false,
   double roundedCornersRadius = 0,
   bool forceSelectedDate = false,
+  int animationMilliseconds = 450,
 }) async {
   assert(forceSelectedDate == dismissible || !forceSelectedDate,
       'forceSelectedDate can only be used with dismissible = true');
@@ -101,6 +104,7 @@ Future<DateTime?> showMonthPicker({
     yearFirst: yearFirst,
     roundedCornersRadius: roundedCornersRadius,
     forceSelectedDate: forceSelectedDate,
+    animationMilliseconds: animationMilliseconds,
   );
   final DateTime? dialogDate = await showDialog<DateTime>(
     context: context,
@@ -188,8 +192,7 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
           PickerPager(
             selector: _selector,
             theme: theme,
-            customHeight: widget.controller.customHeight,
-            customWidth: widget.controller.customWidth,
+            controller: widget.controller,
           ),
           PickerButtonBar(
             controller: widget.controller,
@@ -210,27 +213,22 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
     return Theme(
       data: theme.copyWith(dialogBackgroundColor: Colors.transparent),
       child: Dialog(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Builder(
-              builder: (BuildContext context) {
-                if (portrait) {
-                  return Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[header, content],
-                  );
-                }
-                return IntrinsicHeight(
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: <Widget>[header, content],
-                  ),
-                );
-              },
-            ),
-          ],
+        child: Builder(
+          builder: (BuildContext context) {
+            if (portrait) {
+              return Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[header, content],
+              );
+            }
+            return IntrinsicHeight(
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[header, content],
+              ),
+            );
+          },
         ),
       ),
     );

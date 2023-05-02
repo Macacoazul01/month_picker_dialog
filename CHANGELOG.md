@@ -1,3 +1,8 @@
+## 1.2.2
+- Added `animationMilliseconds` property to allow you define the speed of the page transition animation (default is 450).
+- Removed unnecessary column.
+- Changed default `customHeight` to 240.
+
 ## 1.2.0
 - Added `monthStylePredicate` and `yearStylePredicate` properties to allow passing a different style for each month or year [67](https://github.com/hmkrivoj/month_picker_dialog/pull/67).
 - Added documentation on some of the code

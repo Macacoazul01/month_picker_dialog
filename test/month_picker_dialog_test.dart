@@ -9,6 +9,7 @@ void main() {
       yearFirst: true,
       roundedCornersRadius: 0,
       forceSelectedDate: false,
+      animationMilliseconds: 300,
     );
     controller.initialize();
     expect(controller.yearItemCount, 9999);
@@ -31,6 +32,7 @@ void main() {
       initialDate: DateTime(2023),
       forceSelectedDate: false,
       selectableMonthPredicate: (DateTime val) => val.month.isEven,
+      animationMilliseconds: 300,
     );
     controller.initialize();
     expect(controller.yearItemCount, 6);
