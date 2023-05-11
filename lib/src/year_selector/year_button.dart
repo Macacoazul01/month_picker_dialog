@@ -78,7 +78,7 @@ class YearButton extends StatelessWidget {
     final ButtonStyle? Function(int)? yearPredicate =
         controller.yearStylePredicate;
     if (yearPredicate != null) {
-      final value = yearPredicate(year);
+      final ButtonStyle? value = yearPredicate(year);
       if (value != null) {
         yearStyle = yearStyle.merge(value);
       }

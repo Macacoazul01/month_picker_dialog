@@ -1,3 +1,6 @@
+## 2.0.0
+- Breaking: bumped to dart 3 + intl 0.18.0 (latest one on flutter_localizations)
+
 ## 1.3.0
 - Added `hideHeaderRow` property to allow you hide the row with the arrows + years/months page range from the header, forcing the user to scroll to change the page (default is false).
 
