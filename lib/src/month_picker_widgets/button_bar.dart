@@ -10,8 +10,6 @@ class PickerButtonBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ThemeData theme = Theme.of(context);
-    final bool useMaterial3 = theme.useMaterial3;
     final MaterialLocalizations localizations =
         MaterialLocalizations.of(context);
     return ButtonBar(
@@ -19,16 +17,12 @@ class PickerButtonBar extends StatelessWidget {
         TextButton(
           onPressed: () => controller.cancelFunction(context),
           child: controller.cancelWidget ??
-              Text(useMaterial3
-                  ? localizations.cancelButtonLabel
-                  : localizations.cancelButtonLabel.toUpperCase()),
+              Text(localizations.cancelButtonLabel),
         ),
         TextButton(
           onPressed: () => controller.okFunction(context),
           child: controller.confirmWidget ??
-              Text(useMaterial3
-                  ? localizations.okButtonLabel
-                  : localizations.okButtonLabel.toUpperCase()),
+              Text(localizations.okButtonLabel),
         )
       ],
     );
