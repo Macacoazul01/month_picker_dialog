@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:month_picker_dialog/src/helpers/controller.dart';
 import 'package:month_picker_dialog/src/helpers/extensions.dart';
@@ -11,6 +12,8 @@ void main() {
       forceSelectedDate: false,
       animationMilliseconds: 300,
       hideHeaderRow: false,
+      theme: ThemeData.fallback(),
+      useMaterial3: false,
     );
     controller.initialize();
     expect(controller.yearItemCount, 9999);
@@ -39,6 +42,8 @@ void main() {
       hideHeaderRow: false,
       customHeight: 250,
       customWidth: 310,
+      theme: ThemeData.fallback(),
+      useMaterial3: false,
     );
     controller.initialize();
     expect(controller.yearItemCount, 6);

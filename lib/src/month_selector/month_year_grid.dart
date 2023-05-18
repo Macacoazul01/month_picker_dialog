@@ -24,7 +24,7 @@ class MonthYearGridBuilder extends StatelessWidget {
       children: List<Widget>.generate(
         12,
         (final int index) => MonthButton(
-          theme: Theme.of(context),
+          theme: controller.theme,
           date: DateTime(
               controller.localFirstDate != null
                   ? controller.localFirstDate!.year + page

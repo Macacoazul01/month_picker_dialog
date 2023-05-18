@@ -1,3 +1,7 @@
+## 2.0.2
+- Moved theme to the controller
+- Added default locale strings to the action buttons
+
 ## 2.0.0
 - Breaking: bumped to dart 3 + intl 0.18.0 (latest one on flutter_localizations)
 

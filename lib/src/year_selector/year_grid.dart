@@ -18,7 +18,6 @@ class YearGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     final String localeString =
         getLocale(context, selectedLocale: controller.locale);
-    final theme = Theme.of(context);
     return GridView.count(
       physics: const NeverScrollableScrollPhysics(),
       padding: const EdgeInsets.all(8.0),
@@ -26,7 +25,7 @@ class YearGrid extends StatelessWidget {
       children: List<Widget>.generate(
         12,
         (final int index) => YearButton(
-          theme: theme,
+          theme: controller.theme,
           controller: controller,
           page: page,
           index: index,

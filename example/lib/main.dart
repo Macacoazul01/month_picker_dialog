@@ -1,3 +1,4 @@
+// import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:month_picker_dialog/month_picker_dialog.dart';
@@ -25,6 +26,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    // return CupertinoApp(
     return MaterialApp(
       localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
         GlobalMaterialLocalizations.delegate,
@@ -45,8 +47,10 @@ class _MyAppState extends State<MyApp> {
         Locale('it'),
       ],
       theme: ThemeData(
-          colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.indigo)
-              .copyWith(secondary: Colors.pinkAccent)),
+        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.indigo)
+            .copyWith(secondary: Colors.pinkAccent),
+      ),
+      // theme: CupertinoThemeData(primaryColor: Colors.indigo),
       home: Scaffold(
         appBar: AppBar(
           title: const Text('Month Picker Example App'),

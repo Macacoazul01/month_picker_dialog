@@ -30,15 +30,18 @@ class MonthpickerController {
     required this.forceSelectedDate,
     required this.animationMilliseconds,
     required this.hideHeaderRow,
+    required this.theme,
+    required this.useMaterial3,
   });
 
   //User defined variables
+  final ThemeData theme;
   final DateTime? firstDate, lastDate, initialDate;
   final Locale? locale;
   final bool Function(DateTime)? selectableMonthPredicate;
   final ButtonStyle? Function(DateTime)? monthStylePredicate;
   final ButtonStyle? Function(int)? yearStylePredicate;
-  final bool capitalizeFirstLetter, yearFirst, forceSelectedDate, hideHeaderRow;
+  final bool capitalizeFirstLetter, yearFirst, forceSelectedDate, hideHeaderRow, useMaterial3;
   final Color? headerColor,
       headerTextColor,
       selectedMonthBackgroundColor,

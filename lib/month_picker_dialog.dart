@@ -85,6 +85,7 @@ Future<DateTime?> showMonthPicker({
 }) async {
   assert(forceSelectedDate == dismissible || !forceSelectedDate,
       'forceSelectedDate can only be used with dismissible = true');
+  final ThemeData theme = Theme.of(context);
   final MonthpickerController controller = MonthpickerController(
     initialDate: initialDate,
     firstDate: firstDate,
@@ -109,6 +110,8 @@ Future<DateTime?> showMonthPicker({
     forceSelectedDate: forceSelectedDate,
     animationMilliseconds: animationMilliseconds,
     hideHeaderRow: hideHeaderRow,
+    theme: theme,
+    useMaterial3: theme.useMaterial3
   );
   final DateTime? dialogDate = await showDialog<DateTime>(
     context: context,
@@ -168,14 +171,13 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
 
   @override
   Widget build(BuildContext context) {
-    final ThemeData theme = Theme.of(context);
     final String locale =
         getLocale(context, selectedLocale: widget.controller.locale);
     final bool portrait =
         MediaQuery.of(context).orientation == Orientation.portrait;
     final Container content = Container(
       decoration: BoxDecoration(
-        color: widget.controller.backgroundColor ?? theme.dialogBackgroundColor,
+        color: widget.controller.backgroundColor ?? widget.controller.theme.dialogBackgroundColor,
         borderRadius: portrait
             ? BorderRadius.only(
                 bottomLeft:
@@ -195,7 +197,7 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
         children: <Widget>[
           PickerPager(
             selector: _selector,
-            theme: theme,
+            theme: widget.controller.theme,
             controller: widget.controller,
           ),
           PickerButtonBar(
@@ -206,7 +208,7 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
     );
 
     final PickerHeader header = PickerHeader(
-      theme: theme,
+      theme: widget.controller.theme,
       localeString: locale,
       isMonthSelector: _selector is MonthSelector,
       onSelectYear: _onSelectYear,
@@ -215,7 +217,7 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
     );
 
     return Theme(
-      data: theme.copyWith(dialogBackgroundColor: Colors.transparent),
+      data: widget.controller.theme.copyWith(dialogBackgroundColor: Colors.transparent),
       child: Dialog(
         child: Builder(
           builder: (BuildContext context) {
