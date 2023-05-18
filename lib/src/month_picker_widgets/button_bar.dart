@@ -10,15 +10,25 @@ class PickerButtonBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+    final bool useMaterial3 = theme.useMaterial3;
+    final MaterialLocalizations localizations =
+        MaterialLocalizations.of(context);
     return ButtonBar(
       children: <Widget>[
         TextButton(
           onPressed: () => controller.cancelFunction(context),
-          child: controller.cancelWidget ?? const Text('CANCEL'),
+          child: controller.cancelWidget ??
+              Text(useMaterial3
+                  ? localizations.cancelButtonLabel
+                  : localizations.cancelButtonLabel.toUpperCase()),
         ),
         TextButton(
           onPressed: () => controller.okFunction(context),
-          child: controller.confirmWidget ?? const Text('OK'),
+          child: controller.confirmWidget ??
+              Text(useMaterial3
+                  ? localizations.okButtonLabel
+                  : localizations.okButtonLabel.toUpperCase()),
         )
       ],
     );
