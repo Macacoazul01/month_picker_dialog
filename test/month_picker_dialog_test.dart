@@ -14,6 +14,7 @@ void main() {
       hideHeaderRow: false,
       theme: ThemeData.fallback(),
       useMaterial3: false,
+      selectedMonthPadding: 0,
     );
     controller.initialize();
     expect(controller.yearItemCount, 9999);
@@ -44,6 +45,7 @@ void main() {
       customWidth: 310,
       theme: ThemeData.fallback(),
       useMaterial3: false,
+      selectedMonthPadding: 1,
     );
     controller.initialize();
     expect(controller.yearItemCount, 6);
@@ -56,5 +58,6 @@ void main() {
     expect(controller.localLastDate, DateTime(2027));
     controller.firstPossibleMonth(2120);
     expect(controller.selectedDate, DateTime(2120, 2));
+    expect(controller.selectedMonthPadding, 1);
   });
 }

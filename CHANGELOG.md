@@ -1,3 +1,7 @@
+## 2.1.0 - 2023-11-01
+- Added `selectedMonthPadding` property to allow you control the size of the current selected month/year circle by increasing the padding of it (default is 0).[74](https://github.com/hmkrivoj/month_picker_dialog/issues/74).
+- Added web to sample.
+
 ## 2.0.2
 - Moved theme to the controller
 - Added default locale strings to the action buttons [73](https://github.com/hmkrivoj/month_picker_dialog/pull/73)

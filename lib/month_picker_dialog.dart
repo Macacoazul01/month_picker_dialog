@@ -36,6 +36,8 @@ import 'src/year_selector/year_selector.dart';
 ///
 /// [unselectedMonthTextColor] lets you control the text color of the current unselected months/years.
 ///
+/// [selectedMonthPadding] lets you control the size of the current selected month/year circle by increasing the padding of it (default is 0).
+///
 /// [confirmWidget] lets you set a custom confirm widget.
 ///
 /// [cancelWidget] lets you set a custom cancel widget.
@@ -71,6 +73,7 @@ Future<DateTime?> showMonthPicker({
   Color? selectedMonthBackgroundColor,
   Color? selectedMonthTextColor,
   Color? unselectedMonthTextColor,
+  double selectedMonthPadding = 0,
   Color? backgroundColor,
   Widget? confirmWidget,
   Widget? cancelWidget,
@@ -87,32 +90,32 @@ Future<DateTime?> showMonthPicker({
       'forceSelectedDate can only be used with dismissible = true');
   final ThemeData theme = Theme.of(context);
   final MonthpickerController controller = MonthpickerController(
-    initialDate: initialDate,
-    firstDate: firstDate,
-    lastDate: lastDate,
-    locale: locale,
-    selectableMonthPredicate: selectableMonthPredicate,
-    monthStylePredicate: monthStylePredicate,
-    yearStylePredicate: yearStylePredicate,
-    capitalizeFirstLetter: capitalizeFirstLetter,
-    headerColor: headerColor,
-    headerTextColor: headerTextColor,
-    selectedMonthBackgroundColor: selectedMonthBackgroundColor,
-    selectedMonthTextColor: selectedMonthTextColor,
-    unselectedMonthTextColor: unselectedMonthTextColor,
-    backgroundColor: backgroundColor,
-    confirmWidget: confirmWidget,
-    cancelWidget: cancelWidget,
-    customHeight: customHeight,
-    customWidth: customWidth,
-    yearFirst: yearFirst,
-    roundedCornersRadius: roundedCornersRadius,
-    forceSelectedDate: forceSelectedDate,
-    animationMilliseconds: animationMilliseconds,
-    hideHeaderRow: hideHeaderRow,
-    theme: theme,
-    useMaterial3: theme.useMaterial3
-  );
+      initialDate: initialDate,
+      firstDate: firstDate,
+      lastDate: lastDate,
+      locale: locale,
+      selectableMonthPredicate: selectableMonthPredicate,
+      monthStylePredicate: monthStylePredicate,
+      yearStylePredicate: yearStylePredicate,
+      capitalizeFirstLetter: capitalizeFirstLetter,
+      headerColor: headerColor,
+      headerTextColor: headerTextColor,
+      selectedMonthBackgroundColor: selectedMonthBackgroundColor,
+      selectedMonthTextColor: selectedMonthTextColor,
+      unselectedMonthTextColor: unselectedMonthTextColor,
+      selectedMonthPadding: selectedMonthPadding,
+      backgroundColor: backgroundColor,
+      confirmWidget: confirmWidget,
+      cancelWidget: cancelWidget,
+      customHeight: customHeight,
+      customWidth: customWidth,
+      yearFirst: yearFirst,
+      roundedCornersRadius: roundedCornersRadius,
+      forceSelectedDate: forceSelectedDate,
+      animationMilliseconds: animationMilliseconds,
+      hideHeaderRow: hideHeaderRow,
+      theme: theme,
+      useMaterial3: theme.useMaterial3);
   final DateTime? dialogDate = await showDialog<DateTime>(
     context: context,
     barrierDismissible: dismissible,
@@ -177,7 +180,8 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
         MediaQuery.of(context).orientation == Orientation.portrait;
     final Container content = Container(
       decoration: BoxDecoration(
-        color: widget.controller.backgroundColor ?? widget.controller.theme.dialogBackgroundColor,
+        color: widget.controller.backgroundColor ??
+            widget.controller.theme.dialogBackgroundColor,
         borderRadius: portrait
             ? BorderRadius.only(
                 bottomLeft:
@@ -217,7 +221,8 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
     );
 
     return Theme(
-      data: widget.controller.theme.copyWith(dialogBackgroundColor: Colors.transparent),
+      data: widget.controller.theme
+          .copyWith(dialogBackgroundColor: Colors.transparent),
       child: Dialog(
         child: Builder(
           builder: (BuildContext context) {

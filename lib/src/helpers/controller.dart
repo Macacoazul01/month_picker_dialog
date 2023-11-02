@@ -4,7 +4,7 @@ import '/src/helpers/extensions.dart';
 import '/src/month_selector/month_selector.dart';
 import '/src/year_selector/year_selector.dart';
 
-///Global controller of the dialog. It holds the initial parameters passed on the initialization.
+///Global controller of the dialog. It holds the initial parameters passed on the widget creation.
 class MonthpickerController {
   MonthpickerController({
     this.initialDate,
@@ -20,6 +20,7 @@ class MonthpickerController {
     this.selectedMonthBackgroundColor,
     this.selectedMonthTextColor,
     this.unselectedMonthTextColor,
+    required this.selectedMonthPadding,
     this.backgroundColor,
     this.confirmWidget,
     this.cancelWidget,
@@ -41,7 +42,11 @@ class MonthpickerController {
   final bool Function(DateTime)? selectableMonthPredicate;
   final ButtonStyle? Function(DateTime)? monthStylePredicate;
   final ButtonStyle? Function(int)? yearStylePredicate;
-  final bool capitalizeFirstLetter, yearFirst, forceSelectedDate, hideHeaderRow, useMaterial3;
+  final bool capitalizeFirstLetter,
+      yearFirst,
+      forceSelectedDate,
+      hideHeaderRow,
+      useMaterial3;
   final Color? headerColor,
       headerTextColor,
       selectedMonthBackgroundColor,
@@ -50,7 +55,7 @@ class MonthpickerController {
       backgroundColor;
   final Widget? confirmWidget, cancelWidget;
   final double? customHeight, customWidth;
-  final double roundedCornersRadius;
+  final double roundedCornersRadius, selectedMonthPadding;
   final int animationMilliseconds;
 
   //local variables

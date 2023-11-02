@@ -84,12 +84,15 @@ class YearButton extends StatelessWidget {
       }
     }
 
-    return TextButton(
-      onPressed: isEnabled ? () => onYearSelected(year) : null,
-      style: yearStyle,
-      child: Text(
-        DateFormat.y(localeString).format(DateTime(year)),
-        style: yearStyle.textStyle?.resolve({}),
+    return Padding(
+      padding: EdgeInsets.all(controller.selectedMonthPadding),
+      child: TextButton(
+        onPressed: isEnabled ? () => onYearSelected(year) : null,
+        style: yearStyle,
+        child: Text(
+          DateFormat.y(localeString).format(DateTime(year)),
+          style: yearStyle.textStyle?.resolve({}),
+        ),
       ),
     );
   }
