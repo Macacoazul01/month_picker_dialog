@@ -227,9 +227,11 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
         child: Builder(
           builder: (BuildContext context) {
             if (portrait) {
-              return Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[header, content],
+              return IntrinsicWidth(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[header, content],
+                ),
               );
             }
             return IntrinsicHeight(
