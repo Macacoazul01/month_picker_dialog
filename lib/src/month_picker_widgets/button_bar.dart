@@ -16,12 +16,19 @@ class PickerButtonBar extends StatelessWidget {
       children: <Widget>[
         TextButton(
           onPressed: () => controller.cancelFunction(context),
-          child:
-              controller.cancelWidget ?? Text(localizations.cancelButtonLabel),
+          child: controller.cancelWidget ??
+              Text(
+                localizations.cancelButtonLabel,
+                textScaleFactor: controller.textScaleFactor,
+              ),
         ),
         TextButton(
           onPressed: () => controller.okFunction(context),
-          child: controller.confirmWidget ?? Text(localizations.okButtonLabel),
+          child: controller.confirmWidget ??
+              Text(
+                localizations.okButtonLabel,
+                textScaleFactor: controller.textScaleFactor,
+              ),
         )
       ],
     );

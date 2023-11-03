@@ -43,6 +43,7 @@ class HeaderRow extends StatelessWidget {
               DateFormat.y(localeString)
                   .format(DateTime(monthProvider.pageLimit.upLimit)),
               style: headline5,
+              textScaleFactor: controller.textScaleFactor,
             ),
           ),
           HeaderArrows(
@@ -60,15 +61,18 @@ class HeaderRow extends StatelessWidget {
                 DateFormat.y(localeString)
                     .format(DateTime(yearProvider.pageLimit.upLimit)),
                 style: headline5,
+                textScaleFactor: controller.textScaleFactor,
               ),
               Text(
                 '-',
                 style: headline5,
+                textScaleFactor: controller.textScaleFactor,
               ),
               Text(
                 DateFormat.y(localeString)
                     .format(DateTime(yearProvider.pageLimit.downLimit)),
                 style: headline5,
+                textScaleFactor: controller.textScaleFactor,
               ),
             ],
           ),

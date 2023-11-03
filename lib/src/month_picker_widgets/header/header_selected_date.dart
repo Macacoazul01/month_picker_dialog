@@ -21,6 +21,7 @@ class HeaderSelectedDate extends StatelessWidget {
           : DateFormat.yMMM(localeString)
               .format(controller.selectedDate)
               .toLowerCase(),
+      textScaleFactor: controller.textScaleFactor,
       style: controller.headerTextColor == null
           ? theme.primaryTextTheme.titleMedium
           : theme.primaryTextTheme.titleMedium!
