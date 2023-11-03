@@ -58,6 +58,8 @@ import 'src/year_selector/year_selector.dart';
 ///
 /// [hideHeaderRow] lets you hide the row with the arrows + years/months page range from the header, forcing the user to scroll to change the page (default is false).
 ///
+/// [textScaleFactor] lets you control the scale of the texts in the widget.
+///
 Future<DateTime?> showMonthPicker({
   required BuildContext context,
   DateTime? initialDate,
@@ -117,7 +119,7 @@ Future<DateTime?> showMonthPicker({
     hideHeaderRow: hideHeaderRow,
     theme: theme,
     useMaterial3: theme.useMaterial3,
-    textScaleFactor: textScaleFactor
+    textScaleFactor: textScaleFactor,
   );
   final DateTime? dialogDate = await showDialog<DateTime>(
     context: context,

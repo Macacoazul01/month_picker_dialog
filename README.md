@@ -83,6 +83,8 @@ There are other parameters to configure on the dialog if you want:
 
 `hideHeaderRow` lets you hide the row with the arrows + years/months page range from the header, forcing the user to scroll to change the page (default is false).
 
+`textScaleFactor` lets you control the scale of the texts in the widget.
+
 ## Screenshots
 ### Left-To-Right
 ![LTR portrait](screenshots/ltr_portrait.png)
