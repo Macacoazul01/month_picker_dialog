@@ -97,3 +97,21 @@ There are other parameters to configure on the dialog if you want:
 [Dimitri Krivoj](https://github.com/hmkrivoj) (the original creator of the package)
 
 [Fabio Henrique](https://github.com/FabioClem)
+
+[Leon Colt](https://github.com/LeonColt)
+
+[Wesley Gonzaga](https://github.com/wesleygonalv)
+
+[Efrain Bastidas](https://github.com/Wolfteam)
+
+[Volodymyr Hyrka](https://github.com/Vov4yk)
+
+[Bern](https://github.com/Berneyw)
+
+[just1982](https://github.com/just1982)
+
+[Sagar Zala](https://github.com/sagarzala123)
+
+[Pong Loong Yeat](https://github.com/pongloongyeat)
+
+[Masayuki Ono](https://github.com/mono0926)
