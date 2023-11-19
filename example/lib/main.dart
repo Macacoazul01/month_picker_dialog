@@ -49,6 +49,15 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.indigo)
             .copyWith(secondary: Colors.pinkAccent),
+        //Changing the global dialog border
+        dialogTheme: DialogTheme(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(20),
+            ),
+            side: BorderSide(color: Colors.blue)
+          ),
+        ),
       ),
       // theme: CupertinoThemeData(primaryColor: Colors.indigo),
       home: Scaffold(
