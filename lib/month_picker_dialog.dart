@@ -60,6 +60,8 @@ import 'src/year_selector/year_selector.dart';
 ///
 /// [textScaleFactor] lets you control the scale of the texts in the widget.
 ///
+/// [arrowSize] lets you control the size of the header arrows.
+///
 Future<DateTime?> showMonthPicker({
   required BuildContext context,
   DateTime? initialDate,
@@ -88,6 +90,7 @@ Future<DateTime?> showMonthPicker({
   int animationMilliseconds = 450,
   bool hideHeaderRow = false,
   double? textScaleFactor,
+  double? arrowSize,
 }) async {
   assert(forceSelectedDate == dismissible || !forceSelectedDate,
       'forceSelectedDate can only be used with dismissible = true');
@@ -120,6 +123,7 @@ Future<DateTime?> showMonthPicker({
     theme: theme,
     useMaterial3: theme.useMaterial3,
     textScaleFactor: textScaleFactor,
+    arrowSize: arrowSize,
   );
   final DateTime? dialogDate = await showDialog<DateTime>(
     context: context,

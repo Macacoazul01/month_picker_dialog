@@ -56,6 +56,7 @@ class HeaderRow extends StatelessWidget {
             onDownButtonPressed: controller.onDownButtonPressed,
             downState: monthProvider.enableState.downState,
             upState: monthProvider.enableState.upState,
+            arrowSize: controller.arrowSize,
           ),
         ] else ...<Widget>[
           Row(
@@ -86,6 +87,7 @@ class HeaderRow extends StatelessWidget {
             onDownButtonPressed: controller.onDownButtonPressed,
             downState: yearProvider.enableState.downState,
             upState: yearProvider.enableState.upState,
+            arrowSize: controller.arrowSize,
           ),
         ]
       ],

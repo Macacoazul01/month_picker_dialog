@@ -1,3 +1,6 @@
+## 2.4.0 - 2023-12-08
+- Added `arrowSize` property to allow you control the size of the header arrows.
+
 ## 2.3.0 - 2023-12-08
 - Removed deprecated `textScaleFactor` inside the package (the name of the parameter stays the same)
 - Bumped dart to `3.0.0`,provider to `6.1.1`, intl to `0.18.1` and flutter_lints to `3.0.1`

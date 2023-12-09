@@ -34,6 +34,7 @@ class MonthpickerController {
     required this.theme,
     required this.useMaterial3,
     this.textScaleFactor,
+    this.arrowSize,
   });
 
   //User defined variables
@@ -55,7 +56,7 @@ class MonthpickerController {
       unselectedMonthTextColor,
       backgroundColor;
   final Widget? confirmWidget, cancelWidget;
-  final double? customHeight, customWidth, textScaleFactor;
+  final double? customHeight, customWidth, textScaleFactor, arrowSize;
   final double roundedCornersRadius, selectedMonthPadding;
   final int animationMilliseconds;
 

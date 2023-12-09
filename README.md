@@ -85,6 +85,8 @@ There are other parameters to configure on the dialog if you want:
 
 `textScaleFactor` lets you control the scale of the texts in the widget.
 
+`arrowSize` lets you control the size of the header arrows.
+
 ## Screenshots
 ### Left-To-Right
 ![LTR portrait](screenshots/ltr_portrait.png)
