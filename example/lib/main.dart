@@ -1,4 +1,3 @@
-// import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:month_picker_dialog/month_picker_dialog.dart';
@@ -55,7 +54,7 @@ class _MyAppState extends State<MyApp> {
             borderRadius: BorderRadius.all(
               Radius.circular(20),
             ),
-            side: BorderSide(color: Colors.blue)
+            side: BorderSide(color: Colors.blue),
           ),
         ),
       ),

@@ -29,6 +29,10 @@ class HeaderRow extends StatelessWidget {
     final Color? arrowcolors =
         controller.headerTextColor ?? theme.primaryIconTheme.color;
 
+    final TextScaler? scaler = controller.textScaleFactor != null
+        ? TextScaler.linear(controller.textScaleFactor!)
+        : null;
+
     final YearUpDownPageProvider yearProvider =
         Provider.of<YearUpDownPageProvider>(context);
     final MonthUpDownPageProvider monthProvider =
@@ -43,7 +47,7 @@ class HeaderRow extends StatelessWidget {
               DateFormat.y(localeString)
                   .format(DateTime(monthProvider.pageLimit.upLimit)),
               style: headline5,
-              textScaleFactor: controller.textScaleFactor,
+              textScaler: scaler,
             ),
           ),
           HeaderArrows(
@@ -61,18 +65,18 @@ class HeaderRow extends StatelessWidget {
                 DateFormat.y(localeString)
                     .format(DateTime(yearProvider.pageLimit.upLimit)),
                 style: headline5,
-                textScaleFactor: controller.textScaleFactor,
+                textScaler: scaler,
               ),
               Text(
                 '-',
                 style: headline5,
-                textScaleFactor: controller.textScaleFactor,
+                textScaler: scaler,
               ),
               Text(
                 DateFormat.y(localeString)
                     .format(DateTime(yearProvider.pageLimit.downLimit)),
                 style: headline5,
-                textScaleFactor: controller.textScaleFactor,
+                textScaler: scaler,
               ),
             ],
           ),

@@ -97,7 +97,9 @@ class MonthButton extends StatelessWidget {
                   DateFormat.MMM(localeString).format(date))!
               : DateFormat.MMM(localeString).format(date).toLowerCase(),
           style: monthStyle.textStyle?.resolve({}),
-          textScaleFactor: controller.textScaleFactor,
+          textScaler: controller.textScaleFactor != null
+              ? TextScaler.linear(controller.textScaleFactor!)
+              : null,
         ),
       ),
     );

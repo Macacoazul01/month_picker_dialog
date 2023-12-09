@@ -1,3 +1,7 @@
+## 2.3.0 - 2023-11-03
+- Removed deprecated `textScaleFactor` inside the package (the name of the parameter stays the same)
+- Bumped dart to `3.0.0`,provider to `6.1.1`, intl to `0.18.1` and flutter_lints to `3.0.1`
+
 ## 2.2.1 - 2023-11-03
 - Added `textScaleFactor` property to allow controlling the scale of the texts in the widget [77](https://github.com/hmkrivoj/month_picker_dialog/pull/77).
 - Wrap portrait mode dialog in IntrinsicWidth to prevent oversized content [76](https://github.com/hmkrivoj/month_picker_dialog/pull/76).

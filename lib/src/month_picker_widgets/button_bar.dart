@@ -12,6 +12,9 @@ class PickerButtonBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final MaterialLocalizations localizations =
         MaterialLocalizations.of(context);
+    final TextScaler? scaler = controller.textScaleFactor != null
+        ? TextScaler.linear(controller.textScaleFactor!)
+        : null;
     return ButtonBar(
       children: <Widget>[
         TextButton(
@@ -19,7 +22,7 @@ class PickerButtonBar extends StatelessWidget {
           child: controller.cancelWidget ??
               Text(
                 localizations.cancelButtonLabel,
-                textScaleFactor: controller.textScaleFactor,
+                textScaler: scaler,
               ),
         ),
         TextButton(
@@ -27,7 +30,7 @@ class PickerButtonBar extends StatelessWidget {
           child: controller.confirmWidget ??
               Text(
                 localizations.okButtonLabel,
-                textScaleFactor: controller.textScaleFactor,
+                textScaler: scaler,
               ),
         )
       ],
