@@ -89,6 +89,8 @@ There are other parameters to configure on the dialog if you want:
 
 `forcePortrait` lets you block the widget from entering in landscape mode.
 
+`customDivider` lets you add a custom divider between the months/years and the confirm/cancel buttons.
+
 ## Screenshots
 ### Left-To-Right
 ![LTR portrait](screenshots/ltr_portrait.png)

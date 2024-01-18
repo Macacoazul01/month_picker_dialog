@@ -1,3 +1,6 @@
+## 2.6.0 - 2024-01-17
+- Added `customDivider` property to allow you add a custom divider between the months/years and the confirm/cancel buttons.
+
 ## 2.5.1 - 2024-01-17
 - Mini fix in `customWidth`.
 

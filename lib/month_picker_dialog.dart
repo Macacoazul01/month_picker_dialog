@@ -12,57 +12,59 @@ import 'src/year_selector/year_selector.dart';
 
 /// Displays month picker dialog.
 ///
-/// [initialDate] is the initially selected month.
+/// `initialDate:` is the initially selected month.
 ///
-/// [firstDate] is the optional lower bound for month selection.
+/// `firstDate:` is the optional lower bound for month selection.
 ///
-/// [lastDate] is the optional upper bound for month selection.
+/// `lastDate:` is the optional upper bound for month selection.
 ///
-/// [selectableMonthPredicate] lets you control enabled months just like the official selectableDayPredicate.
+/// `selectableMonthPredicate:` lets you control enabled months just like the official selectableDayPredicate.
 ///
-/// [monthStylePredicate] allows you to individually customize each month.
+/// `monthStylePredicate:` allows you to individually customize each month.
 ///
-/// [yearStylePredicate] allows you to individually customize each year.
+/// `yearStylePredicate:` allows you to individually customize each year.
 ///
-/// [capitalizeFirstLetter] lets you control if your months names are capitalized or not.
+/// `capitalizeFirstLetter:` lets you control if your months names are capitalized or not.
 ///
-/// [headerColor] lets you control the calendar header color.
+/// `headerColor:` lets you control the calendar header color.
 ///
-/// [headerTextColor] lets you control the calendar header text and arrows color.
+/// `headerTextColor:` lets you control the calendar header text and arrows color.
 ///
-/// [selectedMonthBackgroundColor] lets you control the current selected month/year background color.
+/// `selectedMonthBackgroundColor:` lets you control the current selected month/year background color.
 ///
-/// [selectedMonthTextColor] lets you control the text color of the current selected month/year.
+/// `selectedMonthTextColor:` lets you control the text color of the current selected month/year.
 ///
-/// [unselectedMonthTextColor] lets you control the text color of the current unselected months/years.
+/// `unselectedMonthTextColor:` lets you control the text color of the current unselected months/years.
 ///
-/// [selectedMonthPadding] lets you control the size of the current selected month/year circle by increasing the padding of it (default is 0).
+/// `selectedMonthPadding:` lets you control the size of the current selected month/year circle by increasing the padding of it (default is 0).
 ///
-/// [confirmWidget] lets you set a custom confirm widget.
+/// `confirmWidget:` lets you set a custom confirm widget.
 ///
-/// [cancelWidget] lets you set a custom cancel widget.
+/// `cancelWidget:` lets you set a custom cancel widget.
 ///
-/// [customHeight] lets you set a custom height for the calendar widget (default is 240).
+/// `customHeight:` lets you set a custom height for the calendar widget (default is 240).
 ///
-/// [customWidth] lets you set a custom width for the calendar widget (default is 320).
+/// `customWidth:` lets you set a custom width for the calendar widget (default is 320).
 ///
-/// [yearFirst] lets you define that the user must select first the year, then the month.
+/// `yearFirst:` lets you define that the user must select first the year, then the month.
 ///
-/// [roundedCornersRadius] lets you define the Radius of the rounded dialog (default is 0).
+/// `roundedCornersRadius:` lets you define the Radius of the rounded dialog (default is 0).
 ///
-/// [dismissible] lets you define if the dialog will be dismissible by clicking outside it.
+/// `dismissible:` lets you define if the dialog will be dismissible by clicking outside it.
 ///
-/// [forceSelectedDate] lets you define that the current selected date will be returned if the user clicks outside of the dialog. Needs `dismissible = true`.
+/// `forceSelectedDate:` lets you define that the current selected date will be returned if the user clicks outside of the dialog. Needs `dismissible = true`.
 ///
-/// [animationMilliseconds] lets you define the speed of the page transition animation (default is 450).
+/// `animationMilliseconds:` lets you define the speed of the page transition animation (default is 450).
 ///
-/// [hideHeaderRow] lets you hide the row with the arrows + years/months page range from the header, forcing the user to scroll to change the page (default is false).
+/// `hideHeaderRow:` lets you hide the row with the arrows + years/months page range from the header, forcing the user to scroll to change the page (default is false).
 ///
-/// [textScaleFactor] lets you control the scale of the texts in the widget.
+/// `textScaleFactor:` lets you control the scale of the texts in the widget.
 ///
-/// [arrowSize] lets you control the size of the header arrows.
+/// `arrowSize:` lets you control the size of the header arrows.
 ///
-/// [forcePortrait] lets you block the widget from entering in landscape mode.
+/// `forcePortrait:` lets you block the widget from entering in landscape mode.
+///
+/// `customDivider:` lets you add a custom divider between the months/years and the confirm/cancel buttons.
 ///
 Future<DateTime?> showMonthPicker({
   required BuildContext context,
@@ -94,6 +96,7 @@ Future<DateTime?> showMonthPicker({
   double? textScaleFactor,
   double? arrowSize,
   bool forcePortrait = false,
+  Widget? customDivider,
 }) async {
   assert(forceSelectedDate == dismissible || !forceSelectedDate,
       'forceSelectedDate can only be used with dismissible = true');
@@ -128,6 +131,7 @@ Future<DateTime?> showMonthPicker({
     textScaleFactor: textScaleFactor,
     arrowSize: arrowSize,
     forcePortrait: forcePortrait,
+    customDivider: customDivider,
   );
   final DateTime? dialogDate = await showDialog<DateTime>(
     context: context,
@@ -211,6 +215,7 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
               ),
       ),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: <Widget>[
           PickerPager(
@@ -218,6 +223,8 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
             theme: widget.controller.theme,
             controller: widget.controller,
           ),
+          if (widget.controller.customDivider != null)
+            widget.controller.customDivider!,
           PickerButtonBar(
             controller: widget.controller,
           ),

@@ -127,6 +127,11 @@ class _MyAppState extends State<MyApp> {
                 roundedCornersRadius: 20,
                 yearFirst: true,
                 backgroundColor: Colors.yellow[100],
+                // customDivider: Divider(
+                //   color: Colors.black,
+                //   endIndent: 25,
+                //   indent: 25,
+                // ),
                 // forcePortrait: true,
                 //forceSelectedDate: true,
                 //dismissible: true,
