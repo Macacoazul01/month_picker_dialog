@@ -35,6 +35,7 @@ class MonthpickerController {
     required this.useMaterial3,
     this.textScaleFactor,
     this.arrowSize,
+    required this.forcePortrait,
   });
 
   //User defined variables
@@ -48,7 +49,8 @@ class MonthpickerController {
       yearFirst,
       forceSelectedDate,
       hideHeaderRow,
-      useMaterial3;
+      useMaterial3,
+      forcePortrait;
   final Color? headerColor,
       headerTextColor,
       selectedMonthBackgroundColor,

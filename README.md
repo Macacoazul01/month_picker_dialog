@@ -87,6 +87,8 @@ There are other parameters to configure on the dialog if you want:
 
 `arrowSize` lets you control the size of the header arrows.
 
+`forcePortrait` lets you block the widget from entering in landscape mode.
+
 ## Screenshots
 ### Left-To-Right
 ![LTR portrait](screenshots/ltr_portrait.png)

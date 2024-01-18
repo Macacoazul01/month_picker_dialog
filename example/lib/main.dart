@@ -127,6 +127,7 @@ class _MyAppState extends State<MyApp> {
                 roundedCornersRadius: 20,
                 yearFirst: true,
                 backgroundColor: Colors.yellow[100],
+                // forcePortrait: true,
                 //forceSelectedDate: true,
                 //dismissible: true,
                 // capitalizeFirstLetter: true,

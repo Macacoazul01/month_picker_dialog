@@ -1,3 +1,6 @@
+## 2.5.0 - 2024-01-17
+- Added `forcePortrait` property to allow you block the widget from entering in landscape mode.
+
 ## 2.4.0 - 2023-12-08
 - Added `arrowSize` property to allow you control the size of the header arrows.
 
