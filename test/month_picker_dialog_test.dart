@@ -16,6 +16,7 @@ void main() {
       useMaterial3: false,
       selectedMonthPadding: 0,
       forcePortrait: false,
+      customWidth: 320,
     );
     controller.initialize();
     expect(controller.yearItemCount, 9999);
@@ -25,7 +26,7 @@ void main() {
     expect(controller.localFirstDate, null);
     expect(controller.localLastDate, null);
     expect(controller.customHeight, null);
-    expect(controller.customWidth, null);
+    expect(controller.customWidth, 320);
     controller.firstPossibleMonth(2120);
     expect(controller.selectedDate, DateTime(2120));
   });

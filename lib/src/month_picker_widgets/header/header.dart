@@ -23,6 +23,7 @@ class PickerHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: portrait ? controller.customWidth : null,
       decoration: BoxDecoration(
         color: controller.headerColor ?? theme.primaryColor,
         borderRadius: portrait

@@ -15,7 +15,7 @@ class PickerPager extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: controller.customHeight ?? 240.0,
-      width: controller.customWidth ?? 320.0,
+      width: controller.customWidth,
       child: Theme(
         data: theme.copyWith(
           buttonTheme: const ButtonThemeData(

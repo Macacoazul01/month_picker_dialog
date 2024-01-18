@@ -1,3 +1,6 @@
+## 2.5.1 - 2024-01-17
+- Mini fix in `customWidth`.
+
 ## 2.5.0 - 2024-01-17
 - Added `forcePortrait` property to allow you block the widget from entering in landscape mode.
 

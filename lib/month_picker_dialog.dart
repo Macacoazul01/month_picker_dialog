@@ -61,7 +61,7 @@ import 'src/year_selector/year_selector.dart';
 /// [textScaleFactor] lets you control the scale of the texts in the widget.
 ///
 /// [arrowSize] lets you control the size of the header arrows.
-/// 
+///
 /// [forcePortrait] lets you block the widget from entering in landscape mode.
 ///
 Future<DateTime?> showMonthPicker({
@@ -84,7 +84,7 @@ Future<DateTime?> showMonthPicker({
   Widget? confirmWidget,
   Widget? cancelWidget,
   double? customHeight,
-  double? customWidth,
+  double customWidth = 320,
   bool yearFirst = false,
   bool dismissible = false,
   double roundedCornersRadius = 0,
@@ -189,8 +189,9 @@ class _MonthPickerDialogState extends State<_MonthPickerDialog> {
   Widget build(BuildContext context) {
     final String locale =
         getLocale(context, selectedLocale: widget.controller.locale);
-    final bool portrait = widget.controller.forcePortrait ? true :
-        MediaQuery.of(context).orientation == Orientation.portrait;
+    final bool portrait = widget.controller.forcePortrait
+        ? true
+        : MediaQuery.of(context).orientation == Orientation.portrait;
     final Container content = Container(
       decoration: BoxDecoration(
         color: widget.controller.backgroundColor ??

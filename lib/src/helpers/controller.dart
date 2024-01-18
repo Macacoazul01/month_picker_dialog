@@ -25,7 +25,7 @@ class MonthpickerController {
     this.confirmWidget,
     this.cancelWidget,
     this.customHeight,
-    this.customWidth,
+    required this.customWidth,
     required this.yearFirst,
     required this.roundedCornersRadius,
     required this.forceSelectedDate,
@@ -58,8 +58,8 @@ class MonthpickerController {
       unselectedMonthTextColor,
       backgroundColor;
   final Widget? confirmWidget, cancelWidget;
-  final double? customHeight, customWidth, textScaleFactor, arrowSize;
-  final double roundedCornersRadius, selectedMonthPadding;
+  final double? customHeight, textScaleFactor, arrowSize;
+  final double roundedCornersRadius, selectedMonthPadding, customWidth;
   final int animationMilliseconds;
 
   //local variables
