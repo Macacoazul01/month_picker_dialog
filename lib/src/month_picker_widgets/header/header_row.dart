@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import '/src/helpers/controller.dart';
-import '/src/helpers/providers.dart';
-import '/src/month_picker_widgets/header/header_arrows.dart';
+import '/month_picker_dialog.dart';
 
 class HeaderRow extends StatelessWidget {
   const HeaderRow({

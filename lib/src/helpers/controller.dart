@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '/src/helpers/extensions.dart';
-import '/src/month_selector/month_selector.dart';
-import '/src/year_selector/year_selector.dart';
+import '/month_picker_dialog.dart';
 
 ///Global controller of the dialog. It holds the initial parameters passed on the widget creation.
 class MonthpickerController {

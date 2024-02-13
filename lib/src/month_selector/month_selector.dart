@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '/src/helpers/controller.dart';
-import '/src/helpers/providers.dart';
-import '/src/month_selector/month_year_grid.dart';
+import '/month_picker_dialog.dart';
 
 class MonthSelector extends StatefulWidget {
   const MonthSelector({

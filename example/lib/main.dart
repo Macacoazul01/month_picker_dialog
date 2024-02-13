@@ -54,7 +54,7 @@ class _MyAppState extends State<MyApp> {
             borderRadius: BorderRadius.all(
               Radius.circular(20),
             ),
-            side: BorderSide(color: Colors.blue),
+            side: BorderSide(color: Colors.red),
           ),
         ),
       ),
@@ -105,28 +105,28 @@ class _MyAppState extends State<MyApp> {
                   }
                   return null;
                 },
-                headerColor: Colors.amber[900],
+                headerColor: Colors.indigo[300],
                 headerTextColor: Colors.black,
                 selectedMonthBackgroundColor: Colors.amber[900],
                 selectedMonthTextColor: Colors.white,
-                unselectedMonthTextColor: Colors.green,
+                unselectedMonthTextColor: Colors.black,
                 confirmWidget: Text(
                   'This one!',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    color: Colors.amber[900],
+                    color: Colors.indigo[300],
                   ),
                 ),
                 cancelWidget: Text(
                   'Cancel',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    color: Colors.amber[900],
+                    color: Colors.red[900],
                   ),
                 ),
                 roundedCornersRadius: 20,
                 yearFirst: true,
-                backgroundColor: Colors.yellow[100],
+                backgroundColor: Colors.blueGrey[50],
                 // customDivider: Divider(
                 //   color: Colors.black,
                 //   endIndent: 25,

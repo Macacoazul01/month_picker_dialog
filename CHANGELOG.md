@@ -1,3 +1,7 @@
+## 2.7.0 - 2024-02-13
+- Exposed `MonthPickerDialog` widget.
+- Improved files organization.
+
 ## 2.6.0 - 2024-01-17
 - Added `customDivider` property to allow you add a custom divider between the months/years and the confirm/cancel buttons.
 
