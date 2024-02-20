@@ -90,13 +90,21 @@ class MonthPickerDialogState extends State<MonthPickerDialog> {
       data: widget.controller.theme
           .copyWith(dialogBackgroundColor: Colors.transparent),
       child: Dialog(
+        shape: RoundedRectangleBorder(
+          side: widget.controller.dialogBorderSide,
+          borderRadius:
+              BorderRadius.circular(widget.controller.roundedCornersRadius),
+        ),
         child: Builder(
           builder: (BuildContext context) {
             if (portrait) {
-              return IntrinsicWidth(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[header, content],
+              return SingleChildScrollView(
+                physics: ClampingScrollPhysics(),
+                child: IntrinsicWidth(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[header, content],
+                  ),
                 ),
               );
             }

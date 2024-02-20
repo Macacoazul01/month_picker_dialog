@@ -36,6 +36,8 @@ class MonthpickerController {
     this.arrowSize,
     required this.forcePortrait,
     this.customDivider,
+    required this.blockScrolling,
+    required this.dialogBorderSide,
   });
 
   //User defined variables
@@ -50,7 +52,8 @@ class MonthpickerController {
       forceSelectedDate,
       hideHeaderRow,
       useMaterial3,
-      forcePortrait;
+      forcePortrait,
+      blockScrolling;
   final Color? headerColor,
       headerTextColor,
       selectedMonthBackgroundColor,
@@ -62,6 +65,7 @@ class MonthpickerController {
   final double? customHeight, textScaleFactor, arrowSize;
   final double roundedCornersRadius, selectedMonthPadding, customWidth;
   final int animationMilliseconds;
+  final BorderSide dialogBorderSide;
 
   //local variables
   final GlobalKey<YearSelectorState> yearSelectorState = GlobalKey();
@@ -79,10 +83,13 @@ class MonthpickerController {
     if (initialDate != null) {
       selectedDate = initialDate!.firstDayOfMonth();
     }
-    if (firstDate != null)
+    if (firstDate != null) {
       localFirstDate = DateTime(firstDate!.year, firstDate!.month);
-    if (lastDate != null)
+    }
+
+    if (lastDate != null) {
       localLastDate = DateTime(lastDate!.year, lastDate!.month);
+    }
 
     yearItemCount = getYearItemCount(localFirstDate, localLastDate);
     yearPageCount = getYearPageCount(localFirstDate, localLastDate);

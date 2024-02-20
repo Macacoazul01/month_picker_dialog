@@ -17,7 +17,9 @@ class YearGrid extends StatelessWidget {
     final String localeString =
         getLocale(context, selectedLocale: controller.locale);
     return GridView.count(
-      physics: const NeverScrollableScrollPhysics(),
+      physics: controller.blockScrolling
+          ? const NeverScrollableScrollPhysics()
+          : const ClampingScrollPhysics(),
       padding: const EdgeInsets.all(8.0),
       crossAxisCount: 4,
       children: List<Widget>.generate(

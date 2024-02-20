@@ -17,6 +17,8 @@ void main() {
       selectedMonthPadding: 0,
       forcePortrait: false,
       customWidth: 320,
+      blockScrolling: false,
+      dialogBorderSide: BorderSide.none,
     );
     controller.initialize();
     expect(controller.yearItemCount, 9999);
@@ -49,6 +51,8 @@ void main() {
       useMaterial3: false,
       selectedMonthPadding: 1,
       forcePortrait: true,
+      blockScrolling: false,
+      dialogBorderSide: BorderSide.none,
     );
     controller.initialize();
     expect(controller.yearItemCount, 6);

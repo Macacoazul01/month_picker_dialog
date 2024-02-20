@@ -93,6 +93,10 @@ There are other parameters to configure on the dialog if you want:
 
 `customDivider` lets you add a custom divider between the months/years and the confirm/cancel buttons.
 
+`dialogBorderSide:` lets you define the border side of the dialog (default is `BorderSide.none`).
+
+`blockScrolling:` lets you block the user from scrolling the months/years (default is `true`).
+
 ## Screenshots
 ### Left-To-Right
 ![LTR portrait](screenshots/ltr_portrait.png)
