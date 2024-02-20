@@ -1,3 +1,6 @@
+## 2.11.0 - 2024-02-20
+- Fixed [#87](https://github.com/Macacoazul01/month_picker_dialog/issues/87).
+
 ## 2.10.0 - 2024-02-19
 - Added `dialogBorderSide:` property to allow you define the border side of the dialog (default is `BorderSide.none`).
 - Added `blockScrolling:` property to allow you block the user from scrolling the months/years (default is `true`).

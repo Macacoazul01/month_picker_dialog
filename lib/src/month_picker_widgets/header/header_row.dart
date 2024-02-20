@@ -11,10 +11,11 @@ class HeaderRow extends StatelessWidget {
     required this.isMonthSelector,
     required this.onSelectYear,
     required this.controller,
+    required this.portrait,
   });
   final ThemeData theme;
   final String localeString;
-  final bool isMonthSelector;
+  final bool isMonthSelector, portrait;
   final VoidCallback onSelectYear;
   final MonthpickerController controller;
 
@@ -35,60 +36,65 @@ class HeaderRow extends StatelessWidget {
         Provider.of<YearUpDownPageProvider>(context);
     final MonthUpDownPageProvider monthProvider =
         Provider.of<MonthUpDownPageProvider>(context);
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: <Widget>[
-        if (isMonthSelector) ...<Widget>[
-          GestureDetector(
-            onTap: onSelectYear,
-            child: Text(
-              DateFormat.y(localeString)
-                  .format(DateTime(monthProvider.pageLimit.upLimit)),
-              style: headline5,
-              textScaler: scaler,
+    final List<Widget> mainWidgets = (isMonthSelector)
+        ? <Widget>[
+            GestureDetector(
+              onTap: onSelectYear,
+              child: Text(
+                DateFormat.y(localeString)
+                    .format(DateTime(monthProvider.pageLimit.upLimit)),
+                style: headline5,
+                textScaler: scaler,
+              ),
             ),
-          ),
-          HeaderArrows(
-            arrowcolors: arrowcolors,
-            onUpButtonPressed: controller.onUpButtonPressed,
-            onDownButtonPressed: controller.onDownButtonPressed,
-            downState: monthProvider.enableState.downState,
-            upState: monthProvider.enableState.upState,
-            arrowSize: controller.arrowSize,
-          ),
-        ] else ...<Widget>[
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Text(
-                DateFormat.y(localeString)
-                    .format(DateTime(yearProvider.pageLimit.upLimit)),
-                style: headline5,
-                textScaler: scaler,
-              ),
-              Text(
-                '-',
-                style: headline5,
-                textScaler: scaler,
-              ),
-              Text(
-                DateFormat.y(localeString)
-                    .format(DateTime(yearProvider.pageLimit.downLimit)),
-                style: headline5,
-                textScaler: scaler,
-              ),
-            ],
-          ),
-          HeaderArrows(
-            arrowcolors: arrowcolors,
-            onUpButtonPressed: controller.onUpButtonPressed,
-            onDownButtonPressed: controller.onDownButtonPressed,
-            downState: yearProvider.enableState.downState,
-            upState: yearProvider.enableState.upState,
-            arrowSize: controller.arrowSize,
-          ),
-        ]
-      ],
-    );
+            HeaderArrows(
+              arrowcolors: arrowcolors,
+              onUpButtonPressed: controller.onUpButtonPressed,
+              onDownButtonPressed: controller.onDownButtonPressed,
+              downState: monthProvider.enableState.downState,
+              upState: monthProvider.enableState.upState,
+              arrowSize: controller.arrowSize,
+            ),
+          ]
+        : <Widget>[
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Text(
+                  DateFormat.y(localeString)
+                      .format(DateTime(yearProvider.pageLimit.upLimit)),
+                  style: headline5,
+                  textScaler: scaler,
+                ),
+                Text(
+                  '-',
+                  style: headline5,
+                  textScaler: scaler,
+                ),
+                Text(
+                  DateFormat.y(localeString)
+                      .format(DateTime(yearProvider.pageLimit.downLimit)),
+                  style: headline5,
+                  textScaler: scaler,
+                ),
+              ],
+            ),
+            HeaderArrows(
+              arrowcolors: arrowcolors,
+              onUpButtonPressed: controller.onUpButtonPressed,
+              onDownButtonPressed: controller.onDownButtonPressed,
+              downState: yearProvider.enableState.downState,
+              upState: yearProvider.enableState.upState,
+              arrowSize: controller.arrowSize,
+            ),
+          ];
+    return portrait
+        ? Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: mainWidgets,
+          )
+        : Column(
+            children: mainWidgets,
+          );
   }
 }

@@ -62,6 +62,7 @@ class PickerHeader extends StatelessWidget {
                     isMonthSelector: isMonthSelector,
                     onSelectYear: onSelectYear,
                     controller: controller,
+                    portrait: portrait,
                   ),
                 ],
               ),
