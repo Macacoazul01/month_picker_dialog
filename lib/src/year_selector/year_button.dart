@@ -57,7 +57,7 @@ class YearButton extends StatelessWidget {
               )
               .color
           : year == DateTime.now().year
-              ? backgroundColor
+              ? (controller.currentMonthTextColor ?? backgroundColor)
               : controller.unselectedMonthTextColor,
       backgroundColor:
           year == controller.selectedDate.year ? backgroundColor : null,

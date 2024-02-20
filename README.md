@@ -61,6 +61,8 @@ There are other parameters to configure on the dialog if you want:
 
 `unselectedMonthTextColor` lets you control the text color of the current unselected months/years.
 
+`currentMonthTextColor` lets you control the text color of the current month/year.
+
 `selectedMonthPadding` lets you control the size of the current selected month/year circle by increasing the padding of it.
 
 `backgroundColor` lets you control if the dialog will have a custom background color.

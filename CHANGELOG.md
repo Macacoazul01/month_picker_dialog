@@ -1,3 +1,6 @@
+## 2.8.0 - 2024-02-19
+- Added `currentMonthTextColor` property to allow you control the text color of the current month/year.
+
 ## 2.7.0 - 2024-02-13
 - Exposed `MonthPickerDialog` widget.
 - Improved files organization.

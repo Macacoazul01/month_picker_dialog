@@ -28,6 +28,8 @@ import 'package:provider/provider.dart';
 ///
 /// `unselectedMonthTextColor:` lets you control the text color of the current unselected months/years.
 ///
+/// `currentMonthTextColor:` lets you control the text color of the current month/year.
+///
 /// `selectedMonthPadding:` lets you control the size of the current selected month/year circle by increasing the padding of it (default is 0).
 ///
 /// `confirmWidget:` lets you set a custom confirm widget.
@@ -73,6 +75,7 @@ Future<DateTime?> showMonthPicker({
   Color? selectedMonthBackgroundColor,
   Color? selectedMonthTextColor,
   Color? unselectedMonthTextColor,
+  Color? currentMonthTextColor,
   double selectedMonthPadding = 0,
   Color? backgroundColor,
   Widget? confirmWidget,
@@ -107,6 +110,7 @@ Future<DateTime?> showMonthPicker({
     selectedMonthBackgroundColor: selectedMonthBackgroundColor,
     selectedMonthTextColor: selectedMonthTextColor,
     unselectedMonthTextColor: unselectedMonthTextColor,
+    currentMonthTextColor: currentMonthTextColor,
     selectedMonthPadding: selectedMonthPadding,
     backgroundColor: backgroundColor,
     confirmWidget: confirmWidget,

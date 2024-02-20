@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:month_picker_dialog/month_picker_dialog.dart';
 
-void main() => runApp(MyApp(
-      initialDate: DateTime.now(),
-    ));
+void main() => runApp(
+      MyApp(
+        initialDate: DateTime.now(),
+      ),
+    );
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key, required this.initialDate});
@@ -110,6 +112,7 @@ class _MyAppState extends State<MyApp> {
                 selectedMonthBackgroundColor: Colors.amber[900],
                 selectedMonthTextColor: Colors.white,
                 unselectedMonthTextColor: Colors.black,
+                currentMonthTextColor: Colors.green,
                 confirmWidget: Text(
                   'This one!',
                   style: TextStyle(
