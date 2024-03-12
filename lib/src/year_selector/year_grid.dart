@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '/month_picker_dialog.dart';
 
+///The year grid. It has all of the avaliable options to be selected.
 class YearGrid extends StatelessWidget {
   const YearGrid({
     super.key,

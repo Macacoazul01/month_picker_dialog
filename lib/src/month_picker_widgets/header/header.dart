@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '/month_picker_dialog.dart';
 
+///The widget that will hold all of the Header widgets.
 class PickerHeader extends StatelessWidget {
   const PickerHeader({
     super.key,

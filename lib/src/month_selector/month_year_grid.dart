@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '/month_picker_dialog.dart';
 
+///The month grid. It has all of the avaliable options to be selected.
 class MonthYearGridBuilder extends StatelessWidget {
   const MonthYearGridBuilder({
     super.key,

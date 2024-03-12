@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '/month_picker_dialog.dart';
 
+///The widget that will hold the month grid selector.
 class MonthSelector extends StatefulWidget {
   const MonthSelector({
     super.key,
@@ -36,6 +37,7 @@ class MonthSelectorState extends State<MonthSelector> {
     );
   }
 
+  ///Function to check if the page has reached the limit of the month list.
   void _onPageChange(final int page) {
     _blocked =
         !(page - 1 > 0 && page + 1 < widget.controller.monthPageCount - 1);
@@ -56,6 +58,7 @@ class MonthSelectorState extends State<MonthSelector> {
     initialize();
   }
 
+  ///Function to go to the next page of the grid.
   void goDown() {
     widget.controller.monthPageController?.animateToPage(
       widget.controller.monthPageController!.page!.toInt() + 1,
@@ -64,6 +67,7 @@ class MonthSelectorState extends State<MonthSelector> {
     );
   }
 
+  ///Function to go to the previous page of the grid.
   void goUp() {
     widget.controller.monthPageController?.animateToPage(
       widget.controller.monthPageController!.page!.toInt() - 1,
@@ -72,6 +76,7 @@ class MonthSelectorState extends State<MonthSelector> {
     );
   }
 
+  ///Function to initialize the grid.
   void initialize() {
     widget.controller.monthPageController = PageController(
       initialPage: widget.controller.localFirstDate == null

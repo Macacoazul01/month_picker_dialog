@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import '/month_picker_dialog.dart';
 
+///The main dialog widget class.
+///It needs a `MonthpickerController` controller to be created.
 class MonthPickerDialog extends StatefulWidget {
   const MonthPickerDialog({required this.controller});
   final MonthpickerController controller;
@@ -121,6 +123,7 @@ class MonthPickerDialogState extends State<MonthPickerDialog> {
     );
   }
 
+  ///Function to change the grid to the year selector.
   void _onSelectYear() => setState(
         () => _selector = YearSelector(
           key: widget.controller.yearSelectorState,
@@ -129,6 +132,7 @@ class MonthPickerDialogState extends State<MonthPickerDialog> {
         ),
       );
 
+  ///Function to be executed when a year is selected.
   void _onYearSelected(final int year) {
     setState(
       () {
@@ -142,6 +146,7 @@ class MonthPickerDialogState extends State<MonthPickerDialog> {
     );
   }
 
+  ///Function to be executed when a month is selected.
   void _onMonthSelected(final DateTime date) => setState(
         () {
           widget.controller.selectedDate = date;

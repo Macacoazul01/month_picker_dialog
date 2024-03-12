@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '/month_picker_dialog.dart';
 
+///The widget that will hold the year grid selector.
 class YearSelector extends StatefulWidget {
   const YearSelector({
     super.key,
@@ -36,6 +37,7 @@ class YearSelectorState extends State<YearSelector> {
     );
   }
 
+  ///Function to check if the page has reached the limit of the year list.
   void _onPageChange(final int page) {
     _blocked =
         !(page - 1 > 0 && page + 1 < widget.controller.yearPageCount - 1);
@@ -57,6 +59,7 @@ class YearSelectorState extends State<YearSelector> {
     initialize();
   }
 
+  ///Function to go to the next page of the grid.
   void goDown() {
     widget.controller.yearPageController?.animateToPage(
       widget.controller.yearPageController!.page!.toInt() + 1,
@@ -65,6 +68,7 @@ class YearSelectorState extends State<YearSelector> {
     );
   }
 
+  ///Function to go to the previous page of the grid.
   void goUp() {
     widget.controller.yearPageController?.animateToPage(
       widget.controller.yearPageController!.page!.toInt() - 1,
@@ -73,6 +77,7 @@ class YearSelectorState extends State<YearSelector> {
     );
   }
 
+  ///Function to initialize the grid.
   void initialize() {
     widget.controller.yearPageController = PageController(
       initialPage: widget.controller.localFirstDate == null

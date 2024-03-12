@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+///The arrows that are used on the header to change between the pages of the grid.
 class HeaderArrows extends StatelessWidget {
   const HeaderArrows({
     super.key,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '/month_picker_dialog.dart';
 
+///The widget that presents the current selected date on the header.
 class HeaderSelectedDate extends StatelessWidget {
   const HeaderSelectedDate({
     super.key,

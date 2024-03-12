@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '/month_picker_dialog.dart';
 
+///The main part of the header. Where arrows and current interval are presented.
 class HeaderRow extends StatelessWidget {
   const HeaderRow({
     super.key,

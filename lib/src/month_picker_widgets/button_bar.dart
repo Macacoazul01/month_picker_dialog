@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '/month_picker_dialog.dart';
 
+///The actions button bar. Where confirmation and cancel button are.
 class PickerButtonBar extends StatelessWidget {
   const PickerButtonBar({
     super.key,
