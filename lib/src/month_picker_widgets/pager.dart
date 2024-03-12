@@ -11,7 +11,7 @@ class PickerPager extends StatelessWidget {
   final Widget selector;
   final ThemeData theme;
   final MonthpickerController controller;
-  
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
