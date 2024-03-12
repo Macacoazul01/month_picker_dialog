@@ -1,5 +1,6 @@
-## 3.0.0 - 2024-03-12
-- [Breaking] Bumped provider to `6.1.2`, intl to `0.19.0`. Using this version maybe will require you to update your local flutter to version `3.19+`. Fixes [#90](https://github.com/Macacoazul01/month_picker_dialog/issues/90).
+## 2.11.1 - 2024-03-12
+- Bumped provider to `6.1.2`.
+- Improved some docs.
 
 ## 2.11.0 - 2024-02-20
 - Fixed [#87](https://github.com/Macacoazul01/month_picker_dialog/issues/87).
