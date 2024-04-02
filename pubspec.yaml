@@ -1,6 +1,6 @@
 name: month_picker_dialog
 description: Internationalized dialog for picking a single month from an infinite list of years.
-version: 2.11.1
+version: 2.11.2
 homepage: https://github.com/hmkrivoj/month_picker_dialog
 
 environment:
@@ -8,8 +8,6 @@ environment:
 
 dependencies:
   flutter:
-    sdk: flutter
-  flutter_localizations:
     sdk: flutter
   provider: ^6.1.2
   intl: ^0.18.1

@@ -40,7 +40,7 @@ class PickerHeader extends StatelessWidget {
         child: controller.hideHeaderRow
             ? Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [
+                children: <Widget>[
                   HeaderSelectedDate(
                     theme: theme,
                     localeString: localeString,

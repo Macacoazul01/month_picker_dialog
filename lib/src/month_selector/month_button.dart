@@ -79,7 +79,7 @@ class MonthButton extends StatelessWidget {
     final ButtonStyle? Function(DateTime)? monthPredicate =
         controller.monthStylePredicate;
     if (monthPredicate != null) {
-      final value = monthPredicate(date);
+      final ButtonStyle? value = monthPredicate(date);
       if (value != null) {
         monthStyle = monthStyle.merge(value);
       }

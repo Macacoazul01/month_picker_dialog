@@ -3,7 +3,7 @@ description: Demonstrates how to use the month_picker_dialog plugin.
 publish_to: 'none'
 
 environment:
-  sdk: '>=2.19.2 <3.0.0'
+  sdk: '>=3.0.0 <4.0.0'
 
 dependencies:
   flutter:

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '/month_picker_dialog.dart';
 import 'package:provider/provider.dart';
+
+import '/month_picker_dialog.dart';
 
 /// Displays month picker dialog.
 ///

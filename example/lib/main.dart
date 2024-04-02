@@ -51,7 +51,7 @@ class _MyAppState extends State<MyApp> {
         colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.indigo)
             .copyWith(secondary: Colors.pinkAccent),
         //Changing the global dialog border
-        dialogTheme: DialogTheme(
+        dialogTheme: const DialogTheme(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(
               Radius.circular(20),

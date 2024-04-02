@@ -4,7 +4,7 @@ import '/month_picker_dialog.dart';
 ///The main dialog widget class.
 ///It needs a `MonthpickerController` controller to be created.
 class MonthPickerDialog extends StatefulWidget {
-  const MonthPickerDialog({required this.controller});
+  const MonthPickerDialog({super.key, required this.controller});
   final MonthpickerController controller;
   @override
   MonthPickerDialogState createState() => MonthPickerDialogState();
@@ -40,9 +40,7 @@ class MonthPickerDialogState extends State<MonthPickerDialog> {
   Widget build(BuildContext context) {
     final String locale =
         getLocale(context, selectedLocale: widget.controller.locale);
-    final bool portrait = widget.controller.forcePortrait
-        ? true
-        : MediaQuery.of(context).orientation == Orientation.portrait;
+    final bool portrait = widget.controller.forcePortrait || MediaQuery.of(context).orientation == Orientation.portrait;
     final Container content = Container(
       decoration: BoxDecoration(
         color: widget.controller.backgroundColor ??
@@ -101,7 +99,7 @@ class MonthPickerDialogState extends State<MonthPickerDialog> {
           builder: (BuildContext context) {
             if (portrait) {
               return SingleChildScrollView(
-                physics: ClampingScrollPhysics(),
+                physics: const ClampingScrollPhysics(),
                 child: IntrinsicWidth(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,

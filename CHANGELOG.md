@@ -1,3 +1,6 @@
+## 2.11.2 - 2024-04-02
+- Removed unnecessary dependencies.
+
 ## 2.11.1 - 2024-03-12
 - Bumped provider to `6.1.2`.
 - Improved some docs.
