@@ -19,6 +19,7 @@ void main() {
       customWidth: 320,
       blockScrolling: false,
       dialogBorderSide: BorderSide.none,
+      outlinedBorder: const CircleBorder(),
     );
     controller.initialize();
     expect(controller.yearItemCount, 9999);
@@ -53,6 +54,7 @@ void main() {
       forcePortrait: true,
       blockScrolling: false,
       dialogBorderSide: BorderSide.none,
+      outlinedBorder: const CircleBorder(),
     );
     controller.initialize();
     expect(controller.yearItemCount, 6);

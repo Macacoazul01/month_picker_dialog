@@ -130,6 +130,7 @@ class _MyAppState extends State<MyApp> {
                 roundedCornersRadius: 20,
                 yearFirst: true,
                 backgroundColor: Colors.blueGrey[50],
+                outlinedBorder: RoundedRectangleBorder(),
                 // customDivider: Divider(
                 //   color: Colors.black,
                 //   endIndent: 25,
