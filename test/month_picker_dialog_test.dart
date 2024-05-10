@@ -20,6 +20,7 @@ void main() {
       blockScrolling: false,
       dialogBorderSide: BorderSide.none,
       outlinedBorder: const CircleBorder(),
+      headerTitle: null,
     );
     controller.initialize();
     expect(controller.yearItemCount, 9999);
@@ -55,6 +56,7 @@ void main() {
       blockScrolling: false,
       dialogBorderSide: BorderSide.none,
       outlinedBorder: const CircleBorder(),
+      headerTitle: null,
     );
     controller.initialize();
     expect(controller.yearItemCount, 6);

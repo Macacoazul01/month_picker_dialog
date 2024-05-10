@@ -131,6 +131,7 @@ class _MyAppState extends State<MyApp> {
                 yearFirst: true,
                 backgroundColor: Colors.blueGrey[50],
                 outlinedBorder: RoundedRectangleBorder(),
+                headerTitle: Text('Month Picker Dialog'),
                 // customDivider: Divider(
                 //   color: Colors.black,
                 //   endIndent: 25,
