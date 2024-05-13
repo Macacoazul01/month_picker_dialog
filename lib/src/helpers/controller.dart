@@ -38,6 +38,8 @@ class MonthpickerController {
     this.customDivider,
     required this.blockScrolling,
     required this.dialogBorderSide,
+    required this.outlinedBorder,
+    required this.headerTitle,
   });
 
   //User defined variables
@@ -66,6 +68,8 @@ class MonthpickerController {
   final double roundedCornersRadius, selectedMonthPadding, customWidth;
   final int animationMilliseconds;
   final BorderSide dialogBorderSide;
+  final OutlinedBorder outlinedBorder;
+  final Widget? headerTitle;
 
   //local variables
   final GlobalKey<YearSelectorState> yearSelectorState = GlobalKey();

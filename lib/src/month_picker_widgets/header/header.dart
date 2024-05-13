@@ -12,12 +12,14 @@ class PickerHeader extends StatelessWidget {
     required this.onSelectYear,
     required this.portrait,
     required this.controller,
+    required this.headerTitle,
   });
   final ThemeData theme;
   final String localeString;
   final bool isMonthSelector, portrait;
   final VoidCallback onSelectYear;
   final MonthpickerController controller;
+  final Widget? headerTitle;
 
   @override
   Widget build(BuildContext context) {
@@ -52,6 +54,7 @@ class PickerHeader extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
+                  if (headerTitle != null) headerTitle!,
                   HeaderSelectedDate(
                     theme: theme,
                     localeString: localeString,
