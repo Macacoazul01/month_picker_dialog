@@ -99,7 +99,7 @@ Future<DateTime?> showMonthPicker(
     Widget? customDivider,
     bool blockScrolling = true,
     BorderSide dialogBorderSide = BorderSide.none,
-    OutlinedBorder outlinedBorder = const CircleBorder(),
+    OutlinedBorder buttonBorder = const CircleBorder(),
     Widget? headerTitle = null,
     }) async {
   assert(forceSelectedDate == dismissible || !forceSelectedDate,
@@ -139,7 +139,7 @@ Future<DateTime?> showMonthPicker(
     customDivider: customDivider,
     blockScrolling: blockScrolling,
     dialogBorderSide: dialogBorderSide,
-    outlinedBorder: outlinedBorder,
+    buttonBorder: buttonBorder,
     headerTitle: headerTitle,
   );
   final DateTime? dialogDate = await showDialog<DateTime>(

@@ -62,7 +62,7 @@ class YearButton extends StatelessWidget {
               : controller.unselectedMonthTextColor,
       backgroundColor:
           year == controller.selectedDate.year ? backgroundColor : null,
-      shape: controller.outlinedBorder,
+      shape: controller.buttonBorder,
     );
     return yearStyle;
   }

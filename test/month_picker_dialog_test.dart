@@ -19,7 +19,7 @@ void main() {
       customWidth: 320,
       blockScrolling: false,
       dialogBorderSide: BorderSide.none,
-      outlinedBorder: const CircleBorder(),
+      buttonBorder: const CircleBorder(),
       headerTitle: null,
     );
     controller.initialize();
@@ -55,7 +55,7 @@ void main() {
       forcePortrait: true,
       blockScrolling: false,
       dialogBorderSide: BorderSide.none,
-      outlinedBorder: const CircleBorder(),
+      buttonBorder: const CircleBorder(),
       headerTitle: null,
     );
     controller.initialize();

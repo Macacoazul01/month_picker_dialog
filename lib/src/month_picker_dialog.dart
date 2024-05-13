@@ -84,7 +84,6 @@ class MonthPickerDialogState extends State<MonthPickerDialog> {
       onSelectYear: _onSelectYear,
       portrait: portrait,
       controller: widget.controller,
-      headerTitle: widget.controller.headerTitle,
     );
 
     return Theme(
