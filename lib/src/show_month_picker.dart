@@ -64,48 +64,48 @@ import '/month_picker_dialog.dart';
 /// `blockScrolling:` lets you block the user from scrolling the months/years (default is `true`).
 ///
 /// `dialogBorderSide:` lets you define the border side of the dialog (default is `BorderSide.none`).
-/// 
+///
 /// `buttonBorder:` lets you define the border of the month/year buttons (default is `const CircleBorder()`).
-/// 
+///
 /// `headerTitle:` lets you add a custom title to the header of the dialog (default is `null`).
 ///
-Future<DateTime?> showMonthPicker(
-    {required BuildContext context,
-    DateTime? initialDate,
-    DateTime? firstDate,
-    DateTime? lastDate,
-    Locale? locale,
-    bool Function(DateTime)? selectableMonthPredicate,
-    ButtonStyle? Function(DateTime)? monthStylePredicate,
-    ButtonStyle? Function(int)? yearStylePredicate,
-    bool capitalizeFirstLetter = true,
-    Color? headerColor,
-    Color? headerTextColor,
-    Color? selectedMonthBackgroundColor,
-    Color? selectedMonthTextColor,
-    Color? unselectedMonthTextColor,
-    Color? currentMonthTextColor,
-    double selectedMonthPadding = 0,
-    Color? backgroundColor,
-    Widget? confirmWidget,
-    Widget? cancelWidget,
-    double? customHeight,
-    double customWidth = 320,
-    bool yearFirst = false,
-    bool dismissible = false,
-    double roundedCornersRadius = 0,
-    bool forceSelectedDate = false,
-    int animationMilliseconds = 450,
-    bool hideHeaderRow = false,
-    double? textScaleFactor,
-    double? arrowSize,
-    bool forcePortrait = false,
-    Widget? customDivider,
-    bool blockScrolling = true,
-    BorderSide dialogBorderSide = BorderSide.none,
-    OutlinedBorder buttonBorder = const CircleBorder(),
-    Widget? headerTitle = null,
-    }) async {
+Future<DateTime?> showMonthPicker({
+  required BuildContext context,
+  DateTime? initialDate,
+  DateTime? firstDate,
+  DateTime? lastDate,
+  Locale? locale,
+  bool Function(DateTime)? selectableMonthPredicate,
+  ButtonStyle? Function(DateTime)? monthStylePredicate,
+  ButtonStyle? Function(int)? yearStylePredicate,
+  bool capitalizeFirstLetter = true,
+  Color? headerColor,
+  Color? headerTextColor,
+  Color? selectedMonthBackgroundColor,
+  Color? selectedMonthTextColor,
+  Color? unselectedMonthTextColor,
+  Color? currentMonthTextColor,
+  double selectedMonthPadding = 0,
+  Color? backgroundColor,
+  Widget? confirmWidget,
+  Widget? cancelWidget,
+  double? customHeight,
+  double customWidth = 320,
+  bool yearFirst = false,
+  bool dismissible = false,
+  double roundedCornersRadius = 0,
+  bool forceSelectedDate = false,
+  int animationMilliseconds = 450,
+  bool hideHeaderRow = false,
+  double? textScaleFactor,
+  double? arrowSize,
+  bool forcePortrait = false,
+  Widget? customDivider,
+  bool blockScrolling = true,
+  BorderSide dialogBorderSide = BorderSide.none,
+  OutlinedBorder buttonBorder = const CircleBorder(),
+  Widget? headerTitle = null,
+}) async {
   assert(forceSelectedDate == dismissible || !forceSelectedDate,
       'forceSelectedDate can only be used with dismissible = true');
   final ThemeData theme = Theme.of(context);

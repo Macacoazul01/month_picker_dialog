@@ -40,7 +40,8 @@ class MonthPickerDialogState extends State<MonthPickerDialog> {
   Widget build(BuildContext context) {
     final String locale =
         getLocale(context, selectedLocale: widget.controller.locale);
-    final bool portrait = widget.controller.forcePortrait || MediaQuery.of(context).orientation == Orientation.portrait;
+    final bool portrait = widget.controller.forcePortrait ||
+        MediaQuery.of(context).orientation == Orientation.portrait;
     final Container content = Container(
       decoration: BoxDecoration(
         color: widget.controller.backgroundColor ??
