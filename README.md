@@ -97,6 +97,10 @@ There are other parameters to configure on the dialog if you want:
 
 `blockScrolling:` lets you block the user from scrolling the months/years (default is `true`).
 
+`buttonBorder:` lets you define the border of the month/year buttons (default is `const CircleBorder()`).
+
+`headerTitle:` lets you add a custom title to the header of the dialog (default is `null`).
+
 ## Screenshots
 ### Left-To-Right
 ![LTR portrait](screenshots/ltr_portrait.png)
@@ -127,3 +131,5 @@ There are other parameters to configure on the dialog if you want:
 [Pong Loong Yeat](https://github.com/pongloongyeat)
 
 [Masayuki Ono](https://github.com/mono0926)
+
+[Alecsplus](https://github.com/Alecsplus)

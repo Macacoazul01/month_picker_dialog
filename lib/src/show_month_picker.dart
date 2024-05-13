@@ -64,6 +64,10 @@ import '/month_picker_dialog.dart';
 /// `blockScrolling:` lets you block the user from scrolling the months/years (default is `true`).
 ///
 /// `dialogBorderSide:` lets you define the border side of the dialog (default is `BorderSide.none`).
+/// 
+/// `buttonBorder:` lets you define the border of the month/year buttons (default is `const CircleBorder()`).
+/// 
+/// `headerTitle:` lets you add a custom title to the header of the dialog (default is `null`).
 ///
 Future<DateTime?> showMonthPicker(
     {required BuildContext context,
