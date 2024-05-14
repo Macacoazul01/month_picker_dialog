@@ -163,7 +163,7 @@ class MonthpickerController {
   //selector functions
   ///function to cancel selecting a month
   void cancelFunction(BuildContext context) {
-    Navigator.pop(context, null);
+    Navigator.pop(context);
   }
 
   ///function to confirm selecting a month

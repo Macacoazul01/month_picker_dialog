@@ -1,5 +1,8 @@
-## 2.12.0 - 2024-05-13
+## 3.0.0 - 2024-05-13
 - Bumped intl to `0.19.0`.
+- Bumped flutter_lints to `4.0.0`.
+
+## 2.12.0 - 2024-05-13
 - Added `buttonBorder:` property to allow you define the border of the month/year buttons (default is `const CircleBorder()`) [#92](https://github.com/Macacoazul01/month_picker_dialog/pull/92).
 - Added `headerTitle:` property to allow you add a custom title to the header of the dialog (default is `null`) [#92](https://github.com/Macacoazul01/month_picker_dialog/pull/92).
 

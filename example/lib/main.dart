@@ -130,8 +130,8 @@ class _MyAppState extends State<MyApp> {
                 roundedCornersRadius: 20,
                 yearFirst: true,
                 backgroundColor: Colors.blueGrey[50],
-                buttonBorder: RoundedRectangleBorder(),
-                headerTitle: Text('Month Picker Dialog'),
+                buttonBorder: const RoundedRectangleBorder(),
+                headerTitle: const Text('Month Picker Dialog'),
                 // customDivider: Divider(
                 //   color: Colors.black,
                 //   endIndent: 25,

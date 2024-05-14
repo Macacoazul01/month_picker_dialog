@@ -104,7 +104,7 @@ Future<DateTime?> showMonthPicker({
   bool blockScrolling = true,
   BorderSide dialogBorderSide = BorderSide.none,
   OutlinedBorder buttonBorder = const CircleBorder(),
-  Widget? headerTitle = null,
+  Widget? headerTitle,
 }) async {
   assert(forceSelectedDate == dismissible || !forceSelectedDate,
       'forceSelectedDate can only be used with dismissible = true');
