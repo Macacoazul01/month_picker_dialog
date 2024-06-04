@@ -40,6 +40,7 @@ class MonthpickerController {
     required this.dialogBorderSide,
     required this.buttonBorder,
     required this.headerTitle,
+    required this.rangeMode,
   });
 
   //User defined variables
@@ -55,7 +56,7 @@ class MonthpickerController {
       hideHeaderRow,
       useMaterial3,
       forcePortrait,
-      blockScrolling;
+      blockScrolling, rangeMode;
   final Color? headerColor,
       headerTextColor,
       selectedMonthBackgroundColor,

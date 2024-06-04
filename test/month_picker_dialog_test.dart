@@ -21,6 +21,7 @@ void main() {
       dialogBorderSide: BorderSide.none,
       buttonBorder: const CircleBorder(),
       headerTitle: null,
+      rangeMode: false,
     );
     controller.initialize();
     expect(controller.yearItemCount, 9999);
@@ -33,6 +34,7 @@ void main() {
     expect(controller.customWidth, 320);
     controller.firstPossibleMonth(2120);
     expect(controller.selectedDate, DateTime(2120));
+    expect(controller.rangeMode, false);
   });
 
   test('controller_with_parameters_test', () {
@@ -57,6 +59,7 @@ void main() {
       dialogBorderSide: BorderSide.none,
       buttonBorder: const CircleBorder(),
       headerTitle: null,
+      rangeMode: true,
     );
     controller.initialize();
     expect(controller.yearItemCount, 6);
@@ -71,5 +74,6 @@ void main() {
     expect(controller.selectedDate, DateTime(2120, 2));
     expect(controller.selectedMonthPadding, 1);
     expect(controller.forcePortrait, true);
+    expect(controller.rangeMode, true);
   });
 }

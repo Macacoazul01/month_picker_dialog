@@ -68,6 +68,8 @@ import '/month_picker_dialog.dart';
 /// `buttonBorder:` lets you define the border of the month/year buttons (default is `const CircleBorder()`).
 ///
 /// `headerTitle:` lets you add a custom title to the header of the dialog (default is `null`).
+/// 
+/// `rangeMode:` lets you select a range of months instead of only one (default is `false`).
 ///
 Future<DateTime?> showMonthPicker({
   required BuildContext context,
@@ -105,6 +107,7 @@ Future<DateTime?> showMonthPicker({
   BorderSide dialogBorderSide = BorderSide.none,
   OutlinedBorder buttonBorder = const CircleBorder(),
   Widget? headerTitle,
+  bool rangeMode = false,
 }) async {
   assert(forceSelectedDate == dismissible || !forceSelectedDate,
       'forceSelectedDate can only be used with dismissible = true');
@@ -145,6 +148,7 @@ Future<DateTime?> showMonthPicker({
     dialogBorderSide: dialogBorderSide,
     buttonBorder: buttonBorder,
     headerTitle: headerTitle,
+    rangeMode: rangeMode,
   );
   final DateTime? dialogDate = await showDialog<DateTime>(
     context: context,
