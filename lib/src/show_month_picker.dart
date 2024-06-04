@@ -150,7 +150,7 @@ Future<DateTime?> showMonthPicker({
     headerTitle: headerTitle,
     rangeMode: rangeMode,
   );
-  final DateTime? dialogDate = await showDialog<DateTime>(
+  final DateTime? dialogDate = await showDialog<DateTime?>(
     context: context,
     barrierDismissible: dismissible,
     builder: (BuildContext context) {

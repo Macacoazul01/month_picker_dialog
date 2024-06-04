@@ -56,7 +56,8 @@ class MonthpickerController {
       hideHeaderRow,
       useMaterial3,
       forcePortrait,
-      blockScrolling, rangeMode;
+      blockScrolling,
+      rangeMode;
   final Color? headerColor,
       headerTextColor,
       selectedMonthBackgroundColor,
@@ -77,7 +78,7 @@ class MonthpickerController {
   final GlobalKey<MonthSelectorState> monthSelectorState = GlobalKey();
 
   DateTime selectedDate = DateTime.now().firstDayOfMonth();
-  DateTime? localFirstDate, localLastDate;
+  DateTime? localFirstDate, localLastDate, firstRangeDate, secondRangeDate;
 
   late int yearPageCount, yearItemCount, monthPageCount;
 
@@ -169,7 +170,43 @@ class MonthpickerController {
 
   ///function to confirm selecting a month
   void okFunction(BuildContext context) {
-    Navigator.pop(context, selectedDate);
+    if (!rangeMode) {
+      Navigator.pop(context, selectedDate);
+    } else {
+      Navigator.pop(context, rangeListCreation());
+    }
+  }
+
+  ///function to return the range of selected months
+  List<DateTime> rangeListCreation() {
+    if (firstRangeDate != null && secondRangeDate != null) {
+      final List<DateTime> firstDays = [];
+
+      // Se as datas forem iguais, adicione à lista
+      if (firstRangeDate == secondRangeDate) {
+        firstDays.add(firstRangeDate!);
+        return firstDays;
+      }
+
+      late DateTime startDate;
+      late final DateTime endDate;
+      if (firstRangeDate!.isBefore(secondRangeDate!)) {
+        startDate = firstRangeDate!;
+        endDate = secondRangeDate!;
+      } else {
+        startDate = secondRangeDate!;
+        endDate = firstRangeDate!;
+      }
+
+      while (startDate.isBefore(endDate)) {
+        firstDays.add(startDate);
+        startDate = DateTime(startDate.year, startDate.month + 1, 1);
+      }
+
+      return firstDays;
+    } else {
+      return [];
+    }
   }
 
   //Header functions
