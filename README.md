@@ -10,7 +10,7 @@ This package makes use of the intl package and flutter's i18n abilities to provi
 
 ## How to use it:
 
-Just add `showMonthPicker()` inside your button function like a normal date picker dialog (context parameter is required):
+Just add `showMonthPicker()` or use `showMonthRangePicker()` to select by range inside your button function like a normal date picker dialog (context parameter is required):
 
 since 0.6.0 initialDate isn't required anymore!
 
@@ -133,3 +133,5 @@ There are other parameters to configure on the dialog if you want:
 [Masayuki Ono](https://github.com/mono0926)
 
 [Alecsplus](https://github.com/Alecsplus)
+
+[Lautaro Zanuttini](https://github.com/lautarozanuttini)

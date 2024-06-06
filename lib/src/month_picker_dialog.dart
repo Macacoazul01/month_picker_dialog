@@ -148,6 +148,9 @@ class MonthPickerDialogState extends State<MonthPickerDialog> {
   ///Function to be executed when a month is selected.
   void _onMonthSelected(final DateTime date) => setState(
         () {
+          if (widget.controller.rangeMode) {
+            widget.controller.onRangeDateSelect(date);
+          }
           widget.controller.selectedDate = date;
           _selector = MonthSelector(
             key: widget.controller.monthSelectorState,
