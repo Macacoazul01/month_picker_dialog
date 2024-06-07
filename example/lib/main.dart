@@ -160,32 +160,6 @@ class _MyAppState extends State<MyApp> {
                 lastDate: DateTime(DateTime.now().year + 8, 9),
                 initialDate: selectedDate ?? widget.initialDate,
                 locale: const Locale('en'),
-                //show only even months
-                selectableMonthPredicate: (DateTime val) => val.month.isEven,
-                monthStylePredicate: (DateTime val) {
-                  if (val.month == 4) {
-                    return TextButton.styleFrom(
-                      backgroundColor: Colors.yellow[700],
-                      textStyle: const TextStyle(
-                        color: Colors.pink,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    );
-                  }
-                  return null;
-                },
-                yearStylePredicate: (int val) {
-                  if (val == 2022) {
-                    return TextButton.styleFrom(
-                      backgroundColor: Colors.yellow[700],
-                      textStyle: const TextStyle(
-                        color: Colors.pink,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    );
-                  }
-                  return null;
-                },
                 headerColor: Colors.indigo[300],
                 headerTextColor: Colors.black,
                 selectedMonthBackgroundColor: Colors.amber[900],
@@ -226,8 +200,10 @@ class _MyAppState extends State<MyApp> {
                 // forceSelectedDate: true,
                 // animationMilliseconds: 300
                 //hideHeaderRow: true
-              ).then((List<DateTime>? date) {
-                if (date != null) {
+                rangeList: true
+              ).then((List<DateTime>? dates) {
+                if (dates != null) {
+                  print(dates);
                   /* setState(() {
                     selectedDate = date;
                   }); */

@@ -42,6 +42,7 @@ class MonthpickerController {
     required this.buttonBorder,
     required this.headerTitle,
     required this.rangeMode,
+    required this.rangeList,
   });
 
   //User defined variables
@@ -58,7 +59,8 @@ class MonthpickerController {
       useMaterial3,
       forcePortrait,
       blockScrolling,
-      rangeMode;
+      rangeMode,
+      rangeList;
   final Color? headerColor,
       headerTextColor,
       selectedMonthBackgroundColor,
@@ -174,24 +176,18 @@ class MonthpickerController {
     if (!rangeMode) {
       Navigator.pop(context, selectedDate);
     } else {
-      Navigator.pop(context, rangeListCreation());
+      Navigator.pop(context, selectRange());
     }
   }
 
   ///function to return the range of selected months
-  List<DateTime> rangeListCreation() {
+  List<DateTime> selectRange() {
     if (firstRangeDate != null && secondRangeDate != null) {
-      // TODO comment this block
-      // If user wants to know full range or not
-      /* final List<DateTime> firstDays = [];
-
-      // Se as datas forem iguais, adicione à lista
       if (firstRangeDate == secondRangeDate) {
-        firstDays.add(firstRangeDate!);
-        return firstDays;
+        return [firstRangeDate!];
       }
 
-      late DateTime startDate;
+      late final DateTime startDate;
       late final DateTime endDate;
       if (firstRangeDate!.isBefore(secondRangeDate!)) {
         startDate = firstRangeDate!;
@@ -201,19 +197,28 @@ class MonthpickerController {
         endDate = firstRangeDate!;
       }
 
-      while (startDate.isBefore(endDate)) {
-        firstDays.add(startDate);
-        startDate = DateTime(startDate.year, startDate.month + 1, 1);
+      if (rangeList) {
+        return rangeListCreation(startDate, endDate);
+      } else {
+        // secondRangeDate = DateTime(secondRangeDate!.year, secondRangeDate!.month + 1).subtract(Duration(days: 1));
+        return [startDate, endDate];
       }
-
-      return firstDays; */
-      int nextMonth = secondRangeDate!.month + 1;
-      secondRangeDate = DateTime(secondRangeDate!.year, nextMonth)
-          .subtract(Duration(days: 1));
-      return [firstRangeDate!, secondRangeDate!];
     } else {
       return [];
     }
+  }
+
+  ///function to return the full list range of selected months
+  List<DateTime> rangeListCreation(DateTime startDate,DateTime endDate) {
+    final List<DateTime> monthsList = [];
+
+    while (startDate.isBefore(endDate)) {
+      monthsList.add(startDate);
+      startDate = DateTime(startDate.year, startDate.month + 1, 1);
+    }
+
+    monthsList.add(startDate);
+    return monthsList;
   }
 
   // function to select a range between months
@@ -246,7 +251,7 @@ class MonthpickerController {
       monthSelectorState.currentState!.goDown();
     }
   }
-  
+
   ///function to show datetime in header
   String getDateTimeHeaderText(String localeString) {
     if (!rangeMode) {
@@ -258,17 +263,22 @@ class MonthpickerController {
       String rangeDateString = "";
       if (firstRangeDate != null) {
         if (capitalizeFirstLetter) {
-          rangeDateString = '${toBeginningOfSentenceCase(DateFormat.yMMM(localeString).format(firstRangeDate!))}';
+          rangeDateString =
+              '${toBeginningOfSentenceCase(DateFormat.yMMM(localeString).format(firstRangeDate!))}';
         } else {
-          rangeDateString = DateFormat.yMMM(localeString).format(firstRangeDate!).toLowerCase();
+          rangeDateString = DateFormat.yMMM(localeString)
+              .format(firstRangeDate!)
+              .toLowerCase();
         }
       }
 
-      if(secondRangeDate != null){
+      if (secondRangeDate != null) {
         if (capitalizeFirstLetter) {
-          rangeDateString += ' - ${toBeginningOfSentenceCase(DateFormat.yMMM(localeString).format(secondRangeDate!))}';
+          rangeDateString +=
+              ' - ${toBeginningOfSentenceCase(DateFormat.yMMM(localeString).format(secondRangeDate!))}';
         } else {
-          rangeDateString += ' - ${DateFormat.yMMM(localeString).format(firstRangeDate!).toLowerCase()}';
+          rangeDateString +=
+              ' - ${DateFormat.yMMM(localeString).format(firstRangeDate!).toLowerCase()}';
         }
       }
       return rangeDateString;

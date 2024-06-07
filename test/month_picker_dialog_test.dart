@@ -22,6 +22,7 @@ void main() {
       buttonBorder: const CircleBorder(),
       headerTitle: null,
       rangeMode: false,
+      rangeList: false,
     );
     controller.initialize();
     expect(controller.yearItemCount, 9999);
@@ -60,6 +61,7 @@ void main() {
       buttonBorder: const CircleBorder(),
       headerTitle: null,
       rangeMode: true,
+      rangeList: true,
     );
     controller.initialize();
     expect(controller.yearItemCount, 6);

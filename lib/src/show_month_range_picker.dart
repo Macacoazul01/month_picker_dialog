@@ -69,7 +69,7 @@ import '/month_picker_dialog.dart';
 ///
 /// `headerTitle:` lets you add a custom title to the header of the dialog (default is `null`).
 /// 
-/// `rangeMode:` lets you select a range of months instead of only one (default is `false`).
+/// `rangeList:` lets you define if the controller will return the full list of months between the two selected or only them (default is `false`).
 ///
 Future<List<DateTime>?> showMonthRangePicker({
   required BuildContext context,
@@ -107,6 +107,7 @@ Future<List<DateTime>?> showMonthRangePicker({
   BorderSide dialogBorderSide = BorderSide.none,
   OutlinedBorder buttonBorder = const CircleBorder(),
   Widget? headerTitle,
+  bool rangeList = false,
 }) async {
   assert(forceSelectedDate == dismissible || !forceSelectedDate,
       'forceSelectedDate can only be used with dismissible = true');
@@ -148,6 +149,7 @@ Future<List<DateTime>?> showMonthRangePicker({
     buttonBorder: buttonBorder,
     headerTitle: headerTitle,
     rangeMode: true,
+    rangeList: rangeList,
   );
   final List<DateTime>? dialogDate = await showDialog<List<DateTime>>(
     context: context,

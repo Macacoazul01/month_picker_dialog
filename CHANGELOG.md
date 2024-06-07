@@ -1,3 +1,7 @@
+## 4.0.0 - 2024-06-07
+- Added `showMonthRangePicker` function to the package. Now its possible to return a range of months too. Tks [Lautaro Zanuttini](https://github.com/lautarozanuttini)
+- Updated web sample.
+
 ## 3.0.0 - 2024-05-13
 - Bumped intl to `0.19.0`.
 - Bumped flutter_lints to `4.0.0`.
