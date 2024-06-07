@@ -48,25 +48,67 @@ class MonthButton extends StatelessWidget {
   ///
   /// If not provided, the customization will be built from the app's theme.
   ButtonStyle _buildDefaultMonthStyle() {
-    final Color backgroundColor =
-        controller.selectedMonthBackgroundColor ?? theme.colorScheme.secondary;
-    final ButtonStyle monthStyle = TextButton.styleFrom(
-      foregroundColor: date.month == controller.selectedDate.month &&
-              date.year == controller.selectedDate.year
-          ? theme.textTheme.labelLarge!
+    Color? backgroundColor;
+    Color? foregroundColor = controller.unselectedMonthTextColor;
+
+    if (date.month == controller.selectedDate.month &&
+        date.year == controller.selectedDate.year) {
+      backgroundColor = controller.selectedMonthBackgroundColor ??
+          theme.colorScheme.secondary;
+      foregroundColor = theme.textTheme.labelLarge!
+          .copyWith(
+            color: controller.selectedMonthTextColor ??
+                theme.colorScheme.onSecondary,
+          )
+          .color;
+    }
+
+    if (controller.rangeMode) {
+      if (controller.firstRangeDate != null) {
+        if (date.month == controller.firstRangeDate!.month &&
+            date.year == controller.firstRangeDate!.year &&
+            date.month != controller.selectedDate.month) {
+          backgroundColor = controller.selectedMonthBackgroundColor ??
+              theme.colorScheme.secondary;
+          foregroundColor = theme.textTheme.labelLarge!
               .copyWith(
                 color: controller.selectedMonthTextColor ??
                     theme.colorScheme.onSecondary,
               )
-              .color
-          : date.month == DateTime.now().month &&
-                  date.year == DateTime.now().year
-              ? (controller.currentMonthTextColor ?? backgroundColor)
-              : controller.unselectedMonthTextColor,
-      backgroundColor: date.month == controller.selectedDate.month &&
-              date.year == controller.selectedDate.year
-          ? backgroundColor
-          : null,
+              .color;
+        }
+      }
+    }
+
+    if (controller.rangeMode) {
+      if (controller.firstRangeDate != null &&
+          controller.secondRangeDate != null) {
+        if (date.isAfter(controller.firstRangeDate!) &&
+            date.isBefore(controller.secondRangeDate!)) {
+          backgroundColor = HSLColor.fromColor(
+                  controller.selectedMonthBackgroundColor ??
+                      theme.colorScheme.secondary)
+              .withLightness(.7)
+              .toColor();
+          foregroundColor = theme.textTheme.labelLarge!
+              .copyWith(
+                color: controller.selectedMonthTextColor ??
+                    theme.colorScheme.onSecondary,
+              )
+              .color;
+        }
+      }
+    }
+
+    if (date.month == DateTime.now().month &&
+        date.year == DateTime.now().year &&
+        date.month != controller.selectedDate.month) {
+      foregroundColor = controller.currentMonthTextColor ?? backgroundColor;
+    }
+
+    final ButtonStyle monthStyle = TextButton.styleFrom(
+      foregroundColor: foregroundColor,
+      backgroundColor: backgroundColor,
       shape: controller.buttonBorder,
     );
     return monthStyle;

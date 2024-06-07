@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '/month_picker_dialog.dart';
 
@@ -180,7 +181,9 @@ class MonthpickerController {
   ///function to return the range of selected months
   List<DateTime> rangeListCreation() {
     if (firstRangeDate != null && secondRangeDate != null) {
-      final List<DateTime> firstDays = [];
+      // TODO comment this block
+      // If user wants to know full range or not
+      /* final List<DateTime> firstDays = [];
 
       // Se as datas forem iguais, adicione à lista
       if (firstRangeDate == secondRangeDate) {
@@ -203,9 +206,25 @@ class MonthpickerController {
         startDate = DateTime(startDate.year, startDate.month + 1, 1);
       }
 
-      return firstDays;
+      return firstDays; */
+      int nextMonth = secondRangeDate!.month + 1;
+      secondRangeDate = DateTime(secondRangeDate!.year, nextMonth)
+          .subtract(Duration(days: 1));
+      return [firstRangeDate!, secondRangeDate!];
     } else {
       return [];
+    }
+  }
+
+  // function to select a range between months
+  void onRangeDateSelect(DateTime time) {
+    if (firstRangeDate == null) {
+      firstRangeDate = time;
+    } else if (firstRangeDate != null && secondRangeDate == null) {
+      secondRangeDate = time;
+    } else {
+      firstRangeDate = time;
+      secondRangeDate = null;
     }
   }
 
@@ -225,6 +244,34 @@ class MonthpickerController {
       yearSelectorState.currentState!.goDown();
     } else {
       monthSelectorState.currentState!.goDown();
+    }
+  }
+  
+  ///function to show datetime in header
+  String getDateTimeHeaderText(String localeString) {
+    if (!rangeMode) {
+      if (capitalizeFirstLetter) {
+        return '${toBeginningOfSentenceCase(DateFormat.yMMM(localeString).format(selectedDate))}';
+      }
+      return DateFormat.yMMM(localeString).format(selectedDate).toLowerCase();
+    } else {
+      String rangeDateString = "";
+      if (firstRangeDate != null) {
+        if (capitalizeFirstLetter) {
+          rangeDateString = '${toBeginningOfSentenceCase(DateFormat.yMMM(localeString).format(firstRangeDate!))}';
+        } else {
+          rangeDateString = DateFormat.yMMM(localeString).format(firstRangeDate!).toLowerCase();
+        }
+      }
+
+      if(secondRangeDate != null){
+        if (capitalizeFirstLetter) {
+          rangeDateString += ' - ${toBeginningOfSentenceCase(DateFormat.yMMM(localeString).format(secondRangeDate!))}';
+        } else {
+          rangeDateString += ' - ${DateFormat.yMMM(localeString).format(firstRangeDate!).toLowerCase()}';
+        }
+      }
+      return rangeDateString;
     }
   }
 }

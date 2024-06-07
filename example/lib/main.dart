@@ -75,7 +75,7 @@ class _MyAppState extends State<MyApp> {
         floatingActionButton: Builder(
           builder: (BuildContext context) => FloatingActionButton(
             onPressed: () {
-              showMonthPicker(
+              /* showMonthPicker(
                 context: context,
                 firstDate: DateTime(DateTime.now().year - 5, 5),
                 lastDate: DateTime(DateTime.now().year + 8, 9),
@@ -128,7 +128,7 @@ class _MyAppState extends State<MyApp> {
                   ),
                 ),
                 roundedCornersRadius: 20,
-                yearFirst: true,
+                yearFirst: false,
                 backgroundColor: Colors.blueGrey[50],
                 buttonBorder: const RoundedRectangleBorder(),
                 headerTitle: const Text('Month Picker Dialog'),
@@ -152,6 +152,85 @@ class _MyAppState extends State<MyApp> {
                   setState(() {
                     selectedDate = date;
                   });
+                }
+              }); */
+              showMonthRangePicker(
+                context: context,
+                firstDate: DateTime(DateTime.now().year - 5, 5),
+                lastDate: DateTime(DateTime.now().year + 8, 9),
+                initialDate: selectedDate ?? widget.initialDate,
+                locale: const Locale('en'),
+                //show only even months
+                selectableMonthPredicate: (DateTime val) => val.month.isEven,
+                monthStylePredicate: (DateTime val) {
+                  if (val.month == 4) {
+                    return TextButton.styleFrom(
+                      backgroundColor: Colors.yellow[700],
+                      textStyle: const TextStyle(
+                        color: Colors.pink,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    );
+                  }
+                  return null;
+                },
+                yearStylePredicate: (int val) {
+                  if (val == 2022) {
+                    return TextButton.styleFrom(
+                      backgroundColor: Colors.yellow[700],
+                      textStyle: const TextStyle(
+                        color: Colors.pink,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    );
+                  }
+                  return null;
+                },
+                headerColor: Colors.indigo[300],
+                headerTextColor: Colors.black,
+                selectedMonthBackgroundColor: Colors.amber[900],
+                selectedMonthTextColor: Colors.white,
+                unselectedMonthTextColor: Colors.black,
+                currentMonthTextColor: Colors.green,
+                confirmWidget: Text(
+                  'This one!',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.indigo[300],
+                  ),
+                ),
+                cancelWidget: Text(
+                  'Cancel',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.red[900],
+                  ),
+                ),
+                roundedCornersRadius: 20,
+                yearFirst: false,
+                backgroundColor: Colors.blueGrey[50],
+                buttonBorder: const RoundedRectangleBorder(),
+                headerTitle: const Text('Month Picker Dialog'),
+                // customDivider: Divider(
+                //   color: Colors.black,
+                //   endIndent: 25,
+                //   indent: 25,
+                // ),
+                // forcePortrait: true,
+                //forceSelectedDate: true,
+                //dismissible: true,
+                // capitalizeFirstLetter: true,
+                // customHeight: 500,
+                // customWidth: 500,
+                // dismissible: true,
+                // forceSelectedDate: true,
+                // animationMilliseconds: 300
+                //hideHeaderRow: true
+              ).then((List<DateTime>? date) {
+                if (date != null) {
+                  /* setState(() {
+                    selectedDate = date;
+                  }); */
                 }
               });
             },

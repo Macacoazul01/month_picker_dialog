@@ -71,7 +71,7 @@ import '/month_picker_dialog.dart';
 /// 
 /// `rangeMode:` lets you select a range of months instead of only one (default is `false`).
 ///
-Future<DateTime?> showMonthPicker({
+Future<List<DateTime>?> showMonthRangePicker({
   required BuildContext context,
   DateTime? initialDate,
   DateTime? firstDate,
@@ -147,9 +147,9 @@ Future<DateTime?> showMonthPicker({
     dialogBorderSide: dialogBorderSide,
     buttonBorder: buttonBorder,
     headerTitle: headerTitle,
-    rangeMode: false,
+    rangeMode: true,
   );
-  final DateTime? dialogDate = await showDialog<DateTime?>(
+  final List<DateTime>? dialogDate = await showDialog<List<DateTime>>(
     context: context,
     barrierDismissible: dismissible,
     builder: (BuildContext context) {
@@ -167,7 +167,7 @@ Future<DateTime?> showMonthPicker({
     },
   );
   if (dismissible && forceSelectedDate && dialogDate == null) {
-    return controller.selectedDate;
+    return [controller.selectedDate];
   }
   return dialogDate;
 }

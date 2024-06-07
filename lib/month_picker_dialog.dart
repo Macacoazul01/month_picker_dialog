@@ -20,6 +20,7 @@ export '/src/month_selector/month_button.dart';
 export '/src/month_selector/month_selector.dart';
 export '/src/month_selector/month_year_grid.dart';
 export '/src/show_month_picker.dart';
+export '/src/show_month_range_picker.dart';
 export '/src/year_selector/year_button.dart';
 export '/src/year_selector/year_grid.dart';
 export '/src/year_selector/year_selector.dart';
