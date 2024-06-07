@@ -187,15 +187,8 @@ class MonthpickerController {
         return [firstRangeDate!];
       }
 
-      late final DateTime startDate;
-      late final DateTime endDate;
-      if (firstRangeDate!.isBefore(secondRangeDate!)) {
-        startDate = firstRangeDate!;
-        endDate = secondRangeDate!;
-      } else {
-        startDate = secondRangeDate!;
-        endDate = firstRangeDate!;
-      }
+      final DateTime startDate = firstRangeDate!;
+      final DateTime endDate = secondRangeDate!;
 
       if (rangeList) {
         return rangeListCreation(startDate, endDate);
@@ -209,7 +202,7 @@ class MonthpickerController {
   }
 
   ///function to return the full list range of selected months
-  List<DateTime> rangeListCreation(DateTime startDate,DateTime endDate) {
+  List<DateTime> rangeListCreation(DateTime startDate, DateTime endDate) {
     final List<DateTime> monthsList = [];
 
     while (startDate.isBefore(endDate)) {
@@ -226,7 +219,12 @@ class MonthpickerController {
     if (firstRangeDate == null) {
       firstRangeDate = time;
     } else if (firstRangeDate != null && secondRangeDate == null) {
-      secondRangeDate = time;
+      if (time.isBefore(firstRangeDate!)) {
+        secondRangeDate = firstRangeDate;
+        firstRangeDate = time;
+      } else {
+        secondRangeDate = time;
+      }
     } else {
       firstRangeDate = time;
       secondRangeDate = null;
