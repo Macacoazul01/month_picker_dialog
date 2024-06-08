@@ -79,8 +79,9 @@ class MonthpickerController {
   //local variables
   final GlobalKey<YearSelectorState> yearSelectorState = GlobalKey();
   final GlobalKey<MonthSelectorState> monthSelectorState = GlobalKey();
+  final DateTime now = DateTime.now().firstDayOfMonth();
 
-  DateTime selectedDate = DateTime.now().firstDayOfMonth();
+  late DateTime selectedDate;
   DateTime? localFirstDate, localLastDate, firstRangeDate, secondRangeDate;
 
   late int yearPageCount, yearItemCount, monthPageCount;
@@ -91,6 +92,8 @@ class MonthpickerController {
   void initialize() {
     if (initialDate != null) {
       selectedDate = initialDate!.firstDayOfMonth();
+    } else {
+      selectedDate = now;
     }
     if (firstDate != null) {
       localFirstDate = DateTime(firstDate!.year, firstDate!.month);

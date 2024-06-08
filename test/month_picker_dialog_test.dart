@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:month_picker_dialog/src/helpers/controller.dart';
-import 'package:month_picker_dialog/src/helpers/extensions.dart';
 
 void main() {
   test('default_controller_test', () {
@@ -28,7 +27,7 @@ void main() {
     expect(controller.yearItemCount, 9999);
     expect(controller.yearPageCount, 834);
     expect(controller.monthPageCount, 9999);
-    expect(controller.selectedDate, DateTime.now().firstDayOfMonth());
+    expect(controller.selectedDate, controller.now);
     expect(controller.localFirstDate, null);
     expect(controller.localLastDate, null);
     expect(controller.customHeight, null);

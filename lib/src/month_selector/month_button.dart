@@ -50,41 +50,14 @@ class MonthButton extends StatelessWidget {
   ButtonStyle _buildDefaultMonthStyle() {
     Color? backgroundColor;
     Color? foregroundColor = controller.unselectedMonthTextColor;
-
-    if (date.month == controller.selectedDate.month &&
-        date.year == controller.selectedDate.year) {
-      backgroundColor = controller.selectedMonthBackgroundColor ??
-          theme.colorScheme.secondary;
-      foregroundColor = theme.textTheme.labelLarge!
-          .copyWith(
-            color: controller.selectedMonthTextColor ??
-                theme.colorScheme.onSecondary,
-          )
-          .color;
-    }
-
-    if (controller.rangeMode) {
-      if (controller.firstRangeDate != null) {
-        if (date.month == controller.firstRangeDate!.month &&
-            date.year == controller.firstRangeDate!.year &&
-            date.month != controller.selectedDate.month) {
-          backgroundColor = controller.selectedMonthBackgroundColor ??
-              theme.colorScheme.secondary;
-          foregroundColor = theme.textTheme.labelLarge!
-              .copyWith(
-                color: controller.selectedMonthTextColor ??
-                    theme.colorScheme.onSecondary,
-              )
-              .color;
-        }
-      }
-    }
+    final List<DateTime> selectedDates = [controller.selectedDate];
 
     if (controller.rangeMode) {
       if (controller.firstRangeDate != null &&
           controller.secondRangeDate != null) {
-        if (date.isAfter(controller.firstRangeDate!) &&
-            date.isBefore(controller.secondRangeDate!)) {
+        selectedDates.addAll([controller.firstRangeDate!,controller.secondRangeDate!]);
+        if (date.isAfter(selectedDates[1]) &&
+            date.isBefore(selectedDates[2])) {
           backgroundColor = HSLColor.fromColor(
                   controller.selectedMonthBackgroundColor ??
                       theme.colorScheme.secondary)
@@ -100,18 +73,25 @@ class MonthButton extends StatelessWidget {
       }
     }
 
-    if (date.month == DateTime.now().month &&
-        date.year == DateTime.now().year &&
-        date.month != controller.selectedDate.month) {
+    if (selectedDates.contains(date)) {
+      backgroundColor = controller.selectedMonthBackgroundColor ??
+          theme.colorScheme.secondary;
+      foregroundColor = theme.textTheme.labelLarge!
+          .copyWith(
+            color: controller.selectedMonthTextColor ??
+                theme.colorScheme.onSecondary,
+          )
+          .color;
+    } else if (date.month == controller.now.month &&
+        date.year == controller.now.year) {
       foregroundColor = controller.currentMonthTextColor ?? backgroundColor;
     }
 
-    final ButtonStyle monthStyle = TextButton.styleFrom(
+    return TextButton.styleFrom(
       foregroundColor: foregroundColor,
       backgroundColor: backgroundColor,
       shape: controller.buttonBorder,
     );
-    return monthStyle;
   }
 
   @override

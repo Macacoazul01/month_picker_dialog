@@ -8,6 +8,8 @@ This package makes use of the intl package and flutter's i18n abilities to provi
 
 [Setting up an internationalized app: the flutter localization package](https://flutter.io/docs/development/accessibility-and-localization/internationalization#setting-up-an-internationalized-app-the-flutter_localizations-package)
 
+![LTR portrait](screenshots/ltr_portrait.png)
+
 ## How to use it:
 
 Just add `showMonthPicker()` or use `showMonthRangePicker()` to select by range inside your button function like a normal date picker dialog (context parameter is required):
@@ -33,11 +35,30 @@ FloatingActionButton(
     child: Icon(Icons.calendar_today),
 ),
 
+FloatingActionButton(
+    onPressed: () {
+        showMonthRangePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        rangeList: true,
+        ).then((List<DateTime>? dates) {
+        if (dates != null) {
+            print(dates);
+            print(dates.last.lastDayOfMonth());
+        }
+        });
+    },
+    child: Icon(Icons.calendar_today),
+),
+
 ```
 
-### Parameters list:
+## Landscape:
+![LTR landscape](screenshots/ltr_landscape.png)
 
-There are other parameters to configure on the dialog if you want:
+## Parameters list:
+
+There are other parameters to configure on the dialog if you want to do so:
 
 `initialDate` is the initially selected month.
 
@@ -101,10 +122,9 @@ There are other parameters to configure on the dialog if you want:
 
 `headerTitle:` lets you add a custom title to the header of the dialog (default is `null`).
 
-## Screenshots
-### Left-To-Right
-![LTR portrait](screenshots/ltr_portrait.png)
-![LTR landscape](screenshots/ltr_landscape.png)
+### Range Picker only:
+
+`rangeList:` lets you define if the controller will return the full list of months between the two selected or only them (default is `false`).
 
 
 ## Contributors:

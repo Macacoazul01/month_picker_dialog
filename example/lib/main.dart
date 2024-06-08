@@ -155,58 +155,56 @@ class _MyAppState extends State<MyApp> {
                 }
               }); */
               showMonthRangePicker(
-                context: context,
-                firstDate: DateTime(DateTime.now().year - 5, 5),
-                lastDate: DateTime(DateTime.now().year + 8, 9),
-                initialDate: selectedDate ?? widget.initialDate,
-                locale: const Locale('en'),
-                headerColor: Colors.indigo[300],
-                headerTextColor: Colors.black,
-                selectedMonthBackgroundColor: Colors.amber[900],
-                selectedMonthTextColor: Colors.white,
-                unselectedMonthTextColor: Colors.black,
-                currentMonthTextColor: Colors.green,
-                confirmWidget: Text(
-                  'This one!',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.indigo[300],
-                  ),
-                ),
-                cancelWidget: Text(
-                  'Cancel',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.red[900],
-                  ),
-                ),
-                roundedCornersRadius: 20,
-                yearFirst: false,
-                backgroundColor: Colors.blueGrey[50],
-                buttonBorder: const RoundedRectangleBorder(),
-                headerTitle: const Text('Month Picker Dialog'),
-                // customDivider: Divider(
-                //   color: Colors.black,
-                //   endIndent: 25,
-                //   indent: 25,
-                // ),
-                // forcePortrait: true,
-                //forceSelectedDate: true,
-                //dismissible: true,
-                // capitalizeFirstLetter: true,
-                // customHeight: 500,
-                // customWidth: 500,
-                // dismissible: true,
-                // forceSelectedDate: true,
-                // animationMilliseconds: 300
-                //hideHeaderRow: true
-                rangeList: true
-              ).then((List<DateTime>? dates) {
+                      context: context,
+                      firstDate: DateTime(DateTime.now().year - 5, 5),
+                      lastDate: DateTime(DateTime.now().year + 8, 9),
+                      initialDate: selectedDate ?? widget.initialDate,
+                      locale: const Locale('en'),
+                      headerColor: Colors.indigo[300],
+                      headerTextColor: Colors.black,
+                      selectedMonthBackgroundColor: Colors.amber[900],
+                      selectedMonthTextColor: Colors.white,
+                      unselectedMonthTextColor: Colors.black,
+                      currentMonthTextColor: Colors.green,
+                      confirmWidget: Text(
+                        'This one!',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.indigo[300],
+                        ),
+                      ),
+                      cancelWidget: Text(
+                        'Cancel',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.red[900],
+                        ),
+                      ),
+                      roundedCornersRadius: 20,
+                      yearFirst: false,
+                      backgroundColor: Colors.blueGrey[50],
+                      buttonBorder: const RoundedRectangleBorder(),
+                      headerTitle: const Text('Month Picker Dialog'),
+                      // customDivider: Divider(
+                      //   color: Colors.black,
+                      //   endIndent: 25,
+                      //   indent: 25,
+                      // ),
+                      // forcePortrait: true,
+                      //forceSelectedDate: true,
+                      //dismissible: true,
+                      // capitalizeFirstLetter: true,
+                      // customHeight: 500,
+                      // customWidth: 500,
+                      // dismissible: true,
+                      // forceSelectedDate: true,
+                      // animationMilliseconds: 300
+                      //hideHeaderRow: true
+                      rangeList: true)
+                  .then((List<DateTime>? dates) {
                 if (dates != null) {
                   print(dates);
-                  /* setState(() {
-                    selectedDate = date;
-                  }); */
+                  print(dates.last.lastDayOfMonth());
                 }
               });
             },

@@ -57,7 +57,7 @@ class YearButton extends StatelessWidget {
                     theme.colorScheme.onSecondary,
               )
               .color
-          : year == DateTime.now().year
+          : year == controller.now.year
               ? (controller.currentMonthTextColor ?? backgroundColor)
               : controller.unselectedMonthTextColor,
       backgroundColor:
