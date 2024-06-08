@@ -68,7 +68,7 @@ import '/month_picker_dialog.dart';
 /// `buttonBorder:` lets you define the border of the month/year buttons (default is `const CircleBorder()`).
 ///
 /// `headerTitle:` lets you add a custom title to the header of the dialog (default is `null`).
-/// 
+///
 /// `rangeList:` lets you define if the controller will return the full list of months between the two selected or only them (default is `false`).
 ///
 Future<List<DateTime>?> showMonthRangePicker({

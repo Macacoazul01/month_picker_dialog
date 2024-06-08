@@ -55,9 +55,9 @@ class MonthButton extends StatelessWidget {
     if (controller.rangeMode) {
       if (controller.firstRangeDate != null &&
           controller.secondRangeDate != null) {
-        selectedDates.addAll([controller.firstRangeDate!,controller.secondRangeDate!]);
-        if (date.isAfter(selectedDates[1]) &&
-            date.isBefore(selectedDates[2])) {
+        selectedDates
+            .addAll([controller.firstRangeDate!, controller.secondRangeDate!]);
+        if (date.isAfter(selectedDates[1]) && date.isBefore(selectedDates[2])) {
           backgroundColor = HSLColor.fromColor(
                   controller.selectedMonthBackgroundColor ??
                       theme.colorScheme.secondary)
