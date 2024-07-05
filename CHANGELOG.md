@@ -1,3 +1,6 @@
+## 4.0.1 - 2024-07-05
+- Improved locale selection. [#98](https://github.com/Macacoazul01/month_picker_dialog/pull/98)
+
 ## 4.0.0 - 2024-06-07
 - Added `showMonthRangePicker` function to the package. Now its possible to return a range of months too. Tks [Lautaro Zanuttini](https://github.com/lautarozanuttini)
 - Updated web sample.

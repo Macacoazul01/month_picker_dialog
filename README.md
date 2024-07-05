@@ -155,3 +155,5 @@ There are other parameters to configure on the dialog if you want to do so:
 [Alecsplus](https://github.com/Alecsplus)
 
 [Lautaro Zanuttini](https://github.com/lautarozanuttini)
+
+[sinelser](https://github.com/sinelser)
