@@ -43,9 +43,11 @@ class MonthpickerController {
     required this.headerTitle,
     required this.rangeMode,
     required this.rangeList,
+    required this.textSyle,
   });
 
   //User defined variables
+  final TextStyle? textSyle;
   final ThemeData theme;
   final DateTime? firstDate, lastDate, initialDate;
   final Locale? locale;

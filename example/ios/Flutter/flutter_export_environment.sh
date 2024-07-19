@@ -1,7 +1,7 @@
 #!/bin/sh
 # This is a generated file; do not edit or check into version control.
-export "FLUTTER_ROOT=C:\flutter"
-export "FLUTTER_APPLICATION_PATH=C:\Users\gian_\Desktop\month_picker_dialog\example"
+export "FLUTTER_ROOT=C:\Users\HP\Downloads\flutter\flutter"
+export "FLUTTER_APPLICATION_PATH=D:\SP\flutterProj\sample_projs\forked_repos\month_picker_dialog\example"
 export "COCOAPODS_PARALLEL_CODE_SIGN=true"
 export "FLUTTER_TARGET=lib\main.dart"
 export "FLUTTER_BUILD_DIR=build"

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+
 import '/month_picker_dialog.dart';
 
 ///The button to be used on the grid of months.
@@ -88,6 +89,11 @@ class MonthButton extends StatelessWidget {
     }
 
     return TextButton.styleFrom(
+      textStyle: controller.textSyle ??
+          theme.textTheme.labelLarge ??
+          TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
       foregroundColor: foregroundColor,
       backgroundColor: backgroundColor,
       shape: controller.buttonBorder,

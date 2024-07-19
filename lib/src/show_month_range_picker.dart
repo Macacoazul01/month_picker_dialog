@@ -15,6 +15,8 @@ import '/month_picker_dialog.dart';
 ///
 /// `monthStylePredicate:` allows you to individually customize each month.
 ///
+/// `textStyle:` allows you to customize text-style of month.
+///
 /// `yearStylePredicate:` allows you to individually customize each year.
 ///
 /// `capitalizeFirstLetter:` lets you control if your months names are capitalized or not.
@@ -73,6 +75,7 @@ import '/month_picker_dialog.dart';
 ///
 Future<List<DateTime>?> showMonthRangePicker({
   required BuildContext context,
+  TextStyle? textStyle,
   DateTime? initialDate,
   DateTime? firstDate,
   DateTime? lastDate,
@@ -113,6 +116,7 @@ Future<List<DateTime>?> showMonthRangePicker({
       'forceSelectedDate can only be used with dismissible = true');
   final ThemeData theme = Theme.of(context);
   final MonthpickerController controller = MonthpickerController(
+    textSyle: textStyle,
     initialDate: initialDate,
     firstDate: firstDate,
     lastDate: lastDate,
