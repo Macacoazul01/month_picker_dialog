@@ -5,6 +5,10 @@ import 'package:month_picker_dialog/src/helpers/controller.dart';
 void main() {
   test('default_controller_test', () {
     final MonthpickerController controller = MonthpickerController(
+      textSyle: ThemeData.fallback().textTheme.labelLarge ??
+          TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
       capitalizeFirstLetter: false,
       yearFirst: true,
       roundedCornersRadius: 0,
@@ -39,6 +43,10 @@ void main() {
 
   test('controller_with_parameters_test', () {
     final MonthpickerController controller = MonthpickerController(
+      textSyle: ThemeData.fallback().textTheme.labelLarge ??
+          TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
       capitalizeFirstLetter: false,
       yearFirst: true,
       roundedCornersRadius: 0,

@@ -156,6 +156,10 @@ class _MyAppState extends State<MyApp> {
               }); */
               showMonthRangePicker(
                       context: context,
+                      textStyle: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                      ),
                       firstDate: DateTime(DateTime.now().year - 5, 5),
                       lastDate: DateTime(DateTime.now().year + 8, 9),
                       initialDate: selectedDate ?? widget.initialDate,
