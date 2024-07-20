@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+
 import '/month_picker_dialog.dart';
 
 ///The main part of the header. Where arrows and current interval are presented.
@@ -55,6 +56,8 @@ class HeaderRow extends StatelessWidget {
               downState: monthProvider.enableState.downState,
               upState: monthProvider.enableState.upState,
               arrowSize: controller.arrowSize,
+              previousIcon: controller.previousIcon,
+              nextIcon: controller.nextIcon,
             ),
           ]
         : <Widget>[
@@ -87,6 +90,8 @@ class HeaderRow extends StatelessWidget {
               downState: yearProvider.enableState.downState,
               upState: yearProvider.enableState.upState,
               arrowSize: controller.arrowSize,
+              previousIcon: controller.previousIcon,
+              nextIcon: controller.nextIcon,
             ),
           ];
     return portrait

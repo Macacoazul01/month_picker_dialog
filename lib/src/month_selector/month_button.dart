@@ -50,6 +50,11 @@ class MonthButton extends StatelessWidget {
   /// If not provided, the customization will be built from the app's theme.
   ButtonStyle _buildDefaultMonthStyle() {
     Color? backgroundColor;
+    TextStyle? textStyle = controller.monthTextStyle ??
+        theme.textTheme.labelLarge ??
+        TextStyle(
+          fontWeight: FontWeight.bold,
+        );
     Color? foregroundColor = controller.unselectedMonthTextColor;
     final List<DateTime> selectedDates = [controller.selectedDate];
 
@@ -83,17 +88,19 @@ class MonthButton extends StatelessWidget {
                 theme.colorScheme.onSecondary,
           )
           .color;
+      textStyle = controller.selectedMonthTextStyle ??
+          theme.textTheme.labelLarge ??
+          TextStyle(
+            fontWeight: FontWeight.bold,
+            color: foregroundColor,
+          );
     } else if (date.month == controller.now.month &&
         date.year == controller.now.year) {
       foregroundColor = controller.currentMonthTextColor ?? backgroundColor;
     }
 
     return TextButton.styleFrom(
-      textStyle: controller.textSyle ??
-          theme.textTheme.labelLarge ??
-          TextStyle(
-            fontWeight: FontWeight.bold,
-          ),
+      textStyle: textStyle,
       foregroundColor: foregroundColor,
       backgroundColor: backgroundColor,
       shape: controller.buttonBorder,

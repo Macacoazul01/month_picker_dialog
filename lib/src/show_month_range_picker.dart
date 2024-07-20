@@ -15,7 +15,9 @@ import '/month_picker_dialog.dart';
 ///
 /// `monthStylePredicate:` allows you to individually customize each month.
 ///
-/// `textStyle:` allows you to customize text-style of month.
+/// `monthTextStyle:` allows you to customize text-style of month.
+///
+/// `yearTextStyle:` allows you to customize text-style of year.
 ///
 /// `yearStylePredicate:` allows you to individually customize each year.
 ///
@@ -75,7 +77,11 @@ import '/month_picker_dialog.dart';
 ///
 Future<List<DateTime>?> showMonthRangePicker({
   required BuildContext context,
-  TextStyle? textStyle,
+  TextStyle? monthTextStyle,
+  TextStyle? selectedMonthTextStyle,
+  TextStyle? yearTextStyle,
+  IconData? previousIcon,
+  IconData? nextIcon,
   DateTime? initialDate,
   DateTime? firstDate,
   DateTime? lastDate,
@@ -116,7 +122,11 @@ Future<List<DateTime>?> showMonthRangePicker({
       'forceSelectedDate can only be used with dismissible = true');
   final ThemeData theme = Theme.of(context);
   final MonthpickerController controller = MonthpickerController(
-    textSyle: textStyle,
+    monthTextStyle: monthTextStyle,
+    selectedMonthTextStyle: selectedMonthTextStyle,
+    yearTextStyle: yearTextStyle,
+    previousIcon: previousIcon,
+    nextIcon: nextIcon,
     initialDate: initialDate,
     firstDate: firstDate,
     lastDate: lastDate,
