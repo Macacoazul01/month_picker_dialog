@@ -43,11 +43,19 @@ class MonthpickerController {
     required this.headerTitle,
     required this.rangeMode,
     required this.rangeList,
-    required this.textSyle,
+    required this.monthTextStyle,
+    required this.selectedMonthTextStyle,
+    required this.yearTextStyle,
+    required this.previousIcon,
+    required this.nextIcon,
   });
 
   //User defined variables
-  final TextStyle? textSyle;
+  final TextStyle? monthTextStyle;
+  final TextStyle? selectedMonthTextStyle;
+  final TextStyle? yearTextStyle;
+  final IconData? previousIcon;
+  final IconData? nextIcon;
   final ThemeData theme;
   final DateTime? firstDate, lastDate, initialDate;
   final Locale? locale;

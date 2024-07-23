@@ -71,7 +71,11 @@ import '/month_picker_dialog.dart';
 ///
 Future<DateTime?> showMonthPicker({
   required BuildContext context,
-  TextStyle? textStyle,
+  TextStyle? monthTextStyle,
+  TextStyle? selectedMonthTextStyle,
+  TextStyle? yearTextStyle,
+  IconData? previousIcon,
+  IconData? nextIcon,
   DateTime? initialDate,
   DateTime? firstDate,
   DateTime? lastDate,
@@ -111,7 +115,11 @@ Future<DateTime?> showMonthPicker({
       'forceSelectedDate can only be used with dismissible = true');
   final ThemeData theme = Theme.of(context);
   final MonthpickerController controller = MonthpickerController(
-    textSyle: textStyle,
+    monthTextStyle: monthTextStyle,
+    selectedMonthTextStyle: selectedMonthTextStyle,
+    yearTextStyle: yearTextStyle,
+    previousIcon: previousIcon,
+    nextIcon: nextIcon,
     initialDate: initialDate,
     firstDate: firstDate,
     lastDate: lastDate,
