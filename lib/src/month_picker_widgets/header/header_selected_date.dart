@@ -17,8 +17,8 @@ class HeaderSelectedDate extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       controller.getDateTimeHeaderText(localeString),
-      textScaler: controller.textScaleFactor != null
-          ? TextScaler.linear(controller.textScaleFactor!)
+      textScaler: controller.monthPickerDialogSettings.pickerDialogSettings.textScaleFactor != null
+          ? TextScaler.linear(controller.monthPickerDialogSettings.pickerDialogSettings.textScaleFactor!)
           : null,
       style: controller.headerTextColor == null
           ? theme.primaryTextTheme.titleMedium

@@ -16,9 +16,9 @@ class YearGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final String localeString =
-        getLocale(context, selectedLocale: controller.locale);
+        getLocale(context, selectedLocale: controller.monthPickerDialogSettings.pickerDialogSettings.locale);
     return GridView.count(
-      physics: controller.blockScrolling
+      physics: controller.monthPickerDialogSettings.pickerDialogSettings.blockScrolling
           ? const NeverScrollableScrollPhysics()
           : const ClampingScrollPhysics(),
       padding: const EdgeInsets.all(8.0),

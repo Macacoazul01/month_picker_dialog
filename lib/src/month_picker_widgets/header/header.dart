@@ -22,17 +22,17 @@ class PickerHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: portrait ? controller.customWidth : null,
+      width: portrait ? controller.monthPickerDialogSettings.pickerDialogSettings.customWidth : null,
       decoration: BoxDecoration(
         color: controller.headerColor ?? theme.primaryColor,
         borderRadius: portrait
             ? BorderRadius.only(
-                topLeft: Radius.circular(controller.roundedCornersRadius),
-                topRight: Radius.circular(controller.roundedCornersRadius),
+                topLeft: Radius.circular(controller.monthPickerDialogSettings.pickerDialogSettings.dialogRoundedCornersRadius),
+                topRight: Radius.circular(controller.monthPickerDialogSettings.pickerDialogSettings.dialogRoundedCornersRadius),
               )
             : BorderRadius.only(
-                topLeft: Radius.circular(controller.roundedCornersRadius),
-                bottomLeft: Radius.circular(controller.roundedCornersRadius),
+                topLeft: Radius.circular(controller.monthPickerDialogSettings.pickerDialogSettings.dialogRoundedCornersRadius),
+                bottomLeft: Radius.circular(controller.monthPickerDialogSettings.pickerDialogSettings.dialogRoundedCornersRadius),
               ),
       ),
       child: Padding(

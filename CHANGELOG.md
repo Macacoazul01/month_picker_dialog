@@ -1,8 +1,5 @@
-## 4.0.3 - 
-
-
-## 4.0.2 - 2024-07-19
-- Added temporary solution for button styles.
+## 5.0.0
+- Reworked dialog configuration.
 
 ## 4.0.1 - 2024-07-05
 - Improved locale selection. [#98](https://github.com/Macacoazul01/month_picker_dialog/pull/98)

@@ -15,8 +15,8 @@ class PickerPager extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: controller.customHeight ?? 240.0,
-      width: controller.customWidth,
+      height: controller.monthPickerDialogSettings.pickerDialogSettings.customHeight,
+      width: controller.monthPickerDialogSettings.pickerDialogSettings.customWidth,
       child: Theme(
         data: theme.copyWith(
           buttonTheme: const ButtonThemeData(
@@ -26,9 +26,9 @@ class PickerPager extends StatelessWidget {
           ),
         ),
         child: AnimatedSwitcher(
-          duration: Duration(milliseconds: controller.animationMilliseconds),
+          duration: Duration(milliseconds: controller.monthPickerDialogSettings.pickerDialogSettings.scrollAnimationMilliseconds),
           reverseDuration:
-              Duration(milliseconds: controller.animationMilliseconds),
+              Duration(milliseconds: controller.monthPickerDialogSettings.pickerDialogSettings.scrollAnimationMilliseconds),
           transitionBuilder: (Widget child, Animation<double> animation) =>
               ScaleTransition(scale: animation, child: child),
           child: selector,

@@ -30,8 +30,8 @@ class HeaderRow extends StatelessWidget {
     final Color? arrowcolors =
         controller.headerTextColor ?? theme.primaryIconTheme.color;
 
-    final TextScaler? scaler = controller.textScaleFactor != null
-        ? TextScaler.linear(controller.textScaleFactor!)
+    final TextScaler? scaler = controller.monthPickerDialogSettings.pickerDialogSettings.textScaleFactor != null
+        ? TextScaler.linear(controller.monthPickerDialogSettings.pickerDialogSettings.textScaleFactor!)
         : null;
 
     final YearUpDownPageProvider yearProvider =

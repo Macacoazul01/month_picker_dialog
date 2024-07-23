@@ -13,8 +13,8 @@ class PickerButtonBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final MaterialLocalizations localizations =
         MaterialLocalizations.of(context);
-    final TextScaler? scaler = controller.textScaleFactor != null
-        ? TextScaler.linear(controller.textScaleFactor!)
+    final TextScaler? scaler = controller.monthPickerDialogSettings.pickerDialogSettings.textScaleFactor != null
+        ? TextScaler.linear(controller.monthPickerDialogSettings.pickerDialogSettings.textScaleFactor!)
         : null;
     return ButtonBar(
       children: <Widget>[

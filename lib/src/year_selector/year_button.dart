@@ -94,8 +94,8 @@ class YearButton extends StatelessWidget {
         child: Text(
           DateFormat.y(localeString).format(DateTime(year)),
           style: yearStyle.textStyle?.resolve({}),
-          textScaler: controller.textScaleFactor != null
-              ? TextScaler.linear(controller.textScaleFactor!)
+          textScaler: controller.monthPickerDialogSettings.pickerDialogSettings.textScaleFactor != null
+              ? TextScaler.linear(controller.monthPickerDialogSettings.pickerDialogSettings.textScaleFactor!)
               : null,
         ),
       ),

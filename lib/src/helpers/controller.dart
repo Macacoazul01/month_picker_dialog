@@ -9,11 +9,9 @@ class MonthpickerController {
     this.initialDate,
     this.firstDate,
     this.lastDate,
-    this.locale,
     this.selectableMonthPredicate,
     this.monthStylePredicate,
     this.yearStylePredicate,
-    required this.capitalizeFirstLetter,
     this.headerColor,
     this.headerTextColor,
     this.selectedMonthBackgroundColor,
@@ -21,24 +19,13 @@ class MonthpickerController {
     this.unselectedMonthTextColor,
     this.currentMonthTextColor,
     required this.selectedMonthPadding,
-    this.backgroundColor,
     this.confirmWidget,
     this.cancelWidget,
-    this.customHeight,
-    required this.customWidth,
-    required this.yearFirst,
-    required this.roundedCornersRadius,
-    required this.forceSelectedDate,
-    required this.animationMilliseconds,
     required this.hideHeaderRow,
     required this.theme,
     required this.useMaterial3,
-    this.textScaleFactor,
     this.arrowSize,
-    required this.forcePortrait,
     this.customDivider,
-    required this.blockScrolling,
-    required this.dialogBorderSide,
     required this.buttonBorder,
     required this.headerTitle,
     required this.rangeMode,
@@ -48,6 +35,7 @@ class MonthpickerController {
     required this.yearTextStyle,
     required this.previousIcon,
     required this.nextIcon,
+    required this.monthPickerDialogSettings,
   });
 
   //User defined variables
@@ -58,17 +46,12 @@ class MonthpickerController {
   final IconData? nextIcon;
   final ThemeData theme;
   final DateTime? firstDate, lastDate, initialDate;
-  final Locale? locale;
   final bool Function(DateTime)? selectableMonthPredicate;
   final ButtonStyle? Function(DateTime)? monthStylePredicate;
   final ButtonStyle? Function(int)? yearStylePredicate;
-  final bool capitalizeFirstLetter,
-      yearFirst,
-      forceSelectedDate,
+  final bool 
       hideHeaderRow,
       useMaterial3,
-      forcePortrait,
-      blockScrolling,
       rangeMode,
       rangeList;
   final Color? headerColor,
@@ -76,15 +59,13 @@ class MonthpickerController {
       selectedMonthBackgroundColor,
       selectedMonthTextColor,
       unselectedMonthTextColor,
-      backgroundColor,
       currentMonthTextColor;
   final Widget? confirmWidget, cancelWidget, customDivider;
-  final double? customHeight, textScaleFactor, arrowSize;
-  final double roundedCornersRadius, selectedMonthPadding, customWidth;
-  final int animationMilliseconds;
-  final BorderSide dialogBorderSide;
+  final double? arrowSize;
+  final double selectedMonthPadding;
   final OutlinedBorder buttonBorder;
   final Widget? headerTitle;
+  final MonthPickerDialogSettings monthPickerDialogSettings;
 
   //local variables
   final GlobalKey<YearSelectorState> yearSelectorState = GlobalKey();
@@ -266,14 +247,14 @@ class MonthpickerController {
   ///function to show datetime in header
   String getDateTimeHeaderText(String localeString) {
     if (!rangeMode) {
-      if (capitalizeFirstLetter) {
+      if (monthPickerDialogSettings.pickerDialogSettings.capitalizeFirstLetter) {
         return '${toBeginningOfSentenceCase(DateFormat.yMMM(localeString).format(selectedDate))}';
       }
       return DateFormat.yMMM(localeString).format(selectedDate).toLowerCase();
     } else {
       String rangeDateString = "";
       if (firstRangeDate != null) {
-        if (capitalizeFirstLetter) {
+        if (monthPickerDialogSettings.pickerDialogSettings.capitalizeFirstLetter) {
           rangeDateString =
               '${toBeginningOfSentenceCase(DateFormat.yMMM(localeString).format(firstRangeDate!))}';
         } else {
@@ -284,7 +265,7 @@ class MonthpickerController {
       }
 
       if (secondRangeDate != null) {
-        if (capitalizeFirstLetter) {
+        if (monthPickerDialogSettings.pickerDialogSettings.capitalizeFirstLetter) {
           rangeDateString +=
               ' - ${toBeginningOfSentenceCase(DateFormat.yMMM(localeString).format(secondRangeDate!))}';
         } else {

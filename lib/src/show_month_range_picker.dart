@@ -85,11 +85,9 @@ Future<List<DateTime>?> showMonthRangePicker({
   DateTime? initialDate,
   DateTime? firstDate,
   DateTime? lastDate,
-  Locale? locale,
   bool Function(DateTime)? selectableMonthPredicate,
   ButtonStyle? Function(DateTime)? monthStylePredicate,
   ButtonStyle? Function(int)? yearStylePredicate,
-  bool capitalizeFirstLetter = true,
   Color? headerColor,
   Color? headerTextColor,
   Color? selectedMonthBackgroundColor,
@@ -97,29 +95,17 @@ Future<List<DateTime>?> showMonthRangePicker({
   Color? unselectedMonthTextColor,
   Color? currentMonthTextColor,
   double selectedMonthPadding = 0,
-  Color? backgroundColor,
   Widget? confirmWidget,
   Widget? cancelWidget,
-  double? customHeight,
-  double customWidth = 320,
-  bool yearFirst = false,
-  bool dismissible = false,
-  double roundedCornersRadius = 0,
-  bool forceSelectedDate = false,
-  int animationMilliseconds = 450,
   bool hideHeaderRow = false,
-  double? textScaleFactor,
   double? arrowSize,
-  bool forcePortrait = false,
   Widget? customDivider,
-  bool blockScrolling = true,
-  BorderSide dialogBorderSide = BorderSide.none,
   OutlinedBorder buttonBorder = const CircleBorder(),
   Widget? headerTitle,
   bool rangeList = false,
+  MonthPickerDialogSettings monthPickerDialogSettings =
+      defaultMonthPickerDialogSettings,
 }) async {
-  assert(forceSelectedDate == dismissible || !forceSelectedDate,
-      'forceSelectedDate can only be used with dismissible = true');
   final ThemeData theme = Theme.of(context);
   final MonthpickerController controller = MonthpickerController(
     monthTextStyle: monthTextStyle,
@@ -130,11 +116,9 @@ Future<List<DateTime>?> showMonthRangePicker({
     initialDate: initialDate,
     firstDate: firstDate,
     lastDate: lastDate,
-    locale: locale,
     selectableMonthPredicate: selectableMonthPredicate,
     monthStylePredicate: monthStylePredicate,
     yearStylePredicate: yearStylePredicate,
-    capitalizeFirstLetter: capitalizeFirstLetter,
     headerColor: headerColor,
     headerTextColor: headerTextColor,
     selectedMonthBackgroundColor: selectedMonthBackgroundColor,
@@ -142,32 +126,22 @@ Future<List<DateTime>?> showMonthRangePicker({
     unselectedMonthTextColor: unselectedMonthTextColor,
     currentMonthTextColor: currentMonthTextColor,
     selectedMonthPadding: selectedMonthPadding,
-    backgroundColor: backgroundColor,
     confirmWidget: confirmWidget,
     cancelWidget: cancelWidget,
-    customHeight: customHeight,
-    customWidth: customWidth,
-    yearFirst: yearFirst,
-    roundedCornersRadius: roundedCornersRadius,
-    forceSelectedDate: forceSelectedDate,
-    animationMilliseconds: animationMilliseconds,
     hideHeaderRow: hideHeaderRow,
     theme: theme,
     useMaterial3: theme.useMaterial3,
-    textScaleFactor: textScaleFactor,
     arrowSize: arrowSize,
-    forcePortrait: forcePortrait,
     customDivider: customDivider,
-    blockScrolling: blockScrolling,
-    dialogBorderSide: dialogBorderSide,
     buttonBorder: buttonBorder,
     headerTitle: headerTitle,
     rangeMode: true,
-    rangeList: rangeList,
+    rangeList: rangeList, 
+    monthPickerDialogSettings: monthPickerDialogSettings,
   );
   final List<DateTime>? dialogDate = await showDialog<List<DateTime>>(
     context: context,
-    barrierDismissible: dismissible,
+    barrierDismissible: monthPickerDialogSettings.pickerDialogSettings.dismissible,
     builder: (BuildContext context) {
       return MultiProvider(
         providers: [
@@ -182,7 +156,7 @@ Future<List<DateTime>?> showMonthRangePicker({
       );
     },
   );
-  if (dismissible && forceSelectedDate && dialogDate == null) {
+  if (monthPickerDialogSettings.pickerDialogSettings.dismissible && monthPickerDialogSettings.pickerDialogSettings.forceSelectedDate && dialogDate == null) {
     return [controller.selectedDate];
   }
   return dialogDate;
