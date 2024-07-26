@@ -171,7 +171,6 @@ class _MyAppState extends State<MyApp> {
                       firstDate: DateTime(DateTime.now().year - 5, 5),
                       lastDate: DateTime(DateTime.now().year + 8, 9),
                       initialDate: selectedDate ?? widget.initialDate,
-                      locale: const Locale('en'),
                       headerColor: Colors.indigo[300],
                       headerTextColor: Colors.black,
                       selectedMonthBackgroundColor: Colors.amber[900],
@@ -192,11 +191,16 @@ class _MyAppState extends State<MyApp> {
                           color: Colors.red[900],
                         ),
                       ),
-                      roundedCornersRadius: 20,
-                      yearFirst: false,
-                      backgroundColor: Colors.blueGrey[50],
                       buttonBorder: const RoundedRectangleBorder(),
                       headerTitle: const Text('Month Picker Dialog'),
+                      monthPickerDialogSettings: MonthPickerDialogSettings(
+                        pickerDialogSettings: PickerDialogSettings(
+                          locale: const Locale('en'),
+                          dialogRoundedCornersRadius: 20,
+                          yearFirst: false,
+                          dialogBackgroundColor: Colors.blueGrey[50],
+                        ),
+                      ),
                       // customDivider: Divider(
                       //   color: Colors.black,
                       //   endIndent: 25,
