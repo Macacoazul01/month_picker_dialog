@@ -9,11 +9,11 @@ String createLocaleString(Locale locale) {
       locale.countryCode ?? ''; // Default to empty if countryCode is null
 
   if (scriptCode.isNotEmpty && countryCode.isNotEmpty) {
-    return '${languageCode}_${scriptCode}_${countryCode}';
+    return '${languageCode}_${scriptCode}_$countryCode';
   } else if (scriptCode.isNotEmpty) {
-    return '${languageCode}_${scriptCode}';
+    return '${languageCode}_$scriptCode';
   } else if (countryCode.isNotEmpty) {
-    return '${languageCode}_${countryCode}';
+    return '${languageCode}_$countryCode';
   } else {
     return languageCode;
   }

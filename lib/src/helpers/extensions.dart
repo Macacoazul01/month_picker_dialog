@@ -8,3 +8,21 @@ extension MyDateExtension on DateTime {
     return DateTime(year, month + 1, 0);
   }
 }
+
+extension NullableDateTimeExtension on DateTime? {
+  bool isBetween(DateTime start, DateTime end) {
+    if (this == null) {
+      return false;
+    } else {
+      return this!.compareTo(start) >= 0 && this!.compareTo(end) <= 0;
+    }
+  }
+
+  bool nullableIsBefore(DateTime end) {
+    if (this == null) {
+      return false;
+    } else {
+      return this!.compareTo(end) < 0;
+    }
+  }
+}

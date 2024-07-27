@@ -24,9 +24,9 @@ class YearButton extends StatelessWidget {
   bool _isEnabled(final int year) {
     final DateTime? localFirstDate = controller.localFirstDate;
     final DateTime? localLastDate = controller.localLastDate;
-    if (localFirstDate == null && localLastDate == null)
+    if (localFirstDate == null && localLastDate == null) {
       return true;
-    else if (localFirstDate != null &&
+    } else if (localFirstDate != null &&
         localLastDate != null &&
         year >= localFirstDate.year &&
         year <= localLastDate.year)
@@ -49,21 +49,21 @@ class YearButton extends StatelessWidget {
   /// If not provided, the customization will be built from the app's theme.
   ButtonStyle _buildDefaultYearStyle(int year) {
     final Color backgroundColor =
-        controller.selectedMonthBackgroundColor ?? theme.colorScheme.secondary;
+        controller.monthPickerDialogSettings.buttonsSettings.selectedMonthBackgroundColor ?? theme.colorScheme.secondary;
     final ButtonStyle yearStyle = TextButton.styleFrom(
       foregroundColor: year == controller.selectedDate.year
           ? theme.textTheme.labelLarge!
               .copyWith(
-                color: controller.selectedMonthTextColor ??
+                color: controller.monthPickerDialogSettings.buttonsSettings.selectedMonthTextColor ??
                     theme.colorScheme.onSecondary,
               )
               .color
           : year == controller.now.year
-              ? (controller.currentMonthTextColor ?? backgroundColor)
-              : controller.unselectedMonthTextColor,
+              ? (controller.monthPickerDialogSettings.buttonsSettings.currentMonthTextColor ?? backgroundColor)
+              : controller.monthPickerDialogSettings.buttonsSettings.unselectedMonthsTextColor,
       backgroundColor:
           year == controller.selectedDate.year ? backgroundColor : null,
-      shape: controller.buttonBorder,
+      shape: controller.monthPickerDialogSettings.buttonsSettings.buttonBorder,
     );
     return yearStyle;
   }
@@ -87,7 +87,7 @@ class YearButton extends StatelessWidget {
     }
 
     return Padding(
-      padding: EdgeInsets.all(controller.selectedMonthPadding),
+      padding: EdgeInsets.all(controller.monthPickerDialogSettings.buttonsSettings.selectedDatePadding),
       child: TextButton(
         onPressed: isEnabled ? () => onYearSelected(year) : null,
         style: yearStyle,

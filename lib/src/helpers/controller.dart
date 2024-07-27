@@ -12,47 +12,25 @@ class MonthpickerController {
     this.selectableMonthPredicate,
     this.monthStylePredicate,
     this.yearStylePredicate,
-    this.selectedMonthBackgroundColor,
-    this.selectedMonthTextColor,
-    this.unselectedMonthTextColor,
-    this.currentMonthTextColor,
-    required this.selectedMonthPadding,
     this.confirmWidget,
     this.cancelWidget,
     required this.theme,
     required this.useMaterial3,
     this.customDivider,
-    required this.buttonBorder,
     required this.headerTitle,
     required this.rangeMode,
     required this.rangeList,
-    required this.monthTextStyle,
-    required this.selectedMonthTextStyle,
-    required this.yearTextStyle,
     required this.monthPickerDialogSettings,
   });
 
   //User defined variables
-  final TextStyle? monthTextStyle;
-  final TextStyle? selectedMonthTextStyle;
-  final TextStyle? yearTextStyle;
   final ThemeData theme;
   final DateTime? firstDate, lastDate, initialDate;
   final bool Function(DateTime)? selectableMonthPredicate;
   final ButtonStyle? Function(DateTime)? monthStylePredicate;
   final ButtonStyle? Function(int)? yearStylePredicate;
-  final bool 
-      useMaterial3,
-      rangeMode,
-      rangeList;
-  final Color?
-      selectedMonthBackgroundColor,
-      selectedMonthTextColor,
-      unselectedMonthTextColor,
-      currentMonthTextColor;
+  final bool useMaterial3, rangeMode, rangeList;
   final Widget? confirmWidget, cancelWidget, customDivider;
-  final double selectedMonthPadding;
-  final OutlinedBorder buttonBorder;
   final Widget? headerTitle;
   final MonthPickerDialogSettings monthPickerDialogSettings;
 
@@ -112,16 +90,18 @@ class MonthpickerController {
   ///year pages count
   int getYearPageCount(DateTime? firstDate, DateTime? lastDate) {
     if (firstDate != null && lastDate != null) {
-      if (lastDate.year - firstDate.year <= 12)
+      if (lastDate.year - firstDate.year <= 12) {
         return 1;
-      else
+      } else {
         return ((lastDate.year - firstDate.year + 1) / 12).ceil();
+      }
     } else if (firstDate != null && lastDate == null) {
       return (yearItemCount / 12).ceil();
     } else if (firstDate == null && lastDate != null) {
       return (yearItemCount / 12).ceil();
-    } else
+    } else {
       return (9999 / 12).ceil();
+    }
   }
 
   ///year item count
@@ -132,8 +112,9 @@ class MonthpickerController {
       return 9999 - firstDate.year;
     } else if (firstDate == null && lastDate != null) {
       return lastDate.year;
-    } else
+    } else {
       return 9999;
+    }
   }
 
   ///month pages count
@@ -144,8 +125,9 @@ class MonthpickerController {
       return 9999 - firstDate.year;
     } else if (firstDate == null && lastDate != null) {
       return lastDate.year + 1;
-    } else
+    } else {
       return 9999;
+    }
   }
 
   //selector functions
@@ -190,7 +172,7 @@ class MonthpickerController {
 
     while (startDate.isBefore(endDate)) {
       monthsList.add(startDate);
-      startDate = DateTime(startDate.year, startDate.month + 1, 1);
+      startDate = DateTime(startDate.year, startDate.month + 1);
     }
 
     monthsList.add(startDate);

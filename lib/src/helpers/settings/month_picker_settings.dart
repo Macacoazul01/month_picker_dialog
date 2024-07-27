@@ -4,7 +4,8 @@ import 'package:month_picker_dialog/month_picker_dialog.dart';
 class MonthPickerDialogSettings {
   const MonthPickerDialogSettings({
     this.dialogSettings = defaultPickerdialogSettings, 
-    this.headerSettings = defaultPickerHeaderSettings,  
+    this.headerSettings = defaultPickerHeaderSettings,
+    this.buttonsSettings = defaultPickerbuttonsSettings,  
   });
 
   ///The customizations of the dialog part of the package.
@@ -12,6 +13,9 @@ class MonthPickerDialogSettings {
   
   ///The customizations of the header part of the package.
   final PickerHeaderSettings headerSettings;
+
+  ///The customizations of the buttons part of the package.
+  final PickerButtonsSettings buttonsSettings;
 }
 
 ///The default settings for the month picker.

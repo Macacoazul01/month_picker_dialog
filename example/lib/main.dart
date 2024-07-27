@@ -156,23 +156,9 @@ class _MyAppState extends State<MyApp> {
               }); */
               showMonthRangePicker(
                       context: context,
-                      yearTextStyle: TextStyle(
-                        color: Colors.amber,
-                      ),
-                      monthTextStyle: TextStyle(
-                        color: Colors.red,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      selectedMonthTextStyle: TextStyle(
-                        color: Colors.green,
-                      ),
                       firstDate: DateTime(DateTime.now().year - 5, 5),
                       lastDate: DateTime(DateTime.now().year + 8, 9),
                       initialDate: selectedDate ?? widget.initialDate,
-                      selectedMonthBackgroundColor: Colors.amber[900],
-                      selectedMonthTextColor: Colors.white,
-                      unselectedMonthTextColor: Colors.black,
-                      currentMonthTextColor: Colors.green,
                       confirmWidget: Text(
                         'This one!',
                         style: TextStyle(
@@ -187,27 +173,39 @@ class _MyAppState extends State<MyApp> {
                           color: Colors.red[900],
                         ),
                       ),
-                      buttonBorder: const RoundedRectangleBorder(),
                       headerTitle: const Text('Month Picker Dialog'),
                       monthPickerDialogSettings: MonthPickerDialogSettings(
                         dialogSettings: PickerDialogSettings(
                           locale: const Locale('en'),
                           dialogRoundedCornersRadius: 20,
-                          yearFirst: false,
                           dialogBackgroundColor: Colors.blueGrey[50],
                         ),
                         headerSettings: PickerHeaderSettings(
                           headerBackgroundColor: Colors.indigo[300],
-                          headerSelectedIntervalTextStyle: TextStyle(
+                          headerSelectedIntervalTextStyle: const TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
                             fontSize: 20,
                           ),
-                          headerPageTextStyle: TextStyle(
+                          headerPageTextStyle: const TextStyle(
                             color: Colors.black,
                           ),
                           previousIcon: Icons.arrow_back,
                           nextIcon: Icons.arrow_forward,
+                        ),
+                        buttonsSettings: PickerButtonsSettings(
+                          buttonBorder: const RoundedRectangleBorder(),
+                          selectedMonthBackgroundColor: Colors.amber[900],
+                          selectedMonthTextColor: Colors.white,
+                          unselectedMonthsTextColor: Colors.black,
+                          currentMonthTextColor: Colors.green,
+                          yearTextStyle: const TextStyle(
+                            color: Colors.amber,
+                          ),
+                          monthTextStyle: const TextStyle(
+                            color: Colors.red,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                       // customDivider: Divider(

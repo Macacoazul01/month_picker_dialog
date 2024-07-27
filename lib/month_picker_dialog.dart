@@ -1,9 +1,6 @@
-// Copyright 2024 Gianluca & Lorenzo. All rights reserved.
+// Copyright 2024 Gianluca. All rights reserved.
 // Use of this source code is governed by a license that can be
 // found in the LICENSE file.
-
-library month_picker_dialog;
-
 export '/src/helpers/common.dart';
 export '/src/helpers/controller.dart';
 export '/src/helpers/extensions.dart';
@@ -12,6 +9,7 @@ export '/src/helpers/providers.dart';
 export '/src/helpers/settings/dialog_settings.dart';
 export '/src/helpers/settings/month_picker_settings.dart';
 export '/src/helpers/settings/header_settings.dart';
+export '/src/helpers/settings/buttons_settings.dart';
 export '/src/month_picker_dialog.dart';
 export '/src/month_picker_widgets/button_bar.dart';
 export '/src/month_picker_widgets/header/header.dart';
