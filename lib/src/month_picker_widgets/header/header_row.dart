@@ -23,15 +23,13 @@ class HeaderRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TextStyle? headline5 = controller.headerTextColor == null
-        ? theme.primaryTextTheme.headlineSmall
-        : theme.primaryTextTheme.headlineSmall!
-            .copyWith(color: controller.headerTextColor);
-    final Color? arrowcolors =
-        controller.headerTextColor ?? theme.primaryIconTheme.color;
+    final TextStyle? headline5 = controller.monthPickerDialogSettings.headerSettings.headerPageTextStyle ?? theme.primaryTextTheme.headlineSmall;
+    final Color? arrowcolors = controller.monthPickerDialogSettings.headerSettings.headerIconsColor ?? (controller.monthPickerDialogSettings.headerSettings.headerPageTextStyle?.color ?? theme.primaryIconTheme.color);
 
-    final TextScaler? scaler = controller.monthPickerDialogSettings.pickerDialogSettings.textScaleFactor != null
-        ? TextScaler.linear(controller.monthPickerDialogSettings.pickerDialogSettings.textScaleFactor!)
+    final TextScaler? scaler =
+        controller.monthPickerDialogSettings.dialogSettings.textScaleFactor != null
+            ? TextScaler.linear(
+                controller.monthPickerDialogSettings.dialogSettings.textScaleFactor!)
         : null;
 
     final YearUpDownPageProvider yearProvider =
@@ -55,9 +53,9 @@ class HeaderRow extends StatelessWidget {
               onDownButtonPressed: controller.onDownButtonPressed,
               downState: monthProvider.enableState.downState,
               upState: monthProvider.enableState.upState,
-              arrowSize: controller.arrowSize,
-              previousIcon: controller.previousIcon,
-              nextIcon: controller.nextIcon,
+              arrowSize: controller.monthPickerDialogSettings.headerSettings.headerIconsSize,
+              previousIcon: controller.monthPickerDialogSettings.headerSettings.previousIcon,
+              nextIcon: controller.monthPickerDialogSettings.headerSettings.nextIcon,
             ),
           ]
         : <Widget>[
@@ -89,9 +87,9 @@ class HeaderRow extends StatelessWidget {
               onDownButtonPressed: controller.onDownButtonPressed,
               downState: yearProvider.enableState.downState,
               upState: yearProvider.enableState.upState,
-              arrowSize: controller.arrowSize,
-              previousIcon: controller.previousIcon,
-              nextIcon: controller.nextIcon,
+              arrowSize: controller.monthPickerDialogSettings.headerSettings.headerIconsSize,
+              previousIcon: controller.monthPickerDialogSettings.headerSettings.previousIcon,
+              nextIcon: controller.monthPickerDialogSettings.headerSettings.nextIcon,
             ),
           ];
     return portrait

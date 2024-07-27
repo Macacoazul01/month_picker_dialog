@@ -128,13 +128,16 @@ class MonthButton extends StatelessWidget {
             : null,
         style: monthStyle,
         child: Text(
-          controller.monthPickerDialogSettings.pickerDialogSettings.capitalizeFirstLetter
+          controller.monthPickerDialogSettings.dialogSettings.capitalizeFirstLetter
               ? toBeginningOfSentenceCase(
                   DateFormat.MMM(localeString).format(date))!
               : DateFormat.MMM(localeString).format(date).toLowerCase(),
           style: monthStyle.textStyle?.resolve({}),
-          textScaler: controller.monthPickerDialogSettings.pickerDialogSettings.textScaleFactor != null
-              ? TextScaler.linear(controller.monthPickerDialogSettings.pickerDialogSettings.textScaleFactor!)
+          textScaler:
+              controller.monthPickerDialogSettings.dialogSettings.textScaleFactor !=
+                      null
+                  ? TextScaler.linear(controller
+                      .monthPickerDialogSettings.dialogSettings.textScaleFactor!)
               : null,
         ),
       ),

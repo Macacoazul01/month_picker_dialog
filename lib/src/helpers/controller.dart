@@ -12,8 +12,6 @@ class MonthpickerController {
     this.selectableMonthPredicate,
     this.monthStylePredicate,
     this.yearStylePredicate,
-    this.headerColor,
-    this.headerTextColor,
     this.selectedMonthBackgroundColor,
     this.selectedMonthTextColor,
     this.unselectedMonthTextColor,
@@ -21,10 +19,8 @@ class MonthpickerController {
     required this.selectedMonthPadding,
     this.confirmWidget,
     this.cancelWidget,
-    required this.hideHeaderRow,
     required this.theme,
     required this.useMaterial3,
-    this.arrowSize,
     this.customDivider,
     required this.buttonBorder,
     required this.headerTitle,
@@ -33,8 +29,6 @@ class MonthpickerController {
     required this.monthTextStyle,
     required this.selectedMonthTextStyle,
     required this.yearTextStyle,
-    required this.previousIcon,
-    required this.nextIcon,
     required this.monthPickerDialogSettings,
   });
 
@@ -42,26 +36,21 @@ class MonthpickerController {
   final TextStyle? monthTextStyle;
   final TextStyle? selectedMonthTextStyle;
   final TextStyle? yearTextStyle;
-  final IconData? previousIcon;
-  final IconData? nextIcon;
   final ThemeData theme;
   final DateTime? firstDate, lastDate, initialDate;
   final bool Function(DateTime)? selectableMonthPredicate;
   final ButtonStyle? Function(DateTime)? monthStylePredicate;
   final ButtonStyle? Function(int)? yearStylePredicate;
   final bool 
-      hideHeaderRow,
       useMaterial3,
       rangeMode,
       rangeList;
-  final Color? headerColor,
-      headerTextColor,
+  final Color?
       selectedMonthBackgroundColor,
       selectedMonthTextColor,
       unselectedMonthTextColor,
       currentMonthTextColor;
   final Widget? confirmWidget, cancelWidget, customDivider;
-  final double? arrowSize;
   final double selectedMonthPadding;
   final OutlinedBorder buttonBorder;
   final Widget? headerTitle;
@@ -247,14 +236,14 @@ class MonthpickerController {
   ///function to show datetime in header
   String getDateTimeHeaderText(String localeString) {
     if (!rangeMode) {
-      if (monthPickerDialogSettings.pickerDialogSettings.capitalizeFirstLetter) {
+      if (monthPickerDialogSettings.dialogSettings.capitalizeFirstLetter) {
         return '${toBeginningOfSentenceCase(DateFormat.yMMM(localeString).format(selectedDate))}';
       }
       return DateFormat.yMMM(localeString).format(selectedDate).toLowerCase();
     } else {
       String rangeDateString = "";
       if (firstRangeDate != null) {
-        if (monthPickerDialogSettings.pickerDialogSettings.capitalizeFirstLetter) {
+        if (monthPickerDialogSettings.dialogSettings.capitalizeFirstLetter) {
           rangeDateString =
               '${toBeginningOfSentenceCase(DateFormat.yMMM(localeString).format(firstRangeDate!))}';
         } else {
@@ -265,7 +254,7 @@ class MonthpickerController {
       }
 
       if (secondRangeDate != null) {
-        if (monthPickerDialogSettings.pickerDialogSettings.capitalizeFirstLetter) {
+        if (monthPickerDialogSettings.dialogSettings.capitalizeFirstLetter) {
           rangeDateString +=
               ' - ${toBeginningOfSentenceCase(DateFormat.yMMM(localeString).format(secondRangeDate!))}';
         } else {

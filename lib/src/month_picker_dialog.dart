@@ -17,17 +17,18 @@ class MonthPickerDialogState extends State<MonthPickerDialog> {
   void initState() {
     super.initState();
     widget.controller.initialize();
-    _selector = widget.controller.monthPickerDialogSettings.pickerDialogSettings.yearFirst
-        ? YearSelector(
-            key: widget.controller.yearSelectorState,
-            onYearSelected: _onYearSelected,
-            controller: widget.controller,
-          )
-        : MonthSelector(
-            key: widget.controller.monthSelectorState,
-            onMonthSelected: _onMonthSelected,
-            controller: widget.controller,
-          );
+    _selector =
+        widget.controller.monthPickerDialogSettings.dialogSettings.yearFirst
+            ? YearSelector(
+                key: widget.controller.yearSelectorState,
+                onYearSelected: _onYearSelected,
+                controller: widget.controller,
+              )
+            : MonthSelector(
+                key: widget.controller.monthSelectorState,
+                onMonthSelected: _onMonthSelected,
+                controller: widget.controller,
+              );
   }
 
   @override
@@ -38,26 +39,41 @@ class MonthPickerDialogState extends State<MonthPickerDialog> {
 
   @override
   Widget build(BuildContext context) {
-    final String locale =
-        getLocale(context, selectedLocale: widget.controller.monthPickerDialogSettings.pickerDialogSettings.locale);
-    final bool portrait = widget.controller.monthPickerDialogSettings.pickerDialogSettings.forcePortrait ||
+    final String locale = getLocale(context,
+        selectedLocale:
+            widget.controller.monthPickerDialogSettings.dialogSettings.locale);
+    final bool portrait = widget.controller.monthPickerDialogSettings
+            .dialogSettings.forcePortrait ||
         MediaQuery.of(context).orientation == Orientation.portrait;
     final Container content = Container(
       decoration: BoxDecoration(
-        color: widget.controller.monthPickerDialogSettings.pickerDialogSettings.dialogBackgroundColor ??
+        color: widget.controller.monthPickerDialogSettings.dialogSettings
+                .dialogBackgroundColor ??
             widget.controller.theme.dialogBackgroundColor,
         borderRadius: portrait
             ? BorderRadius.only(
-                bottomLeft:
-                    Radius.circular(widget.controller.monthPickerDialogSettings.pickerDialogSettings.dialogRoundedCornersRadius),
-                bottomRight:
-                    Radius.circular(widget.controller.monthPickerDialogSettings.pickerDialogSettings.dialogRoundedCornersRadius),
+                bottomLeft: Radius.circular(widget
+                    .controller
+                    .monthPickerDialogSettings
+                    .dialogSettings
+                    .dialogRoundedCornersRadius),
+                bottomRight: Radius.circular(widget
+                    .controller
+                    .monthPickerDialogSettings
+                    .dialogSettings
+                    .dialogRoundedCornersRadius),
               )
             : BorderRadius.only(
-                topRight:
-                    Radius.circular(widget.controller.monthPickerDialogSettings.pickerDialogSettings.dialogRoundedCornersRadius),
-                bottomRight:
-                    Radius.circular(widget.controller.monthPickerDialogSettings.pickerDialogSettings.dialogRoundedCornersRadius),
+                topRight: Radius.circular(widget
+                    .controller
+                    .monthPickerDialogSettings
+                    .dialogSettings
+                    .dialogRoundedCornersRadius),
+                bottomRight: Radius.circular(widget
+                    .controller
+                    .monthPickerDialogSettings
+                    .dialogSettings
+                    .dialogRoundedCornersRadius),
               ),
       ),
       child: Column(
@@ -92,9 +108,13 @@ class MonthPickerDialogState extends State<MonthPickerDialog> {
           .copyWith(dialogBackgroundColor: Colors.transparent),
       child: Dialog(
         shape: RoundedRectangleBorder(
-          side: widget.controller.monthPickerDialogSettings.pickerDialogSettings.dialogBorderSide,
-          borderRadius:
-              BorderRadius.circular(widget.controller.monthPickerDialogSettings.pickerDialogSettings.dialogRoundedCornersRadius),
+          side: widget.controller.monthPickerDialogSettings.dialogSettings
+              .dialogBorderSide,
+          borderRadius: BorderRadius.circular(widget
+              .controller
+              .monthPickerDialogSettings
+              .dialogSettings
+              .dialogRoundedCornersRadius),
         ),
         child: Builder(
           builder: (BuildContext context) {

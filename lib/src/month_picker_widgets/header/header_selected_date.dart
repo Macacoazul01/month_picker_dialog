@@ -17,13 +17,15 @@ class HeaderSelectedDate extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       controller.getDateTimeHeaderText(localeString),
-      textScaler: controller.monthPickerDialogSettings.pickerDialogSettings.textScaleFactor != null
-          ? TextScaler.linear(controller.monthPickerDialogSettings.pickerDialogSettings.textScaleFactor!)
-          : null,
-      style: controller.headerTextColor == null
-          ? theme.primaryTextTheme.titleMedium
-          : theme.primaryTextTheme.titleMedium!
-              .copyWith(color: controller.headerTextColor),
+      textScaler:
+          controller.monthPickerDialogSettings.dialogSettings.textScaleFactor !=
+                  null
+              ? TextScaler.linear(controller
+                  .monthPickerDialogSettings.dialogSettings.textScaleFactor!)
+              : null,
+      style:
+          controller.monthPickerDialogSettings.headerSettings.headerSelectedIntervalTextStyle ??
+              theme.primaryTextTheme.titleMedium,
     );
   }
 }

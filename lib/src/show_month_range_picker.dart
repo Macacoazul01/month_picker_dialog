@@ -80,16 +80,12 @@ Future<List<DateTime>?> showMonthRangePicker({
   TextStyle? monthTextStyle,
   TextStyle? selectedMonthTextStyle,
   TextStyle? yearTextStyle,
-  IconData? previousIcon,
-  IconData? nextIcon,
   DateTime? initialDate,
   DateTime? firstDate,
   DateTime? lastDate,
   bool Function(DateTime)? selectableMonthPredicate,
   ButtonStyle? Function(DateTime)? monthStylePredicate,
   ButtonStyle? Function(int)? yearStylePredicate,
-  Color? headerColor,
-  Color? headerTextColor,
   Color? selectedMonthBackgroundColor,
   Color? selectedMonthTextColor,
   Color? unselectedMonthTextColor,
@@ -97,30 +93,23 @@ Future<List<DateTime>?> showMonthRangePicker({
   double selectedMonthPadding = 0,
   Widget? confirmWidget,
   Widget? cancelWidget,
-  bool hideHeaderRow = false,
-  double? arrowSize,
   Widget? customDivider,
   OutlinedBorder buttonBorder = const CircleBorder(),
   Widget? headerTitle,
   bool rangeList = false,
-  MonthPickerDialogSettings monthPickerDialogSettings =
-      defaultMonthPickerDialogSettings,
+  MonthPickerDialogSettings monthPickerDialogSettings = defaultMonthPickerDialogSettings,
 }) async {
   final ThemeData theme = Theme.of(context);
   final MonthpickerController controller = MonthpickerController(
     monthTextStyle: monthTextStyle,
     selectedMonthTextStyle: selectedMonthTextStyle,
     yearTextStyle: yearTextStyle,
-    previousIcon: previousIcon,
-    nextIcon: nextIcon,
     initialDate: initialDate,
     firstDate: firstDate,
     lastDate: lastDate,
     selectableMonthPredicate: selectableMonthPredicate,
     monthStylePredicate: monthStylePredicate,
     yearStylePredicate: yearStylePredicate,
-    headerColor: headerColor,
-    headerTextColor: headerTextColor,
     selectedMonthBackgroundColor: selectedMonthBackgroundColor,
     selectedMonthTextColor: selectedMonthTextColor,
     unselectedMonthTextColor: unselectedMonthTextColor,
@@ -128,10 +117,8 @@ Future<List<DateTime>?> showMonthRangePicker({
     selectedMonthPadding: selectedMonthPadding,
     confirmWidget: confirmWidget,
     cancelWidget: cancelWidget,
-    hideHeaderRow: hideHeaderRow,
     theme: theme,
     useMaterial3: theme.useMaterial3,
-    arrowSize: arrowSize,
     customDivider: customDivider,
     buttonBorder: buttonBorder,
     headerTitle: headerTitle,
@@ -141,7 +128,7 @@ Future<List<DateTime>?> showMonthRangePicker({
   );
   final List<DateTime>? dialogDate = await showDialog<List<DateTime>>(
     context: context,
-    barrierDismissible: monthPickerDialogSettings.pickerDialogSettings.dismissible,
+    barrierDismissible: monthPickerDialogSettings.dialogSettings.dismissible,
     builder: (BuildContext context) {
       return MultiProvider(
         providers: [
@@ -156,7 +143,9 @@ Future<List<DateTime>?> showMonthRangePicker({
       );
     },
   );
-  if (monthPickerDialogSettings.pickerDialogSettings.dismissible && monthPickerDialogSettings.pickerDialogSettings.forceSelectedDate && dialogDate == null) {
+  if (monthPickerDialogSettings.dialogSettings.dismissible &&
+      monthPickerDialogSettings.dialogSettings.forceSelectedDate &&
+      dialogDate == null) {
     return [controller.selectedDate];
   }
   return dialogDate;

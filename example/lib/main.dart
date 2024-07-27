@@ -156,8 +156,6 @@ class _MyAppState extends State<MyApp> {
               }); */
               showMonthRangePicker(
                       context: context,
-                      previousIcon: Icons.arrow_back,
-                      nextIcon: Icons.arrow_forward,
                       yearTextStyle: TextStyle(
                         color: Colors.amber,
                       ),
@@ -171,8 +169,6 @@ class _MyAppState extends State<MyApp> {
                       firstDate: DateTime(DateTime.now().year - 5, 5),
                       lastDate: DateTime(DateTime.now().year + 8, 9),
                       initialDate: selectedDate ?? widget.initialDate,
-                      headerColor: Colors.indigo[300],
-                      headerTextColor: Colors.black,
                       selectedMonthBackgroundColor: Colors.amber[900],
                       selectedMonthTextColor: Colors.white,
                       unselectedMonthTextColor: Colors.black,
@@ -194,11 +190,24 @@ class _MyAppState extends State<MyApp> {
                       buttonBorder: const RoundedRectangleBorder(),
                       headerTitle: const Text('Month Picker Dialog'),
                       monthPickerDialogSettings: MonthPickerDialogSettings(
-                        pickerDialogSettings: PickerDialogSettings(
+                        dialogSettings: PickerDialogSettings(
                           locale: const Locale('en'),
                           dialogRoundedCornersRadius: 20,
                           yearFirst: false,
                           dialogBackgroundColor: Colors.blueGrey[50],
+                        ),
+                        headerSettings: PickerHeaderSettings(
+                          headerBackgroundColor: Colors.indigo[300],
+                          headerSelectedIntervalTextStyle: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),
+                          headerPageTextStyle: TextStyle(
+                            color: Colors.black,
+                          ),
+                          previousIcon: Icons.arrow_back,
+                          nextIcon: Icons.arrow_forward,
                         ),
                       ),
                       // customDivider: Divider(

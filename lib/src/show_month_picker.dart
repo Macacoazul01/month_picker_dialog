@@ -37,23 +37,9 @@ import '/month_picker_dialog.dart';
 ///
 /// `cancelWidget:` lets you set a custom cancel widget.
 ///
-/// `customHeight:` lets you set a custom height for the calendar widget (default is `240`).
-///
-/// `customWidth:` lets you set a custom width for the calendar widget (default is `320`).
-///
-/// `yearFirst:` lets you define that the user must select first the year, then the month.
-///
-/// `roundedCornersRadius:` lets you define the Radius of the rounded dialog (default is `0`).
-///
-/// `dismissible:` lets you define if the dialog will be dismissible by clicking outside it.
-///
-/// `forceSelectedDate:` lets you define that the current selected date will be returned if the user clicks outside of the dialog. Needs `dismissible = true`.
-///
-/// `animationMilliseconds:` lets you define the speed of the page transition animation (default is `450`).
 ///
 /// `hideHeaderRow:` lets you hide the row with the arrows + years/months page range from the header, forcing the user to scroll to change the page (default is `false`).
 ///
-/// `textScaleFactor:` lets you control the scale of the texts in the widget.
 ///
 /// `arrowSize:` lets you control the size of the header arrows.
 ///
@@ -74,16 +60,12 @@ Future<DateTime?> showMonthPicker({
   TextStyle? monthTextStyle,
   TextStyle? selectedMonthTextStyle,
   TextStyle? yearTextStyle,
-  IconData? previousIcon,
-  IconData? nextIcon,
   DateTime? initialDate,
   DateTime? firstDate,
   DateTime? lastDate,
   bool Function(DateTime)? selectableMonthPredicate,
   ButtonStyle? Function(DateTime)? monthStylePredicate,
   ButtonStyle? Function(int)? yearStylePredicate,
-  Color? headerColor,
-  Color? headerTextColor,
   Color? selectedMonthBackgroundColor,
   Color? selectedMonthTextColor,
   Color? unselectedMonthTextColor,
@@ -91,21 +73,16 @@ Future<DateTime?> showMonthPicker({
   double selectedMonthPadding = 0,
   Widget? confirmWidget,
   Widget? cancelWidget,
-  bool hideHeaderRow = false,
-  double? arrowSize,
   Widget? customDivider,
-  OutlinedBorder buttonBorder = const CircleBorder(),
   Widget? headerTitle,
-  MonthPickerDialogSettings monthPickerDialogSettings =
-      defaultMonthPickerDialogSettings,
+  OutlinedBorder buttonBorder = const CircleBorder(),
+  MonthPickerDialogSettings monthPickerDialogSettings = defaultMonthPickerDialogSettings,
 }) async {
   final ThemeData theme = Theme.of(context);
   final MonthpickerController controller = MonthpickerController(
     monthTextStyle: monthTextStyle,
     selectedMonthTextStyle: selectedMonthTextStyle,
     yearTextStyle: yearTextStyle,
-    previousIcon: previousIcon,
-    nextIcon: nextIcon,
     initialDate: initialDate,
     firstDate: firstDate,
     lastDate: lastDate,
@@ -113,8 +90,6 @@ Future<DateTime?> showMonthPicker({
     selectableMonthPredicate: selectableMonthPredicate,
     monthStylePredicate: monthStylePredicate,
     yearStylePredicate: yearStylePredicate,
-    headerColor: headerColor,
-    headerTextColor: headerTextColor,
     selectedMonthBackgroundColor: selectedMonthBackgroundColor,
     selectedMonthTextColor: selectedMonthTextColor,
     unselectedMonthTextColor: unselectedMonthTextColor,
@@ -122,10 +97,8 @@ Future<DateTime?> showMonthPicker({
     selectedMonthPadding: selectedMonthPadding,
     confirmWidget: confirmWidget,
     cancelWidget: cancelWidget,
-    hideHeaderRow: hideHeaderRow,
     theme: theme,
     useMaterial3: theme.useMaterial3,
-    arrowSize: arrowSize,
     customDivider: customDivider,
     buttonBorder: buttonBorder,
     headerTitle: headerTitle,
@@ -135,7 +108,7 @@ Future<DateTime?> showMonthPicker({
   final DateTime? dialogDate = await showDialog<DateTime?>(
     context: context,
     barrierDismissible:
-        monthPickerDialogSettings.pickerDialogSettings.dismissible,
+        monthPickerDialogSettings.dialogSettings.dismissible,
     builder: (BuildContext context) {
       return MultiProvider(
         providers: [
@@ -150,8 +123,8 @@ Future<DateTime?> showMonthPicker({
       );
     },
   );
-  if (monthPickerDialogSettings.pickerDialogSettings.dismissible &&
-      monthPickerDialogSettings.pickerDialogSettings.forceSelectedDate &&
+  if (monthPickerDialogSettings.dialogSettings.dismissible &&
+      monthPickerDialogSettings.dialogSettings.forceSelectedDate &&
       dialogDate == null) {
     return controller.selectedDate;
   }

@@ -22,22 +22,30 @@ class PickerHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: portrait ? controller.monthPickerDialogSettings.pickerDialogSettings.customWidth : null,
+      width: portrait
+          ? controller.monthPickerDialogSettings.dialogSettings.customWidth
+          : null,
       decoration: BoxDecoration(
-        color: controller.headerColor ?? theme.primaryColor,
+        color: controller.monthPickerDialogSettings.headerSettings
+                .headerBackgroundColor ??
+            theme.primaryColor,
         borderRadius: portrait
             ? BorderRadius.only(
-                topLeft: Radius.circular(controller.monthPickerDialogSettings.pickerDialogSettings.dialogRoundedCornersRadius),
-                topRight: Radius.circular(controller.monthPickerDialogSettings.pickerDialogSettings.dialogRoundedCornersRadius),
+                topLeft: Radius.circular(controller.monthPickerDialogSettings
+                    .dialogSettings.dialogRoundedCornersRadius),
+                topRight: Radius.circular(controller.monthPickerDialogSettings
+                    .dialogSettings.dialogRoundedCornersRadius),
               )
             : BorderRadius.only(
-                topLeft: Radius.circular(controller.monthPickerDialogSettings.pickerDialogSettings.dialogRoundedCornersRadius),
-                bottomLeft: Radius.circular(controller.monthPickerDialogSettings.pickerDialogSettings.dialogRoundedCornersRadius),
+                topLeft: Radius.circular(controller.monthPickerDialogSettings
+                    .dialogSettings.dialogRoundedCornersRadius),
+                bottomLeft: Radius.circular(controller.monthPickerDialogSettings
+                    .dialogSettings.dialogRoundedCornersRadius),
               ),
       ),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: controller.hideHeaderRow
+        child: controller.monthPickerDialogSettings.headerSettings.hideHeaderRow
             ? Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -52,7 +60,12 @@ class PickerHeader extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  if (controller.headerTitle != null) controller.headerTitle!,
+                  if (controller.headerTitle != null) ...[
+                    controller.headerTitle!,
+                    SizedBox(
+                      height: controller.monthPickerDialogSettings.headerSettings.titleSpacing,
+                    )
+                  ],
                   HeaderSelectedDate(
                     theme: theme,
                     localeString: localeString,
