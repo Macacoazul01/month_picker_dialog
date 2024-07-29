@@ -58,7 +58,7 @@ class PickerHeaderSettings {
   final TextStyle? headerPageTextStyle;
 
   /// The space between the title widget and the current selected month/year/range text on the header.
-  /// 
+  ///
   /// It will only appear if headerTitle widget isn't null.
   ///
   /// default: `5`

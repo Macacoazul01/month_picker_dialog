@@ -23,9 +23,9 @@ class HeaderSelectedDate extends StatelessWidget {
               ? TextScaler.linear(controller
                   .monthPickerDialogSettings.dialogSettings.textScaleFactor!)
               : null,
-      style:
-          controller.monthPickerDialogSettings.headerSettings.headerSelectedIntervalTextStyle ??
-              theme.primaryTextTheme.titleMedium,
+      style: controller.monthPickerDialogSettings.headerSettings
+              .headerSelectedIntervalTextStyle ??
+          theme.primaryTextTheme.titleMedium,
     );
   }
 }

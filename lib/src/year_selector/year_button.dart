@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '/month_picker_dialog.dart';
+
 ///The button to be used on the grid of years.
 class YearButton extends StatelessWidget {
   const YearButton({
@@ -36,7 +37,9 @@ class YearButton extends StatelessWidget {
     }
     if (localFirstDate != null) {
       if (localLastDate != null) {
-        return year >= localFirstDate.year && year <= localLastDate.year && _holdsSelectionPredicate(year);
+        return year >= localFirstDate.year &&
+            year <= localLastDate.year &&
+            _holdsSelectionPredicate(year);
       } else {
         return year >= localFirstDate.year && _holdsSelectionPredicate(year);
       }
@@ -72,8 +75,7 @@ class YearButton extends StatelessWidget {
                   backgroundColor)
               : controller.monthPickerDialogSettings.buttonsSettings
                   .unselectedYearsTextColor,
-      backgroundColor:
-          isTheSelectedYear ? backgroundColor : null,
+      backgroundColor: isTheSelectedYear ? backgroundColor : null,
       shape: controller.monthPickerDialogSettings.buttonsSettings.buttonBorder,
     );
     return yearStyle;

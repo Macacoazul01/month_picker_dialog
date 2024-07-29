@@ -54,22 +54,27 @@ class MonthButton extends StatelessWidget {
     //TODO fix. Breaks predicate and range in the way it is today.
 
     // TextStyle? textStyle = controller.monthPickerDialogSettings.buttonsSettings.monthTextStyle ?? theme.textTheme.labelLarge;
-    Color? foregroundColor = controller.monthPickerDialogSettings.buttonsSettings.unselectedMonthsTextColor;
+    Color? foregroundColor = controller
+        .monthPickerDialogSettings.buttonsSettings.unselectedMonthsTextColor;
     final List<DateTime> selectedDates = [controller.selectedDate];
 
     if (controller.rangeMode) {
       if (controller.firstRangeDate != null &&
           controller.secondRangeDate != null) {
-        selectedDates.addAll([controller.firstRangeDate!, controller.secondRangeDate!]);
+        selectedDates
+            .addAll([controller.firstRangeDate!, controller.secondRangeDate!]);
         if (date.isAfter(selectedDates[1]) && date.isBefore(selectedDates[2])) {
-          backgroundColor = HSLColor.fromColor(
-                  controller.monthPickerDialogSettings.buttonsSettings.selectedMonthBackgroundColor ??
-                      theme.colorScheme.secondary)
+          backgroundColor = HSLColor.fromColor(controller
+                      .monthPickerDialogSettings
+                      .buttonsSettings
+                      .selectedMonthBackgroundColor ??
+                  theme.colorScheme.secondary)
               .withLightness(.7)
               .toColor();
           foregroundColor = theme.textTheme.labelLarge!
               .copyWith(
-                color: controller.monthPickerDialogSettings.buttonsSettings.selectedMonthTextColor ??
+                color: controller.monthPickerDialogSettings.buttonsSettings
+                        .selectedMonthTextColor ??
                     theme.colorScheme.onSecondary,
               )
               .color;
@@ -78,17 +83,21 @@ class MonthButton extends StatelessWidget {
     }
 
     if (selectedDates.contains(date)) {
-      backgroundColor = controller.monthPickerDialogSettings.buttonsSettings.selectedMonthBackgroundColor ??
+      backgroundColor = controller.monthPickerDialogSettings.buttonsSettings
+              .selectedMonthBackgroundColor ??
           theme.colorScheme.secondary;
       foregroundColor = theme.textTheme.labelLarge!
           .copyWith(
-            color: controller.monthPickerDialogSettings.buttonsSettings.selectedMonthTextColor ??
+            color: controller.monthPickerDialogSettings.buttonsSettings
+                    .selectedMonthTextColor ??
                 theme.colorScheme.onSecondary,
           )
           .color;
     } else if (date.month == controller.now.month &&
         date.year == controller.now.year) {
-      foregroundColor = controller.monthPickerDialogSettings.buttonsSettings.currentMonthTextColor ?? backgroundColor;
+      foregroundColor = controller.monthPickerDialogSettings.buttonsSettings
+              .currentMonthTextColor ??
+          backgroundColor;
     }
 
     return TextButton.styleFrom(
@@ -113,23 +122,25 @@ class MonthButton extends StatelessWidget {
     }
 
     return Padding(
-      padding: EdgeInsets.all(controller.monthPickerDialogSettings.buttonsSettings.selectedDateRadius),
+      padding: EdgeInsets.all(controller
+          .monthPickerDialogSettings.buttonsSettings.selectedDateRadius),
       child: TextButton(
         onPressed: isEnabled
             ? () => onMonthSelected(DateTime(date.year, date.month))
             : null,
         style: monthStyle,
         child: Text(
-          controller.monthPickerDialogSettings.dialogSettings.capitalizeFirstLetter
+          controller.monthPickerDialogSettings.dialogSettings
+                  .capitalizeFirstLetter
               ? toBeginningOfSentenceCase(
                   DateFormat.MMM(localeString).format(date))!
               : DateFormat.MMM(localeString).format(date).toLowerCase(),
           style: monthStyle.textStyle?.resolve({}),
-          textScaler:
-              controller.monthPickerDialogSettings.dialogSettings.textScaleFactor !=
-                      null
-                  ? TextScaler.linear(controller
-                      .monthPickerDialogSettings.dialogSettings.textScaleFactor!)
+          textScaler: controller.monthPickerDialogSettings.dialogSettings
+                      .textScaleFactor !=
+                  null
+              ? TextScaler.linear(controller
+                  .monthPickerDialogSettings.dialogSettings.textScaleFactor!)
               : null,
         ),
       ),

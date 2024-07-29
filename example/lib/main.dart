@@ -87,8 +87,7 @@ class _MyAppState extends State<MyApp> {
                       initialDate: selectedDate ?? widget.initialDate,
                       selectableMonthPredicate: (DateTime val) =>
                           val.month.isEven,
-                      selectableYearPredicate: (int year) =>
-                          year.isEven,
+                      selectableYearPredicate: (int year) => year.isEven,
                       monthStylePredicate: (DateTime val) {
                         if (val.month == 4) {
                           return TextButton.styleFrom(

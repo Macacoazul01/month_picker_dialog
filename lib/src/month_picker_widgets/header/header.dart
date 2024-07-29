@@ -63,7 +63,8 @@ class PickerHeader extends StatelessWidget {
                   if (controller.headerTitle != null) ...[
                     controller.headerTitle!,
                     SizedBox(
-                      height: controller.monthPickerDialogSettings.headerSettings.titleSpacing,
+                      height: controller.monthPickerDialogSettings
+                          .headerSettings.titleSpacing,
                     )
                   ],
                   HeaderSelectedDate(

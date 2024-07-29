@@ -12,7 +12,7 @@ import '/month_picker_dialog.dart';
 /// `lastDate:` is the optional upper bound for month selection.
 ///
 /// `selectableMonthPredicate:` lets you control enabled months just like the official selectableDayPredicate.
-/// 
+///
 /// `selectableYearPredicate:` lets you control enabled years just like the official selectableDayPredicate.
 ///
 /// `monthStylePredicate:` allows you to individually customize each month.
@@ -26,7 +26,7 @@ import '/month_picker_dialog.dart';
 /// `customDivider:` lets you add a custom divider between the months/years and the confirm/cancel buttons.
 ///
 /// `headerTitle:` lets you add a custom title to the header of the dialog (default is `null`).
-/// 
+///
 /// `monthPickerDialogSettings:` is the object that will hold all of the style of the picker dialog (default is `defaultMonthPickerDialogSettings`).
 ///
 Future<DateTime?> showMonthPicker({
@@ -42,7 +42,8 @@ Future<DateTime?> showMonthPicker({
   Widget? cancelWidget,
   Widget? customDivider,
   Widget? headerTitle,
-  MonthPickerDialogSettings monthPickerDialogSettings = defaultMonthPickerDialogSettings,
+  MonthPickerDialogSettings monthPickerDialogSettings =
+      defaultMonthPickerDialogSettings,
 }) async {
   final ThemeData theme = Theme.of(context);
   final MonthpickerController controller = MonthpickerController(
@@ -65,8 +66,7 @@ Future<DateTime?> showMonthPicker({
   );
   final DateTime? dialogDate = await showDialog<DateTime?>(
     context: context,
-    barrierDismissible:
-        monthPickerDialogSettings.dialogSettings.dismissible,
+    barrierDismissible: monthPickerDialogSettings.dialogSettings.dismissible,
     builder: (BuildContext context) {
       return MultiProvider(
         providers: [

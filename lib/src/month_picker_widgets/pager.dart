@@ -29,8 +29,7 @@ class PickerPager extends StatelessWidget {
           duration: Duration(
               milliseconds: controller.monthPickerDialogSettings.dialogSettings
                   .scrollAnimationMilliseconds),
-          reverseDuration:
-              Duration(
+          reverseDuration: Duration(
               milliseconds: controller.monthPickerDialogSettings.dialogSettings
                   .scrollAnimationMilliseconds),
           transitionBuilder: (Widget child, Animation<double> animation) =>
