@@ -1,6 +1,6 @@
 name: month_picker_dialog
 description: Internationalized dialog for picking a single month from an infinite list of years.
-version: 4.0.3
+version: 5.0.0-dev.1
 homepage: https://github.com/hmkrivoj/month_picker_dialog
 
 environment:

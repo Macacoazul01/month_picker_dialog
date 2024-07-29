@@ -4,14 +4,23 @@ import 'package:flutter/widgets.dart';
 class PickerButtonsSettings {
   const PickerButtonsSettings({
     this.monthTextStyle,
-    this.yearTextStyle,
+    TextStyle? yearTextStyle,
     this.selectedMonthBackgroundColor,
     this.selectedMonthTextColor,
+    Color? selectedYearTextColor,
     this.unselectedMonthsTextColor,
+    Color? unselectedYearsTextColor,
     this.currentMonthTextColor,
-    this.selectedDatePadding = 0,
+    Color? currentYearTextColor,
+    this.selectedDateRadius = 0,
     this.buttonBorder = const CircleBorder(),
-  });
+  })  : unselectedYearsTextColor =
+            unselectedYearsTextColor ?? unselectedMonthsTextColor,
+        selectedYearTextColor = selectedYearTextColor ?? selectedMonthTextColor,
+        currentYearTextColor = currentYearTextColor ?? currentMonthTextColor,
+        yearTextStyle = yearTextStyle ?? monthTextStyle;
+
+  //TODO implement monthTextStyle, yearTextStyle
 
   /// The text style of all months on the page.
   ///
@@ -23,29 +32,44 @@ class PickerButtonsSettings {
   /// default: `null`
   final Color? currentMonthTextColor;
 
+  /// The text color of the current month/year.
+  ///
+  /// default: `currentMonthTextColor`
+  final Color? currentYearTextColor;
+
   /// The current selected month/year background color.
   ///
   /// default: `null`
   final Color? selectedMonthBackgroundColor;
 
-  /// The text color of the current selected month/year.
+  /// The text color of the current selected month.
   ///
   /// default: `null`
   final Color? selectedMonthTextColor;
 
-  /// The text color of the current unselected months/years.
+  /// The text color of the current selected year.
+  ///
+  /// default: `selectedMonthTextColor`
+  final Color? selectedYearTextColor;
+
+  /// The text color of the current unselected months.
   ///
   /// default: `null`
   final Color? unselectedMonthsTextColor;
 
+  /// The text color of the current unselected years.
+  ///
+  /// default: `unselectedMonthsTextColor`
+  final Color? unselectedYearsTextColor;
+
   /// The size of the current selected month/year circle.
   ///
   /// default: `0`
-  final double selectedDatePadding;
+  final double selectedDateRadius;
 
   /// The text style of all years on the page.
   ///
-  /// default: `null`
+  /// default: `monthTextStyle`
   final TextStyle? yearTextStyle;
 
   /// The border of the month/year buttons.

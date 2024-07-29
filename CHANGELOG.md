@@ -1,5 +1,7 @@
-## 5.0.0
-- Reworked dialog configuration.
+## 5.0.0-dev.1
+- [Breaking] Reworked dialog configuration to use the new class `MonthPickerDialogSettings`. Please follow the sample app to learn how to configure your widget using the new way (or feel free to open an issue on github).
+- Added `selectableYearPredicate` to range and single month pickers. It lets you control enabled years like `selectableMonthPredicate`.
+- Still missing the implementations of monthTextStyle and yearTextStyle (both still breaking).
 
 ## 4.0.1 - 2024-07-05
 - Improved locale selection. [#98](https://github.com/Macacoazul01/month_picker_dialog/pull/98)

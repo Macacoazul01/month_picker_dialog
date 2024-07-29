@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '/month_picker_dialog.dart';
-//TODO fix
 ///The button to be used on the grid of years.
 class YearButton extends StatelessWidget {
   const YearButton({
@@ -21,6 +20,14 @@ class YearButton extends StatelessWidget {
   final ValueChanged<int> onYearSelected;
   final String localeString;
 
+  bool _holdsSelectionPredicate(int year) {
+    if (controller.selectableYearPredicate != null) {
+      return controller.selectableYearPredicate!(year);
+    } else {
+      return true;
+    }
+  }
+
   bool _isEnabled(final int year) {
     final DateTime? localFirstDate = controller.localFirstDate;
     final DateTime? localLastDate = controller.localLastDate;
@@ -29,13 +36,13 @@ class YearButton extends StatelessWidget {
     }
     if (localFirstDate != null) {
       if (localLastDate != null) {
-        return year >= localFirstDate.year && year <= localLastDate.year;
+        return year >= localFirstDate.year && year <= localLastDate.year && _holdsSelectionPredicate(year);
       } else {
-        return year >= localFirstDate.year;
+        return year >= localFirstDate.year && _holdsSelectionPredicate(year);
       }
     }
     if (localLastDate != null) {
-      return year <= localLastDate.year;
+      return year <= localLastDate.year && _holdsSelectionPredicate(year);
     }
 
     return false;
@@ -55,16 +62,16 @@ class YearButton extends StatelessWidget {
           ? theme.textTheme.labelLarge!
               .copyWith(
                 color: controller.monthPickerDialogSettings.buttonsSettings
-                        .selectedMonthTextColor ??
+                        .selectedYearTextColor ??
                     theme.colorScheme.onSecondary,
               )
               .color
           : year == controller.now.year
               ? (controller.monthPickerDialogSettings.buttonsSettings
-                      .currentMonthTextColor ??
+                      .currentYearTextColor ??
                   backgroundColor)
               : controller.monthPickerDialogSettings.buttonsSettings
-                  .unselectedMonthsTextColor,
+                  .unselectedYearsTextColor,
       backgroundColor:
           isTheSelectedYear ? backgroundColor : null,
       shape: controller.monthPickerDialogSettings.buttonsSettings.buttonBorder,
@@ -92,7 +99,7 @@ class YearButton extends StatelessWidget {
 
     return Padding(
       padding: EdgeInsets.all(controller
-          .monthPickerDialogSettings.buttonsSettings.selectedDatePadding),
+          .monthPickerDialogSettings.buttonsSettings.selectedDateRadius),
       child: TextButton(
         onPressed: isEnabled ? () => onYearSelected(year) : null,
         style: yearStyle,

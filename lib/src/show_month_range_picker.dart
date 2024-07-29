@@ -12,6 +12,8 @@ import '/month_picker_dialog.dart';
 /// `lastDate:` is the optional upper bound for month selection.
 ///
 /// `selectableMonthPredicate:` lets you control enabled months just like the official selectableDayPredicate.
+/// 
+/// `selectableYearPredicate:` lets you control enabled months just like the official selectableDayPredicate.
 ///
 /// `monthStylePredicate:` allows you to individually customize each month.
 ///
@@ -35,6 +37,7 @@ Future<List<DateTime>?> showMonthRangePicker({
   DateTime? firstDate,
   DateTime? lastDate,
   bool Function(DateTime)? selectableMonthPredicate,
+  bool Function(int)? selectableYearPredicate,
   ButtonStyle? Function(DateTime)? monthStylePredicate,
   ButtonStyle? Function(int)? yearStylePredicate,
   Widget? confirmWidget,
@@ -50,6 +53,7 @@ Future<List<DateTime>?> showMonthRangePicker({
     firstDate: firstDate,
     lastDate: lastDate,
     selectableMonthPredicate: selectableMonthPredicate,
+    selectableYearPredicate: selectableYearPredicate,
     monthStylePredicate: monthStylePredicate,
     yearStylePredicate: yearStylePredicate,
     confirmWidget: confirmWidget,

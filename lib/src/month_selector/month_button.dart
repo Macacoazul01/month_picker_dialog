@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '/month_picker_dialog.dart';
-//TODO fix
+
 ///The button to be used on the grid of months.
 class MonthButton extends StatelessWidget {
   const MonthButton({
@@ -51,19 +51,16 @@ class MonthButton extends StatelessWidget {
   /// If not provided, the customization will be built from the app's theme.
   ButtonStyle _buildDefaultMonthStyle() {
     Color? backgroundColor;
-    TextStyle? textStyle = controller.monthPickerDialogSettings.buttonsSettings.monthTextStyle ??
-        theme.textTheme.labelLarge ??
-        const TextStyle(
-          fontWeight: FontWeight.bold,
-        );
+    //TODO fix. Breaks predicate and range in the way it is today.
+
+    // TextStyle? textStyle = controller.monthPickerDialogSettings.buttonsSettings.monthTextStyle ?? theme.textTheme.labelLarge;
     Color? foregroundColor = controller.monthPickerDialogSettings.buttonsSettings.unselectedMonthsTextColor;
     final List<DateTime> selectedDates = [controller.selectedDate];
 
     if (controller.rangeMode) {
       if (controller.firstRangeDate != null &&
           controller.secondRangeDate != null) {
-        selectedDates
-            .addAll([controller.firstRangeDate!, controller.secondRangeDate!]);
+        selectedDates.addAll([controller.firstRangeDate!, controller.secondRangeDate!]);
         if (date.isAfter(selectedDates[1]) && date.isBefore(selectedDates[2])) {
           backgroundColor = HSLColor.fromColor(
                   controller.monthPickerDialogSettings.buttonsSettings.selectedMonthBackgroundColor ??
@@ -89,19 +86,13 @@ class MonthButton extends StatelessWidget {
                 theme.colorScheme.onSecondary,
           )
           .color;
-      textStyle = 
-          theme.textTheme.labelLarge ??
-          TextStyle(
-            fontWeight: FontWeight.bold,
-            color: foregroundColor,
-          );
     } else if (date.month == controller.now.month &&
         date.year == controller.now.year) {
       foregroundColor = controller.monthPickerDialogSettings.buttonsSettings.currentMonthTextColor ?? backgroundColor;
     }
 
     return TextButton.styleFrom(
-      textStyle: textStyle,
+      //textStyle: textStyle,
       foregroundColor: foregroundColor,
       backgroundColor: backgroundColor,
       shape: controller.monthPickerDialogSettings.buttonsSettings.buttonBorder,
@@ -122,7 +113,7 @@ class MonthButton extends StatelessWidget {
     }
 
     return Padding(
-      padding: EdgeInsets.all(controller.monthPickerDialogSettings.buttonsSettings.selectedDatePadding),
+      padding: EdgeInsets.all(controller.monthPickerDialogSettings.buttonsSettings.selectedDateRadius),
       child: TextButton(
         onPressed: isEnabled
             ? () => onMonthSelected(DateTime(date.year, date.month))

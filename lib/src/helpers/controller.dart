@@ -10,6 +10,7 @@ class MonthpickerController {
     this.firstDate,
     this.lastDate,
     this.selectableMonthPredicate,
+    this.selectableYearPredicate,
     this.monthStylePredicate,
     this.yearStylePredicate,
     this.confirmWidget,
@@ -27,6 +28,7 @@ class MonthpickerController {
   final ThemeData theme;
   final DateTime? firstDate, lastDate, initialDate;
   final bool Function(DateTime)? selectableMonthPredicate;
+  final bool Function(int)? selectableYearPredicate;
   final ButtonStyle? Function(DateTime)? monthStylePredicate;
   final ButtonStyle? Function(int)? yearStylePredicate;
   final bool useMaterial3, rangeMode, rangeList;
