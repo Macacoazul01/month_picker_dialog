@@ -29,6 +29,8 @@ import '/month_picker_dialog.dart';
 ///
 /// `monthPickerDialogSettings:` is the object that will hold all of the style of the picker dialog (default is `defaultMonthPickerDialogSettings`).
 ///
+/// `onlyYear:` Displays only year picker dialog. Prefer to use `showYearPicker` instead of `showMonthPicker` with this parameter set to `true` to avoid unnecessary parameters.
+///
 Future<DateTime?> showMonthPicker({
   required BuildContext context,
   DateTime? initialDate,
@@ -44,6 +46,7 @@ Future<DateTime?> showMonthPicker({
   Widget? headerTitle,
   MonthPickerDialogSettings monthPickerDialogSettings =
       defaultMonthPickerDialogSettings,
+  bool onlyYear = false,
 }) async {
   final ThemeData theme = Theme.of(context);
   final MonthpickerController controller = MonthpickerController(
@@ -61,6 +64,7 @@ Future<DateTime?> showMonthPicker({
     useMaterial3: theme.useMaterial3,
     customDivider: customDivider,
     headerTitle: headerTitle,
+    onlyYear: onlyYear,
   );
   final DateTime? dialogDate = await showDialog<DateTime?>(
     context: context,

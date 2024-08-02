@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import '/month_picker_dialog.dart';
 
@@ -39,43 +38,20 @@ Future<int?> showYearPicker({
   MonthPickerDialogSettings monthPickerDialogSettings =
       defaultMonthPickerDialogSettings,
 }) async {
-  final ThemeData theme = Theme.of(context);
-  final MonthpickerController controller = MonthpickerController(
+  final DateTime? monthPickerDate = await showMonthPicker(
+    context: context,
     initialDate: initialDate,
     firstDate: firstDate,
     lastDate: lastDate,
-    monthPickerDialogSettings: monthPickerDialogSettings,
     selectableYearPredicate: selectableYearPredicate,
     yearStylePredicate: yearStylePredicate,
     confirmWidget: confirmWidget,
     cancelWidget: cancelWidget,
-    theme: theme,
-    useMaterial3: theme.useMaterial3,
     customDivider: customDivider,
     headerTitle: headerTitle,
+    monthPickerDialogSettings: monthPickerDialogSettings,
     onlyYear: true,
   );
-  final DateTime? dialogDate = await showDialog<DateTime?>(
-    context: context,
-    barrierDismissible: monthPickerDialogSettings.dialogSettings.dismissible,
-    builder: (BuildContext context) {
-      return MultiProvider(
-        providers: [
-          ChangeNotifierProvider.value(
-            value: YearUpDownPageProvider(),
-          ),
-          ChangeNotifierProvider.value(
-            value: MonthUpDownPageProvider(),
-          ),
-        ],
-        child: MonthPickerDialog(controller: controller),
-      );
-    },
-  );
-  if (monthPickerDialogSettings.dialogSettings.dismissible &&
-      monthPickerDialogSettings.dialogSettings.forceSelectedDate &&
-      dialogDate == null) {
-    return controller.selectedDate.year;
-  }
-  return dialogDate?.year;
+
+  return monthPickerDate?.year;
 }
