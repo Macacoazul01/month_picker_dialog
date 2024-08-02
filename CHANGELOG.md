@@ -1,19 +1,9 @@
-## 5.0.0-dev.4 - 2024-08-02
-- Added `headerSettings.headerPadding`and `headerSettings.hideHeaderArrows`.
-- Fixed `monthTextStyle` and `yearTextStyle`.
-
-## 5.0.0-dev.3 - 2024-08-02
-- Added `showYearPicker` function to the package. Now its possible to return only a year.
-- Updated sample.
-
-## 5.0.0-dev.2 - 2024-08-01
-- Added `dialogSettings.insetPadding` parameter.
-- Changed `headerSettings.headerPageTextStyle` name to `headerSettings.headerCurrentPageTextStyle` parameter + removed the fallback to avoid strange results.
-
-## 5.0.0-dev.1 - 2024-07-28
+## 5.0.0 - 2024-08-02
 - [Breaking] Reworked dialog configuration to use the new class `MonthPickerDialogSettings`. Please follow the sample app to learn how to configure your widget using the new way (or feel free to open an issue on github).
+- Added new ways to customize the header, months/years pages and the dialog behavior with different parameters for the year and month selectors.
+- Added `showYearPicker` function to the package. Now its possible to return only a year.
 - Added `selectableYearPredicate` to range and single month pickers. It lets you control enabled years like `selectableMonthPredicate`.
-- Still missing the implementations of monthTextStyle and yearTextStyle (both still breaking).
+- Updated sample and readme.
 
 ## 4.0.1 - 2024-07-05
 - Improved locale selection. [#98](https://github.com/Macacoazul01/month_picker_dialog/pull/98)

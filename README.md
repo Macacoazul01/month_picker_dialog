@@ -12,9 +12,15 @@ This package makes use of the intl package and flutter's i18n abilities to provi
 
 ## How to use it:
 
-Just add `showMonthPicker()` or use `showMonthRangePicker()` to select by range inside your button function like a normal date picker dialog (context parameter is required):
+Just add: 
 
-since 0.6.0 initialDate isn't required anymore!
+`showMonthPicker()` to select a single month;
+
+`showMonthRangePicker()` to select a range of months;
+
+`showYearPicker()` to select only a year; 
+
+...inside your button function like a normal date picker dialog (context parameter is required):
 
 ### Example:
 
@@ -51,80 +57,81 @@ FloatingActionButton(
     child: Icon(Icons.calendar_today),
 ),
 
+FloatingActionButton(
+    onPressed: () {
+        showYearPicker(
+        context: context,
+        initialDate: DateTime.now(),
+        ).then((year) {
+        if (year != null) {
+            setState(() {
+            selectedYear = year;
+            });
+        }
+        });
+    },
+    child: Icon(Icons.calendar_today),
+),
+
 ```
 
-## Landscape:
-![LTR landscape](screenshots/ltr_landscape.png)
+## Migrating to 5.0: 
+Starting with version 5.0.0 of the package, everything related to the behavior/style of it that isn't a function, date parameter or custom widget is now under the new `MonthPickerDialogSettings` class.
 
-## Parameters list:
+It contains three subclasses:
 
-There are other parameters to configure on the dialog if you want to do so:
+`PickerDialogSettings` to customize the dialog part of the package;
 
-`initialDate` is the initially selected month.
+`PickerHeaderSettings` to customize the header part of the package;
 
-`firstDate` is the optional lower bound for month selection.
+`PickerButtonsSettings` to customize the buttons part of the package;
 
-`lastDate` is the optional upper bound for month selection.
+And will be used like this:
 
-`selectableMonthPredicate` lets you control enabled months just like the official selectableDayPredicate.
+```dart
+FloatingActionButton(
+    onPressed: () {
+        showMonthPicker(
+        context: context,
+        initialDate: DateTime.now(),
+        monthPickerDialogSettings: const MonthPickerDialogSettings(
+            headerSettings: PickerHeaderSettings(
+                headerCurrentPageTextStyle: TextStyle(fontSize: 14),
+                headerSelectedIntervalTextStyle: TextStyle(fontSize: 16),
+            ),
+            dialogSettings: PickerDialogSettings(
+                locale: const Locale('en'),
+                dialogRoundedCornersRadius: 20,
+                dialogBackgroundColor: Colors.blueGrey[50],
+            ),
+            buttonsSettings: PickerButtonsSettings(
+                buttonBorder: const RoundedRectangleBorder(),
+                selectedMonthBackgroundColor: Colors.amber[900],
+                selectedMonthTextColor: Colors.white,
+                unselectedMonthsTextColor: Colors.black,
+                currentMonthTextColor: Colors.green,
+                yearTextStyle: const TextStyle(
+                    fontSize: 10,
+                ),
+                monthTextStyle: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                ),
+            ),
+        ),
+        ).then((date) {
+        if (date != null) {
+            setState(() {
+            selectedDate = date;
+            });
+        }
+        });
+    },
+    child: Icon(Icons.calendar_today),
+),
+```
 
-`monthStylePredicate` and `yearStylePredicate` properties allow passing a different style for each month or year.
-
-`capitalizeFirstLetter` lets you control if your months names are capitalized or not.
-
-`headerColor` lets you control the calendar header color.
-
-`headerTextColor` lets you control the calendar header text and arrows color.
-
-`selectedMonthBackgroundColor` lets you control the current selected month/year background color.
-
-`selectedMonthTextColor` lets you control the text color of the current selected month/year.
-
-`unselectedMonthTextColor` lets you control the text color of the current unselected months/years.
-
-`currentMonthTextColor` lets you control the text color of the current month/year.
-
-`selectedMonthPadding` lets you control the size of the current selected month/year circle by increasing the padding of it.
-
-`backgroundColor` lets you control if the dialog will have a custom background color.
-
-`confirmWidget` lets you set a custom confirm widget.
-
-`cancelWidget` lets you set a custom cancel widget.
-
-`customHeight` lets you set a custom height for the calendar widget (default is 240).
-
-`customWidth` lets you set a custom width for the calendar widget (default is 320).
-
-`yearFirst` lets you define that the user must select first the year, then the month.
-
-`dismissible` lets you define if the dialog will be dismissible by clicking outside it.
-
-`roundedCornersRadius` lets you define the Radius of the rounded dialog (default is 0).
-
-`animationMilliseconds` lets you define the speed of the page transition animation (default is 450).
-
-`hideHeaderRow` lets you hide the row with the arrows + years/months page range from the header, forcing the user to scroll to change the page (default is false).
-
-`textScaleFactor` lets you control the scale of the texts in the widget.
-
-`arrowSize` lets you control the size of the header arrows.
-
-`forcePortrait` lets you block the widget from entering in landscape mode.
-
-`customDivider` lets you add a custom divider between the months/years and the confirm/cancel buttons.
-
-`dialogBorderSide:` lets you define the border side of the dialog (default is `BorderSide.none`).
-
-`blockScrolling:` lets you block the user from scrolling the months/years (default is `true`).
-
-`buttonBorder:` lets you define the border of the month/year buttons (default is `const CircleBorder()`).
-
-`headerTitle:` lets you add a custom title to the header of the dialog (default is `null`).
-
-### Range Picker only:
-
-`rangeList:` lets you define if the controller will return the full list of months between the two selected or only them (default is `false`).
+If you have any doubts on how to use this new settings class (that the sample app can't solve), please feel free to open an issue on the github project.
 
 
 ## Contributors:
