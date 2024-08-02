@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 class PickerHeaderSettings {
   const PickerHeaderSettings({
     this.hideHeaderRow = false,
+    this.hideHeaderArrows = false,
     this.previousIcon = Icons.keyboard_arrow_up,
     this.nextIcon = Icons.keyboard_arrow_down,
     this.headerIconsSize,
@@ -12,12 +13,18 @@ class PickerHeaderSettings {
     this.headerSelectedIntervalTextStyle,
     this.headerCurrentPageTextStyle,
     this.titleSpacing = 5,
+    this.headerPadding = const EdgeInsets.all(16.0),
   });
 
   /// Hides the row with the arrows + years/months page range from the header, forcing the user to scroll to change the page.
   ///
   /// default: `false`
   final bool hideHeaderRow;
+
+  /// Hides only the arrows part of the header, forcing the user to scroll to change the page.
+  ///
+  /// default: `false`
+  final bool hideHeaderArrows;
 
   /// The icon that will make the calendar to go back one page when clicked.
   ///
@@ -60,6 +67,11 @@ class PickerHeaderSettings {
   ///
   /// default: `5`
   final double titleSpacing;
+
+  /// The header padding.
+  ///
+  /// default: `EdgeInsets.all(16.0)`
+  final EdgeInsets headerPadding;
 }
 
 ///The default settings for the Header style.

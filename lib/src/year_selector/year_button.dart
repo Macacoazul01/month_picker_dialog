@@ -61,6 +61,8 @@ class YearButton extends StatelessWidget {
             .buttonsSettings.selectedMonthBackgroundColor ??
         theme.colorScheme.secondary;
     final ButtonStyle yearStyle = TextButton.styleFrom(
+      textStyle:
+          controller.monthPickerDialogSettings.buttonsSettings.yearTextStyle,
       foregroundColor: isTheSelectedYear
           ? theme.textTheme.labelLarge!
               .copyWith(
@@ -107,7 +109,6 @@ class YearButton extends StatelessWidget {
         style: yearStyle,
         child: Text(
           DateFormat.y(localeString).format(DateTime(year)),
-          style: yearStyle.textStyle?.resolve({}),
           textScaler: controller.monthPickerDialogSettings.dialogSettings
                       .textScaleFactor !=
                   null

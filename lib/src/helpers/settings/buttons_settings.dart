@@ -20,8 +20,6 @@ class PickerButtonsSettings {
         currentYearTextColor = currentYearTextColor ?? currentMonthTextColor,
         yearTextStyle = yearTextStyle ?? monthTextStyle;
 
-  //TODO implement monthTextStyle, yearTextStyle
-
   /// The text style of all months on the page.
   ///
   /// default: `null`

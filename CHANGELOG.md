@@ -1,3 +1,7 @@
+## 5.0.0-dev.4 - 2024-08-02
+- Added `headerSettings.headerPadding`and `headerSettings.hideHeaderArrows`.
+- Fixed `monthTextStyle` and `yearTextStyle`.
+
 ## 5.0.0-dev.3 - 2024-08-02
 - Added `showYearPicker` function to the package. Now its possible to return only a year.
 - Updated sample.

@@ -54,19 +54,21 @@ class HeaderRow extends StatelessWidget {
                 textScaler: scaler,
               ),
             ),
-            HeaderArrows(
-              arrowcolors: arrowcolors,
-              onUpButtonPressed: controller.onUpButtonPressed,
-              onDownButtonPressed: controller.onDownButtonPressed,
-              downState: monthProvider.enableState.downState,
-              upState: monthProvider.enableState.upState,
-              arrowSize: controller
-                  .monthPickerDialogSettings.headerSettings.headerIconsSize,
-              previousIcon: controller
-                  .monthPickerDialogSettings.headerSettings.previousIcon,
-              nextIcon:
-                  controller.monthPickerDialogSettings.headerSettings.nextIcon,
-            ),
+            if (!controller
+                .monthPickerDialogSettings.headerSettings.hideHeaderArrows)
+              HeaderArrows(
+                arrowcolors: arrowcolors,
+                onUpButtonPressed: controller.onUpButtonPressed,
+                onDownButtonPressed: controller.onDownButtonPressed,
+                downState: monthProvider.enableState.downState,
+                upState: monthProvider.enableState.upState,
+                arrowSize: controller
+                    .monthPickerDialogSettings.headerSettings.headerIconsSize,
+                previousIcon: controller
+                    .monthPickerDialogSettings.headerSettings.previousIcon,
+                nextIcon: controller
+                    .monthPickerDialogSettings.headerSettings.nextIcon,
+              ),
           ]
         : <Widget>[
             Row(
@@ -91,19 +93,21 @@ class HeaderRow extends StatelessWidget {
                 ),
               ],
             ),
-            HeaderArrows(
-              arrowcolors: arrowcolors,
-              onUpButtonPressed: controller.onUpButtonPressed,
-              onDownButtonPressed: controller.onDownButtonPressed,
-              downState: yearProvider.enableState.downState,
-              upState: yearProvider.enableState.upState,
-              arrowSize: controller
-                  .monthPickerDialogSettings.headerSettings.headerIconsSize,
-              previousIcon: controller
-                  .monthPickerDialogSettings.headerSettings.previousIcon,
-              nextIcon:
-                  controller.monthPickerDialogSettings.headerSettings.nextIcon,
-            ),
+            if (!controller
+                .monthPickerDialogSettings.headerSettings.hideHeaderArrows)
+              HeaderArrows(
+                arrowcolors: arrowcolors,
+                onUpButtonPressed: controller.onUpButtonPressed,
+                onDownButtonPressed: controller.onDownButtonPressed,
+                downState: yearProvider.enableState.downState,
+                upState: yearProvider.enableState.upState,
+                arrowSize: controller
+                    .monthPickerDialogSettings.headerSettings.headerIconsSize,
+                previousIcon: controller
+                    .monthPickerDialogSettings.headerSettings.previousIcon,
+                nextIcon: controller
+                    .monthPickerDialogSettings.headerSettings.nextIcon,
+              ),
           ];
     return portrait
         ? Row(

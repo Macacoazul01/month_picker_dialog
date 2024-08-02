@@ -184,11 +184,11 @@ class _MyAppState extends State<MyApp> {
           unselectedMonthsTextColor: Colors.black,
           currentMonthTextColor: Colors.green,
           yearTextStyle: const TextStyle(
-            color: Colors.amber,
+            fontSize: 10,
           ),
           monthTextStyle: const TextStyle(
-            color: Colors.red,
             fontWeight: FontWeight.bold,
+            fontSize: 18,
           ),
         ),
       ),

@@ -44,7 +44,8 @@ class PickerHeader extends StatelessWidget {
               ),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding:
+            controller.monthPickerDialogSettings.headerSettings.headerPadding,
         child: controller.monthPickerDialogSettings.headerSettings.hideHeaderRow
             ? Row(
                 mainAxisAlignment: MainAxisAlignment.center,
