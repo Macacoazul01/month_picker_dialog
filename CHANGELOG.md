@@ -1,3 +1,7 @@
+## 5.0.0-dev.3
+- Added `showYearPicker` function to the package. Now its possible to return only a year.
+- Updated sample.
+
 ## 5.0.0-dev.2
 - Added `dialogSettings.insetPadding` parameter.
 - Changed `headerSettings.headerPageTextStyle` name to `headerSettings.headerCurrentPageTextStyle` parameter + removed the fallback to avoid strange results.

@@ -18,7 +18,8 @@ class MonthPickerDialogState extends State<MonthPickerDialog> {
     super.initState();
     widget.controller.initialize();
     _selector =
-        widget.controller.monthPickerDialogSettings.dialogSettings.yearFirst
+        widget.controller.monthPickerDialogSettings.dialogSettings.yearFirst ||
+                widget.controller.onlyYear
             ? YearSelector(
                 key: widget.controller.yearSelectorState,
                 onYearSelected: _onYearSelected,
@@ -157,6 +158,16 @@ class MonthPickerDialogState extends State<MonthPickerDialog> {
   void _onYearSelected(final int year) {
     setState(
       () {
+        if (widget.controller.onlyYear) {
+          widget.controller.selectedDate = DateTime(year);
+          _selector = YearSelector(
+            key: widget.controller.yearSelectorState,
+            onYearSelected: _onYearSelected,
+            controller: widget.controller,
+          );
+          return;
+        }
+
         widget.controller.firstPossibleMonth(year);
         _selector = MonthSelector(
           key: widget.controller.monthSelectorState,

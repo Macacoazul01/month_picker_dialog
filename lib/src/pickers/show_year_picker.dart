@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import '/month_picker_dialog.dart';
 
-/// Displays month picker dialog.
+/// Displays only year picker dialog.
 ///
 /// `initialDate:` is the initially selected month.
 ///
@@ -11,11 +11,7 @@ import '/month_picker_dialog.dart';
 ///
 /// `lastDate:` is the optional upper bound for month selection.
 ///
-/// `selectableMonthPredicate:` lets you control enabled months just like the official selectableDayPredicate.
-///
 /// `selectableYearPredicate:` lets you control enabled years just like the official selectableDayPredicate.
-///
-/// `monthStylePredicate:` allows you to individually customize each month.
 ///
 /// `yearStylePredicate:` allows you to individually customize each year.
 ///
@@ -29,14 +25,12 @@ import '/month_picker_dialog.dart';
 ///
 /// `monthPickerDialogSettings:` is the object that will hold all of the style of the picker dialog (default is `defaultMonthPickerDialogSettings`).
 ///
-Future<DateTime?> showMonthPicker({
+Future<int?> showYearPicker({
   required BuildContext context,
   DateTime? initialDate,
   DateTime? firstDate,
   DateTime? lastDate,
-  bool Function(DateTime)? selectableMonthPredicate,
   bool Function(int)? selectableYearPredicate,
-  ButtonStyle? Function(DateTime)? monthStylePredicate,
   ButtonStyle? Function(int)? yearStylePredicate,
   Widget? confirmWidget,
   Widget? cancelWidget,
@@ -51,9 +45,7 @@ Future<DateTime?> showMonthPicker({
     firstDate: firstDate,
     lastDate: lastDate,
     monthPickerDialogSettings: monthPickerDialogSettings,
-    selectableMonthPredicate: selectableMonthPredicate,
     selectableYearPredicate: selectableYearPredicate,
-    monthStylePredicate: monthStylePredicate,
     yearStylePredicate: yearStylePredicate,
     confirmWidget: confirmWidget,
     cancelWidget: cancelWidget,
@@ -61,8 +53,7 @@ Future<DateTime?> showMonthPicker({
     useMaterial3: theme.useMaterial3,
     customDivider: customDivider,
     headerTitle: headerTitle,
-    rangeMode: false,
-    rangeList: false,
+    onlyYear: true,
   );
   final DateTime? dialogDate = await showDialog<DateTime?>(
     context: context,
@@ -84,7 +75,7 @@ Future<DateTime?> showMonthPicker({
   if (monthPickerDialogSettings.dialogSettings.dismissible &&
       monthPickerDialogSettings.dialogSettings.forceSelectedDate &&
       dialogDate == null) {
-    return controller.selectedDate;
+    return controller.selectedDate.year;
   }
-  return dialogDate;
+  return dialogDate?.year;
 }

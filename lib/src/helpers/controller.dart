@@ -18,10 +18,11 @@ class MonthpickerController {
     required this.theme,
     required this.useMaterial3,
     this.customDivider,
-    required this.headerTitle,
-    required this.rangeMode,
-    required this.rangeList,
+    this.headerTitle,
+    this.rangeMode = false,
+    this.rangeList = false,
     required this.monthPickerDialogSettings,
+    this.onlyYear = false,
   });
 
   //User defined variables
@@ -31,7 +32,7 @@ class MonthpickerController {
   final bool Function(int)? selectableYearPredicate;
   final ButtonStyle? Function(DateTime)? monthStylePredicate;
   final ButtonStyle? Function(int)? yearStylePredicate;
-  final bool useMaterial3, rangeMode, rangeList;
+  final bool useMaterial3, rangeMode, rangeList, onlyYear;
   final Widget? confirmWidget, cancelWidget, customDivider;
   final Widget? headerTitle;
   final MonthPickerDialogSettings monthPickerDialogSettings;
@@ -220,10 +221,14 @@ class MonthpickerController {
   ///function to show datetime in header
   String getDateTimeHeaderText(String localeString) {
     if (!rangeMode) {
-      if (monthPickerDialogSettings.dialogSettings.capitalizeFirstLetter) {
-        return '${toBeginningOfSentenceCase(DateFormat.yMMM(localeString).format(selectedDate))}';
+      if (!onlyYear) {
+        if (monthPickerDialogSettings.dialogSettings.capitalizeFirstLetter) {
+          return '${toBeginningOfSentenceCase(DateFormat.yMMM(localeString).format(selectedDate))}';
+        }
+        return DateFormat.yMMM(localeString).format(selectedDate).toLowerCase();
+      } else {
+        return DateFormat.y(localeString).format(selectedDate);
       }
-      return DateFormat.yMMM(localeString).format(selectedDate).toLowerCase();
     } else {
       String rangeDateString = "";
       if (firstRangeDate != null) {

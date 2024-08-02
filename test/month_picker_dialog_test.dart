@@ -7,9 +7,6 @@ void main() {
     final MonthpickerController controller = MonthpickerController(
       theme: ThemeData.fallback(),
       useMaterial3: false,
-      headerTitle: null,
-      rangeMode: false,
-      rangeList: false,
       monthPickerDialogSettings: defaultMonthPickerDialogSettings,
     );
     controller.initialize();
@@ -36,7 +33,6 @@ void main() {
       selectableMonthPredicate: (DateTime val) => val.month.isEven,
       theme: ThemeData.fallback(),
       useMaterial3: false,
-      headerTitle: null,
       rangeMode: true,
       rangeList: true,
       monthPickerDialogSettings: const MonthPickerDialogSettings(
