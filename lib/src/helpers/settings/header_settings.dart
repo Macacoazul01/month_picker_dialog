@@ -9,13 +9,10 @@ class PickerHeaderSettings {
     this.headerIconsSize,
     this.headerIconsColor,
     this.headerBackgroundColor,
-    TextStyle? headerSelectedIntervalTextStyle,
-    TextStyle? headerPageTextStyle,
+    this.headerSelectedIntervalTextStyle,
+    this.headerCurrentPageTextStyle,
     this.titleSpacing = 5,
-  })  : headerPageTextStyle =
-            headerPageTextStyle ?? headerSelectedIntervalTextStyle,
-        headerSelectedIntervalTextStyle =
-            headerSelectedIntervalTextStyle ?? headerPageTextStyle;
+  });
 
   /// Hides the row with the arrows + years/months page range from the header, forcing the user to scroll to change the page.
   ///
@@ -55,7 +52,7 @@ class PickerHeaderSettings {
   /// The text style of current page title on the header.
   ///
   /// default: `null`
-  final TextStyle? headerPageTextStyle;
+  final TextStyle? headerCurrentPageTextStyle;
 
   /// The space between the title widget and the current selected month/year/range text on the header.
   ///

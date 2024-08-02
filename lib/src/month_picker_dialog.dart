@@ -107,6 +107,8 @@ class MonthPickerDialogState extends State<MonthPickerDialog> {
       data: widget.controller.theme
           .copyWith(dialogBackgroundColor: Colors.transparent),
       child: Dialog(
+        insetPadding: widget
+            .controller.monthPickerDialogSettings.dialogSettings.insetPadding,
         shape: RoundedRectangleBorder(
           side: widget.controller.monthPickerDialogSettings.dialogSettings
               .dialogBorderSide,

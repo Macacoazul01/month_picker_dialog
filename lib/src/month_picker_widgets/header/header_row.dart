@@ -23,13 +23,13 @@ class HeaderRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TextStyle? headline5 = controller
-            .monthPickerDialogSettings.headerSettings.headerPageTextStyle ??
+    final TextStyle? headline5 = controller.monthPickerDialogSettings
+            .headerSettings.headerCurrentPageTextStyle ??
         theme.primaryTextTheme.headlineSmall;
     final Color? arrowcolors =
         controller.monthPickerDialogSettings.headerSettings.headerIconsColor ??
             (controller.monthPickerDialogSettings.headerSettings
-                    .headerPageTextStyle?.color ??
+                    .headerCurrentPageTextStyle?.color ??
                 theme.primaryIconTheme.color);
 
     final TextScaler? scaler =

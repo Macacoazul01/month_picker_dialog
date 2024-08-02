@@ -126,6 +126,14 @@ class _MyAppState extends State<MyApp> {
                           color: Colors.red[900],
                         ),
                       ),
+                      monthPickerDialogSettings:
+                          const MonthPickerDialogSettings(
+                        headerSettings: PickerHeaderSettings(
+                          headerCurrentPageTextStyle: TextStyle(fontSize: 14),
+                          headerSelectedIntervalTextStyle:
+                              TextStyle(fontSize: 16),
+                        ),
+                      ),
                     ).then((DateTime? date) {
                       if (date != null) {
                         setState(() {
@@ -177,7 +185,7 @@ class _MyAppState extends State<MyApp> {
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
                   ),
-                  headerPageTextStyle: const TextStyle(
+                  headerCurrentPageTextStyle: const TextStyle(
                     color: Colors.black,
                   ),
                   previousIcon: Icons.arrow_back,

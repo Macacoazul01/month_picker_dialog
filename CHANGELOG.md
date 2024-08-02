@@ -1,3 +1,7 @@
+## 5.0.0-dev.2
+- Added `dialogSettings.insetPadding` parameter.
+- Changed `headerSettings.headerPageTextStyle` name to `headerSettings.headerCurrentPageTextStyle` parameter + removed the fallback to avoid strange results.
+
 ## 5.0.0-dev.1
 - [Breaking] Reworked dialog configuration to use the new class `MonthPickerDialogSettings`. Please follow the sample app to learn how to configure your widget using the new way (or feel free to open an issue on github).
 - Added `selectableYearPredicate` to range and single month pickers. It lets you control enabled years like `selectableMonthPredicate`.

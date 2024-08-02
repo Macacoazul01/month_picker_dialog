@@ -17,6 +17,7 @@ class PickerDialogSettings {
     this.dialogBorderSide = BorderSide.none,
     this.dialogBackgroundColor,
     this.locale,
+    this.insetPadding,
   }) : assert(forceSelectedDate == dismissible || !forceSelectedDate,
             'forceSelectedDate can only be used with dismissible = true');
 
@@ -89,6 +90,11 @@ class PickerDialogSettings {
   ///
   /// default: `null`
   final Locale? locale;
+
+  /// Defines the insetPadding of the dialog.
+  ///
+  /// default: `null`
+  final EdgeInsets? insetPadding;
 }
 
 ///The default settings for the Dialog style.
