@@ -12,7 +12,6 @@ extension MyDateExtension on DateTime? {
       return DateTime(this!.year, this!.month + 1, 0);
     }
     return null;
-    
   }
 }
 

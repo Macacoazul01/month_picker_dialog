@@ -6,7 +6,7 @@ import '/month_picker_dialog.dart';
 /// Displays month picker dialog.
 ///
 /// `initialRangeDate:` the initial date of the range of months to be selected.
-/// 
+///
 /// `endRangeDate:` the last date of the range of months to be selected.
 ///
 /// `firstDate:` is the optional lower bound for month selection.
