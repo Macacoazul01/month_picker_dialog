@@ -1,11 +1,18 @@
 ///Extension on DateTime to get the first day of month
-extension MyDateExtension on DateTime {
-  DateTime firstDayOfMonth() {
-    return DateTime(year, month);
+extension MyDateExtension on DateTime? {
+  DateTime? firstDayOfMonth() {
+    if (this != null) {
+      return DateTime(this!.year, this!.month);
+    }
+    return null;
   }
 
-  DateTime lastDayOfMonth() {
-    return DateTime(year, month + 1, 0);
+  DateTime? lastDayOfMonth() {
+    if (this != null) {
+      return DateTime(this!.year, this!.month + 1, 0);
+    }
+    return null;
+    
   }
 }
 

@@ -5,7 +5,9 @@ import '/month_picker_dialog.dart';
 
 /// Displays month picker dialog.
 ///
-/// `initialDate:` is the initially selected month.
+/// `initialRangeDate:` the initial date of the range of months to be selected.
+/// 
+/// `endRangeDate:` the last date of the range of months to be selected.
 ///
 /// `firstDate:` is the optional lower bound for month selection.
 ///
@@ -33,7 +35,8 @@ import '/month_picker_dialog.dart';
 ///
 Future<List<DateTime>?> showMonthRangePicker({
   required BuildContext context,
-  DateTime? initialDate,
+  DateTime? initialRangeDate,
+  DateTime? endRangeDate,
   DateTime? firstDate,
   DateTime? lastDate,
   bool Function(DateTime)? selectableMonthPredicate,
@@ -50,7 +53,8 @@ Future<List<DateTime>?> showMonthRangePicker({
 }) async {
   final ThemeData theme = Theme.of(context);
   final MonthpickerController controller = MonthpickerController(
-    initialDate: initialDate,
+    initialRangeDate: initialRangeDate.firstDayOfMonth(),
+    endRangeDate: endRangeDate.firstDayOfMonth(),
     firstDate: firstDate,
     lastDate: lastDate,
     selectableMonthPredicate: selectableMonthPredicate,

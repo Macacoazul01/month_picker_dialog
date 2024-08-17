@@ -142,7 +142,7 @@ class _MyAppState extends State<MyApp> {
       context: contexto,
       firstDate: DateTime(DateTime.now().year - 5, 5),
       lastDate: DateTime(DateTime.now().year + 8, 9),
-      initialDate: selectedDate ?? widget.initialDate,
+      initialRangeDate: selectedDate ?? widget.initialDate,
       confirmWidget: Text(
         'This one!',
         style: TextStyle(

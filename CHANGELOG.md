@@ -1,3 +1,9 @@
+## 5.1.0 - 2024-08-17
+- removed `initialDate` parameter from `showMonthRangePicker`.
+- added `initialRangeDate` parameter to `showMonthRangePicker`. Fixes [#103](https://github.com/Macacoazul01/month_picker_dialog/issues/103)
+- added `endRangeDate` parameter to `showMonthRangePicker`. Fixes [#103](https://github.com/Macacoazul01/month_picker_dialog/issues/103)
+- made `firstDayOfMonth` and `lastDayOfMonth` extensions nullable.
+
 ## 5.0.0 - 2024-08-02
 - [Breaking] Reworked dialog configuration to use the new class `MonthPickerDialogSettings`. Please follow the sample app to learn how to configure your widget using the new way (or feel free to open an issue on github).
 - Added new ways to customize the header, months/years pages and the dialog behavior with different parameters for the year and month selectors.
