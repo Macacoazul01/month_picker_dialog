@@ -1,3 +1,6 @@
+## 5.1.1 - 2024-08-19
+- Fixed [#105](https://github.com/Macacoazul01/month_picker_dialog/issues/105).
+
 ## 5.1.0 - 2024-08-17
 - removed `initialDate` parameter from `showMonthRangePicker`.
 - added `initialRangeDate` parameter to `showMonthRangePicker`. Fixes [#103](https://github.com/Macacoazul01/month_picker_dialog/issues/103)
