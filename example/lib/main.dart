@@ -142,8 +142,8 @@ class _MyAppState extends State<MyApp> {
       context: contexto,
       firstDate: DateTime(DateTime.now().year - 5, 5),
       lastDate: DateTime(DateTime.now().year + 8, 9),
-      initialRangeDate: DateTime(DateTime.now().year, 5),
-      endRangeDate: DateTime(DateTime.now().year, 7),
+      initialRangeDate: DateTime(DateTime.now().year - 1, 5),
+      endRangeDate: DateTime(DateTime.now().year - 1, 7),
       confirmWidget: Text(
         'This one!',
         style: TextStyle(

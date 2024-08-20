@@ -1,3 +1,6 @@
+## 5.1.2 - 2024-08-20
+- Fixed [#104](https://github.com/Macacoazul01/month_picker_dialog/issues/104).
+
 ## 5.1.1 - 2024-08-19
 - Fixed [#105](https://github.com/Macacoazul01/month_picker_dialog/issues/105).
 

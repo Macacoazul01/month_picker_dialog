@@ -53,7 +53,7 @@ class MonthpickerController {
 
   ///Function to initialize the controller when the dialog is created.
   void initialize() {
-    selectedDate = (initialDate ?? now).firstDayOfMonth()!;
+    selectedDate = (initialRangeDate ?? initialDate ?? now).firstDayOfMonth()!;
     if (firstDate != null) {
       localFirstDate = DateTime(firstDate!.year, firstDate!.month);
     }
