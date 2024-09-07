@@ -16,7 +16,6 @@ class MonthPickerDialogState extends State<MonthPickerDialog> {
   @override
   void initState() {
     super.initState();
-    widget.controller.initialize();
     _selector =
         widget.controller.monthPickerDialogSettings.dialogSettings.yearFirst ||
                 widget.controller.onlyYear

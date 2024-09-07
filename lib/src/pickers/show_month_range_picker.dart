@@ -71,6 +71,7 @@ Future<List<DateTime>?> showMonthRangePicker({
     rangeList: rangeList,
     monthPickerDialogSettings: monthPickerDialogSettings,
   );
+  controller.initialize();
   final List<DateTime>? dialogDate = await showDialog<List<DateTime>>(
     context: context,
     barrierDismissible: monthPickerDialogSettings.dialogSettings.dismissible,

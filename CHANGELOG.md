@@ -1,3 +1,7 @@
+## 5.1.3 - 2024-09-07
+- Fixed [#106](https://github.com/Macacoazul01/month_picker_dialog/issues/106).
+- Updated android sample.
+
 ## 5.1.2 - 2024-08-20
 - Fixed [#104](https://github.com/Macacoazul01/month_picker_dialog/issues/104).
 

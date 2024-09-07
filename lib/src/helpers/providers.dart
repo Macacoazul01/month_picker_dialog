@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 import '/month_picker_dialog.dart';
 
+final UpDownPageLimit _yearUpDownPageLimit = UpDownPageLimit(0, 0);
+final UpDownPageLimit _monthUpDownPageLimit = UpDownPageLimit(0, 0);
+
 ///Provider that controlls the up down state of the header when the year selector is on the dialog
 class YearUpDownPageProvider extends ChangeNotifier {
-  final UpDownPageLimit _pageLimit = UpDownPageLimit(0, 0);
   final UpDownButtonEnableState _enableState =
       UpDownButtonEnableState(true, true);
 
-  UpDownPageLimit get pageLimit => _pageLimit;
+  UpDownPageLimit get pageLimit => _yearUpDownPageLimit;
   UpDownButtonEnableState get enableState => _enableState;
 
   void changePage(int downLimit, int upLimit, bool? downState, bool? upState) {
-    _pageLimit
+    _yearUpDownPageLimit
       ..downLimit = downLimit
       ..upLimit = upLimit;
 
@@ -27,15 +29,14 @@ class YearUpDownPageProvider extends ChangeNotifier {
 
 ///Provider that controlls the up down state of the header when the monyh selector is on the dialog
 class MonthUpDownPageProvider extends ChangeNotifier {
-  final UpDownPageLimit _pageLimit = UpDownPageLimit(0, 0);
   final UpDownButtonEnableState _enableState =
       UpDownButtonEnableState(true, true);
 
-  UpDownPageLimit get pageLimit => _pageLimit;
+  UpDownPageLimit get pageLimit => _monthUpDownPageLimit;
   UpDownButtonEnableState get enableState => _enableState;
 
   void changePage(int downLimit, int upLimit, bool? downState, bool? upState) {
-    _pageLimit
+    _monthUpDownPageLimit
       ..downLimit = downLimit
       ..upLimit = upLimit;
 

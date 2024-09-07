@@ -66,6 +66,7 @@ Future<DateTime?> showMonthPicker({
     headerTitle: headerTitle,
     onlyYear: onlyYear,
   );
+  controller.initialize();
   final DateTime? dialogDate = await showDialog<DateTime?>(
     context: context,
     barrierDismissible: monthPickerDialogSettings.dialogSettings.dismissible,
