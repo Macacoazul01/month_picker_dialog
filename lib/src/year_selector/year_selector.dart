@@ -90,6 +90,7 @@ class YearSelectorState extends State<YearSelector> {
     Future<void>.delayed(
       Duration.zero,
       () {
+        // ignore: use_build_context_synchronously
         Provider.of<YearUpDownPageProvider>(context, listen: false).changePage(
           widget.controller.localFirstDate == null
               ? widget.controller.yearPageController!.page!.toInt() * 12 + 11

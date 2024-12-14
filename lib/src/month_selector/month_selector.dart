@@ -87,6 +87,7 @@ class MonthSelectorState extends State<MonthSelector> {
     Future<void>.delayed(
       Duration.zero,
       () {
+        // ignore: use_build_context_synchronously
         Provider.of<MonthUpDownPageProvider>(context, listen: false).changePage(
           0,
           widget.controller.localFirstDate == null

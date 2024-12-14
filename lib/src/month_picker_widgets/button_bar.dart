@@ -19,7 +19,7 @@ class PickerButtonBar extends StatelessWidget {
             ? TextScaler.linear(controller
                 .monthPickerDialogSettings.dialogSettings.textScaleFactor!)
             : null;
-    return ButtonBar(
+    return OverflowBar(
       children: <Widget>[
         TextButton(
           onPressed: () => controller.cancelFunction(context),
