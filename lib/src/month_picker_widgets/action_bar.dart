@@ -20,11 +20,13 @@ class PickerActionBar extends StatelessWidget {
                 .monthPickerDialogSettings.dialogSettings.textScaleFactor!)
             : null;
     return OverflowBar(
-      spacing: controller.monthPickerDialogSettings.actionBarSettings.buttonSpacing,
+      spacing:
+          controller.monthPickerDialogSettings.actionBarSettings.buttonSpacing,
       children: <Widget>[
         TextButton(
           onPressed: () => controller.cancelFunction(context),
-          child: controller.monthPickerDialogSettings.actionBarSettings.cancelWidget ??
+          child: controller
+                  .monthPickerDialogSettings.actionBarSettings.cancelWidget ??
               Text(
                 localizations.cancelButtonLabel,
                 textScaler: scaler,
@@ -32,7 +34,8 @@ class PickerActionBar extends StatelessWidget {
         ),
         TextButton(
           onPressed: () => controller.okFunction(context),
-          child: controller.monthPickerDialogSettings.actionBarSettings.confirmWidget ??
+          child: controller
+                  .monthPickerDialogSettings.actionBarSettings.confirmWidget ??
               Text(
                 localizations.okButtonLabel,
                 textScaler: scaler,

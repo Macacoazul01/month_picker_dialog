@@ -51,8 +51,8 @@ class MonthButton extends StatelessWidget {
   /// If not provided, the customization will be built from the app's theme.
   ButtonStyle _buildDefaultMonthStyle() {
     Color? backgroundColor;
-    Color? foregroundColor = controller
-        .monthPickerDialogSettings.dateButtonsSettings.unselectedMonthsTextColor;
+    Color? foregroundColor = controller.monthPickerDialogSettings
+        .dateButtonsSettings.unselectedMonthsTextColor;
     final List<DateTime> selectedDates = [];
 
     if (controller.rangeMode) {
@@ -106,11 +106,12 @@ class MonthButton extends StatelessWidget {
     }
 
     return TextButton.styleFrom(
-      textStyle:
-          controller.monthPickerDialogSettings.dateButtonsSettings.monthTextStyle,
+      textStyle: controller
+          .monthPickerDialogSettings.dateButtonsSettings.monthTextStyle,
       foregroundColor: foregroundColor,
       backgroundColor: backgroundColor,
-      shape: controller.monthPickerDialogSettings.dateButtonsSettings.buttonBorder,
+      shape:
+          controller.monthPickerDialogSettings.dateButtonsSettings.buttonBorder,
     );
   }
 

@@ -63,7 +63,8 @@ void main() {
     controller.firstPossibleMonth(2120);
     expect(controller.selectedDate, DateTime(2120, 2));
     expect(
-        controller.monthPickerDialogSettings.dateButtonsSettings.selectedDateRadius,
+        controller
+            .monthPickerDialogSettings.dateButtonsSettings.selectedDateRadius,
         1);
     expect(controller.monthPickerDialogSettings.dialogSettings.forcePortrait,
         true);

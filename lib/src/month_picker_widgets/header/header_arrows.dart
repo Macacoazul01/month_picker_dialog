@@ -35,7 +35,8 @@ class HeaderArrows extends StatelessWidget {
         IconButton(
           icon: Icon(
             nextIcon ?? Icons.keyboard_arrow_down,
-            color: downState ? arrowcolors : arrowcolors!.withValues(alpha: 0.5),
+            color:
+                downState ? arrowcolors : arrowcolors!.withValues(alpha: 0.5),
             size: arrowSize,
           ),
           onPressed: downState ? onDownButtonPressed : null,
