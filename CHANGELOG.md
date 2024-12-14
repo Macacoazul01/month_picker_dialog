@@ -1,3 +1,8 @@
+## 6.0.0 - 2024-12-14
+- Added `PickerActionBarSettings` to handle the action bar settings of the dialog.
+- [Breaking] `confirmWidget`, `cancelWidget`, `customDivider` are now on the `PickerActionBarSettings` class.
+- [Breaking] renamed `PickerButtonsSettings` to `PickerDateButtonsSettings` and `buttonsSettings` to `dateButtonsSettings`.
+
 ## 5.2.0 - 2024-12-14
 - Bumped intl to `0.20.0`. Fixes [#107](https://github.com/Macacoazul01/month_picker_dialog/issues/107).
 - Bumped flutter_lints to `5.0.0`.

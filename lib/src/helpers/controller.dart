@@ -15,11 +15,8 @@ class MonthpickerController {
     this.selectableYearPredicate,
     this.monthStylePredicate,
     this.yearStylePredicate,
-    this.confirmWidget,
-    this.cancelWidget,
     required this.theme,
     required this.useMaterial3,
-    this.customDivider,
     this.headerTitle,
     this.rangeMode = false,
     this.rangeList = false,
@@ -35,7 +32,6 @@ class MonthpickerController {
   final ButtonStyle? Function(DateTime)? monthStylePredicate;
   final ButtonStyle? Function(int)? yearStylePredicate;
   final bool useMaterial3, rangeMode, rangeList, onlyYear;
-  final Widget? confirmWidget, cancelWidget, customDivider;
   final Widget? headerTitle;
   final MonthPickerDialogSettings monthPickerDialogSettings;
 

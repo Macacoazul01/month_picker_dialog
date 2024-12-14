@@ -92,24 +92,26 @@ class _MyAppState extends State<MyApp> {
         }
         return null;
       },
-      confirmWidget: Text(
-        'This one!',
-        style: TextStyle(
-          fontWeight: FontWeight.bold,
-          color: Colors.indigo[300],
-        ),
-      ),
-      cancelWidget: Text(
-        'Cancel',
-        style: TextStyle(
-          fontWeight: FontWeight.bold,
-          color: Colors.red[900],
-        ),
-      ),
-      monthPickerDialogSettings: const MonthPickerDialogSettings(
-        headerSettings: PickerHeaderSettings(
+      monthPickerDialogSettings: MonthPickerDialogSettings(
+        headerSettings: const PickerHeaderSettings(
           headerCurrentPageTextStyle: TextStyle(fontSize: 14),
           headerSelectedIntervalTextStyle: TextStyle(fontSize: 16),
+        ),
+        actionBarSettings: PickerActionBarSettings(
+          confirmWidget: Text(
+            'This one!',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.indigo[300],
+            ),
+          ),
+          cancelWidget: Text(
+            'Cancel',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.red[900],
+            ),
+          ),
         ),
       ),
     ).then((DateTime? date) {
@@ -144,26 +146,28 @@ class _MyAppState extends State<MyApp> {
       lastDate: DateTime(DateTime.now().year + 8, 9),
       initialRangeDate: DateTime(DateTime.now().year - 1, 5),
       endRangeDate: DateTime(DateTime.now().year - 1, 7),
-      confirmWidget: Text(
-        'This one!',
-        style: TextStyle(
-          fontWeight: FontWeight.bold,
-          color: Colors.indigo[300],
-        ),
-      ),
-      cancelWidget: Text(
-        'Cancel',
-        style: TextStyle(
-          fontWeight: FontWeight.bold,
-          color: Colors.red[900],
-        ),
-      ),
       headerTitle: const Text('Month Picker Dialog'),
       monthPickerDialogSettings: MonthPickerDialogSettings(
         dialogSettings: PickerDialogSettings(
           locale: const Locale('en'),
           dialogRoundedCornersRadius: 20,
           dialogBackgroundColor: Colors.blueGrey[50],
+        ),
+        actionBarSettings: PickerActionBarSettings(
+          confirmWidget: Text(
+            'This one!',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.indigo[300],
+            ),
+          ),
+          cancelWidget: Text(
+            'Cancel',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.red[900],
+            ),
+          ),
         ),
         headerSettings: PickerHeaderSettings(
           headerBackgroundColor: Colors.indigo[300],
@@ -178,7 +182,7 @@ class _MyAppState extends State<MyApp> {
           previousIcon: Icons.arrow_back,
           nextIcon: Icons.arrow_forward,
         ),
-        buttonsSettings: PickerButtonsSettings(
+        dateButtonsSettings: PickerDateButtonsSettings(
           buttonBorder: const RoundedRectangleBorder(),
           selectedMonthBackgroundColor: Colors.amber[900],
           selectedMonthTextColor: Colors.white,
@@ -197,7 +201,9 @@ class _MyAppState extends State<MyApp> {
     ).then((List<DateTime>? dates) {
       if (dates != null) {
         print(dates);
-        print(dates.last.lastDayOfMonth());
+        if (dates.isNotEmpty) {
+          print(dates.last.lastDayOfMonth());
+        }
       }
     });
   }

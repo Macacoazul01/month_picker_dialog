@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import '/month_picker_dialog.dart';
 
 ///The actions button bar. Where confirmation and cancel button are.
-class PickerButtonBar extends StatelessWidget {
-  const PickerButtonBar({
+class PickerActionBar extends StatelessWidget {
+  const PickerActionBar({
     super.key,
     required this.controller,
   });
@@ -20,10 +20,11 @@ class PickerButtonBar extends StatelessWidget {
                 .monthPickerDialogSettings.dialogSettings.textScaleFactor!)
             : null;
     return OverflowBar(
+      spacing: controller.monthPickerDialogSettings.actionBarSettings.buttonSpacing,
       children: <Widget>[
         TextButton(
           onPressed: () => controller.cancelFunction(context),
-          child: controller.cancelWidget ??
+          child: controller.monthPickerDialogSettings.actionBarSettings.cancelWidget ??
               Text(
                 localizations.cancelButtonLabel,
                 textScaler: scaler,
@@ -31,7 +32,7 @@ class PickerButtonBar extends StatelessWidget {
         ),
         TextButton(
           onPressed: () => controller.okFunction(context),
-          child: controller.confirmWidget ??
+          child: controller.monthPickerDialogSettings.actionBarSettings.confirmWidget ??
               Text(
                 localizations.okButtonLabel,
                 textScaler: scaler,

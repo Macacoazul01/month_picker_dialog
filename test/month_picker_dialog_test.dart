@@ -38,7 +38,7 @@ void main() {
       monthPickerDialogSettings: const MonthPickerDialogSettings(
         dialogSettings: PickerDialogSettings(
             customHeight: 250, customWidth: 310, forcePortrait: true),
-        buttonsSettings: PickerButtonsSettings(
+        dateButtonsSettings: PickerDateButtonsSettings(
           monthTextStyle: TextStyle(
             fontWeight: FontWeight.bold,
           ),
@@ -63,7 +63,7 @@ void main() {
     controller.firstPossibleMonth(2120);
     expect(controller.selectedDate, DateTime(2120, 2));
     expect(
-        controller.monthPickerDialogSettings.buttonsSettings.selectedDateRadius,
+        controller.monthPickerDialogSettings.dateButtonsSettings.selectedDateRadius,
         1);
     expect(controller.monthPickerDialogSettings.dialogSettings.forcePortrait,
         true);

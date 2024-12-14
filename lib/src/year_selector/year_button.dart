@@ -58,27 +58,27 @@ class YearButton extends StatelessWidget {
   ButtonStyle _buildDefaultYearStyle(int year) {
     final bool isTheSelectedYear = year == controller.selectedDate.year;
     final Color backgroundColor = controller.monthPickerDialogSettings
-            .buttonsSettings.selectedMonthBackgroundColor ??
+            .dateButtonsSettings.selectedMonthBackgroundColor ??
         theme.colorScheme.secondary;
     final ButtonStyle yearStyle = TextButton.styleFrom(
       textStyle:
-          controller.monthPickerDialogSettings.buttonsSettings.yearTextStyle,
+          controller.monthPickerDialogSettings.dateButtonsSettings.yearTextStyle,
       foregroundColor: isTheSelectedYear
           ? theme.textTheme.labelLarge!
               .copyWith(
-                color: controller.monthPickerDialogSettings.buttonsSettings
+                color: controller.monthPickerDialogSettings.dateButtonsSettings
                         .selectedYearTextColor ??
                     theme.colorScheme.onSecondary,
               )
               .color
           : year == controller.now.year
-              ? (controller.monthPickerDialogSettings.buttonsSettings
+              ? (controller.monthPickerDialogSettings.dateButtonsSettings
                       .currentYearTextColor ??
                   backgroundColor)
-              : controller.monthPickerDialogSettings.buttonsSettings
+              : controller.monthPickerDialogSettings.dateButtonsSettings
                   .unselectedYearsTextColor,
       backgroundColor: isTheSelectedYear ? backgroundColor : null,
-      shape: controller.monthPickerDialogSettings.buttonsSettings.buttonBorder,
+      shape: controller.monthPickerDialogSettings.dateButtonsSettings.buttonBorder,
     );
     return yearStyle;
   }
@@ -103,7 +103,7 @@ class YearButton extends StatelessWidget {
 
     return Padding(
       padding: EdgeInsets.all(controller
-          .monthPickerDialogSettings.buttonsSettings.selectedDateRadius),
+          .monthPickerDialogSettings.dateButtonsSettings.selectedDateRadius),
       child: TextButton(
         onPressed: isEnabled ? () => onYearSelected(year) : null,
         style: yearStyle,

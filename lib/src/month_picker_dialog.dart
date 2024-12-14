@@ -85,9 +85,9 @@ class MonthPickerDialogState extends State<MonthPickerDialog> {
             theme: widget.controller.theme,
             controller: widget.controller,
           ),
-          if (widget.controller.customDivider != null)
-            widget.controller.customDivider!,
-          PickerButtonBar(
+          if (widget.controller.monthPickerDialogSettings.actionBarSettings.customDivider != null)
+            widget.controller.monthPickerDialogSettings.actionBarSettings.customDivider!,
+          PickerActionBar(
             controller: widget.controller,
           ),
         ],

@@ -14,12 +14,6 @@ import '/month_picker_dialog.dart';
 ///
 /// `yearStylePredicate:` allows you to individually customize each year.
 ///
-/// `confirmWidget:` lets you set a custom confirm widget.
-///
-/// `cancelWidget:` lets you set a custom cancel widget.
-///
-/// `customDivider:` lets you add a custom divider between the months/years and the confirm/cancel buttons.
-///
 /// `headerTitle:` lets you add a custom title to the header of the dialog (default is `null`).
 ///
 /// `monthPickerDialogSettings:` is the object that will hold all of the style of the picker dialog (default is `defaultMonthPickerDialogSettings`).
@@ -31,9 +25,6 @@ Future<int?> showYearPicker({
   DateTime? lastDate,
   bool Function(int)? selectableYearPredicate,
   ButtonStyle? Function(int)? yearStylePredicate,
-  Widget? confirmWidget,
-  Widget? cancelWidget,
-  Widget? customDivider,
   Widget? headerTitle,
   MonthPickerDialogSettings monthPickerDialogSettings =
       defaultMonthPickerDialogSettings,
@@ -45,9 +36,6 @@ Future<int?> showYearPicker({
     lastDate: lastDate,
     selectableYearPredicate: selectableYearPredicate,
     yearStylePredicate: yearStylePredicate,
-    confirmWidget: confirmWidget,
-    cancelWidget: cancelWidget,
-    customDivider: customDivider,
     headerTitle: headerTitle,
     monthPickerDialogSettings: monthPickerDialogSettings,
     onlyYear: true,

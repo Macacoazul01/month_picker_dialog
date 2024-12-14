@@ -1,8 +1,8 @@
 import 'package:flutter/widgets.dart';
 
 ///Class to hold all the customizations of the buttons part of the package.
-class PickerButtonsSettings {
-  const PickerButtonsSettings({
+class PickerDateButtonsSettings {
+  const PickerDateButtonsSettings({
     this.monthTextStyle,
     TextStyle? yearTextStyle,
     this.selectedMonthBackgroundColor,
@@ -77,4 +77,4 @@ class PickerButtonsSettings {
 }
 
 ///The default settings for the buttons style.
-const defaultPickerbuttonsSettings = PickerButtonsSettings();
+const defaultPickerDateButtonsSettings = PickerDateButtonsSettings();
