@@ -52,6 +52,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   DateTime? selectedDate;
   int? selectedYear;
+  List<DateTime> rangeDates = [];
 
   @override
   void initState() {
@@ -144,8 +145,10 @@ class _MyAppState extends State<MyApp> {
       context: contexto,
       firstDate: DateTime(DateTime.now().year - 5, 5),
       lastDate: DateTime(DateTime.now().year + 8, 9),
-      initialRangeDate: DateTime(DateTime.now().year - 1, 5),
-      endRangeDate: DateTime(DateTime.now().year - 1, 7),
+      initialRangeDate:
+          rangeDates.firstOrNull ?? DateTime(DateTime.now().year - 1, 5),
+      endRangeDate:
+          rangeDates.lastOrNull ?? DateTime(DateTime.now().year - 1, 7),
       headerTitle: const Text('Month Picker Dialog'),
       monthPickerDialogSettings: MonthPickerDialogSettings(
         dialogSettings: PickerDialogSettings(
@@ -199,11 +202,10 @@ class _MyAppState extends State<MyApp> {
       ),
       rangeList: true,
     ).then((List<DateTime>? dates) {
-      if (dates != null) {
-        print(dates);
-        if (dates.isNotEmpty) {
-          print(dates.last.lastDayOfMonth());
-        }
+      if (dates != null && dates.isNotEmpty) {
+        setState(() {
+          rangeDates = dates;
+        });
       }
     });
   }
@@ -244,6 +246,16 @@ class _MyAppState extends State<MyApp> {
                 ),
                 Text(
                   'Year: $selectedYear',
+                  style: Theme.of(context).textTheme.headlineMedium,
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(
+                  height: 40,
+                ),
+                Text(
+                  'Selected range: ${rangeDates.map((dateTime) {
+                    return dateTime.toIso8601String().split('T').first;
+                  }).join(', ')}',
                   style: Theme.of(context).textTheme.headlineMedium,
                   textAlign: TextAlign.center,
                 ),
