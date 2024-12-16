@@ -1,3 +1,6 @@
+## 6.0.1 - 2024-12-16
+- Improved sample
+
 ## 6.0.0 - 2024-12-14
 - Added `PickerActionBarSettings` to handle the action bar settings of the dialog.
 - [Breaking] `confirmWidget`, `cancelWidget`, `customDivider` are now on the `PickerActionBarSettings` class.

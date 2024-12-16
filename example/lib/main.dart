@@ -129,7 +129,7 @@ class _MyAppState extends State<MyApp> {
       context: contexto,
       firstDate: DateTime(DateTime.now().year - 5, 5),
       lastDate: DateTime(DateTime.now().year + 8, 9),
-      initialDate: selectedDate ?? widget.initialDate,
+      initialDate: DateTime(selectedYear ?? DateTime.now().year),
       selectableYearPredicate: (int year) => year.isEven,
     ).then((int? year) {
       if (year != null) {
