@@ -5,23 +5,23 @@ import '/month_picker_dialog.dart';
 
 /// Displays month picker dialog.
 ///
-/// `initialDate:` is the initially selected month.
+/// `initialDate:` the initially selected month.
 ///
-/// `firstDate:` is the optional lower bound for month selection.
+/// `firstDate:` the optional lower bound for month selection.
 ///
-/// `lastDate:` is the optional upper bound for month selection.
+/// `lastDate:` the optional upper bound for month selection.
 ///
-/// `selectableMonthPredicate:` lets you control enabled months just like the official selectableDayPredicate.
+/// `selectableMonthPredicate:` control enabled months just like the official selectableDayPredicate.
 ///
-/// `selectableYearPredicate:` lets you control enabled years just like the official selectableDayPredicate.
+/// `selectableYearPredicate:` control enabled years just like the official selectableDayPredicate.
 ///
-/// `monthStylePredicate:` allows you to individually customize each month.
+/// `monthStylePredicate:` individually customize each month.
 ///
-/// `yearStylePredicate:` allows you to individually customize each year.
+/// `yearStylePredicate:` individually customize each year.
 ///
-/// `headerTitle:` lets you add a custom title to the header of the dialog (default is `null`).
+/// `headerTitle:` add a custom title to the header of the dialog (default is `null`).
 ///
-/// `monthPickerDialogSettings:` is the object that will hold all of the style of the picker dialog (default is `defaultMonthPickerDialogSettings`).
+/// `monthPickerDialogSettings:` holds all the style of the picker dialog (default is `defaultMonthPickerDialogSettings`).
 ///
 /// `onlyYear:` Displays only year picker dialog. Prefer to use `showYearPicker` instead of `showMonthPicker` with this parameter set to `true` to avoid unnecessary parameters.
 ///

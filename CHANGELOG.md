@@ -1,3 +1,7 @@
+## 6.0.2 - 2024-12-16
+- Fixed [#109](https://github.com/Macacoazul01/month_picker_dialog/issues/109).
+- Improved function docs.
+
 ## 6.0.1 - 2024-12-16
 - Improved sample
 

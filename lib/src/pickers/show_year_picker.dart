@@ -4,19 +4,19 @@ import '/month_picker_dialog.dart';
 
 /// Displays only year picker dialog.
 ///
-/// `initialDate:` is the initially selected month.
+/// `initialDate:` initially selected month.
 ///
-/// `firstDate:` is the optional lower bound for month selection.
+/// `firstDate:` optional lower bound for month selection.
 ///
-/// `lastDate:` is the optional upper bound for month selection.
+/// `lastDate:` optional upper bound for month selection.
 ///
-/// `selectableYearPredicate:` lets you control enabled years just like the official selectableDayPredicate.
+/// `selectableYearPredicate:` control enabled years just like the official selectableDayPredicate.
 ///
-/// `yearStylePredicate:` allows you to individually customize each year.
+/// `yearStylePredicate:` individually customize each year.
 ///
-/// `headerTitle:` lets you add a custom title to the header of the dialog (default is `null`).
+/// `headerTitle:` adds a custom title to the header of the dialog (default is `null`).
 ///
-/// `monthPickerDialogSettings:` is the object that will hold all of the style of the picker dialog (default is `defaultMonthPickerDialogSettings`).
+/// `monthPickerDialogSettings:` holds all the style of the picker dialog (default is `defaultMonthPickerDialogSettings`).
 ///
 Future<int?> showYearPicker({
   required BuildContext context,

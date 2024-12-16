@@ -5,27 +5,27 @@ import '/month_picker_dialog.dart';
 
 /// Displays month picker dialog.
 ///
-/// `initialRangeDate:` the initial date of the range of months to be selected.
+/// `initialRangeDate:` initial selected date of the months range.
 ///
-/// `endRangeDate:` the last date of the range of months to be selected.
+/// `endRangeDate:` latest selected date of the months range.
 ///
-/// `firstDate:` is the optional lower bound for month selection.
+/// `firstDate:` optional lower bound for month selection.
 ///
-/// `lastDate:` is the optional upper bound for month selection.
+/// `lastDate:` optional upper bound for month selection.
 ///
-/// `selectableMonthPredicate:` lets you control enabled months just like the official selectableDayPredicate.
+/// `selectableMonthPredicate:` control enabled months just like the official selectableDayPredicate.
 ///
-/// `selectableYearPredicate:` lets you control enabled months just like the official selectableDayPredicate.
+/// `selectableYearPredicate:` control enabled months just like the official selectableDayPredicate.
 ///
-/// `monthStylePredicate:` allows you to individually customize each month.
+/// `monthStylePredicate:` individually customize each month.
 ///
-/// `yearStylePredicate:` allows you to individually customize each year.
+/// `yearStylePredicate:` individually customize each year.
 ///
-/// `headerTitle:` lets you add a custom title to the header of the dialog (default is `null`).
+/// `headerTitle:` adds a custom title to the header of the dialog (default is `null`).
 ///
-/// `monthPickerDialogSettings:` is the object that will hold all of the style of the picker dialog (default is `defaultMonthPickerDialogSettings`).
+/// `monthPickerDialogSettings:` holds all the style of the picker dialog (default is `defaultMonthPickerDialogSettings`).
 ///
-/// `rangeList:` lets you define if the controller will return the full list of months between the two selected or only them (default is `false`).
+/// `rangeList:` defines if the controller will return the full list of months between the two selected or only them (default is `false`).
 ///
 Future<List<DateTime>?> showMonthRangePicker({
   required BuildContext context,

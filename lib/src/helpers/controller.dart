@@ -144,22 +144,27 @@ class MonthpickerController {
 
   ///function to return the range of selected months
   List<DateTime> selectRange() {
-    if (initialRangeDate != null && endRangeDate != null) {
+    if (initialRangeDate != null) {
+      if (endRangeDate == null) {
+        return [initialRangeDate!];
+      }
+
       if (initialRangeDate == endRangeDate) {
         return [initialRangeDate!];
       }
 
       final DateTime startDate = initialRangeDate!;
       final DateTime endDate = endRangeDate!;
-
       if (rangeList) {
         return rangeListCreation(startDate, endDate);
-      } else {
-        return [startDate, endDate];
       }
+      return [startDate, endDate];
     } else {
-      return [];
+      if (endRangeDate != null) {
+        return [endRangeDate!];
+      }
     }
+    return [];
   }
 
   ///function to return the full list range of selected months
