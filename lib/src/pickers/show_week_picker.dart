@@ -26,13 +26,13 @@ import '/month_picker_dialog.dart';
 ///
 /// `onlyYear:` Displays only year picker dialog. Prefer to use `showYearPicker` instead of `showMonthPicker` with this parameter set to `true` to avoid unnecessary parameters.
 ///
-Future<DateTime?> showMonthPicker({
+Future<Time?> showWeekPicker({
   required BuildContext context,
   DateTime? initialDate,
   DateTime? firstDate,
   DateTime? lastDate,
   Time? initTime,
-  bool isWeek =false,
+  bool isWeek =true,
   bool Function(DateTime)? selectableMonthPredicate,
   bool Function(int)? selectableYearPredicate,
   ButtonStyle? Function(DateTime)? monthStylePredicate,
@@ -80,7 +80,7 @@ Future<DateTime?> showMonthPicker({
   if (monthPickerDialogSettings.dialogSettings.dismissible &&
       monthPickerDialogSettings.dialogSettings.forceSelectedDate &&
       dialogDate == null) {
-    return controller.selectedDate;
+    return controller.selectWeek;
   }
-  return dialogDate;
+  return controller.selectWeek;
 }

@@ -62,25 +62,12 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future<void> monthPicker(BuildContext contexto) async {
-    return showMonthPicker(
+    return showWeekPicker(
       context: contexto,
-      firstDate: DateTime(DateTime.now().year - 5, 5),
-      lastDate: DateTime(DateTime.now().year + 8, 9),
+      firstDate: DateTime(DateTime.now().year - 1, 5),
+      lastDate: DateTime(DateTime.now().year + 1, 9),
       initialDate: selectedDate ?? widget.initialDate,
-      selectableMonthPredicate: (DateTime val) => val.month.isEven,
       selectableYearPredicate: (int year) => year.isEven,
-      monthStylePredicate: (DateTime val) {
-        if (val.month == 4) {
-          return TextButton.styleFrom(
-            backgroundColor: Colors.yellow[700],
-            textStyle: const TextStyle(
-              color: Colors.pink,
-              fontWeight: FontWeight.bold,
-            ),
-          );
-        }
-        return null;
-      },
       yearStylePredicate: (int val) {
         if (val == 2022) {
           return TextButton.styleFrom(
@@ -94,32 +81,21 @@ class _MyAppState extends State<MyApp> {
         return null;
       },
       monthPickerDialogSettings: MonthPickerDialogSettings(
+        dialogSettings: PickerDialogSettings(
+          customHeight: 370
+        ),
         headerSettings: const PickerHeaderSettings(
           headerCurrentPageTextStyle: TextStyle(fontSize: 14),
           headerSelectedIntervalTextStyle: TextStyle(fontSize: 16),
         ),
-        actionBarSettings: PickerActionBarSettings(
-          confirmWidget: Text(
-            'This one!',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: Colors.indigo[300],
-            ),
-          ),
-          cancelWidget: Text(
-            'Cancel',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: Colors.red[900],
-            ),
-          ),
-        ),
+
       ),
-    ).then((DateTime? date) {
+    ).then((Time? date) {
       if (date != null) {
-        setState(() {
-          selectedDate = date;
-        });
+        print('${date.time} ${date.year}');
+        // setState(() {
+        //   selectedDate = date;
+        // });
       }
     });
   }

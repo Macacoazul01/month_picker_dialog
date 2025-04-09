@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:month_picker_dialog/src/helpers/time.dart';
+import 'package:provider/provider.dart';
 
+import '../week_selector/week_selector.dart';
 import '/month_picker_dialog.dart';
 
 ///Global controller of the dialog. It holds the initial parameters passed on the widget creation.
@@ -20,6 +23,8 @@ class MonthpickerController {
     this.headerTitle,
     this.rangeMode = false,
     this.rangeList = false,
+    this.isWeek = false,
+    this.initTime,
     required this.monthPickerDialogSettings,
     this.onlyYear = false,
   });
@@ -31,25 +36,30 @@ class MonthpickerController {
   final bool Function(int)? selectableYearPredicate;
   final ButtonStyle? Function(DateTime)? monthStylePredicate;
   final ButtonStyle? Function(int)? yearStylePredicate;
-  final bool useMaterial3, rangeMode, rangeList, onlyYear;
+  final bool useMaterial3, rangeMode, rangeList, onlyYear, isWeek;
+  final Time? initTime;
   final Widget? headerTitle;
   final MonthPickerDialogSettings monthPickerDialogSettings;
 
   //local variables
   final GlobalKey<YearSelectorState> yearSelectorState = GlobalKey();
   final GlobalKey<MonthSelectorState> monthSelectorState = GlobalKey();
+  final GlobalKey<WeekSelectorState> weekSelectorState = GlobalKey();
+
   final DateTime now = DateTime.now().firstDayOfMonth()!;
 
   late DateTime selectedDate;
+  late Time selectWeek;
   DateTime? localFirstDate, localLastDate, initialRangeDate, endRangeDate;
 
-  late int yearPageCount, yearItemCount, monthPageCount;
+  late int yearPageCount, yearItemCount, monthPageCount, weekPageCount;
 
-  PageController? yearPageController, monthPageController;
+  PageController? yearPageController, monthPageController, weekPageController;
 
   ///Function to initialize the controller when the dialog is created.
   void initialize() {
     selectedDate = (initialRangeDate ?? initialDate ?? now).firstDayOfMonth()!;
+    selectWeek = initTime ?? Time(time: 1, year: now.year);
     if (firstDate != null) {
       localFirstDate = DateTime(firstDate!.year, firstDate!.month);
     }
@@ -61,12 +71,15 @@ class MonthpickerController {
     yearItemCount = getYearItemCount(localFirstDate, localLastDate);
     yearPageCount = getYearPageCount(localFirstDate, localLastDate);
     monthPageCount = getMonthPageCount(localFirstDate, localLastDate);
+    weekPageCount = getWeekPageCount(localFirstDate, localLastDate);
+    print('weekPageCount $weekPageCount');
   }
 
   ///Function to dispose year and month pages when the dialog closes.
   void dispose() {
     yearPageController?.dispose();
     monthPageController?.dispose();
+    weekPageController?.dispose();
   }
 
   /// function to get first possible month after selecting a year
@@ -92,6 +105,18 @@ class MonthpickerController {
       } else {
         return ((lastDate.year - firstDate.year + 1) / 12).ceil();
       }
+    } else if (firstDate != null && lastDate == null) {
+      return (yearItemCount / 12).ceil();
+    } else if (firstDate == null && lastDate != null) {
+      return (yearItemCount / 12).ceil();
+    } else {
+      return (9999 / 12).ceil();
+    }
+  }
+
+  int getWeekPageCount(DateTime? firstDate, DateTime? lastDate) {
+    if (firstDate != null && lastDate != null) {
+      return lastDate.year - firstDate.year;
     } else if (firstDate != null && lastDate == null) {
       return (yearItemCount / 12).ceil();
     } else if (firstDate == null && lastDate != null) {
@@ -137,6 +162,8 @@ class MonthpickerController {
   void okFunction(BuildContext context) {
     if (!rangeMode) {
       Navigator.pop(context, selectedDate);
+    } else if (isWeek) {
+      Navigator.pop(context, selectWeek);
     } else {
       Navigator.pop(context, selectRange());
     }
@@ -202,6 +229,8 @@ class MonthpickerController {
   void onUpButtonPressed() {
     if (yearSelectorState.currentState != null) {
       yearSelectorState.currentState!.goUp();
+    } else if (weekSelectorState.currentState != null) {
+      weekSelectorState.currentState!.goUp();
     } else {
       monthSelectorState.currentState!.goUp();
     }
@@ -211,6 +240,8 @@ class MonthpickerController {
   void onDownButtonPressed() {
     if (yearSelectorState.currentState != null) {
       yearSelectorState.currentState!.goDown();
+    } else if (weekSelectorState.currentState != null) {
+      weekSelectorState.currentState!.goDown();
     } else {
       monthSelectorState.currentState!.goDown();
     }
@@ -219,7 +250,9 @@ class MonthpickerController {
   ///function to show datetime in header
   String getDateTimeHeaderText(String localeString) {
     if (!rangeMode) {
-      if (!onlyYear) {
+      if (isWeek) {
+        return selectWeek.year.toString();
+      } else if (!onlyYear) {
         if (monthPickerDialogSettings.dialogSettings.capitalizeFirstLetter) {
           return '${toBeginningOfSentenceCase(DateFormat.yMMM(localeString).format(selectedDate))}';
         }
@@ -231,22 +264,17 @@ class MonthpickerController {
       String rangeDateString = "";
       if (initialRangeDate != null) {
         if (monthPickerDialogSettings.dialogSettings.capitalizeFirstLetter) {
-          rangeDateString =
-              '${toBeginningOfSentenceCase(DateFormat.yMMM(localeString).format(initialRangeDate!))}';
+          rangeDateString = '${toBeginningOfSentenceCase(DateFormat.yMMM(localeString).format(initialRangeDate!))}';
         } else {
-          rangeDateString = DateFormat.yMMM(localeString)
-              .format(initialRangeDate!)
-              .toLowerCase();
+          rangeDateString = DateFormat.yMMM(localeString).format(initialRangeDate!).toLowerCase();
         }
       }
 
       if (endRangeDate != null) {
         if (monthPickerDialogSettings.dialogSettings.capitalizeFirstLetter) {
-          rangeDateString +=
-              ' - ${toBeginningOfSentenceCase(DateFormat.yMMM(localeString).format(endRangeDate!))}';
+          rangeDateString += ' - ${toBeginningOfSentenceCase(DateFormat.yMMM(localeString).format(endRangeDate!))}';
         } else {
-          rangeDateString +=
-              ' - ${DateFormat.yMMM(localeString).format(initialRangeDate!).toLowerCase()}';
+          rangeDateString += ' - ${DateFormat.yMMM(localeString).format(initialRangeDate!).toLowerCase()}';
         }
       }
       return rangeDateString;
