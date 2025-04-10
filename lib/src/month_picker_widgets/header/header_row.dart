@@ -57,7 +57,7 @@ class HeaderRow extends StatelessWidget {
               ),
           ]
         : <Widget>[
-            if (!controller.isWeek)
+            if (!controller.isWeek  && !controller.isQuarter)
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:month_picker_dialog/src/quarter_selector/quarter_selector.dart';
 import 'package:month_picker_dialog/src/week_selector/week_selector.dart';
 import 'package:provider/provider.dart';
 import '/month_picker_dialog.dart';
@@ -33,11 +34,17 @@ class MonthPickerDialogState extends State<MonthPickerDialog> {
                 onWeekSelected: _onWeekSelected,
                 controller: widget.controller,
               )
-            : MonthSelector(
-                key: widget.controller.monthSelectorState,
-                onMonthSelected: _onMonthSelected,
-                controller: widget.controller,
-              );
+            : widget.controller.isQuarter
+                ? QuarterSelector(
+                    key: widget.controller.quarterSelectorState,
+                    onQuarterSelected: _onQuarterSelected,
+                    controller: widget.controller,
+                  )
+                : MonthSelector(
+                    key: widget.controller.monthSelectorState,
+                    onMonthSelected: _onMonthSelected,
+                    controller: widget.controller,
+                  );
   }
 
   @override
@@ -178,6 +185,17 @@ class MonthPickerDialogState extends State<MonthPickerDialog> {
           _selector = WeekSelector(
             key: widget.controller.weekSelectorState,
             onWeekSelected: _onWeekSelected,
+            controller: widget.controller,
+          );
+        },
+      );
+
+  void _onQuarterSelected(final Time time) => setState(
+        () {
+          widget.controller.selectQuarter = time;
+          _selector = QuarterSelector(
+            key: widget.controller.quarterSelectorState,
+            onQuarterSelected: _onQuarterSelected,
             controller: widget.controller,
           );
         },

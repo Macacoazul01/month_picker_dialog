@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:month_picker_dialog/src/helpers/time.dart';
 import 'package:provider/provider.dart';
 
+import '../quarter_selector/quarter_selector.dart';
 import '../week_selector/week_selector.dart';
 import '/month_picker_dialog.dart';
 
@@ -14,6 +15,7 @@ class MonthpickerController {
     this.endRangeDate,
     this.firstDate,
     this.lastDate,
+
     this.selectableMonthPredicate,
     this.selectableYearPredicate,
     this.monthStylePredicate,
@@ -24,6 +26,7 @@ class MonthpickerController {
     this.rangeMode = false,
     this.rangeList = false,
     this.isWeek = false,
+    this.isQuarter = false,
     this.initTime,
     required this.monthPickerDialogSettings,
     this.onlyYear = false,
@@ -36,7 +39,7 @@ class MonthpickerController {
   final bool Function(int)? selectableYearPredicate;
   final ButtonStyle? Function(DateTime)? monthStylePredicate;
   final ButtonStyle? Function(int)? yearStylePredicate;
-  final bool useMaterial3, rangeMode, rangeList, onlyYear, isWeek;
+  final bool useMaterial3, rangeMode, rangeList, onlyYear, isWeek, isQuarter;
   final Time? initTime;
   final Widget? headerTitle;
   final MonthPickerDialogSettings monthPickerDialogSettings;
@@ -45,21 +48,25 @@ class MonthpickerController {
   final GlobalKey<YearSelectorState> yearSelectorState = GlobalKey();
   final GlobalKey<MonthSelectorState> monthSelectorState = GlobalKey();
   final GlobalKey<WeekSelectorState> weekSelectorState = GlobalKey();
+  final GlobalKey<QuarterSelectorState> quarterSelectorState = GlobalKey();
 
   final DateTime now = DateTime.now().firstDayOfMonth()!;
 
   late DateTime selectedDate;
   late Time selectWeek;
+  late Time selectQuarter;
+
   DateTime? localFirstDate, localLastDate, initialRangeDate, endRangeDate;
 
-  late int yearPageCount, yearItemCount, monthPageCount, weekPageCount;
+  late int yearPageCount, yearItemCount, monthPageCount, weekPageCount, quarterPageCount;
 
-  PageController? yearPageController, monthPageController, weekPageController;
+  PageController? yearPageController, monthPageController, weekPageController, quarterPageController;
 
   ///Function to initialize the controller when the dialog is created.
   void initialize() {
     selectedDate = (initialRangeDate ?? initialDate ?? now).firstDayOfMonth()!;
     selectWeek = initTime ?? Time(time: 1, year: now.year);
+    selectQuarter = initTime ?? Time(time: 1, year: now.year);
     if (firstDate != null) {
       localFirstDate = DateTime(firstDate!.year, firstDate!.month);
     }
@@ -72,7 +79,7 @@ class MonthpickerController {
     yearPageCount = getYearPageCount(localFirstDate, localLastDate);
     monthPageCount = getMonthPageCount(localFirstDate, localLastDate);
     weekPageCount = getWeekPageCount(localFirstDate, localLastDate);
-    print('weekPageCount $weekPageCount');
+    quarterPageCount =  geQuarterPageCount(localFirstDate, localLastDate);
   }
 
   ///Function to dispose year and month pages when the dialog closes.
@@ -80,6 +87,7 @@ class MonthpickerController {
     yearPageController?.dispose();
     monthPageController?.dispose();
     weekPageController?.dispose();
+    quarterPageController?.dispose();
   }
 
   /// function to get first possible month after selecting a year
@@ -115,6 +123,17 @@ class MonthpickerController {
   }
 
   int getWeekPageCount(DateTime? firstDate, DateTime? lastDate) {
+    if (firstDate != null && lastDate != null) {
+      return lastDate.year - firstDate.year;
+    } else if (firstDate != null && lastDate == null) {
+      return (yearItemCount / 12).ceil();
+    } else if (firstDate == null && lastDate != null) {
+      return (yearItemCount / 12).ceil();
+    } else {
+      return (9999 / 12).ceil();
+    }
+  }
+  int geQuarterPageCount(DateTime? firstDate, DateTime? lastDate) {
     if (firstDate != null && lastDate != null) {
       return lastDate.year - firstDate.year;
     } else if (firstDate != null && lastDate == null) {
@@ -164,7 +183,11 @@ class MonthpickerController {
       Navigator.pop(context, selectedDate);
     } else if (isWeek) {
       Navigator.pop(context, selectWeek);
-    } else {
+    }
+    else if (isQuarter) {
+      Navigator.pop(context, selectQuarter);
+    }
+    else {
       Navigator.pop(context, selectRange());
     }
   }
@@ -231,6 +254,8 @@ class MonthpickerController {
       yearSelectorState.currentState!.goUp();
     } else if (weekSelectorState.currentState != null) {
       weekSelectorState.currentState!.goUp();
+    } else if (quarterSelectorState.currentState != null) {
+      quarterSelectorState.currentState!.goUp();
     } else {
       monthSelectorState.currentState!.goUp();
     }
@@ -242,7 +267,9 @@ class MonthpickerController {
       yearSelectorState.currentState!.goDown();
     } else if (weekSelectorState.currentState != null) {
       weekSelectorState.currentState!.goDown();
-    } else {
+    } else if (quarterSelectorState.currentState != null) {
+      quarterSelectorState.currentState!.goDown();
+    }else {
       monthSelectorState.currentState!.goDown();
     }
   }
@@ -250,7 +277,7 @@ class MonthpickerController {
   ///function to show datetime in header
   String getDateTimeHeaderText(String localeString) {
     if (!rangeMode) {
-      if (isWeek) {
+      if (isWeek || isQuarter) {
         return selectWeek.year.toString();
       } else if (!onlyYear) {
         if (monthPickerDialogSettings.dialogSettings.capitalizeFirstLetter) {

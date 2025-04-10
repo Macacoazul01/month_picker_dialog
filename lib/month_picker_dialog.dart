@@ -24,6 +24,7 @@ export '/src/month_selector/month_selector.dart';
 export '/src/month_selector/month_year_grid.dart';
 export '/src/pickers/show_month_picker.dart';
 export '/src/pickers/show_week_picker.dart';
+export '/src/pickers/show_quarter_picker.dart';
 export '/src/pickers/show_month_range_picker.dart';
 export '/src/pickers/show_year_picker.dart';
 export '/src/year_selector/year_button.dart';
