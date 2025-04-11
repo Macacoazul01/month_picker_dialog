@@ -32,36 +32,37 @@ Future<Time?> showQuarterPicker({
   DateTime? firstDate,
   DateTime? lastDate,
   Time? initTime,
-  bool isWeek =false,
+  String? textToday,
+
+  bool isWeek = false,
   bool Function(DateTime)? selectableMonthPredicate,
   bool Function(int)? selectableYearPredicate,
   ButtonStyle? Function(DateTime)? monthStylePredicate,
   ButtonStyle? Function(int)? yearStylePredicate,
   Widget? headerTitle,
-  MonthPickerDialogSettings monthPickerDialogSettings =
-      defaultMonthPickerDialogSettings,
+  MonthPickerDialogSettings monthPickerDialogSettings = defaultMonthPickerDialogSettings,
   bool onlyYear = false,
 }) async {
   final ThemeData theme = Theme.of(context);
   final MonthpickerController controller = MonthpickerController(
-    initialDate: initialDate,
-    firstDate: firstDate,
-    lastDate: lastDate,
-    initTime: initTime,
-    monthPickerDialogSettings: monthPickerDialogSettings,
-    selectableMonthPredicate: selectableMonthPredicate,
-    selectableYearPredicate: selectableYearPredicate,
-    monthStylePredicate: monthStylePredicate,
-    yearStylePredicate: yearStylePredicate,
-    isWeek: isWeek,
-    theme: theme,
-    useMaterial3: theme.useMaterial3,
-    headerTitle: headerTitle,
-    onlyYear: onlyYear,
-    isQuarter: true
-  );
+      initialDate: initialDate,
+      firstDate: firstDate,
+      lastDate: lastDate,
+      initTime: initTime,
+      textToday: textToday,
+      monthPickerDialogSettings: monthPickerDialogSettings,
+      selectableMonthPredicate: selectableMonthPredicate,
+      selectableYearPredicate: selectableYearPredicate,
+      monthStylePredicate: monthStylePredicate,
+      yearStylePredicate: yearStylePredicate,
+      isWeek: isWeek,
+      theme: theme,
+      useMaterial3: theme.useMaterial3,
+      headerTitle: headerTitle,
+      onlyYear: onlyYear,
+      isQuarter: true);
   controller.initialize();
-  final DateTime? dialogDate = await showDialog<DateTime?>(
+  final dynamic? dialogDate = await showDialog<Time?>(
     context: context,
     barrierDismissible: monthPickerDialogSettings.dialogSettings.dismissible,
     builder: (BuildContext context) {
@@ -78,10 +79,6 @@ Future<Time?> showQuarterPicker({
       );
     },
   );
-  if (monthPickerDialogSettings.dialogSettings.dismissible &&
-      monthPickerDialogSettings.dialogSettings.forceSelectedDate &&
-      dialogDate == null) {
-    return controller.selectQuarter;
-  }
-  return controller.selectQuarter;
+  print('object:${dialogDate.runtimeType}');
+  return dialogDate;
 }

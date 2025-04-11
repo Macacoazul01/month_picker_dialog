@@ -12,6 +12,7 @@ class MonthButton extends StatelessWidget {
     required this.onMonthSelected,
     required this.controller,
     required this.date,
+    required this.selectDate
   });
 
   final ThemeData theme;
@@ -19,7 +20,7 @@ class MonthButton extends StatelessWidget {
   final ValueChanged<DateTime> onMonthSelected;
   final MonthpickerController controller;
   final DateTime date;
-
+  final DateTime selectDate;
   bool _holdsSelectionPredicate(DateTime mes) {
     if (controller.selectableMonthPredicate != null) {
       return controller.selectableMonthPredicate!(mes);
@@ -84,7 +85,7 @@ class MonthButton extends StatelessWidget {
         }
       }
     } else {
-      selectedDates.add(controller.selectedDate);
+      selectedDates.add(selectDate);
     }
 
     if (selectedDates.contains(date)) {

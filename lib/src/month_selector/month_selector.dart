@@ -75,13 +75,19 @@ class MonthSelectorState extends State<MonthSelector> {
       curve: Curves.easeInOut,
     );
   }
-
+  void reset() {
+    widget.controller.monthPageController?.animateToPage(
+      widget.controller.monthPageController!.initialPage.toInt(),
+      duration: const Duration(milliseconds: 400),
+      curve: Curves.easeInOut,
+    );
+  }
   ///Function to initialize the grid.
   void initialize() {
     widget.controller.monthPageController = PageController(
       initialPage: widget.controller.localFirstDate == null
-          ? widget.controller.selectedDate.year
-          : widget.controller.selectedDate.year -
+          ? widget.controller.selectedDate.value.year
+          : widget.controller.selectedDate.value.year -
               widget.controller.localFirstDate!.year,
     );
     Future<void>.delayed(

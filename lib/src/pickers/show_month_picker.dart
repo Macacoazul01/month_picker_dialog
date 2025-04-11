@@ -33,6 +33,7 @@ Future<DateTime?> showMonthPicker({
   DateTime? lastDate,
   Time? initTime,
   bool isWeek =false,
+  String? textToday,
   bool Function(DateTime)? selectableMonthPredicate,
   bool Function(int)? selectableYearPredicate,
   ButtonStyle? Function(DateTime)? monthStylePredicate,
@@ -54,6 +55,7 @@ Future<DateTime?> showMonthPicker({
     monthStylePredicate: monthStylePredicate,
     yearStylePredicate: yearStylePredicate,
     isWeek: isWeek,
+    textToday: textToday,
     theme: theme,
     useMaterial3: theme.useMaterial3,
     headerTitle: headerTitle,
@@ -77,10 +79,5 @@ Future<DateTime?> showMonthPicker({
       );
     },
   );
-  if (monthPickerDialogSettings.dialogSettings.dismissible &&
-      monthPickerDialogSettings.dialogSettings.forceSelectedDate &&
-      dialogDate == null) {
-    return controller.selectedDate;
-  }
-  return dialogDate;
+  return  dialogDate;
 }

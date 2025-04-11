@@ -65,7 +65,13 @@ class QuarterSelectorState extends State<QuarterSelector> {
       curve: Curves.easeInOut,
     );
   }
-
+  void reset() {
+    widget.controller.quarterPageController?.animateToPage(
+      widget.controller.quarterPageController!.initialPage.toInt(),
+      duration: const Duration(milliseconds: 400),
+      curve: Curves.easeInOut,
+    );
+  }
   ///Function to go to the previous page of the grid.
   void goUp() {
     widget.controller.quarterPageController?.animateToPage(
@@ -79,8 +85,8 @@ class QuarterSelectorState extends State<QuarterSelector> {
   void initialize() {
     widget.controller.quarterPageController = PageController(
       initialPage: widget.controller.localFirstDate == null
-          ? widget.controller.selectQuarter.year ?? 0
-          : widget.controller.selectQuarter.year! - widget.controller.localFirstDate!.year,
+          ? widget.controller.selectQuarter.value.year ?? 0
+          : widget.controller.selectQuarter.value.year! - widget.controller.localFirstDate!.year,
     );
     Future<void>.delayed(
       Duration.zero,

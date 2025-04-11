@@ -18,24 +18,28 @@ class YearGrid extends StatelessWidget {
     final String localeString = getLocale(context,
         selectedLocale:
             controller.monthPickerDialogSettings.dialogSettings.locale);
-    return GridView.count(
-      physics:
-          controller.monthPickerDialogSettings.dialogSettings.blockScrolling
-              ? const NeverScrollableScrollPhysics()
-              : const ClampingScrollPhysics(),
-      padding: const EdgeInsets.all(8.0),
-      crossAxisCount: 4,
-      children: List<Widget>.generate(
-        12,
-        (final int index) => YearButton(
-          theme: controller.theme,
-          controller: controller,
-          page: page,
-          index: index,
-          onYearSelected: onYearSelected,
-          localeString: localeString,
-        ),
-      ).toList(growable: false),
-    );
+    return ValueListenableBuilder(valueListenable: controller.selectedDate, builder: (context, value, child) {
+      return GridView.count(
+        physics:
+        controller.monthPickerDialogSettings.dialogSettings.blockScrolling
+            ? const NeverScrollableScrollPhysics()
+            : const ClampingScrollPhysics(),
+        padding: const EdgeInsets.all(8.0),
+        crossAxisCount: 4,
+        children: List<Widget>.generate(
+          12,
+              (final int index) => YearButton(
+            theme: controller.theme,
+            controller: controller,
+            page: page,
+            index: index,
+            selectDate: value,
+            onYearSelected: onYearSelected,
+            localeString: localeString,
+          ),
+        ).toList(growable: false),
+      );
+    },);
+
   }
 }

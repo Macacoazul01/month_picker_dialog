@@ -39,8 +39,9 @@ Future<List<DateTime>?> showMonthRangePicker({
   ButtonStyle? Function(int)? yearStylePredicate,
   Widget? headerTitle,
   bool rangeList = false,
-  MonthPickerDialogSettings monthPickerDialogSettings =
-      defaultMonthPickerDialogSettings,
+  String? textToday,
+
+  MonthPickerDialogSettings monthPickerDialogSettings = defaultMonthPickerDialogSettings,
 }) async {
   final ThemeData theme = Theme.of(context);
   final MonthpickerController controller = MonthpickerController(
@@ -53,6 +54,7 @@ Future<List<DateTime>?> showMonthRangePicker({
     monthStylePredicate: monthStylePredicate,
     yearStylePredicate: yearStylePredicate,
     theme: theme,
+    textToday: textToday,
     useMaterial3: theme.useMaterial3,
     headerTitle: headerTitle,
     rangeMode: true,
@@ -77,10 +79,8 @@ Future<List<DateTime>?> showMonthRangePicker({
       );
     },
   );
-  if (monthPickerDialogSettings.dialogSettings.dismissible &&
-      monthPickerDialogSettings.dialogSettings.forceSelectedDate &&
-      dialogDate == null) {
-    return [controller.selectedDate];
+  if (monthPickerDialogSettings.dialogSettings.dismissible && monthPickerDialogSettings.dialogSettings.forceSelectedDate && dialogDate == null) {
+    return [controller.selectedDate.value];
   }
-  return dialogDate;
+  return  [controller.selectedDate.value];
 }

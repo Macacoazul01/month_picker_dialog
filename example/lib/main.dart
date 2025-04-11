@@ -62,7 +62,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future<void> monthPicker(BuildContext contexto) async {
-    return showQuarterPicker(
+    return showWeekPicker(
       context: contexto,
       firstDate: DateTime(DateTime.now().year - 1, 5),
       lastDate: DateTime(DateTime.now().year + 1, 9),
@@ -82,7 +82,7 @@ class _MyAppState extends State<MyApp> {
       },
       monthPickerDialogSettings: const MonthPickerDialogSettings(
         dialogSettings: PickerDialogSettings(
-          customHeight: 120
+          customHeight: 360
         ),
         headerSettings: PickerHeaderSettings(
           headerCurrentPageTextStyle: TextStyle(fontSize: 14),
@@ -90,13 +90,8 @@ class _MyAppState extends State<MyApp> {
         ),
 
       ),
-    ).then((Time? date) {
-      if (date != null) {
-        print('${date.time} ${date.year}');
-        // setState(() {
-        //   selectedDate = date;
-        // });
-      }
+    ).then(( date) {
+      print('${date?.time} ${date?.year}');
     });
   }
 

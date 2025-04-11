@@ -11,28 +11,34 @@ class WeekYearGridBuilder extends StatelessWidget {
     required this.onWeekSelected,
     required this.controller,
   });
+
   final ValueChanged<Time> onWeekSelected;
   final MonthpickerController controller;
+
   @override
   Widget build(BuildContext context) {
-    final String localeString = getLocale(context,
-        selectedLocale:
-        controller.monthPickerDialogSettings.dialogSettings.locale);
-    return GridView.count(
-      padding: const EdgeInsets.all(8.0),
-      shrinkWrap: true,
-      crossAxisCount: 7,
-      physics: NeverScrollableScrollPhysics(),
-      children: List<Widget>.generate(
-        52,
+    final String localeString = getLocale(context, selectedLocale: controller.monthPickerDialogSettings.dialogSettings.locale);
+    return ValueListenableBuilder(
+      valueListenable: controller.selectWeek,
+      builder: (context, value, child) {
+        return GridView.count(
+          padding: const EdgeInsets.all(8.0),
+          shrinkWrap: true,
+          crossAxisCount: 7,
+          physics: NeverScrollableScrollPhysics(),
+          children: List<Widget>.generate(
+            52,
             (final int index) => WeekButton(
-          theme: controller.theme,
-          controller: controller,
-          index: index,
-           onWeekSelected: onWeekSelected,
-          localeString: localeString,
-        ),
-      ).toList(growable: false),
+              theme: controller.theme,
+              controller: controller,
+              index: index,
+              onWeekSelected: onWeekSelected,
+              localeString: localeString,
+              selectWeek: value.time,
+            ),
+          ).toList(growable: false),
+        );
+      },
     );
   }
 }

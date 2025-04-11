@@ -16,29 +16,33 @@ class MonthYearGridBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GridView.count(
-      physics:
-          controller.monthPickerDialogSettings.dialogSettings.blockScrolling
-              ? const NeverScrollableScrollPhysics()
-              : const ClampingScrollPhysics(),
-      padding: const EdgeInsets.all(8.0),
-      crossAxisCount: 4,
-      children: List<Widget>.generate(
-        12,
-        (final int index) => MonthButton(
-          theme: controller.theme,
-          date: DateTime(
-              controller.localFirstDate != null
-                  ? controller.localFirstDate!.year + page
-                  : page,
-              index + 1),
-          localeString: getLocale(context,
-              selectedLocale:
-                  controller.monthPickerDialogSettings.dialogSettings.locale),
-          onMonthSelected: onMonthSelected,
-          controller: controller,
-        ),
-      ).toList(growable: false),
-    );
+    return ValueListenableBuilder(valueListenable: controller.selectedDate, builder: (context, value, child) {
+      return GridView.count(
+        physics:
+        controller.monthPickerDialogSettings.dialogSettings.blockScrolling
+            ? const NeverScrollableScrollPhysics()
+            : const ClampingScrollPhysics(),
+        padding: const EdgeInsets.all(8.0),
+        crossAxisCount: 4,
+        children: List<Widget>.generate(
+          12,
+              (final int index) => MonthButton(
+            theme: controller.theme,
+            selectDate: value,
+            date: DateTime(
+                controller.localFirstDate != null
+                    ? controller.localFirstDate!.year + page
+                    : page,
+                index + 1),
+            localeString: getLocale(context,
+                selectedLocale:
+                controller.monthPickerDialogSettings.dialogSettings.locale),
+            onMonthSelected: onMonthSelected,
+            controller: controller,
+          ),
+        ).toList(growable: false),
+      );
+    },);
+
   }
 }

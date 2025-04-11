@@ -14,7 +14,7 @@ class WeekButton extends StatelessWidget {
     required this.index,
     required this.onWeekSelected,
     required this.localeString,
-
+    required this.selectWeek,
   });
 
   final ThemeData theme;
@@ -22,6 +22,7 @@ class WeekButton extends StatelessWidget {
   final int  index;
   final ValueChanged<Time> onWeekSelected;
   final String localeString;
+  final int? selectWeek;
 
   bool _holdsSelectionPredicate(int year) {
     if (controller.selectableYearPredicate != null) {
@@ -57,8 +58,8 @@ class WeekButton extends StatelessWidget {
   /// build the year button style with the default layout
   ///
   /// If not provided, the customization will be built from the app's theme.
-  ButtonStyle _buildDefaultYearStyle(int year) {
-    final bool isTheSelectedYear = year == controller.selectWeek.time ;
+  ButtonStyle _buildDefaultYearStyle(int year,) {
+    final bool isTheSelectedYear = year == selectWeek ;
     final Color backgroundColor = controller.monthPickerDialogSettings
         .dateButtonsSettings.selectedMonthBackgroundColor ??
         theme.colorScheme.secondary;

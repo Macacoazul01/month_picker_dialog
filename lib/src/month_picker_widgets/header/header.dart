@@ -59,7 +59,7 @@ class PickerHeader extends StatelessWidget {
               )
             : Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   if (controller.headerTitle != null) ...[
                     controller.headerTitle!,

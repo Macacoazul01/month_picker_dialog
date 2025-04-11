@@ -146,7 +146,7 @@ class MonthPickerDialogState extends State<MonthPickerDialog> {
     setState(
       () {
         if (widget.controller.onlyYear) {
-          widget.controller.selectedDate = DateTime(year);
+          widget.controller.selectedDate.value = DateTime(year);
           _selector = YearSelector(
             key: widget.controller.yearSelectorState,
             onYearSelected: _onYearSelected,
@@ -170,7 +170,7 @@ class MonthPickerDialogState extends State<MonthPickerDialog> {
           if (widget.controller.rangeMode) {
             widget.controller.onRangeDateSelect(date);
           }
-          widget.controller.selectedDate = date;
+          widget.controller.selectedDate.value = date;
           _selector = MonthSelector(
             key: widget.controller.monthSelectorState,
             onMonthSelected: _onMonthSelected,
@@ -181,7 +181,7 @@ class MonthPickerDialogState extends State<MonthPickerDialog> {
 
   void _onWeekSelected(final Time time) => setState(
         () {
-          widget.controller.selectWeek = time;
+          widget.controller.selectWeek.value = time;
           _selector = WeekSelector(
             key: widget.controller.weekSelectorState,
             onWeekSelected: _onWeekSelected,
@@ -192,7 +192,7 @@ class MonthPickerDialogState extends State<MonthPickerDialog> {
 
   void _onQuarterSelected(final Time time) => setState(
         () {
-          widget.controller.selectQuarter = time;
+          widget.controller.selectQuarter.value = time;
           _selector = QuarterSelector(
             key: widget.controller.quarterSelectorState,
             onQuarterSelected: _onQuarterSelected,

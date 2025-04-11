@@ -9,28 +9,27 @@ import '/month_picker_dialog.dart';
 
 ///Global controller of the dialog. It holds the initial parameters passed on the widget creation.
 class MonthpickerController {
-  MonthpickerController({
-    this.initialDate,
-    this.initialRangeDate,
-    this.endRangeDate,
-    this.firstDate,
-    this.lastDate,
-
-    this.selectableMonthPredicate,
-    this.selectableYearPredicate,
-    this.monthStylePredicate,
-    this.yearStylePredicate,
-    required this.theme,
-    required this.useMaterial3,
-    this.headerTitle,
-    this.rangeMode = false,
-    this.rangeList = false,
-    this.isWeek = false,
-    this.isQuarter = false,
-    this.initTime,
-    required this.monthPickerDialogSettings,
-    this.onlyYear = false,
-  });
+  MonthpickerController(
+      {this.initialDate,
+      this.initialRangeDate,
+      this.endRangeDate,
+      this.firstDate,
+      this.lastDate,
+      this.selectableMonthPredicate,
+      this.selectableYearPredicate,
+      this.monthStylePredicate,
+      this.yearStylePredicate,
+      required this.theme,
+      required this.useMaterial3,
+      this.headerTitle,
+      this.rangeMode = false,
+      this.rangeList = false,
+      this.isWeek = false,
+      this.isQuarter = false,
+      this.initTime,
+      required this.monthPickerDialogSettings,
+      this.onlyYear = false,
+      this.textToday});
 
   //User defined variables
   final ThemeData theme;
@@ -43,6 +42,7 @@ class MonthpickerController {
   final Time? initTime;
   final Widget? headerTitle;
   final MonthPickerDialogSettings monthPickerDialogSettings;
+  final String? textToday;
 
   //local variables
   final GlobalKey<YearSelectorState> yearSelectorState = GlobalKey();
@@ -51,10 +51,11 @@ class MonthpickerController {
   final GlobalKey<QuarterSelectorState> quarterSelectorState = GlobalKey();
 
   final DateTime now = DateTime.now().firstDayOfMonth()!;
+  late ValueNotifier<DateTime> selectedDate = ValueNotifier(DateTime.now().firstDayOfMonth()!);
 
-  late DateTime selectedDate;
-  late Time selectWeek;
-  late Time selectQuarter;
+  // ValueNotifier<DateTime> selectedDate = ValueNotifier(DateTime.now().firstDayOfMonth()!);
+  ValueNotifier<Time> selectWeek = ValueNotifier(Time(time: 1, year: DateTime.now().year));
+  ValueNotifier<Time> selectQuarter = ValueNotifier(Time(time: 1, year: DateTime.now().year));
 
   DateTime? localFirstDate, localLastDate, initialRangeDate, endRangeDate;
 
@@ -64,9 +65,9 @@ class MonthpickerController {
 
   ///Function to initialize the controller when the dialog is created.
   void initialize() {
-    selectedDate = (initialRangeDate ?? initialDate ?? now).firstDayOfMonth()!;
-    selectWeek = initTime ?? Time(time: 1, year: now.year);
-    selectQuarter = initTime ?? Time(time: 1, year: now.year);
+    selectedDate.value = (initialRangeDate ?? initialDate ?? now).firstDayOfMonth()!;
+    selectWeek.value = initTime ?? Time(time: 1, year: now.year);
+    selectQuarter.value = initTime ?? Time(time: 1, year: now.year);
     if (firstDate != null) {
       localFirstDate = DateTime(firstDate!.year, firstDate!.month);
     }
@@ -79,7 +80,7 @@ class MonthpickerController {
     yearPageCount = getYearPageCount(localFirstDate, localLastDate);
     monthPageCount = getMonthPageCount(localFirstDate, localLastDate);
     weekPageCount = getWeekPageCount(localFirstDate, localLastDate);
-    quarterPageCount =  geQuarterPageCount(localFirstDate, localLastDate);
+    quarterPageCount = geQuarterPageCount(localFirstDate, localLastDate);
   }
 
   ///Function to dispose year and month pages when the dialog closes.
@@ -88,6 +89,9 @@ class MonthpickerController {
     monthPageController?.dispose();
     weekPageController?.dispose();
     quarterPageController?.dispose();
+    selectedDate.dispose();
+    selectQuarter.dispose();
+    selectWeek.dispose();
   }
 
   /// function to get first possible month after selecting a year
@@ -96,12 +100,12 @@ class MonthpickerController {
       for (int i = 1; i <= 12; i++) {
         final DateTime mes = DateTime(year, i);
         if (selectableMonthPredicate!(mes)) {
-          selectedDate = mes;
+          selectedDate.value = mes;
           break;
         }
       }
     } else {
-      selectedDate = DateTime(year);
+      selectedDate.value = DateTime(year);
     }
   }
 
@@ -133,6 +137,7 @@ class MonthpickerController {
       return (9999 / 12).ceil();
     }
   }
+
   int geQuarterPageCount(DateTime? firstDate, DateTime? lastDate) {
     if (firstDate != null && lastDate != null) {
       return lastDate.year - firstDate.year;
@@ -174,21 +179,27 @@ class MonthpickerController {
   //selector functions
   ///function to cancel selecting a month
   void cancelFunction(BuildContext context) {
-    Navigator.pop(context);
+    if (!rangeMode) {
+      Navigator.pop(context);
+    } else if (isWeek) {
+      Navigator.pop<Time?>(context);
+    } else if (isQuarter) {
+      Navigator.pop<Time?>(context);
+    } else {
+      Navigator.pop(context);
+    }
   }
 
   ///function to confirm selecting a month
   void okFunction(BuildContext context) {
-    if (!rangeMode) {
-      Navigator.pop(context, selectedDate);
-    } else if (isWeek) {
-      Navigator.pop(context, selectWeek);
-    }
-    else if (isQuarter) {
-      Navigator.pop(context, selectQuarter);
-    }
-    else {
+    if (isWeek) {
+      Navigator.pop<Time?>(context, selectWeek.value);
+    } else if (isQuarter) {
+      Navigator.pop<Time?>(context, selectQuarter.value);
+    } else if (rangeMode) {
       Navigator.pop(context, selectRange());
+    } else {
+      Navigator.pop(context, selectedDate.value);
     }
   }
 
@@ -252,12 +263,38 @@ class MonthpickerController {
   void onUpButtonPressed() {
     if (yearSelectorState.currentState != null) {
       yearSelectorState.currentState!.goUp();
+      selectedDate.value = selectedDate.value.copyWith(year: selectedDate.value.year - 12);
     } else if (weekSelectorState.currentState != null) {
       weekSelectorState.currentState!.goUp();
+      selectWeek.value = selectWeek.value.copyWith(year: selectWeek.value.year! - 1);
     } else if (quarterSelectorState.currentState != null) {
       quarterSelectorState.currentState!.goUp();
+      selectQuarter.value = selectQuarter.value.copyWith(year: selectQuarter.value.year! - 1);
     } else {
       monthSelectorState.currentState!.goUp();
+      selectedDate.value = selectedDate.value.copyWith(year: selectedDate.value.year - 1);
+    }
+  }
+
+  void onResetPressed() {
+    if (yearSelectorState.currentState != null) {
+      monthSelectorState.currentState?.reset();
+      selectedDate.value = DateTime.now();
+    } else if (weekSelectorState.currentState != null) {
+      weekSelectorState.currentState?.reset();
+      selectWeek.value = Time(
+        year: DateTime.now().year,
+        time: getCurrentWeekNumber(),
+      );
+    } else if (quarterSelectorState.currentState != null) {
+      quarterSelectorState.currentState?.reset();
+      selectQuarter.value = Time(
+        year: DateTime.now().year,
+        time: getCurrentQuarter(),
+      );
+    } else {
+      monthSelectorState.currentState?.reset();
+      selectedDate.value = DateTime.now().firstDayOfMonth()!;
     }
   }
 
@@ -265,12 +302,16 @@ class MonthpickerController {
   void onDownButtonPressed() {
     if (yearSelectorState.currentState != null) {
       yearSelectorState.currentState!.goDown();
+      selectedDate.value = selectedDate.value.copyWith(year: selectedDate.value.year + 12);
     } else if (weekSelectorState.currentState != null) {
       weekSelectorState.currentState!.goDown();
+      selectWeek.value = selectWeek.value.copyWith(year: selectWeek.value.year! + 1);
     } else if (quarterSelectorState.currentState != null) {
       quarterSelectorState.currentState!.goDown();
-    }else {
+      selectQuarter.value = selectQuarter.value.copyWith(year: selectQuarter.value.year! + 1);
+    } else {
       monthSelectorState.currentState!.goDown();
+      selectedDate.value = selectedDate.value.copyWith(year: selectedDate.value.year + 1);
     }
   }
 
@@ -278,14 +319,14 @@ class MonthpickerController {
   String getDateTimeHeaderText(String localeString) {
     if (!rangeMode) {
       if (isWeek || isQuarter) {
-        return selectWeek.year.toString();
+        return selectWeek.value.year.toString();
       } else if (!onlyYear) {
         if (monthPickerDialogSettings.dialogSettings.capitalizeFirstLetter) {
-          return '${toBeginningOfSentenceCase(DateFormat.yMMM(localeString).format(selectedDate))}';
+          return '${toBeginningOfSentenceCase(DateFormat.yMMM(localeString).format(selectedDate.value))}';
         }
-        return DateFormat.yMMM(localeString).format(selectedDate).toLowerCase();
+        return DateFormat.yMMM(localeString).format(selectedDate.value).toLowerCase();
       } else {
-        return DateFormat.y(localeString).format(selectedDate);
+        return DateFormat.y(localeString).format(selectedDate.value);
       }
     } else {
       String rangeDateString = "";

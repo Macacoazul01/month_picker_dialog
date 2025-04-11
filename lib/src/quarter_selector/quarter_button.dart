@@ -14,7 +14,7 @@ class QuarterButton extends StatelessWidget {
     required this.index,
     required this.onQuarterSelected,
     required this.localeString,
-
+    required this.selectQuarter
   });
 
   final ThemeData theme;
@@ -22,6 +22,7 @@ class QuarterButton extends StatelessWidget {
   final int  index;
   final ValueChanged<Time> onQuarterSelected;
   final String localeString;
+  final int? selectQuarter;
 
   bool _holdsSelectionPredicate(int year) {
     if (controller.selectableYearPredicate != null) {
@@ -58,7 +59,7 @@ class QuarterButton extends StatelessWidget {
   ///
   /// If not provided, the customization will be built from the app's theme.
   ButtonStyle _buildDefaultYearStyle(int year) {
-    final bool isTheSelectedYear = year == controller.selectQuarter.time ;
+    final bool isTheSelectedYear = year == selectQuarter ;
     final Color backgroundColor = controller.monthPickerDialogSettings
         .dateButtonsSettings.selectedMonthBackgroundColor ??
         theme.colorScheme.secondary;

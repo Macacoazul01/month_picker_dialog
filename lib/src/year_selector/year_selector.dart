@@ -81,8 +81,8 @@ class YearSelectorState extends State<YearSelector> {
   void initialize() {
     widget.controller.yearPageController = PageController(
       initialPage: widget.controller.localFirstDate == null
-          ? (widget.controller.selectedDate.year / 12).floor()
-          : ((widget.controller.selectedDate.year -
+          ? (widget.controller.selectedDate.value.year / 12).floor()
+          : ((widget.controller.selectedDate.value.year -
                       widget.controller.localFirstDate!.year) /
                   12)
               .floor(),

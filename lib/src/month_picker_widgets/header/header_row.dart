@@ -36,14 +36,6 @@ class HeaderRow extends StatelessWidget {
     final MonthUpDownPageProvider monthProvider = Provider.of<MonthUpDownPageProvider>(context);
     final List<Widget> mainWidgets = isMonthSelector
         ? <Widget>[
-            GestureDetector(
-              onTap: onSelectYear,
-              child: Text(
-                DateFormat.y(localeString).format(DateTime(monthProvider.pageLimit.upLimit)),
-                style: headline5,
-                textScaler: scaler,
-              ),
-            ),
             if (!controller.monthPickerDialogSettings.headerSettings.hideHeaderArrows)
               HeaderArrows(
                 arrowcolors: arrowcolors,
@@ -55,29 +47,18 @@ class HeaderRow extends StatelessWidget {
                 previousIcon: controller.monthPickerDialogSettings.headerSettings.previousIcon,
                 nextIcon: controller.monthPickerDialogSettings.headerSettings.nextIcon,
               ),
+            ElevatedButton(
+              onPressed: () {
+                controller.onResetPressed();
+              },
+              child: Text(
+                controller.textToday ?? "Today",
+                style: headline5,
+              ),
+            ),
           ]
         : <Widget>[
-            if (!controller.isWeek  && !controller.isQuarter)
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Text(
-                    DateFormat.y(localeString).format(DateTime(yearProvider.pageLimit.upLimit)),
-                    style: headline5,
-                    textScaler: scaler,
-                  ),
-                  Text(
-                    '-',
-                    style: headline5,
-                    textScaler: scaler,
-                  ),
-                  Text(
-                    DateFormat.y(localeString).format(DateTime(yearProvider.pageLimit.downLimit)),
-                    style: headline5,
-                    textScaler: scaler,
-                  ),
-                ],
-              ),
+
             if (!controller.monthPickerDialogSettings.headerSettings.hideHeaderArrows)
               HeaderArrows(
                 arrowcolors: arrowcolors,
@@ -89,6 +70,15 @@ class HeaderRow extends StatelessWidget {
                 previousIcon: controller.monthPickerDialogSettings.headerSettings.previousIcon,
                 nextIcon: controller.monthPickerDialogSettings.headerSettings.nextIcon,
               ),
+            ElevatedButton(
+              onPressed: () {
+                controller.onResetPressed();
+              },
+              child: Text(
+                controller.textToday ?? "Today",
+                style: headline5,
+              ),
+            ),
           ];
     return portrait
         ? Row(
@@ -96,6 +86,7 @@ class HeaderRow extends StatelessWidget {
             children: mainWidgets,
           )
         : Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: mainWidgets,
           );
   }

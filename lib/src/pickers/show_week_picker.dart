@@ -33,6 +33,7 @@ Future<Time?> showWeekPicker({
   DateTime? lastDate,
   Time? initTime,
   bool isWeek =true,
+  String? textToday,
   bool Function(DateTime)? selectableMonthPredicate,
   bool Function(int)? selectableYearPredicate,
   ButtonStyle? Function(DateTime)? monthStylePredicate,
@@ -48,6 +49,7 @@ Future<Time?> showWeekPicker({
     firstDate: firstDate,
     lastDate: lastDate,
     initTime: initTime,
+    textToday: textToday,
     monthPickerDialogSettings: monthPickerDialogSettings,
     selectableMonthPredicate: selectableMonthPredicate,
     selectableYearPredicate: selectableYearPredicate,
@@ -60,7 +62,7 @@ Future<Time?> showWeekPicker({
     onlyYear: onlyYear,
   );
   controller.initialize();
-  final DateTime? dialogDate = await showDialog<DateTime?>(
+  final Time? result = await showDialog<Time?>(
     context: context,
     barrierDismissible: monthPickerDialogSettings.dialogSettings.dismissible,
     builder: (BuildContext context) {
@@ -77,10 +79,5 @@ Future<Time?> showWeekPicker({
       );
     },
   );
-  if (monthPickerDialogSettings.dialogSettings.dismissible &&
-      monthPickerDialogSettings.dialogSettings.forceSelectedDate &&
-      dialogDate == null) {
-    return controller.selectWeek;
-  }
-  return controller.selectWeek;
+  return result;
 }

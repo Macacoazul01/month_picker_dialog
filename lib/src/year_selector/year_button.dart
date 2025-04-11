@@ -13,6 +13,7 @@ class YearButton extends StatelessWidget {
     required this.index,
     required this.onYearSelected,
     required this.localeString,
+    required this.selectDate
   });
 
   final ThemeData theme;
@@ -20,6 +21,7 @@ class YearButton extends StatelessWidget {
   final int page, index;
   final ValueChanged<int> onYearSelected;
   final String localeString;
+  final DateTime selectDate;
 
   bool _holdsSelectionPredicate(int year) {
     if (controller.selectableYearPredicate != null) {
@@ -56,7 +58,7 @@ class YearButton extends StatelessWidget {
   ///
   /// If not provided, the customization will be built from the app's theme.
   ButtonStyle _buildDefaultYearStyle(int year) {
-    final bool isTheSelectedYear = year == controller.selectedDate.year;
+    final bool isTheSelectedYear = year == selectDate.year;
     final Color backgroundColor = controller.monthPickerDialogSettings
             .dateButtonsSettings.selectedMonthBackgroundColor ??
         theme.colorScheme.secondary;

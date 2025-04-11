@@ -31,4 +31,20 @@ extension NullableDateTimeExtension on DateTime? {
       return this!.compareTo(end) < 0;
     }
   }
+
+}
+
+int getCurrentWeekNumber() {
+  final now = DateTime.now();
+  final firstDayOfYear = DateTime(now.year, 1, 1);
+  final daysPassed = now.difference(firstDayOfYear).inDays;
+
+  // ISO 8601: tuần bắt đầu từ Thứ Hai
+  final weekNumber = ((daysPassed + firstDayOfYear.weekday) / 7).ceil();
+  return weekNumber;
+}
+
+int getCurrentQuarter() {
+  final currentMonth = DateTime.now().month;
+  return ((currentMonth - 1) ~/ 3) + 1;
 }

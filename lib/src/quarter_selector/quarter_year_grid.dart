@@ -19,20 +19,25 @@ class QuarterYearGridBuilder extends StatelessWidget {
     final String localeString = getLocale(context,
         selectedLocale:
         controller.monthPickerDialogSettings.dialogSettings.locale);
-    return GridView.count(
-      padding: const EdgeInsets.all(8.0),
-      crossAxisCount: 4,
-      physics: const NeverScrollableScrollPhysics(),
-      children: List<Widget>.generate(
-        4,
-            (final int index) => QuarterButton(
-          theme: controller.theme,
-          controller: controller,
-          index: index,
-           onQuarterSelected: onQuarterSelected,
-          localeString: localeString,
-        ),
-      ).toList(growable: false),
-    );
+    return ValueListenableBuilder(valueListenable: controller.selectQuarter, builder: (context, value, child) {
+      return GridView.count(
+        padding: const EdgeInsets.all(8.0),
+        crossAxisCount: 4,
+        physics: const NeverScrollableScrollPhysics(),
+        children: List<Widget>.generate(
+          4,
+              (final int index) => QuarterButton(
+            theme: controller.theme,
+            controller: controller,
+            index: index,
+            selectQuarter: value.time,
+            onQuarterSelected: onQuarterSelected,
+            localeString: localeString,
+          ),
+        ).toList(growable: false),
+      );
+    },);
+
+
   }
 }

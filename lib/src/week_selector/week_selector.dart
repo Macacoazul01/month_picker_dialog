@@ -74,12 +74,20 @@ class WeekSelectorState extends State<WeekSelector> {
     );
   }
 
+  void reset() {
+    widget.controller.weekPageController?.animateToPage(
+      widget.controller.weekPageController!.initialPage.toInt(),
+      duration: const Duration(milliseconds: 400),
+      curve: Curves.easeInOut,
+    );
+  }
+
   ///Function to initialize the grid.
   void initialize() {
     widget.controller.weekPageController = PageController(
       initialPage: widget.controller.localFirstDate == null
-          ? widget.controller.selectWeek.year ?? 0
-          : widget.controller.selectedDate.year - widget.controller.localFirstDate!.year,
+          ? widget.controller.selectWeek.value.year ?? 0
+          : widget.controller.selectWeek.value.year! - widget.controller.localFirstDate!.year,
     );
     Future<void>.delayed(
       Duration.zero,
