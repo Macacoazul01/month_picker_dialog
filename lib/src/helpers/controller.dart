@@ -128,7 +128,7 @@ class MonthpickerController {
 
   int getWeekPageCount(DateTime? firstDate, DateTime? lastDate) {
     if (firstDate != null && lastDate != null) {
-      return lastDate.year - firstDate.year;
+      return lastDate.year - firstDate.year +1;
     } else if (firstDate != null && lastDate == null) {
       return (yearItemCount / 12).ceil();
     } else if (firstDate == null && lastDate != null) {
@@ -140,7 +140,7 @@ class MonthpickerController {
 
   int geQuarterPageCount(DateTime? firstDate, DateTime? lastDate) {
     if (firstDate != null && lastDate != null) {
-      return lastDate.year - firstDate.year;
+      return lastDate.year - firstDate.year +1;
     } else if (firstDate != null && lastDate == null) {
       return (yearItemCount / 12).ceil();
     } else if (firstDate == null && lastDate != null) {
@@ -179,15 +179,7 @@ class MonthpickerController {
   //selector functions
   ///function to cancel selecting a month
   void cancelFunction(BuildContext context) {
-    if (!rangeMode) {
-      Navigator.pop(context);
-    } else if (isWeek) {
-      Navigator.pop<Time?>(context);
-    } else if (isQuarter) {
-      Navigator.pop<Time?>(context);
-    } else {
-      Navigator.pop(context);
-    }
+    Navigator.pop(context);
   }
 
   ///function to confirm selecting a month
@@ -278,7 +270,7 @@ class MonthpickerController {
 
   void onResetPressed() {
     if (yearSelectorState.currentState != null) {
-      monthSelectorState.currentState?.reset();
+      yearSelectorState.currentState?.reset();
       selectedDate.value = DateTime.now();
     } else if (weekSelectorState.currentState != null) {
       weekSelectorState.currentState?.reset();

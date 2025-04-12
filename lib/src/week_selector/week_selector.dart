@@ -75,8 +75,12 @@ class WeekSelectorState extends State<WeekSelector> {
   }
 
   void reset() {
+    final int nowYear = widget.controller.now.year;
+    final int pageToGo = widget.controller.localFirstDate != null
+        ? nowYear - widget.controller.localFirstDate!.year
+        : widget.controller.weekPageController!.initialPage.toInt();
     widget.controller.weekPageController?.animateToPage(
-      widget.controller.weekPageController!.initialPage.toInt(),
+      pageToGo,
       duration: const Duration(milliseconds: 400),
       curve: Curves.easeInOut,
     );
@@ -94,11 +98,12 @@ class WeekSelectorState extends State<WeekSelector> {
       () {
         // ignore: use_build_context_synchronously
         Provider.of<YearUpDownPageProvider>(context, listen: false).changePage(
-          0,
+          widget.controller.localFirstDate != null
+              ?widget.controller.localLastDate!.year - widget.controller.now.year +1 : 0,
           widget.controller.localFirstDate == null
               ? widget.controller.weekPageController!.page!.toInt()
               : widget.controller.localFirstDate!.year + widget.controller.weekPageController!.page!.toInt(),
-          widget.controller.weekPageController!.page!.toInt() < widget.controller.yearPageCount - 1,
+          widget.controller.weekPageController!.page!.toInt() < widget.controller.weekPageCount-1,
           widget.controller.weekPageController!.page!.toInt() > 0,
         );
       },

@@ -18,10 +18,16 @@ class HeaderSelectedDate extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final MonthUpDownPageProvider monthUpDownPageProvider = Provider.of<MonthUpDownPageProvider>(context);
+
     final YearUpDownPageProvider yearProvider = Provider.of<YearUpDownPageProvider>(context);
     return Text(
       textAlign: TextAlign.center,
-       DateFormat.y(localeString).format(DateTime(yearProvider.pageLimit.upLimit)) ,
+      (controller.isQuarter || controller.isWeek)
+          ? DateFormat.y(localeString).format(DateTime(yearProvider.pageLimit.upLimit))
+          : controller.onlyYear
+              ? '${DateFormat.y(localeString).format(DateTime(yearProvider.pageLimit.upLimit))} - ${DateFormat.y(localeString).format(DateTime(yearProvider.pageLimit.downLimit))}'
+              : DateFormat.y(localeString).format(DateTime(monthUpDownPageProvider.pageLimit.upLimit)),
       textScaler: controller.monthPickerDialogSettings.dialogSettings.textScaleFactor != null
           ? TextScaler.linear(controller.monthPickerDialogSettings.dialogSettings.textScaleFactor!)
           : null,

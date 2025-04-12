@@ -76,6 +76,20 @@ class YearSelectorState extends State<YearSelector> {
       curve: Curves.easeInOut,
     );
   }
+  void reset() {
+    final int nowYear = widget.controller.now.year;
+    int pageToGo = 0;
+    if (widget.controller.localFirstDate != null) {
+      final int firstYear = widget.controller.localFirstDate!.year;
+      pageToGo = ((nowYear - firstYear) / 12).floor();
+    }
+
+    widget.controller.yearPageController?.animateToPage(
+      pageToGo,
+      duration: const Duration(milliseconds: 400),
+      curve: Curves.easeInOut,
+    );
+  }
 
   ///Function to initialize the grid.
   void initialize() {

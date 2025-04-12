@@ -25,7 +25,7 @@ void main() => runApp(
         theme: ThemeData(
           colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.indigo)
               .copyWith(secondary: Colors.pinkAccent),
-          //Changing the global dialog border
+          //Changing the global dialo g border
           dialogTheme: const DialogTheme(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(
@@ -53,7 +53,7 @@ class _MyAppState extends State<MyApp> {
   DateTime? selectedDate;
   int? selectedYear;
   List<DateTime> rangeDates = [];
-
+  Time time = Time(time: 1, year: DateTime.now().year);
   @override
   void initState() {
     super.initState();
@@ -64,9 +64,9 @@ class _MyAppState extends State<MyApp> {
   Future<void> monthPicker(BuildContext contexto) async {
     return showWeekPicker(
       context: contexto,
-      firstDate: DateTime(DateTime.now().year - 1, 5),
-      lastDate: DateTime(DateTime.now().year + 1, 9),
-      initialDate: selectedDate ?? widget.initialDate,
+      firstDate: DateTime.now().copyWith(year: 2000),
+      lastDate: DateTime.now().copyWith(year: 2100),
+      initTime: time,
       selectableYearPredicate: (int year) => year.isEven,
       yearStylePredicate: (int val) {
         if (val == 2022) {
@@ -88,10 +88,13 @@ class _MyAppState extends State<MyApp> {
           headerCurrentPageTextStyle: TextStyle(fontSize: 14),
           headerSelectedIntervalTextStyle: TextStyle(fontSize: 16),
         ),
-
       ),
     ).then(( date) {
-      print('${date?.time} ${date?.year}');
+      setState(() {
+        time= date!;
+        // selectedDate = DateTime.now().copyWith(year: date);
+      });
+      print('${date}');
     });
   }
 

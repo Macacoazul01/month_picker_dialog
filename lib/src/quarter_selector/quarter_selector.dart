@@ -66,8 +66,12 @@ class QuarterSelectorState extends State<QuarterSelector> {
     );
   }
   void reset() {
+    final int nowYear = widget.controller.now.year;
+    final int pageToGo = widget.controller.localFirstDate != null
+        ? nowYear - widget.controller.localFirstDate!.year
+        : widget.controller.quarterPageController!.initialPage.toInt();
     widget.controller.quarterPageController?.animateToPage(
-      widget.controller.quarterPageController!.initialPage.toInt(),
+      pageToGo,
       duration: const Duration(milliseconds: 400),
       curve: Curves.easeInOut,
     );
@@ -93,11 +97,12 @@ class QuarterSelectorState extends State<QuarterSelector> {
       () {
         // ignore: use_build_context_synchronously
         Provider.of<YearUpDownPageProvider>(context, listen: false).changePage(
-          0,
+          widget.controller.localFirstDate != null
+              ?widget.controller.localLastDate!.year - widget.controller.now.year +1 : 0,
           widget.controller.localFirstDate == null
               ? widget.controller.quarterPageController!.page!.toInt()
               : widget.controller.localFirstDate!.year + widget.controller.quarterPageController!.page!.toInt(),
-          widget.controller.quarterPageController!.page!.toInt() < widget.controller.yearPageCount - 1,
+          widget.controller.quarterPageController!.page!.toInt() < widget.controller.quarterPageCount - 1,
           widget.controller.quarterPageController!.page!.toInt() > 0,
         );
       },

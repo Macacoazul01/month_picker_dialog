@@ -76,8 +76,12 @@ class MonthSelectorState extends State<MonthSelector> {
     );
   }
   void reset() {
+    final int nowYear = widget.controller.now.year;
+    final int pageToGo = widget.controller.localFirstDate != null
+        ? nowYear - widget.controller.localFirstDate!.year
+        : widget.controller.monthPageController!.initialPage.toInt();
     widget.controller.monthPageController?.animateToPage(
-      widget.controller.monthPageController!.initialPage.toInt(),
+      pageToGo,
       duration: const Duration(milliseconds: 400),
       curve: Curves.easeInOut,
     );

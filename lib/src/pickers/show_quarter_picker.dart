@@ -79,6 +79,5 @@ Future<Time?> showQuarterPicker({
       );
     },
   );
-  print('object:${dialogDate.runtimeType}');
   return dialogDate;
 }
