@@ -1,3 +1,7 @@
+## 6.2.0 - 2025-05-19
+- Bumped intl to `0.20.0`.
+- Added `PickerActionBarSettings.actionBarPadding` to handle the Padding of the ActionBar.
+
 ## 6.0.3 - 2025-01-02
 - Downgraded intl to 0.19.0 until `flutter_localizations` starts to use 0.20+. Please use the dev version of this package if you need latest intl.[#112](https://github.com/Macacoazul01/month_picker_dialog/issues/112).
 

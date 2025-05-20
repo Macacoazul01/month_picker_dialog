@@ -7,6 +7,7 @@ class PickerActionBarSettings {
     this.confirmWidget,
     this.cancelWidget,
     this.customDivider,
+    this.actionBarPadding = EdgeInsets.zero,
   });
 
   /// The size of the current selected month/year circle.
@@ -28,6 +29,11 @@ class PickerActionBarSettings {
   ///
   /// default: `null`
   final Widget? customDivider;
+
+  /// Defines the Padding of the ActionBar.
+  ///
+  /// default: `EdgeInsets.zero`
+  final EdgeInsets actionBarPadding;
 }
 
 ///The default settings for the buttons style.

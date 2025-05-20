@@ -157,6 +157,7 @@ class _MyAppState extends State<MyApp> {
           dialogBackgroundColor: Colors.blueGrey[50],
         ),
         actionBarSettings: PickerActionBarSettings(
+          actionBarPadding: const EdgeInsets.only(right: 20),
           confirmWidget: Text(
             'This one!',
             style: TextStyle(

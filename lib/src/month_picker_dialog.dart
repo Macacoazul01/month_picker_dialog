@@ -49,7 +49,7 @@ class MonthPickerDialogState extends State<MonthPickerDialog> {
       decoration: BoxDecoration(
         color: widget.controller.monthPickerDialogSettings.dialogSettings
                 .dialogBackgroundColor ??
-            widget.controller.theme.dialogBackgroundColor,
+            widget.controller.theme.dialogTheme.backgroundColor,
         borderRadius: portrait
             ? BorderRadius.only(
                 bottomLeft: Radius.circular(widget
@@ -107,8 +107,11 @@ class MonthPickerDialogState extends State<MonthPickerDialog> {
     );
 
     return Theme(
-      data: widget.controller.theme
-          .copyWith(dialogBackgroundColor: Colors.transparent),
+      data: widget.controller.theme.copyWith(
+        dialogTheme: widget.controller.theme.dialogTheme.copyWith(
+          backgroundColor: Colors.transparent,
+        ),
+      ),
       child: Dialog(
         insetPadding: widget
             .controller.monthPickerDialogSettings.dialogSettings.insetPadding,
