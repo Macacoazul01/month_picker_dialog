@@ -25,7 +25,9 @@ class MonthSelectorState extends State<MonthSelector> {
     return PageView.builder(
       controller: widget.controller.monthPageController,
       scrollDirection: Axis.vertical,
-      physics: const AlwaysScrollableScrollPhysics(),
+      physics: widget.controller.monthPickerDialogSettings.dialogSettings.blockScrolling
+              ? const NeverScrollableScrollPhysics()
+              : const AlwaysScrollableScrollPhysics(),
       onPageChanged: _onPageChange,
       itemCount: widget.controller.monthPageCount,
       itemBuilder: (final BuildContext context, final int page) =>
