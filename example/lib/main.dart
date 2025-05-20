@@ -94,6 +94,7 @@ class _MyAppState extends State<MyApp> {
         return null;
       },
       monthPickerDialogSettings: MonthPickerDialogSettings(
+        // dialogSettings: const PickerDialogSettings(blockScrolling: false),
         headerSettings: const PickerHeaderSettings(
           headerCurrentPageTextStyle: TextStyle(fontSize: 14),
           headerSelectedIntervalTextStyle: TextStyle(fontSize: 16),
@@ -131,6 +132,7 @@ class _MyAppState extends State<MyApp> {
       lastDate: DateTime(DateTime.now().year + 8, 9),
       initialDate: DateTime(selectedYear ?? DateTime.now().year),
       selectableYearPredicate: (int year) => year.isEven,
+      // monthPickerDialogSettings:const MonthPickerDialogSettings(dialogSettings: PickerDialogSettings(blockScrolling: false))
     ).then((int? year) {
       if (year != null) {
         setState(() {
@@ -155,6 +157,7 @@ class _MyAppState extends State<MyApp> {
           locale: const Locale('en'),
           dialogRoundedCornersRadius: 20,
           dialogBackgroundColor: Colors.red[50],
+          // blockScrolling: false,
         ),
         actionBarSettings: PickerActionBarSettings(
           actionBarPadding: const EdgeInsets.only(right: 20),
