@@ -164,3 +164,5 @@ If you have any doubts on how to use this new settings class (that the sample ap
 [Lautaro Zanuttini](https://github.com/lautarozanuttini)
 
 [sinelser](https://github.com/sinelser)
+
+[sheldontuitt](https://github.com/sheldontuitt)
