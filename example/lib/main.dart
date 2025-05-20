@@ -154,7 +154,7 @@ class _MyAppState extends State<MyApp> {
         dialogSettings: PickerDialogSettings(
           locale: const Locale('en'),
           dialogRoundedCornersRadius: 20,
-          dialogBackgroundColor: Colors.blueGrey[50],
+          dialogBackgroundColor: Colors.red[50],
         ),
         actionBarSettings: PickerActionBarSettings(
           actionBarPadding: const EdgeInsets.only(right: 20),

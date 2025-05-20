@@ -19,8 +19,7 @@ class YearGrid extends StatelessWidget {
         selectedLocale:
             controller.monthPickerDialogSettings.dialogSettings.locale);
     return GridView.count(
-      physics:
-          const ClampingScrollPhysics(),
+      physics: const ClampingScrollPhysics(),
       padding: const EdgeInsets.all(8.0),
       crossAxisCount: 4,
       children: List<Widget>.generate(

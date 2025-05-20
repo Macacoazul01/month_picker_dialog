@@ -17,8 +17,7 @@ class MonthYearGridBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GridView.count(
-      physics:
-          const ClampingScrollPhysics(),
+      physics: const ClampingScrollPhysics(),
       padding: const EdgeInsets.all(8.0),
       crossAxisCount: 4,
       children: List<Widget>.generate(

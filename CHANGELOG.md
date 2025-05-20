@@ -1,3 +1,8 @@
+## 6.2.1 - 2025-05-19
+- Fixes [#116](https://github.com/Macacoazul01/month_picker_dialog/issues/116).Tks [sheldontuitt](https://github.com/sheldontuitt).
+- Fixes a bug introduced in 6.2.0.
+- Updated android sample.
+
 ## 6.2.0 - 2025-05-19
 - Bumped intl to `0.20.0`.
 - Added `PickerActionBarSettings.actionBarPadding` to handle the Padding of the ActionBar.
