@@ -14,6 +14,7 @@ class PickerHeaderSettings {
     this.headerCurrentPageTextStyle,
     this.titleSpacing = 5,
     this.headerPadding = const EdgeInsets.all(16.0),
+    this.arrowAlpha = 0.5,
   });
 
   /// Hides the row with the arrows + years/months page range from the header, forcing the user to scroll to change the page.
@@ -72,6 +73,11 @@ class PickerHeaderSettings {
   ///
   /// default: `EdgeInsets.all(16.0)`
   final EdgeInsets headerPadding;
+
+  /// The arrow alpha when up/down is disabled.
+  ///
+  /// default: `0.5`
+  final double arrowAlpha;
 }
 
 ///The default settings for the Header style.

@@ -12,9 +12,11 @@ class HeaderArrows extends StatelessWidget {
     required this.downState,
     this.previousIcon,
     this.nextIcon,
+    required this.arrowAlpha,
   });
   final Color? arrowcolors;
   final double? arrowSize;
+  final double arrowAlpha;
   final VoidCallback onUpButtonPressed, onDownButtonPressed;
   final bool upState, downState;
   final IconData? previousIcon;
@@ -27,7 +29,7 @@ class HeaderArrows extends StatelessWidget {
         IconButton(
           icon: Icon(
             previousIcon ?? Icons.keyboard_arrow_up,
-            color: upState ? arrowcolors : arrowcolors!.withValues(alpha: 0.5),
+            color: upState ? arrowcolors : arrowcolors!.withValues(alpha: arrowAlpha),
             size: arrowSize,
           ),
           onPressed: upState ? onUpButtonPressed : null,
@@ -36,7 +38,7 @@ class HeaderArrows extends StatelessWidget {
           icon: Icon(
             nextIcon ?? Icons.keyboard_arrow_down,
             color:
-                downState ? arrowcolors : arrowcolors!.withValues(alpha: 0.5),
+                downState ? arrowcolors : arrowcolors!.withValues(alpha: arrowAlpha),
             size: arrowSize,
           ),
           onPressed: downState ? onDownButtonPressed : null,

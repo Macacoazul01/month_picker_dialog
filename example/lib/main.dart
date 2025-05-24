@@ -26,7 +26,7 @@ void main() => runApp(
           colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.indigo)
               .copyWith(secondary: Colors.pinkAccent),
           //Changing the global dialog border
-          dialogTheme: const DialogTheme(
+          dialogTheme: const DialogThemeData(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(
                 Radius.circular(20),

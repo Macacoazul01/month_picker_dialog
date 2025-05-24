@@ -68,6 +68,8 @@ class HeaderRow extends StatelessWidget {
                     .monthPickerDialogSettings.headerSettings.previousIcon,
                 nextIcon: controller
                     .monthPickerDialogSettings.headerSettings.nextIcon,
+                arrowAlpha: controller
+                    .monthPickerDialogSettings.headerSettings.arrowAlpha,
               ),
           ]
         : <Widget>[
@@ -107,6 +109,8 @@ class HeaderRow extends StatelessWidget {
                     .monthPickerDialogSettings.headerSettings.previousIcon,
                 nextIcon: controller
                     .monthPickerDialogSettings.headerSettings.nextIcon,
+                arrowAlpha: controller
+                    .monthPickerDialogSettings.headerSettings.arrowAlpha,
               ),
           ];
     return portrait
