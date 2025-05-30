@@ -1,3 +1,6 @@
+## 6.2.3 - 2025-05-30
+- Added headerAlignment parameter to `PickerHeaderSettings`.
+
 ## 6.2.2 - 2025-05-23
 - Added arrowAlpha parameter to `PickerHeaderSettings`.
 - Fixed sample. 

@@ -15,6 +15,7 @@ class PickerHeaderSettings {
     this.titleSpacing = 5,
     this.headerPadding = const EdgeInsets.all(16.0),
     this.arrowAlpha = 0.5,
+    this.headerAlignment = CrossAxisAlignment.start,
   });
 
   /// Hides the row with the arrows + years/months page range from the header, forcing the user to scroll to change the page.
@@ -78,6 +79,11 @@ class PickerHeaderSettings {
   ///
   /// default: `0.5`
   final double arrowAlpha;
+
+  /// The alignment of the header row.
+  ///
+  /// default: `CrossAxisAlignment.start`
+  final CrossAxisAlignment headerAlignment;
 }
 
 ///The default settings for the Header style.
