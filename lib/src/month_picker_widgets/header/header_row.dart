@@ -45,6 +45,7 @@ class HeaderRow extends StatelessWidget {
         Provider.of<MonthUpDownPageProvider>(context);
     final List<Widget> mainWidgets = isMonthSelector
         ? <Widget>[
+            //TODO transform this into a button
             GestureDetector(
               onTap: onSelectYear,
               child: Text(

@@ -1,3 +1,5 @@
+//TODO let the user pass a custom controller to the dialog
+//TODO remake the controller docs
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -68,7 +70,9 @@ Future<DateTime?> showMonthPicker({
             value: MonthUpDownPageProvider(),
           ),
         ],
-        child: MonthPickerDialog(controller: controller),
+        child: MonthPickerDialog(
+          controller: controller,
+        ),
       );
     },
   );

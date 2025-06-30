@@ -73,7 +73,9 @@ Future<List<DateTime>?> showMonthRangePicker({
             value: MonthUpDownPageProvider(),
           ),
         ],
-        child: MonthPickerDialog(controller: controller),
+        child: MonthPickerDialog(
+          controller: controller,
+        ),
       );
     },
   );

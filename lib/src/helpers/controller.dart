@@ -22,6 +22,8 @@ class MonthpickerController {
     this.rangeList = false,
     required this.monthPickerDialogSettings,
     this.onlyYear = false,
+    this.onMonthSelected,
+    this.onYearSelected,
   });
 
   //User defined variables
@@ -34,6 +36,8 @@ class MonthpickerController {
   final bool useMaterial3, rangeMode, rangeList, onlyYear;
   final Widget? headerTitle;
   final MonthPickerDialogSettings monthPickerDialogSettings;
+  final Function(DateTime)? onMonthSelected;
+  final Function(int)? onYearSelected;
 
   //local variables
   final GlobalKey<YearSelectorState> yearSelectorState = GlobalKey();

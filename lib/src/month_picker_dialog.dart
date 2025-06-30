@@ -4,8 +4,12 @@ import '/month_picker_dialog.dart';
 ///The main dialog widget class.
 ///It needs a `MonthpickerController` controller to be created.
 class MonthPickerDialog extends StatefulWidget {
-  const MonthPickerDialog({super.key, required this.controller});
+  const MonthPickerDialog({
+    super.key,
+    required this.controller,
+  });
   final MonthpickerController controller;
+
   @override
   MonthPickerDialogState createState() => MonthPickerDialogState();
 }
@@ -147,6 +151,7 @@ class MonthPickerDialogState extends State<MonthPickerDialog> {
   }
 
   ///Function to change the grid to the year selector.
+  //TODO migrate this to _onYearSelected
   void _onSelectYear() => setState(
         () => _selector = YearSelector(
           key: widget.controller.yearSelectorState,
@@ -166,10 +171,29 @@ class MonthPickerDialogState extends State<MonthPickerDialog> {
             onYearSelected: _onYearSelected,
             controller: widget.controller,
           );
-          return;
+        } else {
+          widget.controller.firstPossibleMonth(year);
+          _selector = MonthSelector(
+            key: widget.controller.monthSelectorState,
+            onMonthSelected: _onMonthSelected,
+            controller: widget.controller,
+          );
         }
+      },
+    );
+    if (widget.controller.onYearSelected != null) {
+      widget.controller.onYearSelected!(year);
+    }
+  }
 
-        widget.controller.firstPossibleMonth(year);
+  ///Function to be executed when a month is selected.
+  void _onMonthSelected(final DateTime date) {
+    setState(
+      () {
+        if (widget.controller.rangeMode) {
+          widget.controller.onRangeDateSelect(date);
+        }
+        widget.controller.selectedDate = date;
         _selector = MonthSelector(
           key: widget.controller.monthSelectorState,
           onMonthSelected: _onMonthSelected,
@@ -177,20 +201,8 @@ class MonthPickerDialogState extends State<MonthPickerDialog> {
         );
       },
     );
+    if (widget.controller.onYearSelected != null) {
+      widget.controller.onMonthSelected!(date);
+    }
   }
-
-  ///Function to be executed when a month is selected.
-  void _onMonthSelected(final DateTime date) => setState(
-        () {
-          if (widget.controller.rangeMode) {
-            widget.controller.onRangeDateSelect(date);
-          }
-          widget.controller.selectedDate = date;
-          _selector = MonthSelector(
-            key: widget.controller.monthSelectorState,
-            onMonthSelected: _onMonthSelected,
-            controller: widget.controller,
-          );
-        },
-      );
 }
