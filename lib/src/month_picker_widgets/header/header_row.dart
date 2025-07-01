@@ -45,9 +45,14 @@ class HeaderRow extends StatelessWidget {
         Provider.of<MonthUpDownPageProvider>(context);
     final List<Widget> mainWidgets = isMonthSelector
         ? <Widget>[
-            //TODO transform this into a button
-            GestureDetector(
-              onTap: onSelectYear,
+            TextButton(
+              onPressed: onSelectYear,
+              style: const ButtonStyle(
+                visualDensity: VisualDensity.compact,
+                padding: WidgetStatePropertyAll(EdgeInsets.symmetric(horizontal: 12,vertical: 4)),
+                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                minimumSize: WidgetStatePropertyAll(Size(0, 0)),
+              ),
               child: Text(
                 DateFormat.y(localeString)
                     .format(DateTime(monthProvider.pageLimit.upLimit)),
@@ -84,7 +89,7 @@ class HeaderRow extends StatelessWidget {
                   textScaler: scaler,
                 ),
                 Text(
-                  '-',
+                  ' - ',
                   style: headline5,
                   textScaler: scaler,
                 ),
