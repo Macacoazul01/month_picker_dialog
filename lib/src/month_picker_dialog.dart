@@ -105,7 +105,7 @@ class MonthPickerDialogState extends State<MonthPickerDialog> {
       theme: widget.controller.theme,
       localeString: locale,
       isMonthSelector: _selector is MonthSelector,
-      onSelectYear: _onSelectYear,
+      onSelectYear: () => _onYearSelected(null),
       portrait: portrait,
       controller: widget.controller,
     );
@@ -150,39 +150,39 @@ class MonthPickerDialogState extends State<MonthPickerDialog> {
     );
   }
 
-  ///Function to change the grid to the year selector.
-  //TODO migrate this to _onYearSelected
-  void _onSelectYear() => setState(
+  ///Function to be executed when a year is selected.
+  void _onYearSelected(final int? year) {
+    if (year == null) {
+      setState(
         () => _selector = YearSelector(
           key: widget.controller.yearSelectorState,
           onYearSelected: _onYearSelected,
           controller: widget.controller,
         ),
       );
-
-  ///Function to be executed when a year is selected.
-  void _onYearSelected(final int year) {
-    setState(
-      () {
-        if (widget.controller.onlyYear) {
-          widget.controller.selectedDate = DateTime(year);
-          _selector = YearSelector(
-            key: widget.controller.yearSelectorState,
-            onYearSelected: _onYearSelected,
-            controller: widget.controller,
-          );
-        } else {
-          widget.controller.firstPossibleMonth(year);
-          _selector = MonthSelector(
-            key: widget.controller.monthSelectorState,
-            onMonthSelected: _onMonthSelected,
-            controller: widget.controller,
-          );
-        }
-      },
-    );
-    if (widget.controller.onYearSelected != null) {
-      widget.controller.onYearSelected!(year);
+    } else {
+      setState(
+        () {
+          if (widget.controller.onlyYear) {
+            widget.controller.selectedDate = DateTime(year);
+            _selector = YearSelector(
+              key: widget.controller.yearSelectorState,
+              onYearSelected: _onYearSelected,
+              controller: widget.controller,
+            );
+          } else {
+            widget.controller.firstPossibleMonth(year);
+            _selector = MonthSelector(
+              key: widget.controller.monthSelectorState,
+              onMonthSelected: _onMonthSelected,
+              controller: widget.controller,
+            );
+          }
+        },
+      );
+      if (widget.controller.onYearSelected != null) {
+        widget.controller.onYearSelected!(year);
+      }
     }
   }
 
