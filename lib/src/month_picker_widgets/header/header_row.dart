@@ -49,7 +49,8 @@ class HeaderRow extends StatelessWidget {
               onPressed: onSelectYear,
               style: const ButtonStyle(
                 visualDensity: VisualDensity.compact,
-                padding: WidgetStatePropertyAll(EdgeInsets.symmetric(horizontal: 12,vertical: 4)),
+                padding: WidgetStatePropertyAll(
+                    EdgeInsets.symmetric(horizontal: 12, vertical: 4)),
                 tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 minimumSize: WidgetStatePropertyAll(Size(0, 0)),
               ),

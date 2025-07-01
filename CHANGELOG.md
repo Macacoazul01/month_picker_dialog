@@ -1,3 +1,6 @@
+## 6.2.4 - 2025-06-30
+- Small changes to HeaderRow to make more clear to the user that the year is a button.
+
 ## 6.2.3 - 2025-05-30
 - Added headerAlignment parameter to `PickerHeaderSettings`.
 
