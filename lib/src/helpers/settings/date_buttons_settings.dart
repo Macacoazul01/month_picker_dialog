@@ -14,8 +14,7 @@ class PickerDateButtonsSettings {
     Color? currentYearTextColor,
     this.selectedDateRadius = 0,
     this.buttonBorder = const CircleBorder(),
-  })  : unselectedYearsTextColor =
-            unselectedYearsTextColor ?? unselectedMonthsTextColor,
+  })  : unselectedYearsTextColor = unselectedYearsTextColor ?? unselectedMonthsTextColor,
         selectedYearTextColor = selectedYearTextColor ?? selectedMonthTextColor,
         currentYearTextColor = currentYearTextColor ?? currentMonthTextColor,
         yearTextStyle = yearTextStyle ?? monthTextStyle;
@@ -74,6 +73,34 @@ class PickerDateButtonsSettings {
   ///
   /// default: `const CircleBorder()`
   final OutlinedBorder buttonBorder;
+
+  PickerDateButtonsSettings copyWith({
+    TextStyle? monthTextStyle,
+    TextStyle? yearTextStyle,
+    Color? selectedMonthBackgroundColor,
+    Color? selectedMonthTextColor,
+    Color? selectedYearTextColor,
+    Color? unselectedMonthsTextColor,
+    Color? unselectedYearsTextColor,
+    Color? currentMonthTextColor,
+    Color? currentYearTextColor,
+    double? selectedDateRadius,
+    OutlinedBorder? buttonBorder,
+  }) {
+    return PickerDateButtonsSettings(
+      monthTextStyle: monthTextStyle ?? this.monthTextStyle,
+      yearTextStyle: yearTextStyle ?? this.yearTextStyle,
+      selectedMonthBackgroundColor: selectedMonthBackgroundColor ?? this.selectedMonthBackgroundColor,
+      selectedMonthTextColor: selectedMonthTextColor ?? this.selectedMonthTextColor,
+      selectedYearTextColor: selectedYearTextColor ?? this.selectedYearTextColor,
+      unselectedMonthsTextColor: unselectedMonthsTextColor ?? this.unselectedMonthsTextColor,
+      unselectedYearsTextColor: unselectedYearsTextColor ?? this.unselectedYearsTextColor,
+      currentMonthTextColor: currentMonthTextColor ?? this.currentMonthTextColor,
+      currentYearTextColor: currentYearTextColor ?? this.currentYearTextColor,
+      selectedDateRadius: selectedDateRadius ?? this.selectedDateRadius,
+      buttonBorder: buttonBorder ?? this.buttonBorder,
+    );
+  }
 }
 
 ///The default settings for the buttons style.

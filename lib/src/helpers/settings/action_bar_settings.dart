@@ -34,6 +34,22 @@ class PickerActionBarSettings {
   ///
   /// default: `EdgeInsets.zero`
   final EdgeInsets actionBarPadding;
+
+  PickerActionBarSettings copyWith({
+    double? buttonSpacing,
+    Widget? confirmWidget,
+    Widget? cancelWidget,
+    Widget? customDivider,
+    EdgeInsets? actionBarPadding,
+  }) {
+    return PickerActionBarSettings(
+      buttonSpacing: buttonSpacing ?? this.buttonSpacing,
+      confirmWidget: confirmWidget ?? this.confirmWidget,
+      cancelWidget: cancelWidget ?? this.cancelWidget,
+      customDivider: customDivider ?? this.customDivider,
+      actionBarPadding: actionBarPadding ?? this.actionBarPadding,
+    );
+  }
 }
 
 ///The default settings for the buttons style.

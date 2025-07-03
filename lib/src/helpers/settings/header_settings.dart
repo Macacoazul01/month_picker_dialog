@@ -84,6 +84,38 @@ class PickerHeaderSettings {
   ///
   /// default: `CrossAxisAlignment.start`
   final CrossAxisAlignment headerAlignment;
+
+  PickerHeaderSettings copyWith({
+    bool? hideHeaderRow,
+    bool? hideHeaderArrows,
+    IconData? previousIcon,
+    IconData? nextIcon,
+    double? headerIconsSize,
+    Color? headerIconsColor,
+    Color? headerBackgroundColor,
+    TextStyle? headerSelectedIntervalTextStyle,
+    TextStyle? headerCurrentPageTextStyle,
+    double? titleSpacing,
+    EdgeInsets? headerPadding,
+    double? arrowAlpha,
+    CrossAxisAlignment? headerAlignment,
+  }) {
+    return PickerHeaderSettings(
+      hideHeaderRow: hideHeaderRow ?? this.hideHeaderRow,
+      hideHeaderArrows: hideHeaderArrows ?? this.hideHeaderArrows,
+      previousIcon: previousIcon ?? this.previousIcon,
+      nextIcon: nextIcon ?? this.nextIcon,
+      headerIconsSize: headerIconsSize ?? this.headerIconsSize,
+      headerIconsColor: headerIconsColor ?? this.headerIconsColor,
+      headerBackgroundColor: headerBackgroundColor ?? this.headerBackgroundColor,
+      headerSelectedIntervalTextStyle: headerSelectedIntervalTextStyle ?? this.headerSelectedIntervalTextStyle,
+      headerCurrentPageTextStyle: headerCurrentPageTextStyle ?? this.headerCurrentPageTextStyle,
+      titleSpacing: titleSpacing ?? this.titleSpacing,
+      headerPadding: headerPadding ?? this.headerPadding,
+      arrowAlpha: arrowAlpha ?? this.arrowAlpha,
+      headerAlignment: headerAlignment ?? this.headerAlignment,
+    );
+  }
 }
 
 ///The default settings for the Header style.

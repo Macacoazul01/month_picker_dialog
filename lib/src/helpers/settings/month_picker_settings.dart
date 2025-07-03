@@ -3,7 +3,7 @@ import 'package:month_picker_dialog/month_picker_dialog.dart';
 ///Class to hold all the customizations of the date picker.
 class MonthPickerDialogSettings {
   const MonthPickerDialogSettings({
-    this.dialogSettings = defaultPickerdialogSettings,
+    this.dialogSettings = defaultPickerDialogSettings,
     this.headerSettings = defaultPickerHeaderSettings,
     this.dateButtonsSettings = defaultPickerDateButtonsSettings,
     this.actionBarSettings = defaultPickerActionBarSettings,
@@ -20,6 +20,20 @@ class MonthPickerDialogSettings {
 
   ///The customizations of the date buttons part of the package.
   final PickerActionBarSettings actionBarSettings;
+
+  MonthPickerDialogSettings copyWith({
+    PickerDialogSettings? dialogSettings,
+    PickerHeaderSettings? headerSettings,
+    PickerDateButtonsSettings? dateButtonsSettings,
+    PickerActionBarSettings? actionBarSettings,
+  }) {
+    return MonthPickerDialogSettings(
+      dialogSettings: dialogSettings ?? this.dialogSettings,
+      headerSettings: headerSettings ?? this.headerSettings,
+      dateButtonsSettings: dateButtonsSettings ?? this.dateButtonsSettings,
+      actionBarSettings: actionBarSettings ?? this.actionBarSettings,
+    );
+  }
 }
 
 ///The default settings for the month picker.

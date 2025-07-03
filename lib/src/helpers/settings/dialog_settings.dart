@@ -95,7 +95,43 @@ class PickerDialogSettings {
   ///
   /// default: `null`
   final EdgeInsets? insetPadding;
+
+  PickerDialogSettings copyWith({
+    int? scrollAnimationMilliseconds,
+    double? textScaleFactor,
+    double? customHeight,
+    double? customWidth,
+    double? dialogRoundedCornersRadius,
+    bool? yearFirst,
+    bool? dismissible,
+    bool? forcePortrait,
+    bool? blockScrolling,
+    bool? forceSelectedDate,
+    bool? capitalizeFirstLetter,
+    BorderSide? dialogBorderSide,
+    Color? dialogBackgroundColor,
+    Locale? locale,
+    EdgeInsets? insetPadding,
+  }) {
+    return PickerDialogSettings(
+      scrollAnimationMilliseconds: scrollAnimationMilliseconds ?? this.scrollAnimationMilliseconds,
+      textScaleFactor: textScaleFactor ?? this.textScaleFactor,
+      customHeight: customHeight ?? this.customHeight,
+      customWidth: customWidth ?? this.customWidth,
+      dialogRoundedCornersRadius: dialogRoundedCornersRadius ?? this.dialogRoundedCornersRadius,
+      yearFirst: yearFirst ?? this.yearFirst,
+      dismissible: dismissible ?? this.dismissible,
+      forcePortrait: forcePortrait ?? this.forcePortrait,
+      blockScrolling: blockScrolling ?? this.blockScrolling,
+      forceSelectedDate: forceSelectedDate ?? this.forceSelectedDate,
+      capitalizeFirstLetter: capitalizeFirstLetter ?? this.capitalizeFirstLetter,
+      dialogBorderSide: dialogBorderSide ?? this.dialogBorderSide,
+      dialogBackgroundColor: dialogBackgroundColor ?? this.dialogBackgroundColor,
+      locale: locale ?? this.locale,
+      insetPadding: insetPadding ?? this.insetPadding,
+    );
+  }
 }
 
 ///The default settings for the Dialog style.
-const defaultPickerdialogSettings = PickerDialogSettings();
+const defaultPickerDialogSettings = PickerDialogSettings();
