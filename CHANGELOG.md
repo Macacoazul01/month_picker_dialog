@@ -1,3 +1,6 @@
+## 6.2.5 - 2025-07-04
+- Added copyWith Method to picker settings. Tks [nomoruyi](https://github.com/nomoruyi).
+
 ## 6.2.4 - 2025-06-30
 - Small changes to HeaderRow to make more clear to the user that the year is a button.
 

@@ -166,3 +166,5 @@ If you have any doubts on how to use this new settings class (that the sample ap
 [sinelser](https://github.com/sinelser)
 
 [sheldontuitt](https://github.com/sheldontuitt)
+
+[nomoruyi](https://github.com/nomoruyi)
