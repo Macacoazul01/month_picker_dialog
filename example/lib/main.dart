@@ -205,6 +205,12 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
       rangeList: true,
+      onMonthSelected: (DateTime date) {
+        print('Selected month: ${date.toIso8601String()}');
+      },
+      onYearSelected: (int date) {
+        print('Selected year: $date');
+      },
     ).then((List<DateTime>? dates) {
       if (dates != null && dates.isNotEmpty) {
         setState(() {

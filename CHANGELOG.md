@@ -1,3 +1,6 @@
+## 6.3.0 - 2025-07-04
+- Added `onYearSelected` and `onMonthSelected` functions to provide a callback after the user selects a value.
+
 ## 6.2.5 - 2025-07-04
 - Added copyWith Method to picker settings. Tks [nomoruyi](https://github.com/nomoruyi).
 

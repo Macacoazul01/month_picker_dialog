@@ -1,5 +1,3 @@
-//TODO let the user pass a custom controller to the dialog
-//TODO remake the controller docs
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -27,6 +25,10 @@ import '/month_picker_dialog.dart';
 ///
 /// `onlyYear:` Displays only year picker dialog. Prefer to use `showYearPicker` instead of `showMonthPicker` with this parameter set to `true` to avoid unnecessary parameters.
 ///
+/// `onYearSelected:` the function that triggers after the user selected an year (default is `null`).
+///
+/// `onMonthSelected:` the function that triggers after the user selected a month (default is `null`).
+///
 Future<DateTime?> showMonthPicker({
   required BuildContext context,
   DateTime? initialDate,
@@ -40,22 +42,25 @@ Future<DateTime?> showMonthPicker({
   MonthPickerDialogSettings monthPickerDialogSettings =
       defaultMonthPickerDialogSettings,
   bool onlyYear = false,
+  Function(DateTime)? onMonthSelected,
+  Function(int)? onYearSelected,
 }) async {
   final ThemeData theme = Theme.of(context);
   final MonthpickerController controller = MonthpickerController(
-    initialDate: initialDate,
-    firstDate: firstDate,
-    lastDate: lastDate,
-    monthPickerDialogSettings: monthPickerDialogSettings,
-    selectableMonthPredicate: selectableMonthPredicate,
-    selectableYearPredicate: selectableYearPredicate,
-    monthStylePredicate: monthStylePredicate,
-    yearStylePredicate: yearStylePredicate,
-    theme: theme,
-    useMaterial3: theme.useMaterial3,
-    headerTitle: headerTitle,
-    onlyYear: onlyYear,
-  );
+      initialDate: initialDate,
+      firstDate: firstDate,
+      lastDate: lastDate,
+      monthPickerDialogSettings: monthPickerDialogSettings,
+      selectableMonthPredicate: selectableMonthPredicate,
+      selectableYearPredicate: selectableYearPredicate,
+      monthStylePredicate: monthStylePredicate,
+      yearStylePredicate: yearStylePredicate,
+      theme: theme,
+      useMaterial3: theme.useMaterial3,
+      headerTitle: headerTitle,
+      onlyYear: onlyYear,
+      onMonthSelected: onMonthSelected,
+      onYearSelected: onYearSelected);
   controller.initialize();
   final DateTime? dialogDate = await showDialog<DateTime?>(
     context: context,

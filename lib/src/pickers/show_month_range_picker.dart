@@ -27,6 +27,10 @@ import '/month_picker_dialog.dart';
 ///
 /// `rangeList:` defines if the controller will return the full list of months between the two selected or only them (default is `false`).
 ///
+/// `onYearSelected:` the function that triggers after the user selected an year (default is `null`).
+///
+/// `onMonthSelected:` the function that triggers after the user selected a month (default is `null`).
+///
 Future<List<DateTime>?> showMonthRangePicker({
   required BuildContext context,
   DateTime? initialRangeDate,
@@ -39,26 +43,29 @@ Future<List<DateTime>?> showMonthRangePicker({
   ButtonStyle? Function(int)? yearStylePredicate,
   Widget? headerTitle,
   bool rangeList = false,
+  Function(DateTime)? onMonthSelected,
+  Function(int)? onYearSelected,
   MonthPickerDialogSettings monthPickerDialogSettings =
       defaultMonthPickerDialogSettings,
 }) async {
   final ThemeData theme = Theme.of(context);
   final MonthpickerController controller = MonthpickerController(
-    initialRangeDate: initialRangeDate.firstDayOfMonth(),
-    endRangeDate: endRangeDate.firstDayOfMonth(),
-    firstDate: firstDate,
-    lastDate: lastDate,
-    selectableMonthPredicate: selectableMonthPredicate,
-    selectableYearPredicate: selectableYearPredicate,
-    monthStylePredicate: monthStylePredicate,
-    yearStylePredicate: yearStylePredicate,
-    theme: theme,
-    useMaterial3: theme.useMaterial3,
-    headerTitle: headerTitle,
-    rangeMode: true,
-    rangeList: rangeList,
-    monthPickerDialogSettings: monthPickerDialogSettings,
-  );
+      initialRangeDate: initialRangeDate.firstDayOfMonth(),
+      endRangeDate: endRangeDate.firstDayOfMonth(),
+      firstDate: firstDate,
+      lastDate: lastDate,
+      selectableMonthPredicate: selectableMonthPredicate,
+      selectableYearPredicate: selectableYearPredicate,
+      monthStylePredicate: monthStylePredicate,
+      yearStylePredicate: yearStylePredicate,
+      theme: theme,
+      useMaterial3: theme.useMaterial3,
+      headerTitle: headerTitle,
+      rangeMode: true,
+      rangeList: rangeList,
+      monthPickerDialogSettings: monthPickerDialogSettings,
+      onMonthSelected: onMonthSelected,
+      onYearSelected: onYearSelected);
   controller.initialize();
   final List<DateTime>? dialogDate = await showDialog<List<DateTime>>(
     context: context,

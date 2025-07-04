@@ -201,7 +201,7 @@ class MonthPickerDialogState extends State<MonthPickerDialog> {
         );
       },
     );
-    if (widget.controller.onYearSelected != null) {
+    if (widget.controller.onMonthSelected != null) {
       widget.controller.onMonthSelected!(date);
     }
   }

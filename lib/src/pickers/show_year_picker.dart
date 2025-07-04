@@ -18,6 +18,8 @@ import '/month_picker_dialog.dart';
 ///
 /// `monthPickerDialogSettings:` holds all the style of the picker dialog (default is `defaultMonthPickerDialogSettings`).
 ///
+/// `onYearSelected:` the function that triggers after the user selected an year (default is `null`).
+///
 Future<int?> showYearPicker({
   required BuildContext context,
   DateTime? initialDate,
@@ -28,18 +30,19 @@ Future<int?> showYearPicker({
   Widget? headerTitle,
   MonthPickerDialogSettings monthPickerDialogSettings =
       defaultMonthPickerDialogSettings,
+  Function(int)? onYearSelected,
 }) async {
   final DateTime? monthPickerDate = await showMonthPicker(
-    context: context,
-    initialDate: initialDate,
-    firstDate: firstDate,
-    lastDate: lastDate,
-    selectableYearPredicate: selectableYearPredicate,
-    yearStylePredicate: yearStylePredicate,
-    headerTitle: headerTitle,
-    monthPickerDialogSettings: monthPickerDialogSettings,
-    onlyYear: true,
-  );
+      context: context,
+      initialDate: initialDate,
+      firstDate: firstDate,
+      lastDate: lastDate,
+      selectableYearPredicate: selectableYearPredicate,
+      yearStylePredicate: yearStylePredicate,
+      headerTitle: headerTitle,
+      monthPickerDialogSettings: monthPickerDialogSettings,
+      onlyYear: true,
+      onYearSelected: onYearSelected);
 
   return monthPickerDate?.year;
 }
