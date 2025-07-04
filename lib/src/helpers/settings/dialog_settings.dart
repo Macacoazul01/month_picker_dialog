@@ -114,19 +114,23 @@ class PickerDialogSettings {
     EdgeInsets? insetPadding,
   }) {
     return PickerDialogSettings(
-      scrollAnimationMilliseconds: scrollAnimationMilliseconds ?? this.scrollAnimationMilliseconds,
+      scrollAnimationMilliseconds:
+          scrollAnimationMilliseconds ?? this.scrollAnimationMilliseconds,
       textScaleFactor: textScaleFactor ?? this.textScaleFactor,
       customHeight: customHeight ?? this.customHeight,
       customWidth: customWidth ?? this.customWidth,
-      dialogRoundedCornersRadius: dialogRoundedCornersRadius ?? this.dialogRoundedCornersRadius,
+      dialogRoundedCornersRadius:
+          dialogRoundedCornersRadius ?? this.dialogRoundedCornersRadius,
       yearFirst: yearFirst ?? this.yearFirst,
       dismissible: dismissible ?? this.dismissible,
       forcePortrait: forcePortrait ?? this.forcePortrait,
       blockScrolling: blockScrolling ?? this.blockScrolling,
       forceSelectedDate: forceSelectedDate ?? this.forceSelectedDate,
-      capitalizeFirstLetter: capitalizeFirstLetter ?? this.capitalizeFirstLetter,
+      capitalizeFirstLetter:
+          capitalizeFirstLetter ?? this.capitalizeFirstLetter,
       dialogBorderSide: dialogBorderSide ?? this.dialogBorderSide,
-      dialogBackgroundColor: dialogBackgroundColor ?? this.dialogBackgroundColor,
+      dialogBackgroundColor:
+          dialogBackgroundColor ?? this.dialogBackgroundColor,
       locale: locale ?? this.locale,
       insetPadding: insetPadding ?? this.insetPadding,
     );

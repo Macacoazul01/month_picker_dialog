@@ -107,9 +107,12 @@ class PickerHeaderSettings {
       nextIcon: nextIcon ?? this.nextIcon,
       headerIconsSize: headerIconsSize ?? this.headerIconsSize,
       headerIconsColor: headerIconsColor ?? this.headerIconsColor,
-      headerBackgroundColor: headerBackgroundColor ?? this.headerBackgroundColor,
-      headerSelectedIntervalTextStyle: headerSelectedIntervalTextStyle ?? this.headerSelectedIntervalTextStyle,
-      headerCurrentPageTextStyle: headerCurrentPageTextStyle ?? this.headerCurrentPageTextStyle,
+      headerBackgroundColor:
+          headerBackgroundColor ?? this.headerBackgroundColor,
+      headerSelectedIntervalTextStyle: headerSelectedIntervalTextStyle ??
+          this.headerSelectedIntervalTextStyle,
+      headerCurrentPageTextStyle:
+          headerCurrentPageTextStyle ?? this.headerCurrentPageTextStyle,
       titleSpacing: titleSpacing ?? this.titleSpacing,
       headerPadding: headerPadding ?? this.headerPadding,
       arrowAlpha: arrowAlpha ?? this.arrowAlpha,
