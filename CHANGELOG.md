@@ -1,3 +1,8 @@
+## 6.4.1 - 2025-07-23
+- Updated provider version.
+- Updated intl version.
+- Updated sample.
+
 ## 6.4.0 - 2025-07-23
 - Added `returnToStartofRange`: defines if the controller will return to the first selected month of the range, after the second is selected. Fixes [#119](https://github.com/Macacoazul01/month_picker_dialog/issues/119)
 
