@@ -24,6 +24,7 @@ class MonthpickerController {
     this.onlyYear = false,
     this.onMonthSelected,
     this.onYearSelected,
+    this.returnToStartofRange = false,
   });
 
   //User defined variables
@@ -33,7 +34,7 @@ class MonthpickerController {
   final bool Function(int)? selectableYearPredicate;
   final ButtonStyle? Function(DateTime)? monthStylePredicate;
   final ButtonStyle? Function(int)? yearStylePredicate;
-  final bool useMaterial3, rangeMode, rangeList, onlyYear;
+  final bool useMaterial3, rangeMode, rangeList, onlyYear, returnToStartofRange;
   final Widget? headerTitle;
   final MonthPickerDialogSettings monthPickerDialogSettings;
   final Function(DateTime)? onMonthSelected;
@@ -50,6 +51,8 @@ class MonthpickerController {
   late int yearPageCount, yearItemCount, monthPageCount;
 
   PageController? yearPageController, monthPageController;
+
+  int startOfRangePage = 0;
 
   ///Function to initialize the controller when the dialog is created.
   void initialize() {
@@ -188,17 +191,32 @@ class MonthpickerController {
   void onRangeDateSelect(DateTime time) {
     if (initialRangeDate == null) {
       initialRangeDate = time;
+      _updateStartOfRangePage();
     } else if (initialRangeDate != null && endRangeDate == null) {
       if (time.isBefore(initialRangeDate!)) {
         endRangeDate = initialRangeDate;
         initialRangeDate = time;
+        _updateStartOfRangePage();
       } else {
         endRangeDate = time;
       }
+      if ((monthPageController?.page ?? 0).toInt() != startOfRangePage &&
+          returnToStartofRange) {
+        monthPageController?.animateToPage(
+          startOfRangePage,
+          duration: const Duration(milliseconds: 700),
+          curve: Curves.decelerate,
+        );
+      }
     } else {
       initialRangeDate = time;
+      _updateStartOfRangePage();
       endRangeDate = null;
     }
+  }
+
+  void _updateStartOfRangePage() {
+    startOfRangePage = (monthPageController?.page ?? 0).toInt();
   }
 
   //Header functions

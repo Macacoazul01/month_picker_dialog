@@ -145,6 +145,7 @@ class _MyAppState extends State<MyApp> {
   Future<void> rangePicker(BuildContext contexto) async {
     return showMonthRangePicker(
       context: contexto,
+      returnToStartofRange: true,
       firstDate: DateTime(DateTime.now().year - 5, 5),
       lastDate: DateTime(DateTime.now().year + 8, 9),
       initialRangeDate:
