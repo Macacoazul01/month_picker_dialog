@@ -1,10 +1,11 @@
 # month_picker_dialog
 ![Build Status](https://img.shields.io/github/actions/workflow/status/hmkrivoj/month_picker_dialog/dart.yml)
 [![pub package](https://img.shields.io/pub/v/month_picker_dialog.svg)](https://pub.dev/packages/month_picker_dialog)
-[![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-FFDD00?style=flat)](https://buymeacoffee.com/gian.bettega)
 
 Internationalized material style dialog for picking a single month from an infinite list of years.
 This package makes use of the intl package and flutter's i18n abilities to provide labels in all languages known to flutter.
+
+[![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-FFDD00?style=flat)](https://buymeacoffee.com/gian.bettega)
 
 
 [Setting up an internationalized app: the flutter localization package](https://flutter.io/docs/development/accessibility-and-localization/internationalization#setting-up-an-internationalized-app-the-flutter_localizations-package)
