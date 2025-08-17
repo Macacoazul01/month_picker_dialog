@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 
 import '/month_picker_dialog.dart';
 
-///The widget that will hold the year grid selector.
 class YearSelector extends StatefulWidget {
   const YearSelector({
     super.key,
@@ -20,6 +19,32 @@ class YearSelector extends StatefulWidget {
 
 class YearSelectorState extends State<YearSelector> {
   bool _blocked = false;
+
+  int _getFirstYearOfPage(int page) {
+    final int yearsPerPage =
+        widget.controller.monthPickerDialogSettings.dialogSettings.yearsPerPage;
+    return widget.controller.localFirstDate?.year ?? 0 + page * yearsPerPage;
+  }
+
+  int _getLastYearOfPage(int page) {
+    return _getFirstYearOfPage(page) +
+        widget
+            .controller.monthPickerDialogSettings.dialogSettings.yearsPerPage -
+        1;
+  }
+
+  int _getInitialPage() {
+    final int selectedYear = widget.controller.selectedDate.year;
+    final int yearsPerPage =
+        widget.controller.monthPickerDialogSettings.dialogSettings.yearsPerPage;
+
+    if (widget.controller.localFirstDate == null) {
+      return (selectedYear / yearsPerPage).floor();
+    }
+    return ((selectedYear - widget.controller.localFirstDate!.year) /
+            yearsPerPage)
+        .floor();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,22 +65,14 @@ class YearSelectorState extends State<YearSelector> {
     );
   }
 
-  ///Function to check if the page has reached the limit of the year list.
-  void _onPageChange(final int page) {
-    final int _yearsPerPage =
-        widget.controller.monthPickerDialogSettings.dialogSettings.yearsPerPage;
-    _blocked =
-        !(page - 1 > 0 && page + 1 < widget.controller.yearPageCount - 1);
+  void _onPageChange(int page) {
+    final int pageCount = widget.controller.yearPageCount;
+    _blocked = !(page > 1 && page < pageCount - 2);
+
     Provider.of<YearUpDownPageProvider>(context, listen: false).changePage(
-      widget.controller.localFirstDate == null
-          ? page * _yearsPerPage + (_yearsPerPage - 1)
-          : widget.controller.localFirstDate!.year +
-              page * _yearsPerPage +
-              (_yearsPerPage - 1),
-      widget.controller.localFirstDate == null
-          ? page * _yearsPerPage
-          : widget.controller.localFirstDate!.year + page * _yearsPerPage,
-      _blocked ? page < widget.controller.yearPageCount - 1 : null,
+      _getLastYearOfPage(page),
+      _getFirstYearOfPage(page),
+      _blocked ? page < pageCount - 1 : null,
       _blocked ? page > 0 : null,
     );
   }
@@ -63,64 +80,41 @@ class YearSelectorState extends State<YearSelector> {
   @override
   void initState() {
     super.initState();
-    initialize();
+    _initialize();
   }
 
-  ///Function to go to the next page of the grid.
   void goDown() {
-    widget.controller.yearPageController?.animateToPage(
-      widget.controller.yearPageController!.page!.toInt() + 1,
+    final PageController? pageController = widget.controller.yearPageController;
+    final int currentPage = pageController?.page?.toInt() ?? 0;
+    pageController?.animateToPage(
+      currentPage + 1,
       duration: const Duration(milliseconds: 400),
       curve: Curves.easeInOut,
     );
   }
 
-  ///Function to go to the previous page of the grid.
   void goUp() {
-    widget.controller.yearPageController?.animateToPage(
-      widget.controller.yearPageController!.page!.toInt() - 1,
+    final PageController? pageController = widget.controller.yearPageController;
+    final int currentPage = pageController?.page?.toInt() ?? 0;
+    pageController?.animateToPage(
+      currentPage - 1,
       duration: const Duration(milliseconds: 400),
       curve: Curves.easeInOut,
     );
   }
 
-  ///Function to initialize the grid.
-  void initialize() {
-    final int _yearsPerPage =
-        widget.controller.monthPickerDialogSettings.dialogSettings.yearsPerPage;
-    widget.controller.yearPageController = PageController(
-      initialPage: widget.controller.localFirstDate == null
-          ? (widget.controller.selectedDate.year / _yearsPerPage).floor()
-          : ((widget.controller.selectedDate.year -
-                      widget.controller.localFirstDate!.year) /
-                  _yearsPerPage)
-              .floor(),
-    );
+  void _initialize() {
+    widget.controller.yearPageController =
+        PageController(initialPage: _getInitialPage());
 
-    Future<void>.delayed(
-      Duration.zero,
-      () {
-        // ignore: use_build_context_synchronously
-        Provider.of<YearUpDownPageProvider>(context, listen: false).changePage(
-          widget.controller.localFirstDate == null
-              ? widget.controller.yearPageController!.page!.toInt() *
-                      _yearsPerPage +
-                  (_yearsPerPage - 1)
-              : widget.controller.localFirstDate!.year +
-                  widget.controller.yearPageController!.page!.toInt() *
-                      _yearsPerPage +
-                  (_yearsPerPage - 1),
-          widget.controller.localFirstDate == null
-              ? widget.controller.yearPageController!.page!.toInt() *
-                  _yearsPerPage
-              : widget.controller.localFirstDate!.year +
-                  widget.controller.yearPageController!.page!.toInt() *
-                      _yearsPerPage,
-          widget.controller.yearPageController!.page!.toInt() <
-              widget.controller.yearPageCount - 1,
-          widget.controller.yearPageController!.page!.toInt() > 0,
-        );
-      },
-    );
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final page = widget.controller.yearPageController?.page?.toInt() ?? 0;
+      Provider.of<YearUpDownPageProvider>(context, listen: false).changePage(
+        _getLastYearOfPage(page),
+        _getFirstYearOfPage(page),
+        page < widget.controller.yearPageCount - 1,
+        page > 0,
+      );
+    });
   }
 }
