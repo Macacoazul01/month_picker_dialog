@@ -89,7 +89,8 @@ class YearButton extends StatelessWidget {
     final int year = (controller.localFirstDate == null
             ? 0
             : controller.localFirstDate!.year) +
-        page * 12 +
+        page *
+            controller.monthPickerDialogSettings.dialogSettings.yearsPerPage +
         index;
     final bool isEnabled = _isEnabled(year);
     ButtonStyle yearStyle = _buildDefaultYearStyle(year);

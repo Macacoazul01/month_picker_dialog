@@ -1,3 +1,9 @@
+## 6.5.0 - 2025-08-17
+- Added `yearsPerPage` to `PickerDialogSettings`: defines how many years the dialog will have per page.
+- Loosen intl constraint.
+- Updated sample.
+- Updated flutter_lints.
+
 ## 6.4.1 - 2025-07-23
 - Updated provider version.
 - Updated intl version.

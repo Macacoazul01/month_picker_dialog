@@ -18,6 +18,7 @@ class PickerDialogSettings {
     this.dialogBackgroundColor,
     this.locale,
     this.insetPadding,
+    this.yearsPerPage = 12,
   }) : assert(forceSelectedDate == dismissible || !forceSelectedDate,
             'forceSelectedDate can only be used with dismissible = true');
 
@@ -96,6 +97,11 @@ class PickerDialogSettings {
   /// default: `null`
   final EdgeInsets? insetPadding;
 
+  /// Defines how many years will be shown on each page.
+  ///
+  /// default: `12`
+  final int yearsPerPage;
+
   PickerDialogSettings copyWith({
     int? scrollAnimationMilliseconds,
     double? textScaleFactor,
@@ -112,6 +118,7 @@ class PickerDialogSettings {
     Color? dialogBackgroundColor,
     Locale? locale,
     EdgeInsets? insetPadding,
+    int? yearsPerPage,
   }) {
     return PickerDialogSettings(
       scrollAnimationMilliseconds:
@@ -133,6 +140,7 @@ class PickerDialogSettings {
           dialogBackgroundColor ?? this.dialogBackgroundColor,
       locale: locale ?? this.locale,
       insetPadding: insetPadding ?? this.insetPadding,
+      yearsPerPage: yearsPerPage ?? this.yearsPerPage,
     );
   }
 }

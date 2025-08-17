@@ -23,7 +23,7 @@ class YearGrid extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       crossAxisCount: 4,
       children: List<Widget>.generate(
-        12,
+        controller.monthPickerDialogSettings.dialogSettings.yearsPerPage,
         (final int index) => YearButton(
           theme: controller.theme,
           controller: controller,

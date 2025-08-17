@@ -47,20 +47,21 @@ Future<DateTime?> showMonthPicker({
 }) async {
   final ThemeData theme = Theme.of(context);
   final MonthpickerController controller = MonthpickerController(
-      initialDate: initialDate,
-      firstDate: firstDate,
-      lastDate: lastDate,
-      monthPickerDialogSettings: monthPickerDialogSettings,
-      selectableMonthPredicate: selectableMonthPredicate,
-      selectableYearPredicate: selectableYearPredicate,
-      monthStylePredicate: monthStylePredicate,
-      yearStylePredicate: yearStylePredicate,
-      theme: theme,
-      useMaterial3: theme.useMaterial3,
-      headerTitle: headerTitle,
-      onlyYear: onlyYear,
-      onMonthSelected: onMonthSelected,
-      onYearSelected: onYearSelected);
+    initialDate: initialDate,
+    firstDate: firstDate,
+    lastDate: lastDate,
+    monthPickerDialogSettings: monthPickerDialogSettings,
+    selectableMonthPredicate: selectableMonthPredicate,
+    selectableYearPredicate: selectableYearPredicate,
+    monthStylePredicate: monthStylePredicate,
+    yearStylePredicate: yearStylePredicate,
+    theme: theme,
+    useMaterial3: theme.useMaterial3,
+    headerTitle: headerTitle,
+    onlyYear: onlyYear,
+    onMonthSelected: onMonthSelected,
+    onYearSelected: onYearSelected,
+  );
   controller.initialize();
   final DateTime? dialogDate = await showDialog<DateTime?>(
     context: context,

@@ -42,15 +42,19 @@ class YearSelectorState extends State<YearSelector> {
 
   ///Function to check if the page has reached the limit of the year list.
   void _onPageChange(final int page) {
+    final int _yearsPerPage =
+        widget.controller.monthPickerDialogSettings.dialogSettings.yearsPerPage;
     _blocked =
         !(page - 1 > 0 && page + 1 < widget.controller.yearPageCount - 1);
     Provider.of<YearUpDownPageProvider>(context, listen: false).changePage(
       widget.controller.localFirstDate == null
-          ? page * 12 + 11
-          : widget.controller.localFirstDate!.year + page * 12 + 11,
+          ? page * _yearsPerPage + (_yearsPerPage - 1)
+          : widget.controller.localFirstDate!.year +
+              page * _yearsPerPage +
+              (_yearsPerPage - 1),
       widget.controller.localFirstDate == null
-          ? page * 12
-          : widget.controller.localFirstDate!.year + page * 12,
+          ? page * _yearsPerPage
+          : widget.controller.localFirstDate!.year + page * _yearsPerPage,
       _blocked ? page < widget.controller.yearPageCount - 1 : null,
       _blocked ? page > 0 : null,
     );
@@ -82,28 +86,36 @@ class YearSelectorState extends State<YearSelector> {
 
   ///Function to initialize the grid.
   void initialize() {
+    final int _yearsPerPage =
+        widget.controller.monthPickerDialogSettings.dialogSettings.yearsPerPage;
     widget.controller.yearPageController = PageController(
       initialPage: widget.controller.localFirstDate == null
-          ? (widget.controller.selectedDate.year / 12).floor()
+          ? (widget.controller.selectedDate.year / _yearsPerPage).floor()
           : ((widget.controller.selectedDate.year -
                       widget.controller.localFirstDate!.year) /
-                  12)
+                  _yearsPerPage)
               .floor(),
     );
+
     Future<void>.delayed(
       Duration.zero,
       () {
         // ignore: use_build_context_synchronously
         Provider.of<YearUpDownPageProvider>(context, listen: false).changePage(
           widget.controller.localFirstDate == null
-              ? widget.controller.yearPageController!.page!.toInt() * 12 + 11
+              ? widget.controller.yearPageController!.page!.toInt() *
+                      _yearsPerPage +
+                  (_yearsPerPage - 1)
               : widget.controller.localFirstDate!.year +
-                  widget.controller.yearPageController!.page!.toInt() * 12 +
-                  11,
+                  widget.controller.yearPageController!.page!.toInt() *
+                      _yearsPerPage +
+                  (_yearsPerPage - 1),
           widget.controller.localFirstDate == null
-              ? widget.controller.yearPageController!.page!.toInt() * 12
+              ? widget.controller.yearPageController!.page!.toInt() *
+                  _yearsPerPage
               : widget.controller.localFirstDate!.year +
-                  widget.controller.yearPageController!.page!.toInt() * 12,
+                  widget.controller.yearPageController!.page!.toInt() *
+                      _yearsPerPage,
           widget.controller.yearPageController!.page!.toInt() <
               widget.controller.yearPageCount - 1,
           widget.controller.yearPageController!.page!.toInt() > 0,

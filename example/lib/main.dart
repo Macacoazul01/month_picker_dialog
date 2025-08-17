@@ -127,13 +127,14 @@ class _MyAppState extends State<MyApp> {
 
   Future<void> yearPicker(BuildContext contexto) async {
     return showYearPicker(
-      context: contexto,
-      firstDate: DateTime(DateTime.now().year - 5, 5),
-      lastDate: DateTime(DateTime.now().year + 8, 9),
-      initialDate: DateTime(selectedYear ?? DateTime.now().year),
-      selectableYearPredicate: (int year) => year.isEven,
-      // monthPickerDialogSettings:const MonthPickerDialogSettings(dialogSettings: PickerDialogSettings(blockScrolling: false))
-    ).then((int? year) {
+            context: contexto,
+            firstDate: DateTime(DateTime.now().year - 5, 5),
+            lastDate: DateTime(DateTime.now().year + 8, 9),
+            initialDate: DateTime(selectedYear ?? DateTime.now().year),
+            selectableYearPredicate: (int year) => year.isEven,
+            monthPickerDialogSettings: const MonthPickerDialogSettings(
+                dialogSettings: PickerDialogSettings(yearsPerPage: 20)))
+        .then((int? year) {
       if (year != null) {
         setState(() {
           selectedYear = year;

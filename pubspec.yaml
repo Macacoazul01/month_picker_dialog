@@ -10,10 +10,10 @@ dependencies:
   flutter:
     sdk: flutter
   provider: ^6.1.5
-  intl: ^0.20.2
+  intl: 
   
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^5.0.0
+  flutter_lints: ^6.0.0
 flutter:
