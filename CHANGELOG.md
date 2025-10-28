@@ -1,3 +1,7 @@
+## 6.6.0 - 2025-10-27
+- Added `gridPadding` to `PickerDialogSettings`: defines the padding between the grid and the dialog border.
+- Removed unwanted scrollbar from grid [#122](https://github.com/Macacoazul01/month_picker_dialog/issues/122)
+
 ## 6.5.0 - 2025-08-17
 - Added `yearsPerPage` to `PickerDialogSettings`: defines how many years the dialog will have per page.
 - Loosen intl constraint.

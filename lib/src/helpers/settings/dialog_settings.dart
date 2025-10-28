@@ -19,6 +19,7 @@ class PickerDialogSettings {
     this.locale,
     this.insetPadding,
     this.yearsPerPage = 12,
+    this.gridPadding = const EdgeInsets.all(8),
   }) : assert(forceSelectedDate == dismissible || !forceSelectedDate,
             'forceSelectedDate can only be used with dismissible = true');
 
@@ -97,6 +98,11 @@ class PickerDialogSettings {
   /// default: `null`
   final EdgeInsets? insetPadding;
 
+  /// Defines the grid padding of the dialog.
+  ///
+  /// default: `EdgeInsets.all(8)`
+  final EdgeInsets gridPadding;
+
   /// Defines how many years will be shown on each page.
   ///
   /// default: `12`
@@ -118,6 +124,7 @@ class PickerDialogSettings {
     Color? dialogBackgroundColor,
     Locale? locale,
     EdgeInsets? insetPadding,
+    EdgeInsets? gridPadding,
     int? yearsPerPage,
   }) {
     return PickerDialogSettings(
@@ -140,6 +147,7 @@ class PickerDialogSettings {
           dialogBackgroundColor ?? this.dialogBackgroundColor,
       locale: locale ?? this.locale,
       insetPadding: insetPadding ?? this.insetPadding,
+      gridPadding: gridPadding ?? this.gridPadding,
       yearsPerPage: yearsPerPage ?? this.yearsPerPage,
     );
   }
