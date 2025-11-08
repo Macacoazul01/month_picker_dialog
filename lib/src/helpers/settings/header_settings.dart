@@ -5,8 +5,8 @@ class PickerHeaderSettings {
   const PickerHeaderSettings({
     this.hideHeaderRow = false,
     this.hideHeaderArrows = false,
-    this.previousIcon = Icons.keyboard_arrow_up,
-    this.nextIcon = Icons.keyboard_arrow_down,
+    this.previousIcon,
+    this.nextIcon,
     this.headerIconsSize,
     this.headerIconsColor,
     this.headerBackgroundColor,
@@ -31,12 +31,12 @@ class PickerHeaderSettings {
   /// The icon that will make the calendar to go back one page when clicked.
   ///
   /// default: `Icons.keyboard_arrow_up`
-  final IconData previousIcon;
+  final IconData? previousIcon;
 
   /// The icon that will make the calendar to go to the next page when clicked.
   ///
   /// default: `Icons.keyboard_arrow_up`
-  final IconData nextIcon;
+  final IconData? nextIcon;
 
   /// The Size of the header Icons.
   ///

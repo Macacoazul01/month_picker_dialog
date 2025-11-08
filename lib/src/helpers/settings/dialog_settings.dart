@@ -20,6 +20,7 @@ class PickerDialogSettings {
     this.insetPadding,
     this.yearsPerPage = 12,
     this.gridPadding = const EdgeInsets.all(8),
+    this.verticalScrolling = true,
   }) : assert(forceSelectedDate == dismissible || !forceSelectedDate,
             'forceSelectedDate can only be used with dismissible = true');
 
@@ -108,6 +109,11 @@ class PickerDialogSettings {
   /// default: `12`
   final int yearsPerPage;
 
+  /// Defines if the year/month grid will scroll on vertical or horizontal direction.
+  ///
+  /// default: `true`
+  final bool verticalScrolling;
+
   PickerDialogSettings copyWith({
     int? scrollAnimationMilliseconds,
     double? textScaleFactor,
@@ -126,6 +132,7 @@ class PickerDialogSettings {
     EdgeInsets? insetPadding,
     EdgeInsets? gridPadding,
     int? yearsPerPage,
+    bool? verticalScrolling,
   }) {
     return PickerDialogSettings(
       scrollAnimationMilliseconds:
@@ -149,6 +156,7 @@ class PickerDialogSettings {
       insetPadding: insetPadding ?? this.insetPadding,
       gridPadding: gridPadding ?? this.gridPadding,
       yearsPerPage: yearsPerPage ?? this.yearsPerPage,
+      verticalScrolling: verticalScrolling ?? this.verticalScrolling,
     );
   }
 }

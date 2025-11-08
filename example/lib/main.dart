@@ -94,10 +94,12 @@ class _MyAppState extends State<MyApp> {
         return null;
       },
       monthPickerDialogSettings: MonthPickerDialogSettings(
-        // dialogSettings: const PickerDialogSettings(blockScrolling: false),
+        dialogSettings: const PickerDialogSettings(verticalScrolling: false),
         headerSettings: const PickerHeaderSettings(
-          headerCurrentPageTextStyle: TextStyle(fontSize: 14),
+          headerCurrentPageTextStyle:
+              TextStyle(fontSize: 14, color: Colors.black),
           headerSelectedIntervalTextStyle: TextStyle(fontSize: 16),
+          headerIconsColor: Colors.white,
         ),
         actionBarSettings: PickerActionBarSettings(
           confirmWidget: Text(

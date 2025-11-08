@@ -50,7 +50,10 @@ class YearSelectorState extends State<YearSelector> {
   Widget build(BuildContext context) {
     return PageView.builder(
       controller: widget.controller.yearPageController,
-      scrollDirection: Axis.vertical,
+      scrollDirection: widget.controller.monthPickerDialogSettings
+              .dialogSettings.verticalScrolling
+          ? Axis.vertical
+          : Axis.horizontal,
       physics: widget.controller.monthPickerDialogSettings.dialogSettings
               .blockScrolling
           ? const NeverScrollableScrollPhysics()

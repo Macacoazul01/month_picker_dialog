@@ -1,3 +1,8 @@
+## 6.7.0 - 2025-11-08
+- Added `verticalScrolling` to `PickerDialogSettings`: defines if the year/month grid will scroll on vertical or horizontal direction.
+- changed `PickerHeaderSettings` `previousIcon` and `nextIcon` to nullable.
+- Mini fix on portrait header size.
+
 ## 6.6.0 - 2025-10-27
 - Added `gridPadding` to `PickerDialogSettings`: defines the padding between the grid and the dialog border.
 - Removed unwanted scrollbar from grid [#122](https://github.com/Macacoazul01/month_picker_dialog/issues/122)

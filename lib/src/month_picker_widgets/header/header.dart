@@ -22,9 +22,6 @@ class PickerHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: portrait
-          ? controller.monthPickerDialogSettings.dialogSettings.customWidth
-          : null,
       decoration: BoxDecoration(
         color: controller.monthPickerDialogSettings.headerSettings
                 .headerBackgroundColor ??

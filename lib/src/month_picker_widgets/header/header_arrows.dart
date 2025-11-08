@@ -13,6 +13,7 @@ class HeaderArrows extends StatelessWidget {
     this.previousIcon,
     this.nextIcon,
     required this.arrowAlpha,
+    required this.verticalScrolling,
   });
   final Color? arrowcolors;
   final double? arrowSize;
@@ -21,14 +22,19 @@ class HeaderArrows extends StatelessWidget {
   final bool upState, downState;
   final IconData? previousIcon;
   final IconData? nextIcon;
+  final bool verticalScrolling;
 
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         IconButton(
           icon: Icon(
-            previousIcon ?? Icons.keyboard_arrow_up,
+            previousIcon ??
+                (verticalScrolling
+                    ? Icons.keyboard_arrow_up
+                    : Icons.keyboard_arrow_left),
             color: upState
                 ? arrowcolors
                 : arrowcolors!.withValues(alpha: arrowAlpha),
@@ -38,7 +44,10 @@ class HeaderArrows extends StatelessWidget {
         ),
         IconButton(
           icon: Icon(
-            nextIcon ?? Icons.keyboard_arrow_down,
+            nextIcon ??
+                (verticalScrolling
+                    ? Icons.keyboard_arrow_down
+                    : Icons.keyboard_arrow_right),
             color: downState
                 ? arrowcolors
                 : arrowcolors!.withValues(alpha: arrowAlpha),

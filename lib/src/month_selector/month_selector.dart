@@ -24,7 +24,10 @@ class MonthSelectorState extends State<MonthSelector> {
   Widget build(BuildContext context) {
     return PageView.builder(
       controller: widget.controller.monthPageController,
-      scrollDirection: Axis.vertical,
+      scrollDirection: widget.controller.monthPickerDialogSettings
+              .dialogSettings.verticalScrolling
+          ? Axis.vertical
+          : Axis.horizontal,
       physics: widget.controller.monthPickerDialogSettings.dialogSettings
               .blockScrolling
           ? const NeverScrollableScrollPhysics()
