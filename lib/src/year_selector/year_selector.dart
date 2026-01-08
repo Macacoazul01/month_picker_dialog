@@ -23,7 +23,7 @@ class YearSelectorState extends State<YearSelector> {
   int _getFirstYearOfPage(int page) {
     final int yearsPerPage =
         widget.controller.monthPickerDialogSettings.dialogSettings.yearsPerPage;
-    return widget.controller.localFirstDate?.year ?? 0 + page * yearsPerPage;
+    return (widget.controller.localFirstDate?.year ?? 0) + page * yearsPerPage;
   }
 
   int _getLastYearOfPage(int page) {
