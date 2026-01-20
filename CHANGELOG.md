@@ -1,3 +1,6 @@
+## 6.7.1 - 2026-01-19
+- Added operation order fix from [Jerrywell](https://github.com/jerrywellcake) fork.
+
 ## 6.7.0 - 2025-11-08
 - Added `verticalScrolling` to `PickerDialogSettings`: defines if the year/month grid will scroll on vertical or horizontal direction.
 - changed `PickerHeaderSettings` `previousIcon` and `nextIcon` to nullable.
