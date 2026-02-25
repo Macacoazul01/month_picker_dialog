@@ -16,6 +16,8 @@ class PickerHeaderSettings {
     this.headerPadding = const EdgeInsets.all(16.0),
     this.arrowAlpha = 0.5,
     this.headerAlignment = CrossAxisAlignment.start,
+    this.previousButtonSemanticsLabel,
+    this.nextButtonSemanticsLabel,
   });
 
   /// Hides the row with the arrows + years/months page range from the header, forcing the user to scroll to change the page.
@@ -84,6 +86,16 @@ class PickerHeaderSettings {
   ///
   /// default: `CrossAxisAlignment.start`
   final CrossAxisAlignment headerAlignment;
+
+  /// The semantics label of the previous button.
+  ///
+  /// default: `null`
+  final String? previousButtonSemanticsLabel;
+
+  /// The semantics label of the next button.
+  ///
+  /// default: `null`
+  final String? nextButtonSemanticsLabel;
 
   PickerHeaderSettings copyWith({
     bool? hideHeaderRow,

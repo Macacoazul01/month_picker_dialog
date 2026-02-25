@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 ///The arrows that are used on the header to change between the pages of the grid.
@@ -14,6 +16,8 @@ class HeaderArrows extends StatelessWidget {
     this.nextIcon,
     required this.arrowAlpha,
     required this.verticalScrolling,
+    this.previousButtonSemanticsLabel,
+    this.nextButtonSemanticsLabel,
   });
   final Color? arrowcolors;
   final double? arrowSize;
@@ -23,37 +27,47 @@ class HeaderArrows extends StatelessWidget {
   final IconData? previousIcon;
   final IconData? nextIcon;
   final bool verticalScrolling;
+  final String? previousButtonSemanticsLabel;
+  final String? nextButtonSemanticsLabel;
 
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        IconButton(
-          icon: Icon(
-            previousIcon ??
-                (verticalScrolling
-                    ? Icons.keyboard_arrow_up
-                    : Icons.keyboard_arrow_left),
-            color: upState
-                ? arrowcolors
-                : arrowcolors!.withValues(alpha: arrowAlpha),
-            size: arrowSize,
+        Semantics(
+          label: previousButtonSemanticsLabel,
+          role: SemanticsRole.spinButton,
+          child: IconButton(
+            icon: Icon(
+              previousIcon ??
+                  (verticalScrolling
+                      ? Icons.keyboard_arrow_up
+                      : Icons.keyboard_arrow_left),
+              color: upState
+                  ? arrowcolors
+                  : arrowcolors!.withValues(alpha: arrowAlpha),
+              size: arrowSize,
+            ),
+            onPressed: upState ? onUpButtonPressed : null,
           ),
-          onPressed: upState ? onUpButtonPressed : null,
         ),
-        IconButton(
-          icon: Icon(
-            nextIcon ??
-                (verticalScrolling
-                    ? Icons.keyboard_arrow_down
-                    : Icons.keyboard_arrow_right),
-            color: downState
-                ? arrowcolors
-                : arrowcolors!.withValues(alpha: arrowAlpha),
-            size: arrowSize,
+        Semantics(
+          label: nextButtonSemanticsLabel,
+          role: SemanticsRole.spinButton,
+          child: IconButton(
+            icon: Icon(
+              nextIcon ??
+                  (verticalScrolling
+                      ? Icons.keyboard_arrow_down
+                      : Icons.keyboard_arrow_right),
+              color: downState
+                  ? arrowcolors
+                  : arrowcolors!.withValues(alpha: arrowAlpha),
+              size: arrowSize,
+            ),
+            onPressed: downState ? onDownButtonPressed : null,
           ),
-          onPressed: downState ? onDownButtonPressed : null,
         ),
       ],
     );
