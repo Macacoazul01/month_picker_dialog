@@ -79,6 +79,12 @@ class HeaderRow extends StatelessWidget {
                     .monthPickerDialogSettings.headerSettings.arrowAlpha,
                 verticalScrolling: controller
                     .monthPickerDialogSettings.dialogSettings.verticalScrolling,
+                previousButtonSemanticsLabel: controller
+                    .monthPickerDialogSettings
+                    .headerSettings
+                    .previousButtonSemanticsLabel,
+                nextButtonSemanticsLabel: controller.monthPickerDialogSettings
+                    .headerSettings.nextButtonSemanticsLabel,
               ),
           ]
         : <Widget>[
