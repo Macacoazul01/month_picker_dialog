@@ -1,3 +1,6 @@
+## 6.7.2 - 2026-02-26
+- Added semantics support (`previousButtonSemanticsLabel`, `nextButtonSemanticsLabel`) to header navigation arrows via `PickerHeaderSettings`.
+
 ## 6.7.1 - 2026-01-19
 - Added operation order fix from [Jerrywell](https://github.com/jerrywellcake) fork.
 
