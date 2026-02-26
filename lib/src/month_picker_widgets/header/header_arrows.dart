@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 
 ///The arrows that are used on the header to change between the pages of the grid.
@@ -36,8 +34,10 @@ class HeaderArrows extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         Semantics(
-          label: previousButtonSemanticsLabel,
-          role: SemanticsRole.spinButton,
+          label: previousButtonSemanticsLabel ??
+              MaterialLocalizations.of(context).previousMonthTooltip,
+          button: true,
+          excludeSemantics: true,
           child: IconButton(
             icon: Icon(
               previousIcon ??
@@ -53,8 +53,10 @@ class HeaderArrows extends StatelessWidget {
           ),
         ),
         Semantics(
-          label: nextButtonSemanticsLabel,
-          role: SemanticsRole.spinButton,
+          label: nextButtonSemanticsLabel ??
+              MaterialLocalizations.of(context).nextMonthTooltip,
+          button: true,
+          excludeSemantics: true,
           child: IconButton(
             icon: Icon(
               nextIcon ??
