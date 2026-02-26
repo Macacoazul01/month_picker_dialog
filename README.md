@@ -170,3 +170,5 @@ If you have any doubts on how to use this new settings class (that the sample ap
 [sheldontuitt](https://github.com/sheldontuitt)
 
 [nomoruyi](https://github.com/nomoruyi)
+
+[gabrielezereik](https://github.com/gabrielezereik)
