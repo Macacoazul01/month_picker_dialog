@@ -172,3 +172,5 @@ If you have any doubts on how to use this new settings class (that the sample ap
 [nomoruyi](https://github.com/nomoruyi)
 
 [gabrielezereik](https://github.com/gabrielezereik)
+
+[roth-arasys](https://github.com/roth-arasys)
