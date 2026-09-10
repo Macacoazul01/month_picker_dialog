@@ -76,6 +76,7 @@ Future<List<DateTime>?> showMonthRangePicker({
     context: context,
     barrierDismissible: monthPickerDialogSettings.dialogSettings.dismissible,
     builder: (BuildContext context) {
+      controller.theme = Theme.of(context);
       return MultiProvider(
         providers: [
           ChangeNotifierProvider.value(

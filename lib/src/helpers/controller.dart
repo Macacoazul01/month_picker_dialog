@@ -28,7 +28,7 @@ class MonthpickerController {
   });
 
   //User defined variables
-  final ThemeData theme;
+  ThemeData theme;
   final DateTime? firstDate, lastDate, initialDate;
   final bool Function(DateTime)? selectableMonthPredicate;
   final bool Function(int)? selectableYearPredicate;

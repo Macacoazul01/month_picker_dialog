@@ -70,4 +70,63 @@ void main() {
         true);
     expect(controller.rangeMode, true);
   });
+
+  ///Opens a picker inside an app whose theme can be switched while the dialog
+  ///is up and returns the brightness the dialog is painted with afterwards.
+  Future<Brightness> brightnessAfterThemeSwitch(
+    WidgetTester tester,
+    void Function(BuildContext context) openPicker,
+  ) async {
+    final ValueNotifier<ThemeMode> themeMode =
+        ValueNotifier<ThemeMode>(ThemeMode.light);
+    addTearDown(themeMode.dispose);
+    await tester.pumpWidget(
+      ValueListenableBuilder<ThemeMode>(
+        valueListenable: themeMode,
+        builder: (BuildContext context, ThemeMode mode, Widget? child) =>
+            MaterialApp(
+          theme: ThemeData.light(),
+          darkTheme: ThemeData.dark(),
+          themeMode: mode,
+          home: Builder(
+            builder: (BuildContext context) => TextButton(
+              onPressed: () => openPicker(context),
+              child: const Text('open'),
+            ),
+          ),
+        ),
+      ),
+    );
+    await tester.tap(find.text('open'));
+    await tester.pumpAndSettle();
+    expect(Theme.of(tester.element(find.byType(Dialog))).brightness,
+        Brightness.light);
+    themeMode.value = ThemeMode.dark;
+    await tester.pumpAndSettle();
+    return Theme.of(tester.element(find.byType(Dialog))).brightness;
+  }
+
+  testWidgets('month_picker_theme_change_test', (WidgetTester tester) async {
+    final Brightness brightness = await brightnessAfterThemeSwitch(
+      tester,
+      (BuildContext context) => showMonthPicker(
+        context: context,
+        initialDate: DateTime(2026, 8),
+      ),
+    );
+    expect(brightness, Brightness.dark);
+  });
+
+  testWidgets('month_range_picker_theme_change_test',
+      (WidgetTester tester) async {
+    final Brightness brightness = await brightnessAfterThemeSwitch(
+      tester,
+      (BuildContext context) => showMonthRangePicker(
+        context: context,
+        initialRangeDate: DateTime(2026, 8),
+        endRangeDate: DateTime(2026, 10),
+      ),
+    );
+    expect(brightness, Brightness.dark);
+  });
 }

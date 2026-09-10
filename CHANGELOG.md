@@ -1,3 +1,6 @@
+## 6.7.3 - 2026-09-10
+- The dialog now follows a theme change while it is open instead of keeping the theme it was opened with [#129](https://github.com/Macacoazul01/month_picker_dialog/issues/129)
+
 ## 6.7.2 - 2026-02-26
 - Added semantics support (`previousButtonSemanticsLabel`, `nextButtonSemanticsLabel`) to header navigation arrows via `PickerHeaderSettings`.
 
