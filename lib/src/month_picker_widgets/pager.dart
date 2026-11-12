@@ -1,4 +1,5 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
+
 import '/month_picker_dialog.dart';
 
 class PickerPager extends StatelessWidget {
@@ -27,11 +28,17 @@ class PickerPager extends StatelessWidget {
         ),
         child: AnimatedSwitcher(
           duration: Duration(
-              milliseconds: controller.monthPickerDialogSettings.dialogSettings
-                  .scrollAnimationMilliseconds),
+            milliseconds: controller
+                .monthPickerDialogSettings
+                .dialogSettings
+                .scrollAnimationMilliseconds,
+          ),
           reverseDuration: Duration(
-              milliseconds: controller.monthPickerDialogSettings.dialogSettings
-                  .scrollAnimationMilliseconds),
+            milliseconds: controller
+                .monthPickerDialogSettings
+                .dialogSettings
+                .scrollAnimationMilliseconds,
+          ),
           transitionBuilder: (Widget child, Animation<double> animation) =>
               ScaleTransition(scale: animation, child: child),
           child: selector,

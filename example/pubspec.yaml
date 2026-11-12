@@ -8,15 +8,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_localizations:
-    sdk: flutter
   
+  material_ui: any
+  month_picker_dialog:
+    path: ../
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
-  month_picker_dialog:
-    path: ../
-
-flutter:
-  uses-material-design: true

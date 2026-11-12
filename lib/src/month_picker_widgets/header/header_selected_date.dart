@@ -1,4 +1,5 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
+
 import '/month_picker_dialog.dart';
 
 ///The widget that presents the current selected date on the header.
@@ -19,11 +20,18 @@ class HeaderSelectedDate extends StatelessWidget {
       controller.getDateTimeHeaderText(localeString),
       textScaler:
           controller.monthPickerDialogSettings.dialogSettings.textScaleFactor !=
-                  null
-              ? TextScaler.linear(controller
-                  .monthPickerDialogSettings.dialogSettings.textScaleFactor!)
-              : null,
-      style: controller.monthPickerDialogSettings.headerSettings
+              null
+          ? TextScaler.linear(
+              controller
+                  .monthPickerDialogSettings
+                  .dialogSettings
+                  .textScaleFactor!,
+            )
+          : null,
+      style:
+          controller
+              .monthPickerDialogSettings
+              .headerSettings
               .headerSelectedIntervalTextStyle ??
           theme.primaryTextTheme.titleMedium,
     );

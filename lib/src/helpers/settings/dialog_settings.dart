@@ -21,8 +21,10 @@ class PickerDialogSettings {
     this.yearsPerPage = 12,
     this.gridPadding = const EdgeInsets.all(8),
     this.verticalScrolling = true,
-  }) : assert(forceSelectedDate == dismissible || !forceSelectedDate,
-            'forceSelectedDate can only be used with dismissible = true');
+  }) : assert(
+         forceSelectedDate == dismissible || !forceSelectedDate,
+         'forceSelectedDate can only be used with dismissible = true',
+       );
 
   /// The speed of the calendar page transition animation.
   ///

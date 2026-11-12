@@ -14,11 +14,11 @@ class PickerDateButtonsSettings {
     Color? currentYearTextColor,
     this.selectedDateRadius = 0,
     this.buttonBorder = const CircleBorder(),
-  })  : unselectedYearsTextColor =
-            unselectedYearsTextColor ?? unselectedMonthsTextColor,
-        selectedYearTextColor = selectedYearTextColor ?? selectedMonthTextColor,
-        currentYearTextColor = currentYearTextColor ?? currentMonthTextColor,
-        yearTextStyle = yearTextStyle ?? monthTextStyle;
+  }) : unselectedYearsTextColor =
+           unselectedYearsTextColor ?? unselectedMonthsTextColor,
+       selectedYearTextColor = selectedYearTextColor ?? selectedMonthTextColor,
+       currentYearTextColor = currentYearTextColor ?? currentMonthTextColor,
+       yearTextStyle = yearTextStyle ?? monthTextStyle;
 
   /// The text style of all months on the page.
   ///

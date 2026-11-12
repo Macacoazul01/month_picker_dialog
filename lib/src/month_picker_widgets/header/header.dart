@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 import '/month_picker_dialog.dart';
 
@@ -23,21 +23,40 @@ class PickerHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: controller.monthPickerDialogSettings.headerSettings
+        color:
+            controller
+                .monthPickerDialogSettings
+                .headerSettings
                 .headerBackgroundColor ??
             theme.primaryColor,
         borderRadius: portrait
             ? BorderRadius.only(
-                topLeft: Radius.circular(controller.monthPickerDialogSettings
-                    .dialogSettings.dialogRoundedCornersRadius),
-                topRight: Radius.circular(controller.monthPickerDialogSettings
-                    .dialogSettings.dialogRoundedCornersRadius),
+                topLeft: Radius.circular(
+                  controller
+                      .monthPickerDialogSettings
+                      .dialogSettings
+                      .dialogRoundedCornersRadius,
+                ),
+                topRight: Radius.circular(
+                  controller
+                      .monthPickerDialogSettings
+                      .dialogSettings
+                      .dialogRoundedCornersRadius,
+                ),
               )
             : BorderRadius.only(
-                topLeft: Radius.circular(controller.monthPickerDialogSettings
-                    .dialogSettings.dialogRoundedCornersRadius),
-                bottomLeft: Radius.circular(controller.monthPickerDialogSettings
-                    .dialogSettings.dialogRoundedCornersRadius),
+                topLeft: Radius.circular(
+                  controller
+                      .monthPickerDialogSettings
+                      .dialogSettings
+                      .dialogRoundedCornersRadius,
+                ),
+                bottomLeft: Radius.circular(
+                  controller
+                      .monthPickerDialogSettings
+                      .dialogSettings
+                      .dialogRoundedCornersRadius,
+                ),
               ),
       ),
       child: Padding(
@@ -57,14 +76,18 @@ class PickerHeader extends StatelessWidget {
             : Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: controller
-                    .monthPickerDialogSettings.headerSettings.headerAlignment,
+                    .monthPickerDialogSettings
+                    .headerSettings
+                    .headerAlignment,
                 children: <Widget>[
                   if (controller.headerTitle != null) ...[
                     controller.headerTitle!,
                     SizedBox(
-                      height: controller.monthPickerDialogSettings
-                          .headerSettings.titleSpacing,
-                    )
+                      height: controller
+                          .monthPickerDialogSettings
+                          .headerSettings
+                          .titleSpacing,
+                    ),
                   ],
                   HeaderSelectedDate(
                     theme: theme,

@@ -1,13 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:month_picker_dialog/month_picker_dialog.dart';
 
 void main() => runApp(
       MaterialApp(
         localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
           GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
         ],
         supportedLocales: const <Locale>[
           Locale('en'),

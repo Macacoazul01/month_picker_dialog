@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:provider/provider.dart';
 
 import '/month_picker_dialog.dart';
@@ -79,16 +79,10 @@ Future<List<DateTime>?> showMonthRangePicker({
       controller.theme = Theme.of(context);
       return MultiProvider(
         providers: [
-          ChangeNotifierProvider.value(
-            value: YearUpDownPageProvider(),
-          ),
-          ChangeNotifierProvider.value(
-            value: MonthUpDownPageProvider(),
-          ),
+          ChangeNotifierProvider.value(value: YearUpDownPageProvider()),
+          ChangeNotifierProvider.value(value: MonthUpDownPageProvider()),
         ],
-        child: MonthPickerDialog(
-          controller: controller,
-        ),
+        child: MonthPickerDialog(controller: controller),
       );
     },
   );

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 ///Class to hold all the customizations of the dialog part of the package.
 class PickerHeaderSettings {
@@ -121,7 +121,8 @@ class PickerHeaderSettings {
       headerIconsColor: headerIconsColor ?? this.headerIconsColor,
       headerBackgroundColor:
           headerBackgroundColor ?? this.headerBackgroundColor,
-      headerSelectedIntervalTextStyle: headerSelectedIntervalTextStyle ??
+      headerSelectedIntervalTextStyle:
+          headerSelectedIntervalTextStyle ??
           this.headerSelectedIntervalTextStyle,
       headerCurrentPageTextStyle:
           headerCurrentPageTextStyle ?? this.headerCurrentPageTextStyle,

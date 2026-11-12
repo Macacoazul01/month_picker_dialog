@@ -20,9 +20,6 @@ String createLocaleString(Locale locale) {
 }
 
 ///Function to get the selected locale code or the locale of context as a fallback
-String getLocale(
-  BuildContext context, {
-  Locale? selectedLocale,
-}) {
+String getLocale(BuildContext context, {Locale? selectedLocale}) {
   return createLocaleString(selectedLocale ?? Localizations.localeOf(context));
 }

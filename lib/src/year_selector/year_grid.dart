@@ -1,4 +1,5 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
+
 import '/month_picker_dialog.dart';
 
 ///The year grid. It has all of the avaliable options to be selected.
@@ -15,13 +16,13 @@ class YearGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String localeString = getLocale(context,
-        selectedLocale:
-            controller.monthPickerDialogSettings.dialogSettings.locale);
+    final String localeString = getLocale(
+      context,
+      selectedLocale:
+          controller.monthPickerDialogSettings.dialogSettings.locale,
+    );
     return ScrollConfiguration(
-      behavior: ScrollConfiguration.of(context).copyWith(
-        scrollbars: false,
-      ),
+      behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
       child: GridView.count(
         physics: const NeverScrollableScrollPhysics(),
         padding:
@@ -29,7 +30,7 @@ class YearGrid extends StatelessWidget {
         crossAxisCount: 4,
         children: List<Widget>.generate(
           controller.monthPickerDialogSettings.dialogSettings.yearsPerPage,
-          (final int index) => YearButton(
+          (int index) => YearButton(
             theme: controller.theme,
             controller: controller,
             page: page,

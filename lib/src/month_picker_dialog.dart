@@ -1,13 +1,11 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
+
 import '/month_picker_dialog.dart';
 
 ///The main dialog widget class.
 ///It needs a `MonthpickerController` controller to be created.
 class MonthPickerDialog extends StatefulWidget {
-  const MonthPickerDialog({
-    super.key,
-    required this.controller,
-  });
+  const MonthPickerDialog({super.key, required this.controller});
   final MonthpickerController controller;
 
   @override
@@ -22,17 +20,17 @@ class MonthPickerDialogState extends State<MonthPickerDialog> {
     super.initState();
     _selector =
         widget.controller.monthPickerDialogSettings.dialogSettings.yearFirst ||
-                widget.controller.onlyYear
-            ? YearSelector(
-                key: widget.controller.yearSelectorState,
-                onYearSelected: _onYearSelected,
-                controller: widget.controller,
-              )
-            : MonthSelector(
-                key: widget.controller.monthSelectorState,
-                onMonthSelected: _onMonthSelected,
-                controller: widget.controller,
-              );
+            widget.controller.onlyYear
+        ? YearSelector(
+            key: widget.controller.yearSelectorState,
+            onYearSelected: _onYearSelected,
+            controller: widget.controller,
+          )
+        : MonthSelector(
+            key: widget.controller.monthSelectorState,
+            onMonthSelected: _onMonthSelected,
+            controller: widget.controller,
+          );
   }
 
   @override
@@ -43,41 +41,59 @@ class MonthPickerDialogState extends State<MonthPickerDialog> {
 
   @override
   Widget build(BuildContext context) {
-    final String locale = getLocale(context,
-        selectedLocale:
-            widget.controller.monthPickerDialogSettings.dialogSettings.locale);
-    final bool portrait = widget.controller.monthPickerDialogSettings
-            .dialogSettings.forcePortrait ||
+    final String locale = getLocale(
+      context,
+      selectedLocale:
+          widget.controller.monthPickerDialogSettings.dialogSettings.locale,
+    );
+    final bool portrait =
+        widget
+            .controller
+            .monthPickerDialogSettings
+            .dialogSettings
+            .forcePortrait ||
         MediaQuery.of(context).orientation == Orientation.portrait;
     final Container content = Container(
       decoration: BoxDecoration(
-        color: widget.controller.monthPickerDialogSettings.dialogSettings
+        color:
+            widget
+                .controller
+                .monthPickerDialogSettings
+                .dialogSettings
                 .dialogBackgroundColor ??
             widget.controller.theme.dialogTheme.backgroundColor,
         borderRadius: portrait
             ? BorderRadius.only(
-                bottomLeft: Radius.circular(widget
-                    .controller
-                    .monthPickerDialogSettings
-                    .dialogSettings
-                    .dialogRoundedCornersRadius),
-                bottomRight: Radius.circular(widget
-                    .controller
-                    .monthPickerDialogSettings
-                    .dialogSettings
-                    .dialogRoundedCornersRadius),
+                bottomLeft: Radius.circular(
+                  widget
+                      .controller
+                      .monthPickerDialogSettings
+                      .dialogSettings
+                      .dialogRoundedCornersRadius,
+                ),
+                bottomRight: Radius.circular(
+                  widget
+                      .controller
+                      .monthPickerDialogSettings
+                      .dialogSettings
+                      .dialogRoundedCornersRadius,
+                ),
               )
             : BorderRadius.only(
-                topRight: Radius.circular(widget
-                    .controller
-                    .monthPickerDialogSettings
-                    .dialogSettings
-                    .dialogRoundedCornersRadius),
-                bottomRight: Radius.circular(widget
-                    .controller
-                    .monthPickerDialogSettings
-                    .dialogSettings
-                    .dialogRoundedCornersRadius),
+                topRight: Radius.circular(
+                  widget
+                      .controller
+                      .monthPickerDialogSettings
+                      .dialogSettings
+                      .dialogRoundedCornersRadius,
+                ),
+                bottomRight: Radius.circular(
+                  widget
+                      .controller
+                      .monthPickerDialogSettings
+                      .dialogSettings
+                      .dialogRoundedCornersRadius,
+                ),
               ),
       ),
       child: Column(
@@ -89,14 +105,18 @@ class MonthPickerDialogState extends State<MonthPickerDialog> {
             theme: widget.controller.theme,
             controller: widget.controller,
           ),
-          if (widget.controller.monthPickerDialogSettings.actionBarSettings
+          if (widget
+                  .controller
+                  .monthPickerDialogSettings
+                  .actionBarSettings
                   .customDivider !=
               null)
-            widget.controller.monthPickerDialogSettings.actionBarSettings
+            widget
+                .controller
+                .monthPickerDialogSettings
+                .actionBarSettings
                 .customDivider!,
-          PickerActionBar(
-            controller: widget.controller,
-          ),
+          PickerActionBar(controller: widget.controller),
         ],
       ),
     );
@@ -114,15 +134,23 @@ class MonthPickerDialogState extends State<MonthPickerDialog> {
       data: widget.controller.theme,
       child: Dialog(
         insetPadding: widget
-            .controller.monthPickerDialogSettings.dialogSettings.insetPadding,
+            .controller
+            .monthPickerDialogSettings
+            .dialogSettings
+            .insetPadding,
         shape: RoundedRectangleBorder(
-          side: widget.controller.monthPickerDialogSettings.dialogSettings
-              .dialogBorderSide,
-          borderRadius: BorderRadius.circular(widget
+          side: widget
               .controller
               .monthPickerDialogSettings
               .dialogSettings
-              .dialogRoundedCornersRadius),
+              .dialogBorderSide,
+          borderRadius: BorderRadius.circular(
+            widget
+                .controller
+                .monthPickerDialogSettings
+                .dialogSettings
+                .dialogRoundedCornersRadius,
+          ),
         ),
         child: Builder(
           builder: (BuildContext context) {
@@ -151,7 +179,7 @@ class MonthPickerDialogState extends State<MonthPickerDialog> {
   }
 
   ///Function to be executed when a year is selected.
-  void _onYearSelected(final int? year) {
+  void _onYearSelected(int? year) {
     if (year == null) {
       setState(
         () => _selector = YearSelector(
@@ -161,25 +189,23 @@ class MonthPickerDialogState extends State<MonthPickerDialog> {
         ),
       );
     } else {
-      setState(
-        () {
-          if (widget.controller.onlyYear) {
-            widget.controller.selectedDate = DateTime(year);
-            _selector = YearSelector(
-              key: widget.controller.yearSelectorState,
-              onYearSelected: _onYearSelected,
-              controller: widget.controller,
-            );
-          } else {
-            widget.controller.firstPossibleMonth(year);
-            _selector = MonthSelector(
-              key: widget.controller.monthSelectorState,
-              onMonthSelected: _onMonthSelected,
-              controller: widget.controller,
-            );
-          }
-        },
-      );
+      setState(() {
+        if (widget.controller.onlyYear) {
+          widget.controller.selectedDate = DateTime(year);
+          _selector = YearSelector(
+            key: widget.controller.yearSelectorState,
+            onYearSelected: _onYearSelected,
+            controller: widget.controller,
+          );
+        } else {
+          widget.controller.firstPossibleMonth(year);
+          _selector = MonthSelector(
+            key: widget.controller.monthSelectorState,
+            onMonthSelected: _onMonthSelected,
+            controller: widget.controller,
+          );
+        }
+      });
       if (widget.controller.onYearSelected != null) {
         widget.controller.onYearSelected!(year);
       }
@@ -187,20 +213,18 @@ class MonthPickerDialogState extends State<MonthPickerDialog> {
   }
 
   ///Function to be executed when a month is selected.
-  void _onMonthSelected(final DateTime date) {
-    setState(
-      () {
-        if (widget.controller.rangeMode) {
-          widget.controller.onRangeDateSelect(date);
-        }
-        widget.controller.selectedDate = date;
-        _selector = MonthSelector(
-          key: widget.controller.monthSelectorState,
-          onMonthSelected: _onMonthSelected,
-          controller: widget.controller,
-        );
-      },
-    );
+  void _onMonthSelected(DateTime date) {
+    setState(() {
+      if (widget.controller.rangeMode) {
+        widget.controller.onRangeDateSelect(date);
+      }
+      widget.controller.selectedDate = date;
+      _selector = MonthSelector(
+        key: widget.controller.monthSelectorState,
+        onMonthSelected: _onMonthSelected,
+        controller: widget.controller,
+      );
+    });
     if (widget.controller.onMonthSelected != null) {
       widget.controller.onMonthSelected!(date);
     }

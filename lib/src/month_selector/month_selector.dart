@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:provider/provider.dart';
 
 import '/month_picker_dialog.dart';
@@ -24,18 +24,25 @@ class MonthSelectorState extends State<MonthSelector> {
   Widget build(BuildContext context) {
     return PageView.builder(
       controller: widget.controller.monthPageController,
-      scrollDirection: widget.controller.monthPickerDialogSettings
-              .dialogSettings.verticalScrolling
+      scrollDirection:
+          widget
+              .controller
+              .monthPickerDialogSettings
+              .dialogSettings
+              .verticalScrolling
           ? Axis.vertical
           : Axis.horizontal,
-      physics: widget.controller.monthPickerDialogSettings.dialogSettings
+      physics:
+          widget
+              .controller
+              .monthPickerDialogSettings
+              .dialogSettings
               .blockScrolling
           ? const NeverScrollableScrollPhysics()
           : const AlwaysScrollableScrollPhysics(),
       onPageChanged: _onPageChange,
       itemCount: widget.controller.monthPageCount,
-      itemBuilder: (final BuildContext context, final int page) =>
-          MonthYearGridBuilder(
+      itemBuilder: (BuildContext context, int page) => MonthYearGridBuilder(
         onMonthSelected: widget.onMonthSelected,
         controller: widget.controller,
         page: page,
@@ -44,7 +51,7 @@ class MonthSelectorState extends State<MonthSelector> {
   }
 
   ///Function to check if the page has reached the limit of the month list.
-  void _onPageChange(final int page) {
+  void _onPageChange(int page) {
     _blocked =
         !(page - 1 > 0 && page + 1 < widget.controller.monthPageCount - 1);
 
@@ -88,23 +95,20 @@ class MonthSelectorState extends State<MonthSelector> {
       initialPage: widget.controller.localFirstDate == null
           ? widget.controller.selectedDate.year
           : widget.controller.selectedDate.year -
-              widget.controller.localFirstDate!.year,
+                widget.controller.localFirstDate!.year,
     );
-    Future<void>.delayed(
-      Duration.zero,
-      () {
-        // ignore: use_build_context_synchronously
-        Provider.of<MonthUpDownPageProvider>(context, listen: false).changePage(
-          0,
-          widget.controller.localFirstDate == null
-              ? widget.controller.monthPageController!.page!.toInt()
-              : widget.controller.localFirstDate!.year +
+    Future<void>.delayed(Duration.zero, () {
+      // ignore: use_build_context_synchronously
+      Provider.of<MonthUpDownPageProvider>(context, listen: false).changePage(
+        0,
+        widget.controller.localFirstDate == null
+            ? widget.controller.monthPageController!.page!.toInt()
+            : widget.controller.localFirstDate!.year +
                   widget.controller.monthPageController!.page!.toInt(),
-          widget.controller.monthPageController!.page!.toInt() <
-              widget.controller.monthPageCount - 1,
-          widget.controller.monthPageController!.page!.toInt() > 0,
-        );
-      },
-    );
+        widget.controller.monthPageController!.page!.toInt() <
+            widget.controller.monthPageCount - 1,
+        widget.controller.monthPageController!.page!.toInt() > 0,
+      );
+    });
   }
 }

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:provider/provider.dart';
 
 import '/month_picker_dialog.dart';
@@ -29,7 +29,10 @@ class YearSelectorState extends State<YearSelector> {
   int _getLastYearOfPage(int page) {
     return _getFirstYearOfPage(page) +
         widget
-            .controller.monthPickerDialogSettings.dialogSettings.yearsPerPage -
+            .controller
+            .monthPickerDialogSettings
+            .dialogSettings
+            .yearsPerPage -
         1;
   }
 
@@ -50,17 +53,25 @@ class YearSelectorState extends State<YearSelector> {
   Widget build(BuildContext context) {
     return PageView.builder(
       controller: widget.controller.yearPageController,
-      scrollDirection: widget.controller.monthPickerDialogSettings
-              .dialogSettings.verticalScrolling
+      scrollDirection:
+          widget
+              .controller
+              .monthPickerDialogSettings
+              .dialogSettings
+              .verticalScrolling
           ? Axis.vertical
           : Axis.horizontal,
-      physics: widget.controller.monthPickerDialogSettings.dialogSettings
+      physics:
+          widget
+              .controller
+              .monthPickerDialogSettings
+              .dialogSettings
               .blockScrolling
           ? const NeverScrollableScrollPhysics()
           : const AlwaysScrollableScrollPhysics(),
       onPageChanged: _onPageChange,
       itemCount: widget.controller.yearPageCount,
-      itemBuilder: (final BuildContext context, final int page) => YearGrid(
+      itemBuilder: (BuildContext context, int page) => YearGrid(
         page: page,
         onYearSelected: widget.onYearSelected,
         controller: widget.controller,
@@ -107,8 +118,9 @@ class YearSelectorState extends State<YearSelector> {
   }
 
   void _initialize() {
-    widget.controller.yearPageController =
-        PageController(initialPage: _getInitialPage());
+    widget.controller.yearPageController = PageController(
+      initialPage: _getInitialPage(),
+    );
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final page = widget.controller.yearPageController?.page?.toInt() ?? 0;

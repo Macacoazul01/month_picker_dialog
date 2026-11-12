@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:month_picker_dialog/month_picker_dialog.dart';
 
@@ -17,9 +17,13 @@ void main() {
     expect(controller.localFirstDate, null);
     expect(controller.localLastDate, null);
     expect(
-        controller.monthPickerDialogSettings.dialogSettings.customHeight, 240);
+      controller.monthPickerDialogSettings.dialogSettings.customHeight,
+      240,
+    );
     expect(
-        controller.monthPickerDialogSettings.dialogSettings.customWidth, 320);
+      controller.monthPickerDialogSettings.dialogSettings.customWidth,
+      320,
+    );
     controller.firstPossibleMonth(2120);
     expect(controller.selectedDate, DateTime(2120));
     expect(controller.rangeMode, false);
@@ -37,14 +41,13 @@ void main() {
       rangeList: true,
       monthPickerDialogSettings: const MonthPickerDialogSettings(
         dialogSettings: PickerDialogSettings(
-            customHeight: 250, customWidth: 310, forcePortrait: true),
+          customHeight: 250,
+          customWidth: 310,
+          forcePortrait: true,
+        ),
         dateButtonsSettings: PickerDateButtonsSettings(
-          monthTextStyle: TextStyle(
-            fontWeight: FontWeight.bold,
-          ),
-          yearTextStyle: TextStyle(
-            fontWeight: FontWeight.bold,
-          ),
+          monthTextStyle: TextStyle(fontWeight: FontWeight.bold),
+          yearTextStyle: TextStyle(fontWeight: FontWeight.bold),
           selectedDateRadius: 1,
         ),
       ),
@@ -54,20 +57,29 @@ void main() {
     expect(controller.yearPageCount, 1);
     expect(controller.monthPageCount, 6);
     expect(
-        controller.monthPickerDialogSettings.dialogSettings.customHeight, 250);
+      controller.monthPickerDialogSettings.dialogSettings.customHeight,
+      250,
+    );
     expect(
-        controller.monthPickerDialogSettings.dialogSettings.customWidth, 310);
+      controller.monthPickerDialogSettings.dialogSettings.customWidth,
+      310,
+    );
     expect(controller.selectedDate, DateTime(2023));
     expect(controller.localFirstDate, DateTime(2022));
     expect(controller.localLastDate, DateTime(2027));
     controller.firstPossibleMonth(2120);
     expect(controller.selectedDate, DateTime(2120, 2));
     expect(
-        controller
-            .monthPickerDialogSettings.dateButtonsSettings.selectedDateRadius,
-        1);
-    expect(controller.monthPickerDialogSettings.dialogSettings.forcePortrait,
-        true);
+      controller
+          .monthPickerDialogSettings
+          .dateButtonsSettings
+          .selectedDateRadius,
+      1,
+    );
+    expect(
+      controller.monthPickerDialogSettings.dialogSettings.forcePortrait,
+      true,
+    );
     expect(controller.rangeMode, true);
   });
 
@@ -77,30 +89,33 @@ void main() {
     WidgetTester tester,
     void Function(BuildContext context) openPicker,
   ) async {
-    final ValueNotifier<ThemeMode> themeMode =
-        ValueNotifier<ThemeMode>(ThemeMode.light);
+    final ValueNotifier<ThemeMode> themeMode = ValueNotifier<ThemeMode>(
+      ThemeMode.light,
+    );
     addTearDown(themeMode.dispose);
     await tester.pumpWidget(
       ValueListenableBuilder<ThemeMode>(
         valueListenable: themeMode,
         builder: (BuildContext context, ThemeMode mode, Widget? child) =>
             MaterialApp(
-          theme: ThemeData.light(),
-          darkTheme: ThemeData.dark(),
-          themeMode: mode,
-          home: Builder(
-            builder: (BuildContext context) => TextButton(
-              onPressed: () => openPicker(context),
-              child: const Text('open'),
+              theme: ThemeData.light(),
+              darkTheme: ThemeData.dark(),
+              themeMode: mode,
+              home: Builder(
+                builder: (BuildContext context) => TextButton(
+                  onPressed: () => openPicker(context),
+                  child: const Text('open'),
+                ),
+              ),
             ),
-          ),
-        ),
       ),
     );
     await tester.tap(find.text('open'));
     await tester.pumpAndSettle();
-    expect(Theme.of(tester.element(find.byType(Dialog))).brightness,
-        Brightness.light);
+    expect(
+      Theme.of(tester.element(find.byType(Dialog))).brightness,
+      Brightness.light,
+    );
     themeMode.value = ThemeMode.dark;
     await tester.pumpAndSettle();
     return Theme.of(tester.element(find.byType(Dialog))).brightness;
@@ -109,16 +124,15 @@ void main() {
   testWidgets('month_picker_theme_change_test', (WidgetTester tester) async {
     final Brightness brightness = await brightnessAfterThemeSwitch(
       tester,
-      (BuildContext context) => showMonthPicker(
-        context: context,
-        initialDate: DateTime(2026, 8),
-      ),
+      (BuildContext context) =>
+          showMonthPicker(context: context, initialDate: DateTime(2026, 8)),
     );
     expect(brightness, Brightness.dark);
   });
 
-  testWidgets('month_range_picker_theme_change_test',
-      (WidgetTester tester) async {
+  testWidgets('month_range_picker_theme_change_test', (
+    WidgetTester tester,
+  ) async {
     final Brightness brightness = await brightnessAfterThemeSwitch(
       tester,
       (BuildContext context) => showMonthRangePicker(

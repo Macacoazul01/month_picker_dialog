@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:intl/intl.dart';
 
 import '/month_picker_dialog.dart';
@@ -29,7 +29,7 @@ class YearButton extends StatelessWidget {
     }
   }
 
-  bool _isEnabled(final int year) {
+  bool _isEnabled(int year) {
     final DateTime? localFirstDate = controller.localFirstDate;
     final DateTime? localLastDate = controller.localLastDate;
     if (localFirstDate == null && localLastDate == null) {
@@ -57,26 +57,38 @@ class YearButton extends StatelessWidget {
   /// If not provided, the customization will be built from the app's theme.
   ButtonStyle _buildDefaultYearStyle(int year) {
     final bool isTheSelectedYear = year == controller.selectedDate.year;
-    final Color backgroundColor = controller.monthPickerDialogSettings
-            .dateButtonsSettings.selectedMonthBackgroundColor ??
+    final Color backgroundColor =
+        controller
+            .monthPickerDialogSettings
+            .dateButtonsSettings
+            .selectedMonthBackgroundColor ??
         theme.colorScheme.secondary;
     final ButtonStyle yearStyle = TextButton.styleFrom(
       textStyle: controller
-          .monthPickerDialogSettings.dateButtonsSettings.yearTextStyle,
+          .monthPickerDialogSettings
+          .dateButtonsSettings
+          .yearTextStyle,
       foregroundColor: isTheSelectedYear
           ? theme.textTheme.labelLarge!
-              .copyWith(
-                color: controller.monthPickerDialogSettings.dateButtonsSettings
-                        .selectedYearTextColor ??
-                    theme.colorScheme.onSecondary,
-              )
-              .color
+                .copyWith(
+                  color:
+                      controller
+                          .monthPickerDialogSettings
+                          .dateButtonsSettings
+                          .selectedYearTextColor ??
+                      theme.colorScheme.onSecondary,
+                )
+                .color
           : year == controller.now.year
-              ? (controller.monthPickerDialogSettings.dateButtonsSettings
-                      .currentYearTextColor ??
-                  backgroundColor)
-              : controller.monthPickerDialogSettings.dateButtonsSettings
-                  .unselectedYearsTextColor,
+          ? (controller
+                    .monthPickerDialogSettings
+                    .dateButtonsSettings
+                    .currentYearTextColor ??
+                backgroundColor)
+          : controller
+                .monthPickerDialogSettings
+                .dateButtonsSettings
+                .unselectedYearsTextColor,
       backgroundColor: isTheSelectedYear ? backgroundColor : null,
       shape:
           controller.monthPickerDialogSettings.dateButtonsSettings.buttonBorder,
@@ -86,7 +98,8 @@ class YearButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final int year = (controller.localFirstDate == null
+    final int year =
+        (controller.localFirstDate == null
             ? 0
             : controller.localFirstDate!.year) +
         page *
@@ -104,18 +117,29 @@ class YearButton extends StatelessWidget {
     }
 
     return Padding(
-      padding: EdgeInsets.all(controller
-          .monthPickerDialogSettings.dateButtonsSettings.selectedDateRadius),
+      padding: EdgeInsets.all(
+        controller
+            .monthPickerDialogSettings
+            .dateButtonsSettings
+            .selectedDateRadius,
+      ),
       child: TextButton(
         onPressed: isEnabled ? () => onYearSelected(year) : null,
         style: yearStyle,
         child: Text(
           DateFormat.y(localeString).format(DateTime(year)),
-          textScaler: controller.monthPickerDialogSettings.dialogSettings
+          textScaler:
+              controller
+                      .monthPickerDialogSettings
+                      .dialogSettings
                       .textScaleFactor !=
                   null
-              ? TextScaler.linear(controller
-                  .monthPickerDialogSettings.dialogSettings.textScaleFactor!)
+              ? TextScaler.linear(
+                  controller
+                      .monthPickerDialogSettings
+                      .dialogSettings
+                      .textScaleFactor!,
+                )
               : null,
         ),
       ),

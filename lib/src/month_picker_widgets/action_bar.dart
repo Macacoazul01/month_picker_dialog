@@ -1,49 +1,56 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
+
 import '/month_picker_dialog.dart';
 
 ///The actions button bar. Where confirmation and cancel button are.
 class PickerActionBar extends StatelessWidget {
-  const PickerActionBar({
-    super.key,
-    required this.controller,
-  });
+  const PickerActionBar({super.key, required this.controller});
   final MonthpickerController controller;
 
   @override
   Widget build(BuildContext context) {
-    final MaterialLocalizations localizations =
-        MaterialLocalizations.of(context);
+    final MaterialLocalizations localizations = MaterialLocalizations.of(
+      context,
+    );
     final TextScaler? scaler =
         controller.monthPickerDialogSettings.dialogSettings.textScaleFactor !=
-                null
-            ? TextScaler.linear(controller
-                .monthPickerDialogSettings.dialogSettings.textScaleFactor!)
-            : null;
+            null
+        ? TextScaler.linear(
+            controller
+                .monthPickerDialogSettings
+                .dialogSettings
+                .textScaleFactor!,
+          )
+        : null;
     return Padding(
       padding: controller
-          .monthPickerDialogSettings.actionBarSettings.actionBarPadding,
+          .monthPickerDialogSettings
+          .actionBarSettings
+          .actionBarPadding,
       child: OverflowBar(
         spacing: controller
-            .monthPickerDialogSettings.actionBarSettings.buttonSpacing,
+            .monthPickerDialogSettings
+            .actionBarSettings
+            .buttonSpacing,
         children: <Widget>[
           TextButton(
             onPressed: () => controller.cancelFunction(context),
-            child: controller
-                    .monthPickerDialogSettings.actionBarSettings.cancelWidget ??
-                Text(
-                  localizations.cancelButtonLabel,
-                  textScaler: scaler,
-                ),
+            child:
+                controller
+                    .monthPickerDialogSettings
+                    .actionBarSettings
+                    .cancelWidget ??
+                Text(localizations.cancelButtonLabel, textScaler: scaler),
           ),
           TextButton(
             onPressed: () => controller.okFunction(context),
-            child: controller.monthPickerDialogSettings.actionBarSettings
+            child:
+                controller
+                    .monthPickerDialogSettings
+                    .actionBarSettings
                     .confirmWidget ??
-                Text(
-                  localizations.okButtonLabel,
-                  textScaler: scaler,
-                ),
-          )
+                Text(localizations.okButtonLabel, textScaler: scaler),
+          ),
         ],
       ),
     );

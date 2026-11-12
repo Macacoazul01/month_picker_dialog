@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 import '/month_picker_dialog.dart';
 
@@ -17,9 +17,7 @@ class MonthYearGridBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScrollConfiguration(
-      behavior: ScrollConfiguration.of(context).copyWith(
-        scrollbars: false,
-      ),
+      behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
       child: GridView.count(
         physics: const NeverScrollableScrollPhysics(),
         padding:
@@ -27,16 +25,19 @@ class MonthYearGridBuilder extends StatelessWidget {
         crossAxisCount: 4,
         children: List<Widget>.generate(
           12,
-          (final int index) => MonthButton(
+          (int index) => MonthButton(
             theme: controller.theme,
             date: DateTime(
-                controller.localFirstDate != null
-                    ? controller.localFirstDate!.year + page
-                    : page,
-                index + 1),
-            localeString: getLocale(context,
-                selectedLocale:
-                    controller.monthPickerDialogSettings.dialogSettings.locale),
+              controller.localFirstDate != null
+                  ? controller.localFirstDate!.year + page
+                  : page,
+              index + 1,
+            ),
+            localeString: getLocale(
+              context,
+              selectedLocale:
+                  controller.monthPickerDialogSettings.dialogSettings.locale,
+            ),
             onMonthSelected: onMonthSelected,
             controller: controller,
           ),
